@@ -41,12 +41,34 @@ import org.familysearch.standards.core.logging.Logger;
  */
 public class MyLRUCache<K,V> {
 
+    /**
+     * Simple cache listener interface that will notify on either EXPIRE events or
+     * EVICT events.  The former will be for elements that have been hanging around
+     * for too long; the latter will be for elements that get booted in order to
+     * make room for additional elements (LRU).
+     * 
+     * @author wjohnson000
+     *
+     * @param <T> Cache key type
+     */
     public static interface CacheListener<T> {
 
+        /**
+         * An entry has outlived its "time-to-live.
+         * 
+         * @param key entry key of element being removed
+         */
         void expiredElement(T key);
 
+
+        /**
+         * An entry has been removed to make room for additional elements
+         * 
+         * @param key entry key of element being removed
+         */
         void evictedElement(T key);
     }
+
 
     /** LOGGER */
     private static final Logger logger = new Logger(MyLRUCache.class);
@@ -56,13 +78,13 @@ public class MyLRUCache<K,V> {
 
     /** Scheduler to run periodic clean-up of stale/expired values -- register a shutdown hook */
     private static final ScheduledExecutorService scheduler =
-            Executors.newScheduledThreadPool(2, new ThreadFactory() {
-                public Thread newThread(Runnable r) {
-                    Thread t = new Thread(r);
-                    t.setDaemon(true);
-                    return t;
-                }
-            });
+        Executors.newScheduledThreadPool(2, new ThreadFactory() {
+            public Thread newThread(Runnable r) {
+                Thread t = new Thread(r);
+                t.setDaemon(true);
+                return t;
+            }
+        });
 
     /** Register a shut-down hook */
     static {
@@ -103,6 +125,9 @@ public class MyLRUCache<K,V> {
 
     /** Cache listeners */
     private List<CacheListener<K>> listeners = new ArrayList<CacheListener<K>>();
+
+    /** Keys of entries to be evicted */
+    private Map<K,CacheableObject> toEvictMap = new HashMap<K,CacheableObject>();
 
     /** Lock used for all synchronized access */
     private Object theLock = new Object();
@@ -179,25 +204,40 @@ public class MyLRUCache<K,V> {
             protected boolean removeEldestEntry(Map.Entry<K, CacheableObject> eldest) {
                 boolean retVal = MyLRUCache.this.currentCacheSize > MyLRUCache.this.cacheSizeLimit;
                 if (retVal) {
-                    MyLRUCache.this.currentCacheSize -= eldest.getValue().containmentCount;
-                    synchronized(listeners) {
-                        for (CacheListener<K> listener : listeners) {
-                            listener.evictedElement(eldest.getKey());
+                    synchronized(theLock) {
+                        toEvictMap.put(eldest.getKey(), eldest.getValue());
+                        if (toEvictMap.size() > 100) {
+                            scheduler.schedule(
+                                new Runnable() {
+                                    @Override public void run() {
+                                        removeEvicted();
+                                    }
+                                },
+                                1,
+                                TimeUnit.SECONDS
+                            );
                         }
                     }
-
+//                    eldest.getValue().createTime = 0L;
+//                    MyLRUCache.this.currentCacheSize -= eldest.getValue().containmentCount;
+//                    synchronized(listeners) {
+//                        for (CacheListener<K> listener : listeners) {
+//                            listener.evictedElement(eldest.getKey());
+//                        }
+//                    }
                 }
                 return retVal;
             }
         };
 
         // Run a cache clean-up every 10 seconds, or whatever the user has specified
-        scheduler.schedule(
+        scheduler.scheduleWithFixedDelay(
             new Runnable() {
                 @Override public void run() {
                     removeExpired();
                 }
             },
+            this.cleanupDelay,
             this.cleanupDelay,
             TimeUnit.SECONDS
         );
@@ -419,6 +459,36 @@ public class MyLRUCache<K,V> {
 
             for (CacheListener<K> listener : tempListeners) {
                 listener.expiredElement(entry.getKey());
+            }
+        }
+    }
+
+    /**
+     * Remove all evicted entries from the underlying map.  This process runs on a
+     * separate thread, and cedes control of lock between each attempt to remove a
+     * value from the map.
+     */
+    private void removeEvicted() {
+        Map<K,CacheableObject> removeMap = new HashMap<K,CacheableObject>(valueMap.size()/2);
+        List<CacheListener<K>> tempListeners = new ArrayList<CacheListener<K>>();
+
+        // Retrieve a list of everything that's to be removed
+        synchronized(theLock) {
+            removeMap.putAll(toEvictMap);
+            toEvictMap.clear();
+            tempListeners.addAll(listeners);
+        }
+
+        // Remove the entries one-at-a-time, notifying the listener[s] in the process
+        for (Map.Entry<K,CacheableObject> entry : removeMap.entrySet()) {
+            synchronized(theLock) {
+                currentCacheSize -= entry.getValue().containmentCount;
+                valueMap.remove(entry.getKey());
+            }
+            Thread.yield();
+
+            for (CacheListener<K> listener : tempListeners) {
+                listener.evictedElement(entry.getKey());
             }
         }
     }

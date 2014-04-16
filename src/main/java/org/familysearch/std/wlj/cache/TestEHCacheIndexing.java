@@ -7,7 +7,7 @@ public class TestEHCacheIndexing {
     static {
         builder.setCacheName("myCache");
         builder.setTimeToLive(1);
-        builder.setTimetoIdle(10);
+        builder.setTimetoIdle(6);
         builder.setMaxElements(10000);
         myCache = builder.build();
     }

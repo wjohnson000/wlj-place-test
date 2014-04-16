@@ -44,7 +44,7 @@ public class TestEHCache {
             for (int j=0;  j<20000;  j+=111) {
                 key = String.valueOf(j);
                 nnow = System.nanoTime();
-                element = myCache.get(key);
+                element = myCache.getQuiet(key);
                 then = System.nanoTime();
                 time02 += (then - nnow);
 
