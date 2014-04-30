@@ -17,7 +17,7 @@ public class AnalyzeKMLFile {
     static List<List<String>> allPaths = new ArrayList<List<String>>();
 
     public static void main(String... args) throws IOException {
-        File kmlDir = new File("C:/tools/kml-files");
+        File kmlDir = new File("C:/tools/gis-files/kml-files");
         File[] files = kmlDir.listFiles();
         for (File aFile : files) {
             System.out.println("Processing file: " + aFile);
