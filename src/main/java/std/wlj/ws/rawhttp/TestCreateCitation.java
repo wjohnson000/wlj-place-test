@@ -46,12 +46,12 @@ public class TestCreateCitation {
         typeModel.setName(names);
         
         RootModel prModel = new RootModel();
-        prModel.setCitationType(typeModel);
+        prModel.setType(typeModel);
 
         URL url = new URL(citationUrl);
         RootModel model = TestUtil.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
-        TypeModel citModel = model.getCitationType();
+        TypeModel citModel = model.getType();
 
         url = new URL(citationUrl);
         model = TestUtil.doGET(url);
