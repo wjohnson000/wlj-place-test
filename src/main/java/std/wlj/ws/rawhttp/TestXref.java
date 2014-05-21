@@ -28,14 +28,14 @@ public class TestXref {
         RootModel outModel;
 
         inModel = new RootModel();
-//        inModel.setRepIds(Arrays.asList(6, 8, 12));
+//        inModel.setRepIds(Arrays.asList(5, 7, 9));
         inModel.setRepIds(new ArrayList<Integer>());
 
-        url = new URL(baseUrl + "GOOGLE.12345XYZ");
+        url = new URL(baseUrl + "GOOGLE.blah");
         outModel = TestUtil.doPUT(url, inModel);
         System.out.println("RM01: " + outModel);
 
-        url = new URL(baseUrl + "GOOGLE.12345XYZ");
+        url = new URL(baseUrl + "GOOGLE.blah");
         outModel = TestUtil.doGET(url);
         System.out.println("RM02: " + outModel);
     }
