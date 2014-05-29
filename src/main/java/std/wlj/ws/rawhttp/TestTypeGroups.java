@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.familysearch.standards.place.ws.model.RootModel;
-import org.familysearch.standards.place.ws.model.TypeGroupModel;
+import org.familysearch.standards.place.ws.model.PlaceTypeGroupModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 
 
@@ -39,7 +39,7 @@ public class TestTypeGroups {
             RootModel model = TestUtil.doGET(url);
             if (model == null) break;
 
-            TypeGroupModel typeGroup = model.getPlaceTypeGroup();
+            PlaceTypeGroupModel typeGroup = model.getPlaceTypeGroup();
             for (TypeModel type : typeGroup.getTypes()) {
                 List<Integer> groups = typeToGroup.get(type);
                 if (groups == null) {
