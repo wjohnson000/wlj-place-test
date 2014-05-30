@@ -20,7 +20,8 @@ public class TestSearchDarlington {
     }
 
     private static void searchPouillon() throws Exception {
-        URL url = new URL(baseUrl + "/request?text=Darlington, South Carolina&metrics=true&partial=true&reqDirParents=3313327");
+//        URL url = new URL(baseUrl + "/request?text=Darlington, South Carolina&metrics=true&partial=true&reqDirParents=3313327");
+        URL url = new URL(baseUrl + "/request?text=Darlington, South Carolina&metrics=true");
         RootModel model = TestUtil.doGET(url);
         System.out.println("RM: " + model);
     }

@@ -9,7 +9,7 @@ public class TestGetChildren {
 
     /** Base URL of the application */
 //    private static String theUrl = "http://localhost:8080/std-ws-place/places/reps/9522056";
-    private static String theUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places/reps/387831?children=true&pubonly=false";
+    private static String theUrl = "http://localhost:8080/std-ws-place/places/reps/387831?children=true&pubonly=false";
 
 
     /**

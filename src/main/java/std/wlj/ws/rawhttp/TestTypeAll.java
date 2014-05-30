@@ -16,9 +16,9 @@ public class TestTypeAll {
      * Run two tests ... a GET of a all types, and a GET of a specific type
      */
     public static void main(String[] args) throws Exception {
-        readTypes("/place-types", 1, 0);  // ID range = 1 - 993
-        readTypes("/name-types", 1, 0);  // ID range = 1025 - 1049
-        readTypes("/attribute-types", 1, 0);  // ID range = 994 - 1024
+        readTypes("/place-types", 1, 10);  // ID range = 1 - 993
+        readTypes("/name-types", 450, 455);  // ID range = 1025 - 1049
+        readTypes("/attribute-types", 410, 415);  // ID range = 994 - 1024
         readTypes("/citation-types", 1, 0);  // ID range = 1050 - 1055 ... these may be dummy values
 
         System.out.println("Bad URLS ...");
@@ -30,7 +30,7 @@ public class TestTypeAll {
     private static void readTypes(String subUrl, int firstId, int lastId) throws Exception {
         URL url = new URL(baseUrl + subUrl);
         RootModel model = TestUtil.doGET(url);
-        System.out.println("RM: " + model);
+//        System.out.println("RM: " + model);
 
         for (int i=firstId;  i<=lastId; i++) {
             url = new URL(baseUrl + subUrl + "/" + i);

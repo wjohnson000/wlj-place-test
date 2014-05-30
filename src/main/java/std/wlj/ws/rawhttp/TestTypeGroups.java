@@ -15,8 +15,8 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class TestTypeGroups {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
+    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
 
     private static Map<TypeModel,List<Integer>> typeToGroup = new TreeMap<TypeModel,List<Integer>>(new Comparator<TypeModel>() {
         @Override public int compare(TypeModel type01, TypeModel type02) {
@@ -33,10 +33,14 @@ public class TestTypeGroups {
     }
 
     private static void readTypeGroups() throws Exception {
-        int id = 111;
+        URL url = new URL(baseUrl + "/type-groups/");
+        RootModel model = TestUtil.doGET(url);
+        System.out.println("MODEL: " + model);
+
+        int id = 1;
         while (true) {
-            URL url = new URL(baseUrl + "/type-groups/" + id);
-            RootModel model = TestUtil.doGET(url);
+            url = new URL(baseUrl + "/type-groups/" + id);
+            model = TestUtil.doGET(url);
             if (model == null) break;
 
             PlaceTypeGroupModel typeGroup = model.getPlaceTypeGroup();
