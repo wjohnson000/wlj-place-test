@@ -128,6 +128,7 @@ public class TestUtil {
         if (urlConn instanceof HttpURLConnection) {
             HttpURLConnection httpUrlConn = (HttpURLConnection)urlConn;
             httpUrlConn.setRequestMethod(method);
+            httpUrlConn.setConnectTimeout(300000);
 
             httpUrlConn.connect();
             return handleResponse(httpUrlConn);
