@@ -8,8 +8,8 @@ import org.familysearch.standards.place.ws.model.RootModel;
 public class TestSearchDarlington {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
 
 
     /**

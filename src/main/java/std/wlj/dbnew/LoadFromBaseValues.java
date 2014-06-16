@@ -14,9 +14,9 @@ import org.familysearch.standards.core.logging.Logger;
  * 
  * @author wjohnson000
  */
-public class LoadBaseTableData {
+public class LoadFromBaseValues {
 
-    private static Logger logger = new Logger(LoadBaseTableData.class);
+    private static Logger logger = new Logger(LoadFromBaseValues.class);
 
     /**
      * Command-line arguments
