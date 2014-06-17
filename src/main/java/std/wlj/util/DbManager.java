@@ -8,19 +8,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DbManager {
 
+    static ApplicationContext appContext = null;
+    
     /**
      * Return a DbDataService that's connected to a local Postgres database.
      * 
      * @return Local DB connection
      */
     public static DbDataService getLocal() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+        appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        DbDataService dataService = new DbDataService(ds);
-
-        ((ClassPathXmlApplicationContext)appContext).close();
-
-        return dataService;
+        return new DbDataService(ds);
     }
 
     /**
@@ -29,13 +27,9 @@ public class DbManager {
      * @return DEV-DB connection
      */
     public static DbDataService getDevDb() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-devdb.xml");
+        appContext = new ClassPathXmlApplicationContext("postgres-context-devdb.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        DbDataService dataService = new DbDataService(ds);
-
-        ((ClassPathXmlApplicationContext)appContext).close();
-
-        return dataService;
+        return new DbDataService(ds);
     }
 
     /**
@@ -44,13 +38,9 @@ public class DbManager {
      * @return AWS-DB connection
      */
     public static DbDataService getAwsTeam() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-aws-team.xml");
+        appContext = new ClassPathXmlApplicationContext("postgres-context-aws-team.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        DbDataService dataService = new DbDataService(ds);
-
-        ((ClassPathXmlApplicationContext)appContext).close();
-
-        return dataService;
+        return new DbDataService(ds);
     }
 
     /**
@@ -59,12 +49,15 @@ public class DbManager {
      * @return AWS-DB connection
      */
     public static DbDataService getAwsInt() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
+        appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        DbDataService dataService = new DbDataService(ds);
+        return new DbDataService(ds);
+    }
 
-        ((ClassPathXmlApplicationContext)appContext).close();
-
-        return dataService;
+    public static void closeAppContext() {
+        if (appContext != null) {
+            ((ClassPathXmlApplicationContext)appContext).close();
+        }
+        appContext = null;
     }
 }

@@ -160,5 +160,7 @@ public class Step00LoadDb {
             loadSQL(conn);
             conn.close();
         }
+
+        System.exit(0);
     }
 }

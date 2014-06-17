@@ -14,9 +14,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-public class Step02DumpSolr {
+public class Step06DumpSolr {
     public static void main(String... args) throws Exception {
-        PrintWriter writer = FileUtils.getWriter("C:/temp/load-place-db/solr-content-02-clean.txt");
+        PrintWriter writer = FileUtils.getWriter("C:/temp/load-place-db/solr-content-06-final.txt");
         SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data/");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
