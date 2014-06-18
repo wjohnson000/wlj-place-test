@@ -1,4 +1,4 @@
-package std.wlj.dbnew;
+package std.wlj.db2solr;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,9 +14,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 
-public class Step04DumpSolr {
+public class Step02DumpSolr {
     public static void main(String... args) throws Exception {
-        PrintWriter writer = FileUtils.getWriter("C:/temp/load-place-db/solr-content-04-after.txt");
+        PrintWriter writer = FileUtils.getWriter("C:/temp/load-place-db/solr-content-02-clean.txt");
         SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data/");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

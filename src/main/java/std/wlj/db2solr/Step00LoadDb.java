@@ -1,4 +1,4 @@
-package std.wlj.dbnew;
+package std.wlj.db2solr;
 
 import java.io.*;
 import java.sql.*;

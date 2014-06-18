@@ -1,4 +1,4 @@
-package std.wlj.dbnew;
+package std.wlj.db2solr;
 
 import java.util.ArrayList;
 import java.util.HashMap;

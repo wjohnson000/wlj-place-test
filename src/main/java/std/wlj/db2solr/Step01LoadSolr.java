@@ -1,8 +1,8 @@
-package std.wlj.dbnew;
+package std.wlj.db2solr;
 
 import org.familysearch.standards.place.solr.load.LoadSolrApp;
 
-public class Step05LoadSolr {
+public class Step01LoadSolr {
     public static void main(String... args) {
         String[] appArgs = {
             "--dbHost", "localhost",
