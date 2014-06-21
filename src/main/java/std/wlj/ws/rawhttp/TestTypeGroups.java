@@ -15,8 +15,8 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class TestTypeGroups {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
 
     private static Map<TypeModel,List<Integer>> typeToGroup = new TreeMap<TypeModel,List<Integer>>(new Comparator<TypeModel>() {
         @Override public int compare(TypeModel type01, TypeModel type02) {

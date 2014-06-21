@@ -88,6 +88,7 @@ public class Step03CRUD {
         String enName = names.get("en");
         if (enName != null) {
             names.put(locale, enName+"." + locale);
+            names.put("en", enName+".x");
         }
 
         PlaceRepresentationDTO updPlaceRep = new PlaceRepresentationDTO(
