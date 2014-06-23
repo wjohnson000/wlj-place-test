@@ -1,6 +1,7 @@
 package std.wlj.db2solr;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -13,59 +14,55 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import std.wlj.util.FileUtils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 
 public class Step07CompareFiles {
-    public static void main(String... args) {
-        Map<String,PlaceRepDoc> afterMap = parseDocs("C:/temp/load-place-db/solr-content-04-after.txt");
-        Map<String,PlaceRepDoc> finalMap = parseDocs("C:/temp/load-place-db/solr-content-06-final.txt");
-        System.out.println("After count: " + afterMap.size());
-        System.out.println("Final count: " + finalMap.size());
+    private static Gson gson = new Gson();
 
-        // Compare the documents, one-by-one, and show any differences ...
-        Set<String> docIds = new TreeSet<String>();
-        docIds.addAll(afterMap.keySet());
-        docIds.addAll(finalMap.keySet());
-        for (String docId : docIds) {
-            PlaceRepDoc doc01 = afterMap.get(docId);
-            PlaceRepDoc doc02 = finalMap.get(docId);
+    public static void main(String... args) throws IOException {
+        BufferedReader reader01 = FileUtils.getReader("C:/temp/load-place-db/solr-content-04-after.txt");
+        BufferedReader reader02 = FileUtils.getReader("C:/temp/load-place-db/solr-content-06-final.txt");
+
+        PlaceRepDoc doc01 = getNext(reader01);
+        PlaceRepDoc doc02 = getNext(reader02);
+        while (doc01 != null  ||  doc02 != null) {
             if (doc01 == null) {
-                System.out.println(docId + " --> Only in FINAL\n");
+                System.out.println(doc02.getId() + " --> Only in FINAL\n");
+                doc02 = getNext(reader02);
             } else if (doc02 == null) {
-                System.out.println(docId + " --> Only in AFTER\n");
+                System.out.println(doc01.getId() + " --> Only in AFTER\n");
+                doc01 = getNext(reader01);
+            } else if (doc01.getRepId() < doc02.getRepId()) {
+                System.out.println(doc01.getId() + " --> Only in AFTER\n");
+                doc01 = getNext(reader01);
+            } else if (doc02.getRepId() < doc01.getRepId()) {
+                System.out.println(doc02.getId() + " --> Only in FINAL\n");
+                doc02 = getNext(reader02);
+            } else if (doc01.getRevision() < doc02.getRevision()) {
+                System.out.println(doc01.getId() + " --> Only in AFTER\n");
+                doc01 = getNext(reader01);
+            } else if (doc02.getRevision() < doc01.getRevision()) {
+                System.out.println(doc02.getId() + " --> Only in FINAL\n");
+                doc02 = getNext(reader02);
             } else {
                 compareDocs(doc01, doc02);
+                doc01 = getNext(reader01);
+                doc02 = getNext(reader02);
             }
         }
     }
 
-    /**
-     * Parse a file containing a bunch of place-rep docs that have been JSON-ized, and
-     * transmogrify them back into place-rep docs ...
-     * 
-     * @param filePath path the file containing the JSON
-     * @return list of place-rep docs
-     */
-    private static Map<String,PlaceRepDoc> parseDocs(String filePath) {
-        Map<String,PlaceRepDoc> results = new TreeMap<>();
-        Gson gson = new Gson();
-
-        try (BufferedReader reader = FileUtils.getReader(filePath)) {
-            String line = null;
-            StringBuilder buff = new StringBuilder(4028);
-            while((line = reader.readLine()) != null) {
-                buff.append(line).append(" ");
-                if (line.equals("}")) {
-                    PlaceRepDoc doc = gson.fromJson(buff.toString(), PlaceRepDoc.class);
-                    results.put(doc.getId(), doc);
-                    buff = new StringBuilder(4028);
-                }
+    private static PlaceRepDoc getNext(BufferedReader reader) throws JsonSyntaxException, IOException {
+        String line = null;
+        StringBuilder buff = new StringBuilder(4028);
+        while((line = reader.readLine()) != null) {
+            buff.append(line).append(" ");
+            if (line.equals("}")) {
+                return gson.fromJson(buff.toString(), PlaceRepDoc.class);
             }
-        } catch (Exception ex) {
-            System.out.println("Unable to open or processfile: " + filePath);
         }
-
-        return results;
+        return null;
     }
 
     /**
