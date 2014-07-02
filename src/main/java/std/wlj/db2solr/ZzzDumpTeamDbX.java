@@ -1,6 +1,6 @@
 package std.wlj.db2solr;
 
-import org.familysearch.standards.place.solr.loadx.LoadSolrApp;
+import org.familysearch.standards.place.solr.load.LoadSolrApp;
 
 public class ZzzDumpTeamDbX {
     public static void main(String... args) {
