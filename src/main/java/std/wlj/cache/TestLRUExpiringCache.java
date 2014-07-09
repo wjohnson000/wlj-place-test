@@ -1,6 +1,6 @@
 package std.wlj.cache;
 
-import org.familysearch.standards.core.LRUExpiringCache;
+import org.familysearch.standards.core.cache.LRUExpiringCache;
 
 
 public class TestLRUExpiringCache {
