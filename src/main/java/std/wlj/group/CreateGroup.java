@@ -16,7 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
- * Perform some read-only tests against place-reps ...
+ * Perform some tests w/ place-type groups
  * 
  * @author wjohnson000
  *
@@ -37,10 +37,25 @@ public class CreateGroup {
         Map<String,String> descr = new HashMap<>();
         descr.put("en", "DD-en");
         descr.put("ja", "DD-ja");
-        GroupDTO xGroup = new GroupDTO(0, GroupType.PLACE_REP, names, descr, true, new HashSet<Integer>(Arrays.asList(111, 122)));
+        GroupDTO xGroup = new GroupDTO(0, GroupType.PLACE_TYPE, names, descr, true, new HashSet<Integer>(Arrays.asList(111, 222, 333)));
 
         GroupDTO newGroup = dataService.create(xGroup, "wjohnson000");
+        System.out.println("\nNEW --------------------------------------------");
         printIt(newGroup);
+
+        GroupDTO aGroup = dataService.getGroupById(GroupType.PLACE_TYPE, newGroup.getId());
+        System.out.println("\nREAD -------------------------------------------");
+        printIt(aGroup);
+
+        xGroup = new GroupDTO(newGroup.getId(), GroupType.PLACE_TYPE, new HashMap<String,String>(), new HashMap<String,String>(), true, new HashSet<Integer>(Arrays.asList(111, 222)));
+        GroupDTO updGroup = dataService.update(xGroup, "wjohnson000");
+        System.out.println("\nUPDATE 1 ----------------------------------------");
+        printIt(updGroup);
+
+        xGroup = new GroupDTO(newGroup.getId(), GroupType.PLACE_TYPE, new HashMap<String,String>(), new HashMap<String,String>(), true, new HashSet<Integer>(Arrays.asList(111, 222, 333, 444)));
+        updGroup = dataService.update(xGroup, "wjohnson000");
+        System.out.println("\nUPDATE 2 ----------------------------------------");
+        printIt(updGroup);
 
         ((ClassPathXmlApplicationContext)appContext).close();
         System.exit(0);
