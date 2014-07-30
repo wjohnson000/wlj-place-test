@@ -13,20 +13,22 @@ import org.familysearch.standards.place.service.DbDataService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import std.wlj.util.SolrManager;
+
 
 public class CreateExtXref {
 
     private static final Logger logger = new Logger(CreateExtXref.class);
 
 
+    @SuppressWarnings("resource")
     public static void main(String... args) {
 
         ApplicationContext appContext = null;
         PlaceDataServiceImpl service = null;
         try {
             logger.info("Setting up services ...");
-            SolrConfigSimple solrConfig = new SolrConfigSimple("http://localhost:8983/solr/places", "http://localhost:8983/solr/places");
-            SolrDataService solrService = new SolrDataService(solrConfig);
+            SolrDataService solrService = SolrManager.getLocalHttp();
 
             appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
