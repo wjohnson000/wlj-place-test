@@ -1,9 +1,7 @@
 package std.wlj.local;
 
 import java.util.Date;
-import java.util.List;
 
-import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
@@ -11,8 +9,7 @@ import org.familysearch.standards.place.data.solr.SolrConnection;
 
 public class AddDocToSolr {
 	public static void main(String... args) throws PlaceDataException {
-//		SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
-		SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data");
+	    SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://place-solr.dev.fsglobal.org/solr/places");
 
 		PlaceRepDoc prDoc = new PlaceRepDoc();
 		prDoc.addAttribute(11, 21, 1900, "attr-fidgeting");
@@ -42,29 +39,6 @@ public class AddDocToSolr {
 		prDoc.addVariantName(1113, 13, "en", "waynexx");
 
 		solrConn.addAndCommit(prDoc);
-
-		SolrQuery query = new SolrQuery("id:11111111-1");
-		List<PlaceRepDoc> docs = solrConn.search(query);
-		for (PlaceRepDoc doc : docs) {
-			System.out.println("DOC: " + doc);
-			System.out.println("  cits: " + doc.getCitations());
-			System.out.println("      : " + doc.getCitSourceIds());
-			System.out.println("  attr: " + doc.getAttributes());
-			System.out.println("      : " + doc.getAttrTypeIds());
-			System.out.println("      : " + doc.getAttrYears());
-			System.out.println("      : " + doc.getAttrValues());
-		}
-
-//		String[] appDataId = { "ATTRIBUTE-TYPE", "NAME-TYPE", "PLACE-TYPE", "SOURCE", "ATTRIBUTE" };
-//		for (String id : appDataId) {
-//			query = new SolrQuery("id:" + id);
-//			docs = solrConn.search(query);
-////			solrConn.delete("id:" + id);
-//			for (PlaceRepDoc doc : docs) {
-//				System.out.println("DOC: " + doc);
-//				System.out.println("  data: " + doc.getAppData());
-//			}
-//		}
 
 		solrConn.shutdown();
 	}

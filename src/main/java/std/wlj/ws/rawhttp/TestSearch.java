@@ -10,7 +10,7 @@ public class TestSearch {
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
 //    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
-    private static String baseUrl = "http://54.221.37.64:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-solr.dev.fsglobal.org/solr/places";
 
 
     /**
@@ -30,7 +30,7 @@ public class TestSearch {
     }
 
     private static void searchProvo() throws Exception {
-        URL url = new URL(baseUrl + "/request?text=Provo, UT, UT");
+        URL url = new URL(baseUrl + "/request?id:*");
         RootModel model = TestUtil.doGET(url);
         System.out.println("RM: " + model);
     }

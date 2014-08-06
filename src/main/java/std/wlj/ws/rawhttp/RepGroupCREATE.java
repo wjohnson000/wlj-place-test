@@ -126,7 +126,8 @@ public class RepGroupCREATE {
         model.setId(0);
         model.setIsPublished(true);
         model.setName(theNameDesc);
-        model.setRepIds(Arrays.asList(327, 328, 329, 373, 375));
+        // TODO fix the following ...
+//        model.setRepIds(Arrays.asList(327, 328, 329, 373, 375));
 
         return model;
     }
@@ -144,7 +145,8 @@ public class RepGroupCREATE {
         model.setId(0);
         model.setIsPublished(true);
         model.setName(theNameDesc);
-        model.setRepIds(Arrays.asList(329, 342, 344));
+        // TODO fix the following
+//        model.setRepIds(Arrays.asList(329, 342, 344));
         model.setSubGroups(Arrays.asList(children));
 
         return model;
@@ -163,7 +165,8 @@ public class RepGroupCREATE {
         model.setId(0);
         model.setIsPublished(true);
         model.setName(theNameDesc);
-        model.setRepIds(Arrays.asList(326, 334, 336));
+        // TODO fix the following
+//        model.setRepIds(Arrays.asList(326, 334, 336));
 
         return model;
     }
