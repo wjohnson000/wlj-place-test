@@ -12,12 +12,16 @@ public class TestWLJ {
     public static void main(String... args) throws Exception {
         SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://place-solr.dev.fsglobal.org/solr/places");
 
+        solrConn.delete("id:11111111-1");
+        solrConn.commit();
+
         SolrQuery query = new SolrQuery("id:*");
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("Doc-Count: " + docs.size());
         for (PlaceRepDoc doc : docs) {
-            System.out.println("Doc: " + doc);
+            System.out.println("Doc: " + doc + " --> " + doc.getId());
         }
+
         solrConn.shutdown();
     }
 }
