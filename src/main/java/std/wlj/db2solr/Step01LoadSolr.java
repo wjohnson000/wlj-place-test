@@ -15,7 +15,7 @@ public class Step01LoadSolr {
             "--dbUser", "postgres",
             "--dbPassword", "admin",
             "--solrHome", "C:/tools/solr/data/tokoro",
-            "--baseDir", "C:\\temp\\flat-filex",
+            "--baseDir", "C:/temp/flat-file",
             "--deleteAll"
         };
 

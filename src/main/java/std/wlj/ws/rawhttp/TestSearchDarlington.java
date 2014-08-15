@@ -10,6 +10,7 @@ public class TestSearchDarlington {
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
     private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
+    private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
 
 
     /**
@@ -21,7 +22,7 @@ public class TestSearchDarlington {
 
     private static void searchPouillon() throws Exception {
 //        URL url = new URL(baseUrl + "/request?text=Darlington, South Carolina&metrics=true&partial=true&reqDirParents=3313327");
-        URL url = new URL(baseUrl + "/request?text=Darlington, South Carolina&metrics=true");
+        URL url = new URL(awsUrl + "/request?text=Darlington, South Carolina&metrics=true&accept-language=en");
         RootModel model = TestUtil.doGET(url);
         System.out.println("RM: " + model);
     }

@@ -5,13 +5,11 @@ import java.net.*;
 import org.familysearch.standards.place.ws.model.RootModel;
 
 
-public class TestGetRep {
+public class TestGetRepSolr {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://localhost:8080/std-ws-place/places/reps";
     private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places/reps";
-//    private static String baseUrl = "http://54.221.37.64:8080/std-ws-place/places/reps";
-    private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
+    private static String masterUrl = "http://place-solr.dev.fsglobal.org/solr/places/select";
 
 
     /**
@@ -19,11 +17,12 @@ public class TestGetRep {
      */
     public static void main(String[] args) throws Exception {
         getRep(393288);
-        getRep(1);
+        getRep(393289);
+        getRep(393290);
     }
 
     private static void getRep(int repId) throws Exception {
-        URL url = new URL(awsUrl + "/reps/" + repId);
+        URL url = new URL(masterUrl + "?q=id:" + repId + "-*&wt=json");
         RootModel model = TestUtil.doGET(url);
         System.out.println("RM: " + model);
     }

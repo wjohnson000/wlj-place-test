@@ -15,8 +15,8 @@ public class AddDocToSolr {
       
 
       PlaceRepDoc prDoc = new PlaceRepDoc();
-      prDoc.addAttribute(11, 21, 1900, "attr-fidgeting");
-      prDoc.addAttribute(12, 22, 1901, "attr-fighting");
+      prDoc.addAttribute(11, 21, 1900, "attr-fidgeting", "en");
+      prDoc.addAttribute(12, 22, 1901, "attr-fighting", "en");
       prDoc.setCentroid("44.44, -55.55");
       prDoc.addCitation(111, 51, 101, new Date(System.currentTimeMillis()), "Gazeteer", "page 55");
       prDoc.addCitation(112, 52, 102, new Date(System.currentTimeMillis()), "Google", "http://maps.google.com/112");

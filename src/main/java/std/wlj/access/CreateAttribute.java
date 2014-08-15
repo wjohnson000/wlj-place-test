@@ -21,7 +21,7 @@ public class CreateAttribute {
             System.out.println(attr.getId() + " . " + attr.getRepId() + " .  " + attr.getTypeId() + " . " + attr.getYear() + " . " + attr.getValue());
         }
 
-        AttributeDTO aDTO = new AttributeDTO(0, 395081, 423, 1820, "3853", 0);
+        AttributeDTO aDTO = new AttributeDTO(0, 395081, 423, 1820, "3853", "en", 0);
         AttributeDTO aaDTO = service.create(aDTO, "wjohnson000");
         System.out.println(aaDTO.getId() + " . " + aaDTO.getRepId() + " .  " + aaDTO.getTypeId() + " . " + aaDTO.getYear() + " . " + aaDTO.getValue());
 

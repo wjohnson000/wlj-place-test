@@ -44,7 +44,8 @@ public class DTOConverter {
                 int attrId = tokens[0].length() == 0 ? 0 : Integer.parseInt(tokens[0]);
                 int typeId = tokens[1].length() == 0 ? 0 : Integer.parseInt(tokens[1]);
                 int year   = tokens[2].length() == 0 ? 0 : Integer.parseInt(tokens[2]);
-                AttributeDTO attrDTO = new AttributeDTO(attrId, repId, typeId, year, tokens[3], 0);
+                String locale = (tokens.length > 4) ? tokens[4] : null;
+                AttributeDTO attrDTO = new AttributeDTO(attrId, repId, typeId, year, tokens[3], locale, 0);
                 results.add(attrDTO);
             }
         }

@@ -9,7 +9,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 
 
-public class TestAttributeNew {
+public class AttributeTypeStuff {
 
     /** Base URL of the application */
     private static String baseUrl = "http://localhost:8080/std-ws-place/places/attribute-types/";
