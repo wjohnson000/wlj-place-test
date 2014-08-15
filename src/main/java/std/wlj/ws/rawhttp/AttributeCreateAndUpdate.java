@@ -10,7 +10,7 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class AttributeCreateAndUpdate {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
     private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
 
     /**
@@ -18,11 +18,13 @@ public class AttributeCreateAndUpdate {
      * get the attributes again.
      */
     public static void main(String[] args) throws Exception {
-        readAttributes(1);
-        AttributeModel attrModel = addAttribute(1);
-        readAttributes(1);
-//        updateAttribute(1, attrModel);
-//        readAttributes(1);
+        int repId = 345678;
+
+        readAttributes(repId);
+        AttributeModel attrModel = addAttribute(repId);
+        readAttributes(repId);
+        updateAttribute(repId, attrModel);
+        readAttributes(repId);
     }
 
     private static void readAttributes(int repId) throws Exception {
@@ -41,7 +43,7 @@ public class AttributeCreateAndUpdate {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setRepId(repId);
         attrModel.setType(attrType);
-        attrModel.setValue("WLJ - TEST");
+        attrModel.setValue("WLJ - TEST - NEWEST");
         attrModel.setYear(1999);
         attrModel.setLocale("en");
 
