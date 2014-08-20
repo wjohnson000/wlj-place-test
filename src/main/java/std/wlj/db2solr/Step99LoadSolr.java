@@ -16,7 +16,6 @@ public class Step99LoadSolr {
             "--dbPassword", "admin",
             "--solrHome", "C:/tools/solr/data/tokoro",
             "--baseDir", "C:/temp/flat-file",
-            "--solrLoadOnly"
         };
 
         LoadSolrApp.main(appArgs);

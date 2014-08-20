@@ -10,19 +10,19 @@ public class TestPlaceType {
     /** Base URL of the application */
     private static String baseUrl = "http://localhost:8080/std-ws-place/places";
 //    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
-
+    private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
 
     /**
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
         readPlaceTypes();
-        readPlaceTypeGroups();
+//        readPlaceTypeGroups();
 
-        System.out.println("Bad URLS ...");
-    	for (String badUrl : TestUtil.getBadUrls()) {
-    		System.out.println("  " + badUrl);
-    	}
+//        System.out.println("Bad URLS ...");
+//    	for (String badUrl : TestUtil.getBadUrls()) {
+//    		System.out.println("  " + badUrl);
+//    	}
     }
 
     private static void readPlaceTypes() throws Exception {
@@ -30,11 +30,11 @@ public class TestPlaceType {
         RootModel model = TestUtil.doGET(url);
         System.out.println("RM: " + model);
 
-        for (int i=1;  i<1000;  i+=25) {
-            url = new URL(baseUrl + "/place-types/" + i);
-            model = TestUtil.doGET(url);
-            System.out.println("RM: " + model);
-    	}
+//        for (int i=1;  i<1000;  i+=25) {
+//            url = new URL(awsUrl + "/place-types/" + i);
+//            model = TestUtil.doGET(url);
+//            System.out.println("RM: " + model);
+//    	}
     }
 
     private static void readPlaceTypeGroups() throws Exception {
