@@ -9,7 +9,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 
 
-public class TestCreateCitation {
+public class CreateCitationType {
 
     /** Base URL of the application */
     private static String citationUrl = "http://localhost:8080/std-ws-place/places/citation-types";

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+  <!--
+    To configure log4j specifically for your machine, put whatever you want
+    in $HOME/log4j-user.xml and then from any module, run:
+      "ant setup-test-conf"
+    and the resulting merged log4j.xml will be in target/conf.
+  -->
+
+  <!-- ======================================= -->
+  <!-- Sends log messages to System.out          -->
+  <!-- ======================================= -->
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+       <param name="ConversionPattern" value="%d %-5p [%c{1}] %m  %X{USCTX_UserName}  %X{USCTX_SessionID}  %X{USCTX_WorkerID}   %X{USCTX_QMessageID} %n"/>
+    </layout>
+  </appender>
+
+  <!-- ======================================= -->
+  <!-- Logging for chainsaw                    -->
+  <!-- ======================================= -->
+  <appender name="chainsawAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="serverLog.xml"/>
+    <param name="MaxFileSize" value="20MB"/>
+    <param name="MaxBackupIndex" value="25"/>
+    <layout class="org.apache.log4j.xml.XMLLayout"/>
+  </appender>
+
+  <!-- ======================================= -->
+  <!-- Persistent file logging             -->
+  <!-- For comparison against XML logging      -->
+  <!-- ======================================= -->
+  <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="serverLog.log"/>
+    <param name="MaxFileSize" value="20MB"/>
+    <param name="MaxBackupIndex" value="25"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%c] (%t) %m  %X{USCTX_UserName}  %X{USCTX_SessionID}  %X{USCTX_WorkerID}   %X{USCTX_QMessageID} %n"/>
+    </layout>
+  </appender>
+
+  <!-- ======================= -->
+  <!-- Aspect logging  -->
+  <!-- ======================= -->
+  <logger name="aspect" additivity="false">
+    <level value="error"/>
+    <appender-ref ref="console"/>
+    <appender-ref ref="fileAppender"/>
+    <appender-ref ref="chainsawAppender"/>
+  </logger>
+
+  <!-- ======================= -->
+  <!-- standards logging  -->
+  <!-- ======================= -->
+  <logger additivity="false" name="org.familysearch.standards">
+    <level value="info"/>
+    <appender-ref ref="console"/>
+  </logger>
+
+  <logger additivity="false" name="org.apache.lucene">
+    <level value="debug"/>
+    <appender-ref ref="console"/>
+  </logger>
+
+  <logger additivity="false" name="org.apache.solr">
+    <level value="debug"/>
+    <appender-ref ref="console"/>
+  </logger>
+
+  <logger additivity="false" name="org.familysearch.standards.place.database.load">
+    <level value="debug"/>
+    <appender-ref ref="console"/>
+  </logger>
+
+  <!-- only show unit test errors during builds -->
+  <root>
+    <level value="error"/>
+    <appender-ref ref="console"/>
+  </root>
+
+</log4j:configuration>

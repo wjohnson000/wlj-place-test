@@ -11,7 +11,7 @@ public class AttributeCreateAndUpdate {
 
     /** Base URL of the application */
     private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-    private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
+    private static String awsUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
 
     private static String appUrl = baseUrl;
 

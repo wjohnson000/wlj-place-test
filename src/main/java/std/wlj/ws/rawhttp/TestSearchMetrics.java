@@ -13,7 +13,7 @@ import org.familysearch.standards.place.ws.model.ScorerModel;
 public class TestSearchMetrics {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
 //    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
 
     /** Sample data for interpretation ... */
@@ -111,6 +111,10 @@ public class TestSearchMetrics {
                 long time = System.nanoTime();
                 RootModel model = doSearch(textx);
                 time = System.nanoTime() - time;
+
+                if (model == null  ||  model.getSearchResults() == null) {
+                    continue;
+                }
 
                 PlaceSearchResultsModel resultsModel = model.getSearchResults().get(0);
                 MetricsModel metrics = resultsModel.getMetrics();
