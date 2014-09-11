@@ -11,8 +11,8 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class CitationCreateAndUpdate {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
 
 
     /**
@@ -20,7 +20,7 @@ public class CitationCreateAndUpdate {
      * get the citations again.
      */
     public static void main(String[] args) throws Exception {
-        int repId = 1111;
+        int repId = 12;
 
         readCitations(repId);
         CitationModel citnModel = addCitation(repId);
@@ -34,7 +34,7 @@ public class CitationCreateAndUpdate {
     private static void readCitations(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations/");
         RootModel model = TestUtil.doGET(url);
-        System.out.println("READ: " + model);
+        System.out.println("READ: " + model.toJSON());
     }
 
     private static CitationModel addCitation(int repId) throws Exception {

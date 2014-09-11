@@ -10,10 +10,8 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class AttributeCreateAndUpdate {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-    private static String awsUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
-
-    private static String appUrl = baseUrl;
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
 
 
     /**
@@ -31,13 +29,13 @@ public class AttributeCreateAndUpdate {
     }
 
     private static void readAttributes(int repId) throws Exception {
-        URL url = new URL(appUrl + "/reps/" + repId + "/attributes/");
+        URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/");
         RootModel model = TestUtil.doGET(url);
         System.out.println("READ: " + model);
     }
 
     private static AttributeModel addAttribute(int repId) throws Exception {
-        URL url = new URL(appUrl + "/reps/" + repId + "/attributes/");
+        URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/");
 
         TypeModel attrType = new TypeModel();
         attrType.setId(433);
@@ -59,7 +57,7 @@ public class AttributeCreateAndUpdate {
     }
 
     private static void updateAttribute(int repId, AttributeModel attrModel) throws Exception {
-        URL url = new URL(appUrl + "/reps/" + repId + "/attributes/" + attrModel.getId());
+        URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/" + attrModel.getId());
 
         attrModel.setValue("WLJ - TEST - UPDATED");
 

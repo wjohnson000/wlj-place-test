@@ -9,7 +9,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 
 
-public class CreateCitationType {
+public class CitationTypeCreate {
 
     /** Base URL of the application */
     private static String citationUrl = "http://localhost:8080/std-ws-place/places/citation-types";
@@ -41,7 +41,7 @@ public class CreateCitationType {
 
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
-        typeModel.setCode("wlj-citation-y4");
+        typeModel.setCode("WLJ-CIT-X9");
         typeModel.setIsPublished(true);
         typeModel.setName(names);
         
@@ -52,10 +52,6 @@ public class CreateCitationType {
         RootModel model = TestUtil.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
         TypeModel citModel = model.getType();
-
-        url = new URL(citationUrl);
-        model = TestUtil.doGET(url);
-        System.out.println("GET-ALL -- RM: " + model);
 
         if (citModel != null) {
             url = new URL(citationUrl + "/" + citModel.getId());

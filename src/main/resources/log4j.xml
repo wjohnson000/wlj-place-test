@@ -58,7 +58,7 @@
   <!-- standards logging  -->
   <!-- ======================= -->
   <logger additivity="false" name="org.familysearch.standards">
-    <level value="info"/>
+    <level value="debug"/>
     <appender-ref ref="console"/>
   </logger>
 
