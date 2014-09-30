@@ -44,7 +44,7 @@ public class TestSearchMetrics41K {
 //        textes.clear();
 //        textes.add("*Radford*");
 //        textes.add("Pleasant");
-        for (int i=0;  i<4;  i++) {
+        for (int i=0;  i<1;  i++) {
             for (String textx : textes) {
 
                 long time = System.nanoTime();
@@ -62,6 +62,7 @@ public class TestSearchMetrics41K {
                 StringBuilder buff = new StringBuilder();
                 buff.append(textx);
                 buff.append("|").append(time / ONE_MILLION);
+                buff.append("|").append(metrics.getTimings().getTotalTime());
                 buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);

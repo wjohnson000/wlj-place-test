@@ -3,7 +3,7 @@ package std.wlj.dbnew;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.core.logging.Logger;
 import org.familysearch.standards.place.dao.dbimpl.RepAttributeDAOImpl;
-import org.familysearch.standards.place.model.DbRepAttribute;
+import org.familysearch.standards.place.dao.model.DbRepAttribute;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

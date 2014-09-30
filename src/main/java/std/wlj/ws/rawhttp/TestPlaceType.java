@@ -8,9 +8,8 @@ import org.familysearch.standards.place.ws.model.RootModel;
 public class TestPlaceType {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
-    private static String awsUrl = "http://place-ws-aws.dev.fsglobal.org/std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
 
     /**
      * Run two tests ... a GET of a specific place, and a search

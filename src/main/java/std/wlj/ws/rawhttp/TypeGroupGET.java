@@ -14,26 +14,19 @@ import org.familysearch.standards.place.ws.model.RootModel;
  * 
  * @author wjohnson000
  */
-public class RepGroupGET {
+public class TypeGroupGET {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places/place-rep-groups";
-//    private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places/place-rep-groups";
-//    private static String baseUrl = "http://54.204.45.169/std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places/type-groups";
+    private static String baseUrl = "http://54.204.45.169:8080/std-ws-place/places/type-groups";
 
 
     public static void main(String[] args) throws Exception {
         RootModel responseModel;
-        Set<Integer> prgIDs = new HashSet<>();
-
         URL url = new URL(baseUrl);
 
         // Read all Place-Rep GROUPS, save the IDs
         responseModel = TestUtil.doGET(url);
         System.out.println("All Place-Rep GROUPS: \n" + responseModel.toJSON());
-        List<PlaceRepGroupModel> repGroups = responseModel.getPlaceRepGroups();
-        for (PlaceRepGroupModel repGroup : repGroups) {
-            prgIDs.add(repGroup.getId());
-        }
     }
 }

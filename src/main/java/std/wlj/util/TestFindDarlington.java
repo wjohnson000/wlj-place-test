@@ -15,6 +15,11 @@ import org.familysearch.standards.place.util.NamePriorityHelper;
 
 public class TestFindDarlington {
     public static void main(String... args) throws PlaceDataException {
+        System.setProperty("solr.master.url", "");
+        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
+        System.setProperty("solr.master", "false");
+        System.setProperty("solr.master", "slave");
+
         SolrDataService solrService = new SolrDataService();
 
         System.out.println("Place-Type count: " + solrService.getAllTypes(TypeCategory.PLACE).size());

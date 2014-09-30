@@ -29,7 +29,7 @@ public class DumpDB {
         dsFactory.setSasObjectName(sasName);
         dsFactory.setUrl(jdbcUrl);
         dsFactory.setInitialSize(2);
-        dsFactory.setMaxActive(2);
+//        dsFactory.setMaxActive(2);
         dsFactory.setValidationQuery("SELECT 1");
         dsFactory.setTestOnBorrow(true);
 

@@ -123,6 +123,7 @@ public class TestSearchMetrics {
                 buff.append(textx);
                 buff.append("|").append(loop);
                 buff.append("|").append(time / ONE_MILLION);
+                buff.append("|").append(metrics.getTimings().getTotalTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);

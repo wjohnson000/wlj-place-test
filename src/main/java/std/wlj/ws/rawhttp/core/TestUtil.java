@@ -40,7 +40,7 @@ public class TestUtil {
      * @return new model object, or whatever the service returns
      */
     public static RootModel doGET(URL url) throws Exception {
-        return doRequest(url, "GET");
+        return doRequest(url, WebConstants.METHOD_GET);
     }
 
     /**
@@ -50,7 +50,7 @@ public class TestUtil {
      * @return new model object, or whatever the service returns
      */
     public static RootModel doDELETE(URL url) throws Exception {
-        return doRequest(url, "DELETE");
+        return doRequest(url, WebConstants.METHOD_DELETE);
     }
 
     /**
@@ -81,7 +81,7 @@ public class TestUtil {
      * @return new model object
      */
     public static RootModel doPOST(URL url, RootModel model) throws Exception {
-        return doRequestWithEntity(url, model, "POST");
+        return doRequestWithEntity(url, model, WebConstants.METHOD_POST);
     }
 
 
@@ -93,7 +93,7 @@ public class TestUtil {
      * @return new model object
      */
     public static RootModel doPUT(URL url, RootModel model) throws Exception {
-        return doRequestWithEntity(url, model, "PUT");
+        return doRequestWithEntity(url, model, WebConstants.METHOD_PUT);
     }
 
     /**
@@ -112,11 +112,11 @@ public class TestUtil {
     }
 
     /**
-     * The difference between a "GET", "DELETE", "HEAD" and a "OPTIONS" interface is minimal.
+     * The difference between a WebConstants.METHOD_GET, WebConstants.METHOD_DELETE, "HEAD" and a "OPTIONS" interface is minimal.
      * All of those actions come here to do the *real* work.
      * 
      * @param url URL to hit
-     * @param method HTTP method, "GET", "DELETE", "HEAD" or "OPTIONS"
+     * @param method HTTP method, WebConstants.METHOD_GET, WebConstants.METHOD_DELETE, "HEAD" or "OPTIONS"
      * 
      * @return result of the operation
      * @throws Exception if something bad happens
@@ -138,12 +138,12 @@ public class TestUtil {
     }
 
     /**
-     * The difference between a "PUT" and a "POST" interface is minimal.  Either
+     * The difference between a WebConstants.METHOD_PUT and a WebConstants.METHOD_POST interface is minimal.  Either
      * action comes here to do the *real* work.
      * 
      * @param url URL to hit
      * @param model request contents, ready to be marshaled
-     * @param method either "PUT" or "POST"
+     * @param method either WebConstants.METHOD_PUT or WebConstants.METHOD_POST
      * @return result of the operation
      * @throws Exception if something bad happens
      */

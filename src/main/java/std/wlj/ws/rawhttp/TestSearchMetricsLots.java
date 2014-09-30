@@ -21,7 +21,8 @@ public class TestSearchMetricsLots {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+  private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
 
     private static final double ONE_MILLION = 1000000.0;
 
@@ -57,6 +58,7 @@ public class TestSearchMetricsLots {
                 StringBuilder buff = new StringBuilder();
                 buff.append(textx);
                 buff.append("|").append(time / ONE_MILLION);
+                buff.append("|").append(metrics.getTimings().getTotalTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
                 buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);

@@ -13,8 +13,8 @@ REM   -placeRepStartId xxxxx  [first place-rep identifier to load, or one if not
 REM   -placeRepEndId xxxxx [last place-rep identifier to load, or maximum if not specified]
 REM ===============================================================================================
 REM -XX:+UseG1GC
-set jopts=-Xms2000m -Xmx4000m -Xss64m
-set args=
+set jopts=-Xms1000m -Xmx2000m -Xss64m
+set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt 12 25000
 
 
 REM ===============================================================================================
@@ -36,7 +36,7 @@ set cp=%cp%;%jars%\*
 REM for %%j in (%jars%\*.jar) do call :AddToPath %%j
 
 REM C:\tools\openjdk-1.7.0-u60\bin\java -version
-java -classpath "%cp%" %jopts% std.wlj.ws.rawhttp.TestSearchMetricsLots %args%
+java -classpath "%cp%" %jopts% std.wlj.ws.rawhttp.TestSearchMetricsThreads %args%
 goto :EOF
 
 
