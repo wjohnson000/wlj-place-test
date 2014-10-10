@@ -4,7 +4,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.AttributeDTO;
 import org.familysearch.standards.place.data.solr.SolrDataService;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,7 +19,7 @@ public class CreateAttribute03PlaceService {
         try {
             appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-            DbDataService dbService = new DbDataService(ds);
+            DbReadableService dbService = new DbReadableService(ds);
             SolrDataService solrService = SolrManager.getLocalHttp();
             PlaceDataServiceImpl service = new PlaceDataServiceImpl(dbService, solrService);
 

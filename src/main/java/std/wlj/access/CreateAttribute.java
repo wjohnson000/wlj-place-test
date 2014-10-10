@@ -6,13 +6,13 @@ import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.AttributeDTO;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrDataService;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 
 
 public class CreateAttribute {
     public static void main(String[] args) throws PlaceDataException {
         SolrDataService solrService = new SolrDataService();
-        DbDataService dbService = new DbDataService();
+        DbReadableService dbService = new DbReadableService();
 
         PlaceDataServiceImpl service = new PlaceDataServiceImpl(dbService, solrService);
 

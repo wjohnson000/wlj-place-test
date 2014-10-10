@@ -9,7 +9,7 @@ import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.ExternalXrefDTO;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrDataService;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,7 +32,7 @@ public class CreateExtXref {
 
             appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-            DbDataService dbService = new DbDataService(ds);
+            DbReadableService dbService = new DbReadableService(ds);
 
             service = new PlaceDataServiceImpl(dbService, solrService);
             List<ExternalXrefDTO> xrefList =service.createOrUpdate("NGA", "123-wlj", Arrays.asList(5, 15, 20));

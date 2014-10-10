@@ -1,24 +1,27 @@
 package std.wlj.dan;
 
-import java.util.List;
-
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.PlaceRepresentationDTO;
-import org.familysearch.standards.place.data.TypeCategory;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.PlaceRepBridge;
+import org.familysearch.standards.place.data.PlaceSearchResults;
+import org.familysearch.standards.place.data.SearchParameter;
+import org.familysearch.standards.place.data.SearchParameters;
+import org.familysearch.standards.place.data.TypeBridge;
+import org.familysearch.standards.place.data.solr.SolrService;
 
 
 public class FindUSA {
     public static void main(String... args) throws PlaceDataException {
-        SolrDataService solrService = new SolrDataService();
+        SolrService solrService = new SolrService();
 
-        System.out.println("Place-Type count: " + solrService.getAllTypes(TypeCategory.PLACE).size());
-        System.out.println("Name-Type count: " + solrService.getAllTypes(TypeCategory.NAME).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 
-        List<PlaceRepresentationDTO> placeReps = solrService.getPlaceRepresentationsByPlaceId(1, null, true);
-        System.out.println("PlaceReps: " + placeReps);
-        for (PlaceRepresentationDTO placeRep : placeReps) {
-            System.out.println("PR: " + placeRep.getId() + " . " + placeRep.getPreferredLocale() + " . " + placeRep.getDisplayName(placeRep.getPreferredLocale()));
+        SearchParameters params = new SearchParameters();
+        params.addParam(SearchParameter.PlaceRepParam.createParam(1));
+        PlaceSearchResults results = solrService.search(params);
+        System.out.println("PlaceReps: " + results.getReturnedCount());
+        for (PlaceRepBridge repB : results.getResults()) {
+            System.out.println("PR: " + repB.getRepId() + " . " + repB.getDefaultLocale() + " . " + repB.getAllDisplayNames().get(repB.getDefaultLocale()));
         }
 
         System.exit(0);

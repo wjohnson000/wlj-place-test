@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import org.familysearch.standards.place.data.GroupDTO;
 import org.familysearch.standards.place.data.GroupType;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -24,12 +24,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class CreateGroup {
 
     private static DataSource ds;
-    private static DbDataService dataService;
+    private static DbReadableService dataService;
 
     public static void main(String... args) throws PlaceDataException {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
         ds = (DataSource)appContext.getBean("dataSource");
-        dataService = new DbDataService(ds);
+        dataService = new DbReadableService(ds);
 
         Map<String,String> names = new HashMap<>();
         names.put("en", "DD-en");

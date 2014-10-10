@@ -20,7 +20,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
  * 
  * @author wjohnson000
  */
-public class RepGroupCREATE {
+public class RepGroupCREATEMinimal {
 
     /** Base URL of the application */
     private static String baseUrl = "http://localhost:8080/std-ws-place/places/place-rep-groups";
@@ -97,12 +97,22 @@ public class RepGroupCREATE {
         theNameDesc.add(makeNameAndDesc("en", "Western", "Western states ..."));
         theNameDesc.add(makeNameAndDesc("ja", "US Nishi", "Nishi no shuu ..."));
 
+        List<PlaceRepGroupModel> subGroups = new ArrayList<>();
+        for (PlaceRepGroupModel child : children) {
+            child.setName(null);
+            child.setRepSummaries(null);
+            child.setSelfLink(null);
+            child.setSubGroups(null);
+            child.setIsPublished(null);
+            subGroups.add(child);
+        }
+
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
         model.setIsPublished(true);
         model.setName(theNameDesc);
-        model.setSubGroups(Arrays.asList(children));
+        model.setSubGroups(subGroups);
 
         return model;
     }
@@ -140,6 +150,16 @@ public class RepGroupCREATE {
         List<LocalizedNameDescModel> theNameDesc = new ArrayList<>();
         theNameDesc.add(makeNameAndDesc("en", "Mountain", "Mountain states ..."));
 
+        List<PlaceRepGroupModel> subGroups = new ArrayList<>();
+        for (PlaceRepGroupModel child : children) {
+            child.setName(null);
+            child.setRepSummaries(null);
+            child.setSelfLink(null);
+            child.setSubGroups(null);
+            child.setIsPublished(null);
+            subGroups.add(child);
+        }
+
         List<PlaceRepSummaryModel> summaries = new ArrayList<>();
         for (int id : Arrays.asList(8, 9)) {
             PlaceRepSummaryModel prSummary = new PlaceRepSummaryModel();
@@ -153,7 +173,7 @@ public class RepGroupCREATE {
         model.setIsPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
-        model.setSubGroups(Arrays.asList(children));
+        model.setSubGroups(subGroups);
 
         return model;
     }

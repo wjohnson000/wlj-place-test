@@ -10,7 +10,7 @@ import org.familysearch.standards.place.data.TypeCategory;
 import org.familysearch.standards.place.data.TypeDTO;
 import org.familysearch.standards.place.data.solr.SolrDataService;
 import org.familysearch.standards.place.service.DbConfigurator;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,7 +29,7 @@ public class CreateNewTypeInjectedDS {
 //        System.out.println("Service: " + ds);
 
         SolrDataService solrService = new SolrDataService();
-        DbDataService dbService = new DbDataService();
+        DbReadableService dbService = new DbReadableService();
 
         PlaceDataServiceImpl service = new PlaceDataServiceImpl(dbService, solrService);
 

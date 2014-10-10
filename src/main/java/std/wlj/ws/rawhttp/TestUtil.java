@@ -40,7 +40,7 @@ public class TestUtil {
      * @return new model object, or whatever the service returns
      */
     public static RootModel doGET(URL url) throws Exception {
-        return doRequest(url, WebConstants.METHOD_GET);
+        return doRequest(url, "GET");
     }
 
     /**
@@ -50,7 +50,7 @@ public class TestUtil {
      * @return new model object, or whatever the service returns
      */
     public static RootModel doDELETE(URL url) throws Exception {
-        return doRequest(url, WebConstants.METHOD_DELETE);
+        return doRequest(url, "DELETE");
     }
 
     /**
@@ -81,7 +81,7 @@ public class TestUtil {
      * @return new model object
      */
     public static RootModel doPOST(URL url, RootModel model) throws Exception {
-        return doRequestWithEntity(url, model, WebConstants.METHOD_POST);
+        return doRequestWithEntity(url, model, "POST");
     }
 
 
@@ -93,7 +93,7 @@ public class TestUtil {
      * @return new model object
      */
     public static RootModel doPUT(URL url, RootModel model) throws Exception {
-        return doRequestWithEntity(url, model, WebConstants.METHOD_PUT);
+        return doRequestWithEntity(url, model, "PUT");
     }
 
     /**

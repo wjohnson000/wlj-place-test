@@ -9,27 +9,40 @@ import java.util.List;
 
 
 public class StatsNew {
+    private static String[] fileNames = {
+        "results-dlbprod-6x25k.txt",
+        "results-dlbprod-12x25k.txt",
+        "results-dlbprod-50x15k.txt"
+    };
+
+
     public static void main(String... args) throws Exception {
         FileSystem currFS = FileSystems.getDefault();
-        Path path = currFS.getPath("C:", "temp", "search-results-elbxx.txt");
+        for (String fileName : fileNames) {
+            Path path = currFS.getPath("C:", "temp", fileName);
 
-        List<String> data = Files.readAllLines(path, Charset.forName("UTF-8"));
-        int count = data.size();
+            List<String> data = Files.readAllLines(path, Charset.forName("UTF-8"));
+            int count = data.size();
 
-        double[] stats = { 0.0, 0.0 };
-        for (String datum : data) {
-            String[] tokens = datum.split("\\|");
-            if (tokens.length > 2) {
-                stats[0] += Double.parseDouble(tokens[1]);
-                stats[1] += Double.parseDouble(tokens[2]);
+            int badCount = 0;
+            double[] stats = { 0.0, 0.0 };
+            for (String datum : data) {
+                String[] tokens = datum.split("\\|");
+                if (tokens.length > 2) {
+                    stats[0] += Double.parseDouble(tokens[1]);
+                    stats[1] += Double.parseDouble(tokens[2]);
+                } else if (datum.contains("thr-")) {
+                    badCount++;
+                }
             }
-        }
 
-        double overhead = stats[0] - stats[1];
-        System.out.println("The statistics:");
-        System.out.printf("    total:     %.6f;  %.6f%n", stats[0], (stats[0] / count));
-        System.out.printf("    server:    %.6f;  %.6f%n", stats[1], (stats[1] / count));
-        System.out.printf("    overhead:  %.6f;  %.6f%n", overhead, (overhead / count));
+            double overhead = stats[0] - stats[1];
+            System.out.println("\nThe statistics for: " + fileName);
+            System.out.printf("    total:     %.6f;  %.6f%n", stats[0], (stats[0] / count));
+            System.out.printf("    server:    %.6f;  %.6f%n", stats[1], (stats[1] / count));
+            System.out.printf("    overhead:  %.6f;  %.6f%n", overhead, (overhead / count));
+            System.out.printf("    bad calls: %d%n", badCount);
+        }
 
         System.exit(0);
     }

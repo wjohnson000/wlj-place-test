@@ -1,6 +1,8 @@
-package std.wlj.dbnew;
+package std.wlj.boundary;
 
 import java.sql.*;
+
+import std.wlj.dbnew.DbBase;
 
 public class TestBoundary {
 

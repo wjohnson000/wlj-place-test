@@ -5,7 +5,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import org.familysearch.standards.place.data.*;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -33,14 +33,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class TestWritableService {
 
     private static DataSource ds;
-    private static DbDataService dataService;
+    private static DbReadableService dataService;
     private static Random random = new Random();
 
 
     public static void main(String[] args) throws Exception {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context.xml");
         ds = (DataSource)appContext.getBean("dataSource");
-        dataService = new DbDataService(ds);
+        dataService = new DbReadableService(ds);
 
         createPlacesAndReps();
 

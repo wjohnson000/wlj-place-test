@@ -1,6 +1,7 @@
 package std.wlj.dbnew;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.core.logging.Logger;
 import org.familysearch.standards.place.dao.dbimpl.RepAttributeDAOImpl;
 import org.familysearch.standards.place.dao.model.DbRepAttribute;
@@ -26,7 +27,7 @@ public class CreateAttribute01Primitive {
             repAttr.setAttrTypeId(433);
             repAttr.setValue("WLJ-TEST");
             repAttr.setYear(2000);
-            repAttr.setLocale("en");
+            repAttr.setLocale(StdLocale.ENGLISH);
 
             DbRepAttribute repAttrC = attrDAO.create(repAttr);
             logger.info("New RepAttr: " + repAttrC + " --> " + repAttrC.getId());

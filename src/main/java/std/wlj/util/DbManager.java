@@ -2,7 +2,7 @@ package std.wlj.util;
 
 import javax.sql.DataSource;
 
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,10 +15,10 @@ public class DbManager {
      * 
      * @return Local DB connection
      */
-    public static DbDataService getLocal() {
+    public static DbReadableService getLocal() {
         appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        return new DbDataService(ds);
+        return new DbReadableService(ds);
     }
 
     /**
@@ -26,10 +26,10 @@ public class DbManager {
      * 
      * @return DEV-DB connection
      */
-    public static DbDataService getDevDb() {
+    public static DbReadableService getDevDb() {
         appContext = new ClassPathXmlApplicationContext("postgres-context-devdb.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        return new DbDataService(ds);
+        return new DbReadableService(ds);
     }
 
     /**
@@ -37,10 +37,10 @@ public class DbManager {
      * 
      * @return AWS-DB connection
      */
-    public static DbDataService getAwsTeam() {
+    public static DbReadableService getAwsTeam() {
         appContext = new ClassPathXmlApplicationContext("postgres-context-aws-team.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        return new DbDataService(ds);
+        return new DbReadableService(ds);
     }
 
     /**
@@ -48,10 +48,10 @@ public class DbManager {
      * 
      * @return AWS-DB connection
      */
-    public static DbDataService getAwsInt() {
+    public static DbReadableService getAwsInt() {
         appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
-        return new DbDataService(ds);
+        return new DbReadableService(ds);
     }
 
     public static void closeAppContext() {

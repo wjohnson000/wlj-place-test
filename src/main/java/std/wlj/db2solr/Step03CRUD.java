@@ -11,7 +11,7 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceNameDTO;
 import org.familysearch.standards.place.data.PlaceRepresentationDTO;
 import org.familysearch.standards.place.data.solr.SolrDataService;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 
 import std.wlj.util.DbManager;
 import std.wlj.util.SolrManager;
@@ -28,7 +28,7 @@ public class Step03CRUD {
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbDataService dbService = DbManager.getLocal();
+        DbReadableService dbService = DbManager.getLocal();
         SolrDataService solrService = SolrManager.getLocalHttp();
         dataService = new PlaceDataServiceImpl(dbService, solrService);
 

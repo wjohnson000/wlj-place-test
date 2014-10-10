@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 import org.familysearch.standards.place.data.GroupDTO;
 import org.familysearch.standards.place.data.GroupType;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.service.DbDataService;
+import org.familysearch.standards.place.service.DbReadableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -20,12 +20,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ReadGroup {
 
     private static DataSource ds;
-    private static DbDataService dataService;
+    private static DbReadableService dataService;
 
     public static void main(String... args) throws PlaceDataException {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
         ds = (DataSource)appContext.getBean("dataSource");
-        dataService = new DbDataService(ds);
+        dataService = new DbReadableService(ds);
 
         Set<GroupDTO> prGroups = dataService.getAllGroups(GroupType.PLACE_REP);
         System.out.println("Place-Rep groups ... count=" + prGroups.size());
