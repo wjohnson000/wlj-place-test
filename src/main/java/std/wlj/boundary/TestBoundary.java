@@ -2,8 +2,6 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
-import std.wlj.dbnew.DbBase;
-
 public class TestBoundary {
 
     public static void main(String... args) throws Exception {

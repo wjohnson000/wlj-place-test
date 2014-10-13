@@ -2,8 +2,6 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
-import std.wlj.dbnew.DbBase;
-
 public class TestRepBoundary {
 
     private static final String SIMPLE_BOUNDARY =
