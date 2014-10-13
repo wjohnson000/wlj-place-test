@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
-public class TypeDbTest {
+public class TypeDbServiceTest {
 
     public static void main(String... args) {
         Map<String,String> names = new HashMap<>();
