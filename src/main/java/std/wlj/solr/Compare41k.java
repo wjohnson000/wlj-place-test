@@ -13,8 +13,8 @@ import java.util.List;
 public class Compare41k {
     public static void main(String... args) throws Exception {
         FileSystem currFS = FileSystems.getDefault();
-        Path path01 = currFS.getPath("C:", "temp", "results-search-41k-local.txt");
-        Path path02 = currFS.getPath("C:", "temp", "results-search-41k.txt");
+        Path path01 = currFS.getPath("C:", "temp", "search-results-41k-old-random.txt");
+        Path path02 = currFS.getPath("C:", "temp", "search-results-41k-new-random.txt");
 
         List<String> data01 = Files.readAllLines(path01, Charset.forName("UTF-8"));
         List<String> data02 = Files.readAllLines(path02, Charset.forName("UTF-8"));
@@ -68,7 +68,7 @@ public class Compare41k {
             outData.add("");
         }
 
-        Path outPath = currFS.getPath("C:", "temp", "results-search-compare.txt");
+        Path outPath = currFS.getPath("C:", "temp", "results-search-compare-random.txt");
         Files.write(outPath, outData, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
 
         System.exit(0);

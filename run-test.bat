@@ -14,8 +14,9 @@ REM   -placeRepEndId xxxxx [last place-rep identifier to load, or maximum if not
 REM ===============================================================================================
 REM -XX:+UseG1GC
 set jopts=-Xms1000m -Xmx2000m -Xss64m
-set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt 12 25000
-
+REM set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt 12 25000
+REM set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt C:/temp/json-new
+set args=C:/temp/local-all-random.txt C:/temp/search-results-41k-new-random.txt
 
 REM ===============================================================================================
 REM Add the JAR files for the std-lib-place stuff
@@ -36,7 +37,7 @@ set cp=%cp%;%jars%\*
 REM for %%j in (%jars%\*.jar) do call :AddToPath %%j
 
 REM C:\tools\openjdk-1.7.0-u60\bin\java -version
-java -classpath "%cp%" %jopts% std.wlj.ws.rawhttp.TestSearchMetricsThreads %args%
+java -classpath "%cp%" %jopts% std.wlj.ws.rawhttp.TestSearchMetrics41K %args%
 goto :EOF
 
 
