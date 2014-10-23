@@ -9,7 +9,7 @@ import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.DataMetrics;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Filter;
 import org.familysearch.standards.place.scoring.Scorer;
 
@@ -178,7 +178,12 @@ public class TestInterpretation {
         long parseTime = 0;
         StdLocale en = new StdLocale("en");
 
-        SolrDataService solrService = new SolrDataService();
+        System.setProperty("solr.master.url", "");
+        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
+        System.setProperty("solr.master", "false");
+        System.setProperty("solr.slave", "false");
+
+        SolrService solrService = new SolrService();
         PlaceService placeService = new PlaceService(solrService);
 
         // Throw away task to get things going ...
@@ -240,8 +245,9 @@ public class TestInterpretation {
         System.out.println("|Average parse time|" + (parseTime / textToInterpret.length));
 
         DataMetrics metrics = placeService.getProfile().getDataService().getMetrics();
-        System.out.println("Place Rep cache size: " + metrics.getPlaceRepCacheSize().getValue());
-        System.out.println("Place Rep cache hits: " + metrics.getPlaceRepCacheHits().getValue());
+        for (String metricName: metrics.nameIterator()) {
+            System.out.println(metricName + "=" + metrics.getNamedMetric(metricName).getValue());
+        }
 
         System.exit(0);
     }

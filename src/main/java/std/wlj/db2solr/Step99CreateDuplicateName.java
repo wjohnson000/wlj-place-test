@@ -1,16 +1,19 @@
 package std.wlj.db2solr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
-import org.familysearch.standards.place.data.PlaceDTO;
+import org.familysearch.standards.place.data.PlaceBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.PlaceNameDTO;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.PlaceNameBridge;
+import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
 import std.wlj.util.DbManager;
 import std.wlj.util.SolrManager;
+import std.wlj.util.DbManager.DbServices;
 
 
 /**
@@ -21,13 +24,15 @@ import std.wlj.util.SolrManager;
  */
 public class Step99CreateDuplicateName {
 
+    private static DbReadableService readService;
     private static PlaceDataServiceImpl dataService;
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbReadableService dbService = DbManager.getLocal();
-        SolrDataService solrService = SolrManager.getLocalEmbedded("C:/tools/solr/data/tokoro");
-        dataService = new PlaceDataServiceImpl(dbService, solrService);
+        DbServices dbServices = DbManager.getLocal();
+        SolrService solrService = SolrManager.getLocalEmbedded("C:/tools/solr/data/tokoro");
+        readService = dbServices.readService;
+        dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
         try {
             editProvoPlace();
@@ -48,14 +53,35 @@ public class Step99CreateDuplicateName {
      * @throws PlaceDataException
      */
     private static void editProvoPlace() throws PlaceDataException {
-     // Get the current place, modify the start-data, save it
-        PlaceDTO aPlace = dataService.getPlaceById(8, null);
-        List<PlaceNameDTO> names = aPlace.getVariants();
-        PlaceNameDTO dupName01 = new PlaceNameDTO(0, "provo", "en", 445);
-        PlaceNameDTO dupName02 = new PlaceNameDTO(0, "Provo", "en", 445);
-        names.add(dupName01);
-        names.add(dupName02);
-        PlaceDTO updPlace = new PlaceDTO(aPlace.getId(), names, 1850, aPlace.getEndYear(), 0, null);
-        dataService.update(updPlace, wlj);
+        PlaceBridge placeB = readService.getPlace(8, null);
+
+        // Get the current place, modify the start-data, save it
+        List<VariantNameDef> varNames = new ArrayList<>();
+        for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
+            varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
+        }
+        varNames.add(makeNameDef(0, "en", "provo", 445));
+        varNames.add(makeNameDef(0, "en", "provo", 445));
+
+        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear(), placeB.getToYear(), varNames, wlj);
+    }
+
+    /**
+     * Construct a new PlaceNameDTO instance.
+     * 
+     * @param locale locale
+     * @param name name
+     * @param nameType name type
+     * @return new PlaceNameDTO
+     */
+    private static VariantNameDef makeNameDef(int nameId, String locale, String name, int nameType) {
+        VariantNameDef vnDef = new VariantNameDef();
+
+        vnDef.id     = nameId;
+        vnDef.locale = locale;
+        vnDef.text   = name;
+        vnDef.typeId = nameType;
+
+        return vnDef;
     }
 }

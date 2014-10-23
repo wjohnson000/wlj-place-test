@@ -6,7 +6,9 @@ import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.DataMetrics;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.solr.SolrService;
+
+import std.wlj.util.SolrManager;
 
 
 public class TestCacheStuff {
@@ -55,7 +57,7 @@ public class TestCacheStuff {
         long parseTime = 0;
         StdLocale en = new StdLocale("en");
 
-        SolrDataService solrService = new SolrDataService();
+        SolrService solrService = SolrManager.getLocalTokoro();
         PlaceService placeService = new PlaceService(solrService);
 
         // Throw away task to get things going ...
@@ -77,7 +79,7 @@ public class TestCacheStuff {
                 parseTime += results.getMetrics().getParseTime();
 
                 System.out.println("|" + text + "|" + execTime);
-                try { Thread.sleep(1000L); } catch (Exception ex) { }
+                try { Thread.sleep(15L); } catch (Exception ex) { }
             }
         }
 
@@ -89,8 +91,9 @@ public class TestCacheStuff {
         System.out.println("|Average parse time|" + (parseTime / textToInterpret.length));
 
         DataMetrics metrics = placeService.getProfile().getDataService().getMetrics();
-        System.out.println("Place Rep cache size: " + metrics.getPlaceRepCacheSize().getValue());
-        System.out.println("Place Rep cache hits: " + metrics.getPlaceRepCacheHits().getValue());
+        for (String metricName: metrics.nameIterator()) {
+            System.out.println(metricName + "=" + metrics.getNamedMetric(metricName).getValue());
+        }
 
         System.exit(0);
     }

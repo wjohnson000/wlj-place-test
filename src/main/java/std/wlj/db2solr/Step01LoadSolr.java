@@ -2,12 +2,11 @@ package std.wlj.db2solr;
 
 import org.familysearch.standards.place.solr.load.LoadSolrApp;
 
+import std.wlj.util.SolrManager;
+
 public class Step01LoadSolr {
     public static void main(String... args) {
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.master", "slave");
+        SolrManager.getLocalTokoro();
 
         String[] appArgs = {
             "--dbHost", "localhost",

@@ -16,7 +16,7 @@ REM -XX:+UseG1GC
 set jopts=-Xms1000m -Xmx2000m -Xss64m
 REM set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt 12 25000
 REM set args=http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places C:/temp/local-all.txt C:/temp/search-results-41k.txt C:/temp/json-new
-set args=C:/temp/local-all-random.txt C:/temp/search-results-41k-new-random.txt
+set args=C:/temp/local-all.txt C:/temp/search-new-ordered.txt
 
 REM ===============================================================================================
 REM Add the JAR files for the std-lib-place stuff
@@ -27,17 +27,18 @@ set jars=C:\apps\apache-tomcat-7.0.53\webapps\std-ws-place\WEB-INF\lib
 set version=2.0.2-SNAPSHOT
 
 set cp=.\target\classes
-set cp=%cp%;%base%\place-api\target\std-lib-place-api-%version%.jar
-set cp=%cp%;%base%\place-data-access\target\std-lib-place-data-access-%version%.jar
-set cp=%cp%;%base%\place-data-db\target\std-lib-place-data-db-%version%.jar
-set cp=%cp%;%base%\place-data-load\target\std-lib-place-data-load-%version%.jar
-set cp=%cp%;%base%\place-data-local\target\std-lib-place-data-local-%version%.jar
+REM set cp=%cp%;%base%\place-api\target\std-lib-place-api-%version%.jar
+REM set cp=%cp%;%base%\place-data-access\target\std-lib-place-data-access-%version%.jar
+REM set cp=%cp%;%base%\place-data-db\target\std-lib-place-data-db-%version%.jar
+REM set cp=%cp%;%base%\place-data-load\target\std-lib-place-data-load-%version%.jar
+REM set cp=%cp%;%base%\place-data-local\target\std-lib-place-data-local-%version%.jar
 
 set cp=%cp%;%jars%\*
 REM for %%j in (%jars%\*.jar) do call :AddToPath %%j
 
 REM C:\tools\openjdk-1.7.0-u60\bin\java -version
 java -classpath "%cp%" %jopts% std.wlj.ws.rawhttp.TestSearchMetrics41K %args%
+REM java -classpath "%cp%" %jopts% std.wlj.solr.TestSearch %args%
 goto :EOF
 
 

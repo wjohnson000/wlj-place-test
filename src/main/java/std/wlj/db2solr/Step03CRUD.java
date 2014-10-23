@@ -6,14 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
-import org.familysearch.standards.place.data.PlaceDTO;
+import org.familysearch.standards.place.data.PlaceBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.PlaceNameDTO;
-import org.familysearch.standards.place.data.PlaceRepresentationDTO;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.PlaceNameBridge;
+import org.familysearch.standards.place.data.PlaceRepBridge;
+import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
 import std.wlj.util.DbManager;
+import std.wlj.util.DbManager.DbServices;
 import std.wlj.util.SolrManager;
 
 /**
@@ -24,13 +26,15 @@ import std.wlj.util.SolrManager;
  */
 public class Step03CRUD {
 
+    private static DbReadableService readService;
     private static PlaceDataServiceImpl dataService;
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbReadableService dbService = DbManager.getLocal();
-        SolrDataService solrService = SolrManager.getLocalHttp();
-        dataService = new PlaceDataServiceImpl(dbService, solrService);
+        DbServices dbServices = DbManager.getLocal();
+        SolrService solrService = SolrManager.getLocalHttp();
+        readService = dbServices.readService;
+        dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
         try {
             createAustralia();
@@ -77,81 +81,78 @@ public class Step03CRUD {
      * @throws PlaceDataException if something bad happens
      */
     private static void editPlaceRep(int repId, String locale) throws PlaceDataException {
-        PlaceRepresentationDTO placeRep = dataService.getPlaceRepresentationById(repId, null);
+        PlaceRepBridge repB = readService.getRep(repId, null);
 
-        Double lattd = placeRep.getLatitude();
-        Double longt = placeRep.getLongitude();
+        Double lattd = repB.getLatitude();
+        Double longt = repB.getLongitude();
         if (lattd != null) lattd += 1;
         if (longt != null) longt -= 1;
 
-        Map<String,String> names = placeRep.getDisplayNames();
-        String enName = names.get("en");
+        Map<String,String> dispNames = repB.getAllDisplayNames();
+        String enName = dispNames.get("en");
         if (enName != null) {
-            names.put(locale, enName+"." + locale);
-            names.put("en", enName+".x");
+            dispNames.put(locale, enName+"." + locale);
+            dispNames.put("en", enName+".x");
         }
 
-        PlaceRepresentationDTO updPlaceRep = new PlaceRepresentationDTO(
-            placeRep.getJurisdictionChain(),
-            placeRep.getOwnerId(),
-            placeRep.getFromYear(),
-            placeRep.getToYear(),
-            placeRep.getType(),
-            placeRep.getPreferredLocale(),
-            names,
+        int[] jurisIds = repB.getJurisdictionIdentifiers();
+        int parentId = (jurisIds == null  ||  jurisIds.length < 2) ? -1 : jurisIds[1];
+        Integer groupId = (repB.getChildConstraintTypeGroup() == null) ? null : repB.getChildConstraintTypeGroup().getGroupId();
+
+        dataService.updateRep(
+            repId,
+            repB.getPlaceId(),
+            parentId,
+            repB.getJurisdictionFromYear(),
+            repB.getJurisdictionToYear(),
+            repB.getPlaceType().getTypeId(),
+            repB.getDefaultLocale(),
+            dispNames,
             lattd,
             longt,
-            placeRep.isPublished(),
-            placeRep.isValidated(),
-            placeRep.getRevision(),
-            placeRep.getUUID(),
-            placeRep.getTypeGroup(),
-            placeRep.getCreatedUsingVersion());
-
-        dataService.update(updPlaceRep, wlj);
+            repB.isPublished(),
+            repB.isValidated(),
+            groupId,
+            wlj);
     }
 
     /**
      * Create a new "Australia" place and place-rep.
      */
     private static void createAustralia() throws PlaceDataException {
-        List<PlaceNameDTO> variants = new ArrayList<PlaceNameDTO>();
-        variants.add(makeNameDTO("en", "australia", 458));
-        variants.add(makeNameDTO("bi-Latn", "Ostrelia", 458));
-        variants.add(makeNameDTO("fr", "Australie", 458));
-        variants.add(makeNameDTO("fo", "Avstralia", 437));
-        variants.add(makeNameDTO("rn", "Ostraliya", 437));
-        variants.add(makeNameDTO("tt-Latn", "Awstraliä", 440));
-        variants.add(makeNameDTO("en", "AUSTRAILA", 454));
+        List<VariantNameDef> varNames = new ArrayList<>();
+        varNames.add(makeNameDef(0, "en", "australia", 458));
+        varNames.add(makeNameDef(0, "bi-Latn", "Ostrelia", 458));
+        varNames.add(makeNameDef(0, "fr", "Australie", 458));
+        varNames.add(makeNameDef(0, "fo", "Avstralia", 437));
+        varNames.add(makeNameDef(0, "rn", "Ostraliya", 437));
+        varNames.add(makeNameDef(0, "tt-Latn", "Awstraliä", 440));
+        varNames.add(makeNameDef(0, "en", "AUSTRAILA", 454));
 
-        PlaceDTO aPlace = new PlaceDTO(0, variants, 1700, null, 0, null);
+        Map<String,String> dispNames = new HashMap<>();
+        dispNames.put("en", "Australia");
+        dispNames.put("es", "Australia");
+        dispNames.put("it", "Australia");
+        dispNames.put("pl", "Australia");
+        dispNames.put("ro", "Australia");
+        dispNames.put("sw-Latn", "Australia");
 
-        Map<String,String> names = new HashMap<>();
-        names.put("en", "Australia");
-        names.put("es", "Australia");
-        names.put("it", "Australia");
-        names.put("pl", "Australia");
-        names.put("ro", "Australia");
-        names.put("sw-Latn", "Australia");
-
-        PlaceRepresentationDTO aPlaceRep = new PlaceRepresentationDTO(
-            new int[] { },
-            0,
+        dataService.createPlace(
+            -1,
             1700,
             null,
             198,
             "en",
-            names,
+            dispNames,
             -25.0,
             135.0,
             true,
             true,
-            0,
             null,
+            1700,
             null,
-            null);
-
-        dataService.create(aPlace, aPlaceRep, wlj);
+            varNames,
+            wlj);
     }
 
     /**
@@ -159,100 +160,98 @@ public class Step03CRUD {
      * @throws PlaceDataException
      */
     private static void createBloomington() throws PlaceDataException {
-        Map<String,String> names = new HashMap<>();
-        names.put("en", "Bloomington");
-        names.put("de", "Bloomingdorp");
+        Map<String,String> dispNames = new HashMap<>();
+        dispNames.put("en", "Bloomington");
+        dispNames.put("de", "Bloomingdorp");
 
-        PlaceRepresentationDTO aPlaceRep = new PlaceRepresentationDTO(
-            new int[] { 3 },
+        dataService.createRep(
             4,
-            1820,
+            3,
+            1830,
             null,
             186,
             "en",
-            names,
+            dispNames,
             -86.526,
             39.162,
+            true, 
             true,
-            true,
-            0,
             null,
-            null,
-            null);
-
-        dataService.create(aPlaceRep, wlj);
+            wlj);
     }
 
     /**
      * Create a new "Horsens" place and place-rep.  Edit the place.  Edit the place-rep.
      */
     private static void createAndEditHorsens() throws PlaceDataException {
-        List<PlaceNameDTO> variants = new ArrayList<PlaceNameDTO>();
-        variants.add(makeNameDTO("en", "Horsens", 458));
-        variants.add(makeNameDTO("da", "Horsens", 434));
-        variants.add(makeNameDTO("da", "Horsens Kommune", 437));
-        variants.add(makeNameDTO("da", "Horsens Sogn", 454));
+        List<VariantNameDef> varNames = new ArrayList<>();
+        varNames.add(makeNameDef(0, "en", "Horsens", 458));
+        varNames.add(makeNameDef(0, "da", "Horsens", 434));
+        varNames.add(makeNameDef(0, "da", "Horsens Kommune", 437));
+        varNames.add(makeNameDef(0, "da", "Horsens Sogn", 454));
 
-        PlaceDTO aPlace = new PlaceDTO(0, variants, 1700, null, 0, null);
+        Map<String,String> dispNames = new HashMap<>();
+        dispNames.put("en", "Horsens");
+        dispNames.put("da", "Horsens");
 
-        Map<String,String> names = new HashMap<>();
-        names.put("en", "Horsens");
-        names.put("da", "Horsens");
-
-        PlaceRepresentationDTO aPlaceRep = new PlaceRepresentationDTO(
-            new int[] { 20 },
-            0,
+        PlaceRepBridge repB = dataService.createPlace(
+            20,
             1600,
             null,
             201,
             "da",
-            names,
+            dispNames,
             9.866667,
             55.866667,
             true,
             true,
-            0,
             null,
+            1700,
             null,
-            null);
+            varNames,
+            wlj);
 
-        PlaceRepresentationDTO newPlaceRep = dataService.create(aPlace, aPlaceRep, wlj);
+        PlaceBridge placeB = readService.getPlace(repB.getPlaceId(), null);
+//        PlaceBridge placeBX = repB.getAssociatedPlace();
 
         // Get the current place, modify the start-data, save it
-        PlaceDTO newPlace = dataService.getPlaceById(newPlaceRep.getOwnerId(), null);
-        PlaceDTO updPlace = new PlaceDTO(newPlace.getId(), newPlace.getVariants(), newPlace.getStartYear()-100, newPlace.getEndYear(), 0, null);
-        dataService.update(updPlace, wlj);
+        varNames = new ArrayList<>();
+        for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
+            varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
+        }
+        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear()-100, placeB.getToYear(), varNames, "wlj");
 
         // Modify the place-rep, save it
-        Double lattd = newPlaceRep.getLatitude();
-        Double longt = newPlaceRep.getLongitude();
+        Double lattd = repB.getLatitude();
+        Double longt = repB.getLongitude();
         if (lattd != null) lattd += 1;
         if (longt != null) longt -= 1;
 
-        names = newPlaceRep.getDisplayNames();
-        String enName = names.get("en");
+        dispNames = repB.getAllDisplayNames();
+        String enName = dispNames.get("en");
         if (enName != null) {
-            names.put("eu", enName+".eu");
+            dispNames.put("eu", enName+".eu");
         }
 
-        PlaceRepresentationDTO updPlaceRep = new PlaceRepresentationDTO(
-            newPlaceRep.getJurisdictionChain(),
-            newPlaceRep.getOwnerId(),
-            newPlaceRep.getFromYear(),
-            newPlaceRep.getToYear(),
-            newPlaceRep.getType(),
-            newPlaceRep.getPreferredLocale(),
-            names,
+        int[] jurisIds = repB.getJurisdictionIdentifiers();
+        int parentId = (jurisIds == null  ||  jurisIds.length < 2) ? -1 : jurisIds[1];
+        Integer groupId = (repB.getChildConstraintTypeGroup() == null) ? null : repB.getChildConstraintTypeGroup().getGroupId();
+
+        dataService.updateRep(
+            repB.getRepId(),
+            repB.getPlaceId(),
+            parentId,
+            repB.getJurisdictionFromYear(),
+            repB.getJurisdictionToYear(),
+            repB.getPlaceType().getTypeId(),
+            repB.getDefaultLocale(),
+            dispNames,
             lattd,
             longt,
-            newPlaceRep.isPublished(),
-            newPlaceRep.isValidated(),
-            newPlaceRep.getRevision(),
-            newPlaceRep.getUUID(),
-            newPlaceRep.getTypeGroup(),
-            newPlaceRep.getCreatedUsingVersion());
-
-            dataService.update(updPlaceRep, wlj);
+            repB.isPublished(),
+            repB.isValidated(),
+            groupId,
+            "wlj");
     }
 
     /**
@@ -261,10 +260,15 @@ public class Step03CRUD {
      * @throws PlaceDataException
      */
     private static void editProvoPlace() throws PlaceDataException {
-     // Get the current place, modify the start-data, save it
-        PlaceDTO aPlace = dataService.getPlaceById(8, null);
-        PlaceDTO updPlace = new PlaceDTO(aPlace.getId(), aPlace.getVariants(), 1850, aPlace.getEndYear(), 0, null);
-        dataService.update(updPlace, wlj);
+        // Get the current place, modify the start-data, save it
+        PlaceBridge placeB = readService.getPlace(8, null);
+
+        List<VariantNameDef> varNames = new ArrayList<>();
+        for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
+            varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
+        }
+
+        dataService.updatePlace(placeB.getPlaceId(), 1850, placeB.getToYear(), varNames, wlj);
     }
 
     /**
@@ -272,13 +276,36 @@ public class Step03CRUD {
      * delete the place.
      */
     private static void createAndDeleteProvo() throws PlaceDataException {
-        PlaceDTO oldPlace = dataService.getPlaceById(8, null);
-        PlaceRepresentationDTO oldPlaceRep = dataService.getPlaceRepresentationById(10, null);
+        PlaceBridge placeB = readService.getPlace(8, null);
+        PlaceRepBridge repB = readService.getRep(10, null);
 
-        PlaceRepresentationDTO newPlaceRep = dataService.create(oldPlace, oldPlaceRep, wlj);
-//        PlaceDTO newPlace = dataService.getPlaceById(newPlaceRep.getOwnerId(), null);
+        int[] jurisIds = repB.getJurisdictionIdentifiers();
+        int parentId = (jurisIds == null  ||  jurisIds.length < 2) ? -1 : jurisIds[1];
+        Integer groupId = (repB.getChildConstraintTypeGroup() == null) ? null : repB.getChildConstraintTypeGroup().getGroupId();
 
-        dataService.delete(newPlaceRep, 8, wlj);
+        List<VariantNameDef> varNames = new ArrayList<>();
+        for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
+            varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
+        }
+
+        PlaceRepBridge newRepB = dataService.createPlace(
+            parentId,
+            repB.getJurisdictionFromYear(),
+            repB.getJurisdictionToYear(),
+            repB.getPlaceType().getTypeId(),
+            repB.getDefaultLocale(),
+            repB.getAllDisplayNames(),
+            repB.getLatitude(),
+            repB.getLongitude(),
+            repB.isPublished(),
+            repB.isValidated(),
+            groupId,
+            placeB.getFromYear(),
+            placeB.getToYear(),
+            varNames,
+            "wlj");
+
+        dataService.deleteRep(newRepB.getRepId(), 8, wlj);
     }
 
     /**
@@ -289,7 +316,14 @@ public class Step03CRUD {
      * @param nameType name type
      * @return new PlaceNameDTO
      */
-    private static PlaceNameDTO makeNameDTO(String locale, String name, int nameType) {
-        return new PlaceNameDTO(0, name, locale, nameType);
+    private static VariantNameDef makeNameDef(int nameId, String locale, String name, int nameType) {
+        VariantNameDef vnDef = new VariantNameDef();
+
+        vnDef.id     = nameId;
+        vnDef.locale = locale;
+        vnDef.text   = name;
+        vnDef.typeId = nameType;
+
+        return vnDef;
     }
 }

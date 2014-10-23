@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
+import org.familysearch.standards.place.ws.model.HealthCheckModel;
+import org.familysearch.standards.place.ws.model.MetricModel;
 import org.familysearch.standards.place.ws.model.MetricsModel;
 import org.familysearch.standards.place.ws.model.PlaceSearchResultModel;
 import org.familysearch.standards.place.ws.model.PlaceSearchResultsModel;
@@ -30,8 +32,8 @@ public class TestSearchMetrics41K {
      * Run a bunch of searches ...
      */
     public static void main(String[] args) throws Exception {
-        String inFileName = "C:/temp/local-all.txt";
-        String outFileName = "C:/temp/search-41k-new.txt";
+        String inFileName = "C:/temp/local-all-random.txt";
+        String outFileName = "C:/temp/search-new-random.txt";
         String jsonFileDir = null;
 
         if (args.length < 2) {
@@ -54,12 +56,31 @@ public class TestSearchMetrics41K {
 
         PrintWriter pwOut = new PrintWriter(new FileWriter(new File(outFileName)));
 
-        Date startDate = new Date();
 //        textes.clear();
 //        textes.add("*Radford*");
 //        textes.add("Pleasant");
+//        textes.add("darlington, south carolina");
+//        textes.add("san isidro, collpa de nor cinti, chuquisaca, bolivi");
+//        textes.add("long island");
+//        textes.add("snowflake, navajo, arizona, united states");
+//        textes.add("yarmouth, yarmouth, yarmouth town, yarmouth, nova scotia, canada");
+//        textes.add("san miguel san julian, valladolid, valladolid, spain");
+
         int cnt = 0;
+        Date startDate = new Date();
         for (String textx : textes) {
+            cnt++;
+            if (cnt % 1000 == 0) {
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                RootModel model = doHealthCheck();
+                HealthCheckModel hcModel = model.getHealthCheck();
+                StringBuilder buff = new StringBuilder("METRICS");
+                for (MetricModel mm : hcModel.getMetrics()) {
+                    buff.append("|").append(mm.getMetricName());
+                    buff.append("=").append(mm.getMetricValue());
+                }
+                pwOut.println(buff.toString());
+            }
 
             long time = System.nanoTime();
             RootModel model = doSearch(textx);
@@ -70,7 +91,6 @@ public class TestSearchMetrics41K {
             }
 
             if (jsonFileDir != null) {
-                cnt++;
                 Path json = currFS.getPath(jsonFileDir, cnt+".txt");
                 Files.write(json, model.toJSON().getBytes(Charset.forName("UTF-8")));
             }
@@ -80,7 +100,7 @@ public class TestSearchMetrics41K {
             StringBuilder buff = new StringBuilder();
             buff.append(textx);
             buff.append("|").append(time / ONE_MILLION);
-            buff.append("|").append(metrics.getTimings().getTotalTime());
+            buff.append("|").append(metrics.getTimings().getTotalTime() / ONE_MILLION);
             buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
             buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
             buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);
@@ -103,6 +123,15 @@ public class TestSearchMetrics41K {
             pwOut.println(buff.toString());
         }
 
+        RootModel model = doHealthCheck();
+        HealthCheckModel hcModel = model.getHealthCheck();
+        StringBuilder buff = new StringBuilder("METRICS");
+        for (MetricModel mm : hcModel.getMetrics()) {
+            buff.append("|").append(mm.getMetricName());
+            buff.append("=").append(mm.getMetricValue());
+        }
+        pwOut.println(buff.toString());
+        
         System.out.println("\n\n");
         System.out.println("Date: " + startDate);
         System.out.println("End:  " + new Date());
@@ -116,6 +145,16 @@ public class TestSearchMetrics41K {
             return TestUtil.doGET(url);
         } catch(Throwable th) {
             System.out.println(text + " --> Throwable: " + th.getMessage());
+            return null;
+        }
+    }
+
+    private static RootModel doHealthCheck() throws Exception {
+        URL url = new URL(baseUrl + "?metrics=true");
+        try {
+            return TestUtil.doGET(url);
+        } catch(Throwable th) {
+            System.out.println("HealthCheck --> Throwable: " + th.getMessage());
             return null;
         }
     }

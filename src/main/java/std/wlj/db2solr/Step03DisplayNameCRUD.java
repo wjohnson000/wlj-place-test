@@ -4,12 +4,13 @@ import java.util.Map;
 
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.PlaceRepresentationDTO;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.PlaceRepBridge;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
 import std.wlj.util.DbManager;
 import std.wlj.util.SolrManager;
+import std.wlj.util.DbManager.DbServices;
 
 
 /**
@@ -20,13 +21,15 @@ import std.wlj.util.SolrManager;
  */
 public class Step03DisplayNameCRUD {
 
+    private static DbReadableService readService;
     private static PlaceDataServiceImpl dataService;
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbReadableService dbService = DbManager.getLocal();
-        SolrDataService solrService = SolrManager.getLocalHttp();
-        dataService = new PlaceDataServiceImpl(dbService, solrService);
+        DbServices dbServices = DbManager.getLocal();
+        SolrService solrService = SolrManager.getLocalHttp();
+        readService = dbServices.readService;
+        dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
         try {
             editPlaceRep(9, 1);
@@ -51,38 +54,39 @@ public class Step03DisplayNameCRUD {
      * @throws PlaceDataException if something bad happens
      */
     private static void editPlaceRep(int repId, int whatever) throws PlaceDataException {
-        PlaceRepresentationDTO placeRep = dataService.getPlaceRepresentationById(repId, null);
+        PlaceRepBridge repB = readService.getRep(repId, null);
 
-        Double lattd = placeRep.getLatitude();
-        Double longt = placeRep.getLongitude();
+        Double lattd = repB.getLatitude();
+        Double longt = repB.getLongitude();
         if (lattd != null) lattd += 1;
         if (longt != null) longt -= 1;
 
-        Map<String,String> names = placeRep.getDisplayNames();
+        Map<String,String> dispNames = repB.getAllDisplayNames();
         if (whatever == 1) {
-            names.remove("en");
+            dispNames.remove("en");
         } else {
-            names.put("en", "Utah County Two");
+            dispNames.put("en", "Utah County Two");
         }
 
-        PlaceRepresentationDTO updPlaceRep = new PlaceRepresentationDTO(
-            placeRep.getJurisdictionChain(),
-            placeRep.getOwnerId(),
-            placeRep.getFromYear(),
-            placeRep.getToYear(),
-            placeRep.getType(),
-            placeRep.getPreferredLocale(),
-            names,
+        int[] jurisIds = repB.getJurisdictionIdentifiers();
+        int parentId = (jurisIds == null  ||  jurisIds.length < 2) ? -1 : jurisIds[1];
+        Integer groupId = (repB.getChildConstraintTypeGroup() == null) ? null : repB.getChildConstraintTypeGroup().getGroupId();
+
+        dataService.updateRep(
+            repId,
+            repB.getPlaceId(),
+            parentId,
+            repB.getJurisdictionFromYear(),
+            repB.getJurisdictionToYear(),
+            repB.getPlaceType().getTypeId(),
+            repB.getDefaultLocale(),
+            dispNames,
             lattd,
             longt,
-            placeRep.isPublished(),
-            placeRep.isValidated(),
-            placeRep.getRevision(),
-            placeRep.getUUID(),
-            placeRep.getTypeGroup(),
-            placeRep.getCreatedUsingVersion());
-
-        dataService.update(updPlaceRep, wlj);
+            repB.isPublished(),
+            repB.isValidated(),
+            groupId,
+            wlj);
     }
 
 }

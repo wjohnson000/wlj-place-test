@@ -6,8 +6,8 @@ import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.TypeCategory;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.TypeBridge;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Scorer;
 import org.familysearch.standards.place.search.RequestMetrics;
 import org.familysearch.standards.place.util.NamePriorityHelper;
@@ -15,15 +15,10 @@ import org.familysearch.standards.place.util.NamePriorityHelper;
 
 public class TestFindDarlington {
     public static void main(String... args) throws PlaceDataException {
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.master", "slave");
+        SolrService solrService = SolrManager.getLocalTokoro();
 
-        SolrDataService solrService = new SolrDataService();
-
-        System.out.println("Place-Type count: " + solrService.getAllTypes(TypeCategory.PLACE).size());
-        System.out.println("Place-Name count: " + solrService.getAllTypes(TypeCategory.NAME).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
         System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         for (int i=0;  i<6;  i++) {

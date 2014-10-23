@@ -6,8 +6,8 @@ import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.PlaceDataException;
-import org.familysearch.standards.place.data.TypeCategory;
-import org.familysearch.standards.place.data.solr.SolrDataService;
+import org.familysearch.standards.place.data.TypeBridge;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Scorer;
 import org.familysearch.standards.place.search.RequestMetrics;
 import org.familysearch.standards.place.util.NamePriorityHelper;
@@ -97,11 +97,11 @@ public class TestFindLots {
     };
 
     public static void main(String... args) throws PlaceDataException {
-        SolrDataService solrService = new SolrDataService();
+        SolrService solrService = SolrManager.getLocalTokoro();
         PlaceService placeService = new PlaceService(solrService);
 
-        System.out.println("Place-Type count: " + solrService.getAllTypes(TypeCategory.PLACE).size());
-        System.out.println("Place-Name count: " + solrService.getAllTypes(TypeCategory.NAME).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
         System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         // Do a couple of interpretations for fun ...
@@ -146,7 +146,6 @@ public class TestFindLots {
             try { Thread.sleep(250); } catch(Exception ex) { }
         }
 
-        
         System.exit(0);
     }
 }
