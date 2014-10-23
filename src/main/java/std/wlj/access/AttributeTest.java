@@ -34,7 +34,7 @@ public class AttributeTest {
             DbWritableService dbWService  = new DbWritableService(ds);
             dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
 
-            PlaceRepBridge placeRepB01 = SearchHelper.readPlaceRep(dataService, repId);
+            PlaceRepBridge placeRepB01 = dbRService.getRep(repId, null);
             if (placeRepB01 == null) {
                 System.out.println("Not found --- repId=" + repId);
                 return;
@@ -56,7 +56,7 @@ public class AttributeTest {
             System.out.println("ATTR: " + attrB02.getAttributeId() + "." + attrB02.getPlaceRep().getRepId() + " :: " + attrB02.getLocale() + " :: " + attrB02.getValue());
 
             System.out.println("\nALL..............................................\n");
-            PlaceRepBridge placeRepB02 = SearchHelper.readPlaceRep(dataService, repId);
+            PlaceRepBridge placeRepB02 = dbRService.getRep(repId, null);
             System.out.println("PLACE-REP: " + placeRepB02.getRepId() + "." + placeRepB02.getVersion() + "." + placeRepB02.getRevision());
             attrBs = placeRepB02.getAllAttributes();
             for (AttributeBridge attrB : attrBs) {
@@ -66,7 +66,7 @@ public class AttributeTest {
             System.out.println("\nALL (after delete)...............................\n");
             dataService.deleteAttribute(attrB01.getAttributeId(), repId, "wjohnson000");
 
-            PlaceRepBridge placeRepB03 = SearchHelper.readPlaceRep(dataService, repId);
+            PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
             attrBs = placeRepB03.getAllAttributes();
             System.out.println("PLACE-REP: " + placeRepB03.getRepId() + "." + placeRepB03.getVersion() + "." + placeRepB03.getRevision());
             for (AttributeBridge attrB : attrBs) {

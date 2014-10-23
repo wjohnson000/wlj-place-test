@@ -3,8 +3,10 @@ package std.wlj.access;
 import java.util.*;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 import org.familysearch.standards.place.service.DbWritableService;
 import org.springframework.context.ApplicationContext;
@@ -31,9 +33,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author wjohnson000
  *
  */
-public class PlaceAndRepDbServiceTest {
+public class PlaceAndRepTest {
 
     static BasicDataSource ds = null;
+    static PlaceDataServiceImpl dataService = null;
     static DbReadableService dbRService = null;
     static DbWritableService dbWService = null;
 
@@ -41,10 +44,19 @@ public class PlaceAndRepDbServiceTest {
 
 
     public static void main(String[] args) throws Exception {
+//      System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
+//      System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
+        System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
+        System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
+        System.setProperty("solr.master", "false");
+        System.setProperty("solr.slave", "false");
+
         ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
         ds = (BasicDataSource)appContext.getBean("dataSource");
-        dbRService = new DbReadableService(ds);
-        dbWService = new DbWritableService(ds);
+        SolrService       solrService = new SolrService();
+        dbRService  = new DbReadableService(ds);
+        dbWService  = new DbWritableService(ds);
+        dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
 
         createPlacesAndReps();
 
@@ -93,7 +105,7 @@ public class PlaceAndRepDbServiceTest {
             List<PlaceRepBridge> placeRebP01CX = placeRepB01.getChildren();
 
             // Delete a place-rep
-            PlaceRepBridge placeRepB03D  = dbWService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000");
+            PlaceRepBridge placeRepB03D  = dataService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000");
             PlaceRepBridge placeRepB03DX = dbRService.getRep(placeRepB03.getRepId(), null);
             PlaceRepBridge placeRepB04DX = dbRService.getRep(placeRepB04.getRepId(), null);
 
@@ -173,7 +185,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createQuilly() throws PlaceDataException {
-        return dbWService.createPlace(
+        return dataService.createPlace(
             -1,
             1900,
             null,
@@ -197,11 +209,11 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceBridge updateQuillyPlace(int placeId) throws PlaceDataException {
-        return dbWService.updatePlace(
+        return dataService.updatePlace(
             placeId,
             1925,
             null,
-            makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "t", "dk", "dk-Quilly", "f"),
+            makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "t", "da", "da-Quilly", "f"),
             "wjohnson000"
         );
     }
@@ -212,7 +224,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createQually(int parentId) throws PlaceDataException {
-        return dbWService.createPlace(
+        return dataService.createPlace(
             parentId,
             1900,
             null,
@@ -236,13 +248,13 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerf01(int parentId) throws PlaceDataException {
-        return dbWService.createPlace(
+        return dataService.createPlace(
             parentId,
             1910,
             1925,
             281,
             "en",
-            makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "dk", "DK-Nerf-Terr"),
+            makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "da", "DA-Nerf-Terr"),
             40.0,
             -111.4,
             true,
@@ -262,7 +274,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerfRep02(int placeId, int parentId) throws PlaceDataException {
-        return dbWService.createRep(
+        return dataService.createRep(
             placeId,
             parentId,
             1925,
@@ -287,7 +299,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerfRep03(int placeId, int parentId) throws PlaceDataException {
-        return dbWService.createRep(
+        return dataService.createRep(
             placeId,
             parentId,
             1968,
@@ -305,7 +317,7 @@ public class PlaceAndRepDbServiceTest {
     }
 
     private static PlaceRepBridge updateNerfPlaceRep01(int repId, int placeId, int parentId) throws PlaceDataException {
-        return dbWService.updateRep(
+        return dataService.updateRep(
                 repId,
                 placeId,
                 parentId,
@@ -313,7 +325,7 @@ public class PlaceAndRepDbServiceTest {
                 1925,
                 281,
                 "en",
-                makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "dk", "DK-Nerf-Terr"),
+                makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "da", "DA-Nerf-Terr"),
                 40.0,
                 -111.4,
                 true,

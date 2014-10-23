@@ -1,55 +1,75 @@
-package std.wlj.dbnew;
+package std.wlj.access;
 
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.CitationBridge;
 import org.familysearch.standards.place.data.PlaceRepBridge;
+import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 import org.familysearch.standards.place.service.DbWritableService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
-public class CitationDbServiceTest {
+public class CitationTest {
 
     public static void main(String... args) {
 
-        ApplicationContext appContext = null;
-        try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
-            BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-            DbReadableService dbRService = new DbReadableService(ds);
-            DbWritableService dbWService = new DbWritableService(ds);
+//      System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
+//      System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
+      System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
+      System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
+      System.setProperty("solr.master", "false");
+      System.setProperty("solr.slave", "false");
 
-            PlaceRepBridge placeRepB = dbRService.getRep(2, null);
-            List<CitationBridge> citnBs = placeRepB.getAllCitations();
+      ApplicationContext appContext = null;
+      PlaceDataServiceImpl dataService = null;
+
+        try {
+            int repId = 145;
+            appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
+            BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
+            SolrService       solrService = new SolrService();
+            DbReadableService dbRService  = new DbReadableService(ds);
+            DbWritableService dbWService  = new DbWritableService(ds);
+            dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
+
+            PlaceRepBridge placeRepB01 = dbRService.getRep(repId, null);
+            if (placeRepB01 == null) {
+                System.out.println("Not found --- repId=" + repId);
+                return;
+            }
+
+            List<CitationBridge> citnBs = placeRepB01.getAllCitations();
             System.out.println("\nALL..............................................\n");
             for (CitationBridge citnB : citnBs) {
                 System.out.println("CITN: " + citnB.getCitationId() + "." + citnB.getPlaceRep().getRepId() + " :: " + citnB.getSourceRef() + " :: " + citnB.getDescription());
             }
 
             System.out.println("\nNEW..............................................\n");
-            CitationBridge citnB01 = dbWService.createCitation(2, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000");
+            CitationBridge citnB01 = dataService.createCitation(2, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000");
             System.out.println("CITN: " + citnB01.getCitationId() + "." + citnB01.getPlaceRep().getRepId() + " :: " + citnB01.getSourceRef() + " :: " + citnB01.getDescription());
 
             System.out.println("\nUPD..............................................\n");
-            CitationBridge citnB02 = dbWService.updateCitation(citnB01.getCitationId(), 2, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000");
+            CitationBridge citnB02 = dataService.updateCitation(citnB01.getCitationId(), 2, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000");
             System.out.println("CITN: " + citnB02.getCitationId() + "." + citnB02.getPlaceRep().getRepId() + " :: " + citnB02.getSourceRef() + " :: " + citnB02.getDescription());
 
             System.out.println("\nALL..............................................\n");
-            placeRepB = dbRService.getRep(2, null);
-            citnBs = placeRepB.getAllCitations();
+            PlaceRepBridge placeRepB02 = dbRService.getRep(repId, null);
+            System.out.println("PLACE-REP: " + placeRepB02.getRepId() + "." + placeRepB02.getVersion() + "." + placeRepB02.getRevision());
+            citnBs = placeRepB02.getAllCitations();
             for (CitationBridge citnB : citnBs) {
                 System.out.println("CITN: " + citnB.getCitationId() + "." + citnB.getPlaceRep().getRepId() + " :: " + citnB.getSourceRef() + " :: " + citnB.getDescription());
             }
 
             System.out.println("\nALL (after delete)...............................\n");
-            dbWService.deleteCitation(citnB01.getCitationId(), 2, "wjohnson000");
+            dataService.deleteCitation(citnB01.getCitationId(), 2, "wjohnson000");
 
-            placeRepB = dbRService.getRep(2, null);
-            citnBs = placeRepB.getAllCitations();
+            PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
+            citnBs = placeRepB03.getAllCitations();
             for (CitationBridge citnB : citnBs) {
                 System.out.println("CITN: " + citnB.getCitationId() + "." + citnB.getPlaceRep().getRepId() + " :: " + citnB.getSourceRef() + " :: " + citnB.getDescription());
             }
