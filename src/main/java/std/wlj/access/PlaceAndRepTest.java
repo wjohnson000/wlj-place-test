@@ -318,21 +318,20 @@ public class PlaceAndRepTest {
 
     private static PlaceRepBridge updateNerfPlaceRep01(int repId, int placeId, int parentId) throws PlaceDataException {
         return dataService.updateRep(
-                repId,
-                placeId,
-                parentId,
-                1910,
-                1925,
-                281,
-                "en",
-                makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "da", "DA-Nerf-Terr"),
-                40.0,
-                -111.4,
-                true,
-                true,
-                null,
-                "wjohnson000");
-
+            repId,
+            placeId,
+            parentId,
+            1910,
+            1925,
+            281,
+            "en",
+            makeRepNames("en", "Nerf Territory", "fr", "FR-Nerf-Terr", "da", "DA-Nerf-Terr"),
+            40.0,
+            -111.4,
+            true,
+            true,
+            null,
+            "wjohnson000");
     }
 
     /**
