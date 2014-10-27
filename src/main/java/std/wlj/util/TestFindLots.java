@@ -100,8 +100,8 @@ public class TestFindLots {
         SolrService solrService = SolrManager.getLocalTokoro();
         PlaceService placeService = new PlaceService(solrService);
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
-        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
+        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
         System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         // Do a couple of interpretations for fun ...

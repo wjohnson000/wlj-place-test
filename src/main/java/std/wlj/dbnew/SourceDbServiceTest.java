@@ -22,13 +22,13 @@ public class SourceDbServiceTest {
             DbWritableService dbWService = new DbWritableService(ds);
 
             System.out.println("\nALL..............................................\n");
-            Set<SourceBridge> sourceBs = dbRService.getSources();
+            Set<SourceBridge> sourceBs = dbRService.getSources(false);
             for (SourceBridge sourceB : sourceBs) {
                 System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
             }
 
             System.out.println("\nONE..............................................\n");
-            SourceBridge sourceB = dbRService.getSourceById(11);
+            SourceBridge sourceB = dbRService.getSourceById(11, false);
             System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
 
             System.out.println("\nNEW..............................................\n");

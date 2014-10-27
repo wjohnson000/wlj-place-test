@@ -22,8 +22,8 @@ import org.familysearch.standards.place.ws.model.ScorerModel;
 public class TestSearchMetrics41K {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
 
     private static final double ONE_MILLION = 1000000.0;
 
@@ -56,15 +56,16 @@ public class TestSearchMetrics41K {
 
         PrintWriter pwOut = new PrintWriter(new FileWriter(new File(outFileName)));
 
-//        textes.clear();
-//        textes.add("*Radford*");
-//        textes.add("Pleasant");
-//        textes.add("darlington, south carolina");
-//        textes.add("san isidro, collpa de nor cinti, chuquisaca, bolivi");
-//        textes.add("long island");
-//        textes.add("snowflake, navajo, arizona, united states");
-//        textes.add("yarmouth, yarmouth, yarmouth town, yarmouth, nova scotia, canada");
-//        textes.add("san miguel san julian, valladolid, valladolid, spain");
+        textes.clear();
+        textes.add("*Radford*");
+        textes.add("Pleasant");
+        textes.add("darlington, south carolina");
+        textes.add("san isidro, collpa de nor cinti, chuquisaca, bolivi");
+        textes.add("long island");
+        textes.add("snowflake, navajo, arizona, united states");
+        textes.add("yarmouth, yarmouth, yarmouth town, yarmouth, nova scotia, canada");
+        textes.add("san miguel san julian, valladolid, valladolid, spain");
+        textes.add("Roswell, Lincoln, New Mexiso, United States");
 
         int cnt = 0;
         Date startDate = new Date();

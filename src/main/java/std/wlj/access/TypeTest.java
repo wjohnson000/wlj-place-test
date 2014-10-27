@@ -42,17 +42,17 @@ public class TypeTest {
             dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
 
             System.out.println("\nALL [Name]........................................\n");
-            Set<TypeBridge> typeBs = dataService.getTypes(TypeBridge.TYPE.NAME);
+            Set<TypeBridge> typeBs = dataService.getTypes(TypeBridge.TYPE.NAME, false);
             for (TypeBridge typeB : typeBs) {
                 System.out.println("TYPE: " + typeB.getTypeId() + " :: " + typeB.getCode() + " :: " + typeB.getNames());
             }
 
             System.out.println("\nONE..............................................\n");
-            TypeBridge typeB00 = dataService.getTypeById(TypeBridge.TYPE.NAME, 444);
+            TypeBridge typeB00 = dataService.getTypeById(TypeBridge.TYPE.NAME, 444, false);
             System.out.println("TYPE: " + typeB00.getTypeId() + " :: " + typeB00.getCode() + " :: " + typeB00.getNames());
 
             System.out.println("\nTWO..............................................\n");
-            typeB00 = dataService.getTypeByCode(TypeBridge.TYPE.NAME, "ISONAME");
+            typeB00 = dataService.getTypeByCode(TypeBridge.TYPE.NAME, "ISONAME", false);
             System.out.println("TYPE: " + typeB00.getTypeId() + " :: " + typeB00.getCode() + " :: " + typeB00.getNames());
 
             System.out.println("\nNEW..............................................\n");
@@ -66,7 +66,7 @@ public class TypeTest {
             System.out.println("TYPE: " + typeB02.getTypeId() + " :: " + typeB02.getCode() + " :: " + typeB02.getNames());
 
             System.out.println("\nALL [Name]........................................\n");
-            for (TypeBridge typeB : dataService.getTypes(TypeBridge.TYPE.NAME)) {
+            for (TypeBridge typeB : dataService.getTypes(TypeBridge.TYPE.NAME, false)) {
                 System.out.println("TYPE: " + typeB.getTypeId() + " :: " + typeB.getCode() + " :: " + typeB.getNames());
             }
         } catch(Exception ex) {
