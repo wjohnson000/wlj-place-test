@@ -20,12 +20,16 @@ public class PlaceUPDATE {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
-    private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
+//    private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
+//    private static String baseUrl = "http://www.familysearch.org/int-std-ws-place/places";
+    private static String baseUrl = "http://familysearch.org/int-std-ws-place/places";
 
 
     public static void main(String[] args) throws Exception {
         PlaceModel placeModel = getPlace(1337578);
+        printIt("Original PRG-Model", placeModel);
+
+        placeModel = getPlace(962649);
         printIt("Original PRG-Model", placeModel);
 
 //        PlaceModel updPlaceModel = updateFromTo(placeModel, 1800, 1995);

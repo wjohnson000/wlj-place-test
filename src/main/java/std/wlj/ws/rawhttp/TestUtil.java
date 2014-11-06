@@ -177,7 +177,8 @@ public class TestUtil {
         urlConn.setReadTimeout(readTimeOut);
         urlConn.setRequestProperty("Accept-Language", "en");
         urlConn.setRequestProperty("Accept-Charset", "utf-8");
-        urlConn.setRequestProperty("Accept", "application/standards-places-v2+json");
+        urlConn.setRequestProperty("Accept", RootModel.APPLICATION_JSON_PLACES);
+//        urlConn.setRequestProperty("Accept", RootModel.APPLICATION_XML_PLACES);
 
         return urlConn;
     }

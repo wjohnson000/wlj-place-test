@@ -28,7 +28,7 @@ public class TestFindOutOfMemory {
 
         PlaceRequestBuilder builder;
 //        builder = placeService.createRequestBuilder("中國河南穎北濟西洛東ChinaHeNanYingBeiJiXiLuoDong", StdLocale.ENGLISH);
-        builder = placeService.createRequestBuilder("中國河南穎北濟西洛東", StdLocale.ENGLISH);
+        builder = placeService.createRequestBuilder("中國河南穎北濟西洛東ChinaHeNanYingBeiJiXiLuoDong", StdLocale.ENGLISH);
         builder.setShouldCollectMetrics(true);
 //        builder.setFuzzyType(FuzzyType.EDIT_DISTANCE);
 
