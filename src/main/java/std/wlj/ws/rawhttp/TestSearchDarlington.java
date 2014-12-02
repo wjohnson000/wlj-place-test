@@ -27,7 +27,7 @@ public class TestSearchDarlington {
 //        System.out.println("RM: " + model);
 
         URL urlx = new URL(baseUrl + "/request");
-        RootModel modelx = TestUtil.doGET(urlx);
+        RootModel modelx = TestUtil.doGET(urlx, "text", "Ålborg, Denmark", "pubType", "pub_only");
         System.out.println("RM: " + modelx);
     }
 }
