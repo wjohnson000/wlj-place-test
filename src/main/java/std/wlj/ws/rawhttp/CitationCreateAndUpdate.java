@@ -22,14 +22,15 @@ public class CitationCreateAndUpdate {
      * get the citations again.
      */
     public static void main(String[] args) throws Exception {
-        int repId = 188111;
+        int repId = 79;
 
-        readCitations(repId);
-        CitationModel citnModel = addCitation(repId);
-        if (citnModel != null) {
+        int[] citnTypeIds = { 465, 467, 459, 461, 466 };
+        for (int citnTypeId : citnTypeIds) {
+            System.out.println("=========================================================================================");
             readCitations(repId);
-            updateCitation(repId, citnModel);
+            addCitation(repId, citnTypeId);
             readCitations(repId);
+            System.out.println("=========================================================================================");
         }
     }
 
@@ -39,41 +40,28 @@ public class CitationCreateAndUpdate {
         printIt("Read the model ...", repId, model);
     }
 
-    private static CitationModel addCitation(int repId) throws Exception {
+    private static CitationModel addCitation(int repId, int citnTypeId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations?noCache=true");
 
         TypeModel citnType = new TypeModel();
-        citnType.setId(465);
+        citnType.setId(citnTypeId);
         citnType.setCode("ATTR");
 
         CitationModel citnModel = new CitationModel();
         citnModel.setRepId(repId);
         citnModel.setType(citnType);
         citnModel.setSourceId(1);
-        citnModel.setSourceRef("wlj - abc");
-        citnModel.setDescription("This is a description");
+        citnModel.setSourceRef("wlj - abc - " + citnTypeId);
+        citnModel.setDescription("This is a description." + citnTypeId);
         citnModel.setCitDate(new Date());
 
         RootModel model = new RootModel();
         model.setCitation(citnModel);
+        System.out.println("RM: \n" + model.toJSON() + "\n");
 
         RootModel modelX = TestUtil.doPOST(url, model);
         printIt("Add a new citation ...", repId, modelX);
         return (modelX == null) ? null : modelX.getCitation();
-    }
-
-    @SuppressWarnings("deprecation")
-    private static void updateCitation(int repId, CitationModel citnModel) throws Exception {
-        URL url = new URL(baseUrl + "/reps/" + repId + "/citations/" + citnModel.getId() + "?noCache=true");
-
-        citnModel.setDescription("This is a description -- xxx");
-        citnModel.setCitDate(new Date(114, 8, 25));
-
-        RootModel model = new RootModel();
-        model.setCitation(citnModel);
-
-        RootModel modelX = TestUtil.doPUT(url, model);
-        printIt("Update an existing citation ...", repId, modelX);
     }
 
     private static void printIt(String msg, int repId, RootModel rootModel) {
@@ -92,7 +80,12 @@ public class CitationCreateAndUpdate {
         }
 
         for (CitationModel citnM : citnModels) {
-            System.out.println("  " + citnM.getId() + "; date=" + citnM.getCitDate() + "; ref=" + citnM.getSourceRef());
+            System.out.println("  " + citnM.getId() +
+                    "; type=" + citnM.getType().getCode() +
+                    "; srcId=" + citnM.getSourceId() +
+                    "; ref=" + citnM.getSourceRef() +
+                    "; desc=" + citnM.getDescription() +
+                    "; date=" + citnM.getCitDate());
         }
     }
 }

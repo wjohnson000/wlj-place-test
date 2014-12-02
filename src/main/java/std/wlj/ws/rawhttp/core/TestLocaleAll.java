@@ -8,8 +8,9 @@ import org.familysearch.standards.core.ws.model.RootModel;
 public class TestLocaleAll {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://core-ws-dev.dev.fsglobal.org/std-ws-core/core";
-//    private static String baseUrl = "http://localhost:8080/std-ws-core/core";
+//    private static String baseUrl = "http://core-ws-dev.dev.fsglobal.org/int-std-ws-core/core";
+//    private static String baseUrl = "http://core-ws-test.dev.fsglobal.org/int-std-ws-core/core";
+    private static String baseUrl = "http://core-ws-stage.dev.fsglobal.org/int-std-ws-core/core";
 
 
     /**

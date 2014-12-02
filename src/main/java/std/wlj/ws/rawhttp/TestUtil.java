@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectReader;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.familysearch.standards.place.ws.model.RootModel;
+
 
 public class TestUtil {
 
@@ -34,13 +36,34 @@ public class TestUtil {
 
 
     /**
-     * Do a GET operation against the url ...
+     * Do a GET operation against the url ... NOTE: this method should not be used
+     * if there are parameters that need to be url-encoded
      * 
      * @param url url
      * @return new model object, or whatever the service returns
      */
     public static RootModel doGET(URL url) throws Exception {
         return doRequest(url, "GET");
+    }
+
+    /**
+     * Do a GET operation against the url ... after URL-encoding the parameters ...
+     * NOTE: this method should be used when there are parameters that need to be
+     * url-encoded
+     * 
+     * @param url url
+     * @param keyVal list of key+value combinations
+     * @return new model object, or whatever the service returns
+     */
+    public static RootModel doGET(URL url, String... keyVal) throws Exception {
+        char ch = '?';
+        StringBuilder buff = new StringBuilder();
+        buff.append(url.toString());
+        for (int i=0;  i<keyVal.length;  i+=2) {
+            buff.append(ch).append(keyVal[i]).append("=").append(URLEncoder.encode(keyVal[i+1], "UTF-8"));
+            ch = '&';
+        }
+        return doGET(new URL(buff.toString()));
     }
 
     /**
@@ -167,11 +190,23 @@ public class TestUtil {
         return null;
     }
 
+    /**
+     * Set up the connection ... here we do a little cheating to determine if the URL
+     * hasn't been [possibly hasn't been] correctly encoded yet.
+     * 
+     * @param url URL to be hit
+     * @return
+     * @throws Exception
+     */
     private static URLConnection setupConnection(URL url) throws Exception {
-        URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), null);
-        URL newUrl = uri.toURL();
-
-        URLConnection urlConn = newUrl.openConnection();
+        URLConnection urlConn = null;
+        if (url.toString().contains(" ")) {
+            URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), null);
+            URL newUrl = uri.toURL();
+            urlConn = newUrl.openConnection();
+        } else {
+            urlConn = url.openConnection();
+        }
 
         urlConn.setConnectTimeout(connectTimeOut);
         urlConn.setReadTimeout(readTimeOut);
