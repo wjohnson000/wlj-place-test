@@ -5,10 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +36,7 @@ public class TestSearch {
 //        PlaceService placeService = new PlaceService(solrService);
         PlaceService placeService = new PlaceService(new DefaultPlaceRequestProfile(solrService));
 
-        FileSystem currFS = FileSystems.getDefault();
-        Path temp = currFS.getPath("C:", "temp", "local-all-random.txt");
+        Path temp = Paths.get("C:", "temp", "local-all-random.txt");
         List<String> textes = Files.readAllLines(temp, Charset.forName("UTF-8"));
 
         PrintWriter pwOut = new PrintWriter(new FileWriter(new File("C:/temp/search-via-place-service-xx01.txt")));

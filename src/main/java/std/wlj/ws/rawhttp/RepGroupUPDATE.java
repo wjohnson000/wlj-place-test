@@ -2,7 +2,6 @@ package std.wlj.ws.rawhttp;
 
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.familysearch.standards.place.ws.model.LocalizedNameDescModel;
@@ -28,21 +27,47 @@ public class RepGroupUPDATE {
 
 
     public static void main(String[] args) throws Exception {
-        PlaceRepGroupModel prgModel = getPRGroup(50);
+        PlaceRepGroupModel prgModel = createPRGroup("en", "name-z", "desc-z");
         printIt("Original PRG-Model", prgModel);
 
-        PlaceRepGroupModel updPrgModel = addSubGroup(prgModel, "en", "name-z", "desc-z");
-      printIt("Updated PRG-Model", updPrgModel);
-//        PlaceRepGroupModel updPrgModel = addPlaceReps(prgModel, 6, 7, 8);
-//
-//        prgModel = getPRGroup(50);
-//        printIt("Updated PRG-Model", prgModel);
+        PlaceRepGroupModel newPrgModel = getPRGroup(prgModel.getId());
+        printIt("Original PRG-Model", newPrgModel);
+
+//        PlaceRepGroupModel updPrgModel = addSubGroup(prgModel, "en", "name-z", "desc-z");
+//        printIt("Updated PRG-Model", updPrgModel);
+
+        PlaceRepGroupModel updPrgModel = modifyPlaceReps(prgModel, 6, 7, 8);
+        printIt("Updated PRG-Model", updPrgModel);
+
+        updPrgModel = modifyPlaceReps(updPrgModel, 7, 8);
+        printIt("Updated PRG-Model", updPrgModel);
     }
 
     private static PlaceRepGroupModel getPRGroup(int prgId) throws Exception {
         URL url = new URL(baseUrl + "/" + prgId);
         RootModel responseModel = TestUtil.doGET(url);
         return responseModel.getPlaceRepGroup();
+    }
+
+    private static PlaceRepGroupModel createPRGroup(String... termData) throws Exception {
+        List<LocalizedNameDescModel> theNameDesc = new ArrayList<>();
+        for (int i=0;  i<termData.length;  i+=3) {
+            theNameDesc.add(makeNameAndDesc(termData[i], termData[i+1], termData[i+2]));
+        }
+
+        PlaceRepGroupModel model = new PlaceRepGroupModel();
+        model.setId(0);
+        model.setIsPublished(true);
+        model.setName(theNameDesc);
+        model.setRepSummaries(new ArrayList<PlaceRepSummaryModel>());
+        model.setSubGroups(new ArrayList<PlaceRepGroupModel>());
+
+        URL url = new URL(baseUrl);
+        RootModel requestModel = new RootModel();
+        requestModel.setPlaceRepGroup(model);
+        RootModel responseModel = TestUtil.doPOST(url, requestModel);
+        return responseModel.getPlaceRepGroup();
+
     }
 
     /**
@@ -63,7 +88,7 @@ public class RepGroupUPDATE {
         return nameDesc;
     }
 
-    private static PlaceRepGroupModel addPlaceReps(PlaceRepGroupModel existing, int... repIds) throws Exception {
+    private static PlaceRepGroupModel modifyPlaceReps(PlaceRepGroupModel existing, int... repIds) throws Exception {
         URL url = new URL(baseUrl + "/" + existing.getId());
 
         List<PlaceRepSummaryModel> prSummaries = new ArrayList<>();
