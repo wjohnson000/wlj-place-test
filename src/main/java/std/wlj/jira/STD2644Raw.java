@@ -1,4 +1,4 @@
-package std.wlj.ws.rawhttp;
+package std.wlj.jira;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.PlaceRepresentation;

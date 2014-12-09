@@ -9,10 +9,10 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 
 
-public class CitationTypeCreate {
+public class ExtXrefTypeCreate {
 
     /** Base URL of the application */
-    private static String citationUrl = "http://localhost:8080/std-ws-place/places/citation-types";
+    private static String xrefationUrl = "http://localhost:8080/std-ws-place/places/xref-types";
 
 
     /**
@@ -21,18 +21,18 @@ public class CitationTypeCreate {
     public static void main(String[] args) throws Exception {
         LocalizedNameDescModel nameDesc01 = new LocalizedNameDescModel();
         nameDesc01.setLocale("en");
-        nameDesc01.setName("cit-type-new-en");
-        nameDesc01.setDescription("cit-type-new-desc-en");
+        nameDesc01.setName("XrefNew");
+        nameDesc01.setDescription("xref-type-new-desc-en");
 
         LocalizedNameDescModel nameDesc02 = new LocalizedNameDescModel();
         nameDesc02.setLocale("fr");
-        nameDesc02.setName("cit-type-new-fr");
-        nameDesc02.setDescription("cit-type-new-desc-fr");
+        nameDesc02.setName("XrefNewFr");
+        nameDesc02.setDescription("xref-type-new-desc-fr");
 
         LocalizedNameDescModel nameDesc03 = new LocalizedNameDescModel();
         nameDesc03.setLocale("de");
-        nameDesc03.setName("cit-type-new-de");
-        nameDesc03.setDescription("cit-type-new-desc-de");
+        nameDesc03.setName("XrefNewDe");
+        nameDesc03.setDescription("xref-type-new-desc-de");
 
         List<LocalizedNameDescModel> names = new ArrayList<LocalizedNameDescModel>();
         names.add(nameDesc01);
@@ -41,7 +41,7 @@ public class CitationTypeCreate {
 
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
-        typeModel.setCode("CIT-NEW-DUMMY");
+        typeModel.setCode("XREF_NEW");
         typeModel.setIsPublished(true);
         typeModel.setName(names);
         
@@ -51,16 +51,16 @@ public class CitationTypeCreate {
         System.out.println(prModel.toJSON());
         System.out.println("---------------------------------------------------------------------------------");
 
-        URL url = new URL(citationUrl);
+        URL url = new URL(xrefationUrl);
         RootModel model = TestUtil.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
-        TypeModel citModel = model.getType();
+        TypeModel xrefModel = model.getType();
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println(model.toJSON());
         System.out.println("---------------------------------------------------------------------------------");
 
-        if (citModel != null) {
-            url = new URL(citationUrl + "/" + citModel.getId());
+        if (xrefModel != null) {
+            url = new URL(xrefationUrl + "/" + xrefModel.getId());
             model = TestUtil.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }

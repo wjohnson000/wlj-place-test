@@ -24,7 +24,7 @@ public class CitationCreateAndUpdate {
     public static void main(String[] args) throws Exception {
         int repId = 79;
 
-        int[] citnTypeIds = { 465, 467, 459, 461, 466 };
+        int[] citnTypeIds = { 613 };
         for (int citnTypeId : citnTypeIds) {
             System.out.println("=========================================================================================");
             readCitations(repId);
@@ -51,15 +51,21 @@ public class CitationCreateAndUpdate {
         citnModel.setRepId(repId);
         citnModel.setType(citnType);
         citnModel.setSourceId(1);
-        citnModel.setSourceRef("wlj - abc - " + citnTypeId);
+        citnModel.setSourceRef("test - abc - " + citnTypeId);
         citnModel.setDescription("This is a description." + citnTypeId);
         citnModel.setCitDate(new Date());
 
         RootModel model = new RootModel();
         model.setCitation(citnModel);
-        System.out.println("RM: \n" + model.toJSON() + "\n");
+        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println(model.toJSON());
+        System.out.println("---------------------------------------------------------------------------------");
 
         RootModel modelX = TestUtil.doPOST(url, model);
+        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println(modelX.toJSON());
+        System.out.println("---------------------------------------------------------------------------------");
+
         printIt("Add a new citation ...", repId, modelX);
         return (modelX == null) ? null : modelX.getCitation();
     }

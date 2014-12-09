@@ -1,4 +1,4 @@
-package std.wlj.ws.rawhttp;
+package std.wlj.jira;
 
 import java.net.*;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.familysearch.standards.place.ws.model.PlaceModel;
 import org.familysearch.standards.place.ws.model.PlaceRepresentationModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.VariantModel;
+
+import std.wlj.ws.rawhttp.TestUtil;
 
 
 /**
