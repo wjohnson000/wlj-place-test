@@ -22,9 +22,9 @@ public class CitationCreateAndUpdate {
      * get the citations again.
      */
     public static void main(String[] args) throws Exception {
-        int repId = 79;
+        int repId = 123456;
 
-        int[] citnTypeIds = { 613 };
+        int[] citnTypeIds = { 463, 465, 466, 467 };
         for (int citnTypeId : citnTypeIds) {
             System.out.println("=========================================================================================");
             readCitations(repId);

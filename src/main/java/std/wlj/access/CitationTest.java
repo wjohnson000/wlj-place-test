@@ -29,8 +29,8 @@ public class CitationTest {
       PlaceDataServiceImpl dataService = null;
 
         try {
-            int repId = 145;
-            appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
+            int repId = 123457;
+            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
             SolrService       solrService = new SolrService();
             DbReadableService dbRService  = new DbReadableService(ds);
@@ -50,11 +50,15 @@ public class CitationTest {
             }
 
             System.out.println("\nNEW..............................................\n");
-            CitationBridge citnB01 = dataService.createCitation(2, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000");
+            CitationBridge citnB01 = dataService.createCitation(repId, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000");
             System.out.println("CITN: " + citnB01.getCitationId() + "." + citnB01.getPlaceRep().getRepId() + " :: " + citnB01.getSourceRef() + " :: " + citnB01.getDescription());
 
+            System.out.println("\nNEW..............................................\n");
+            CitationBridge citnB01X = dataService.createCitation(repId, 462, 22, new Date(), "citn-desc-x", "citn-ref-x", "wjohnson000");
+            System.out.println("CITNX: " + citnB01X.getCitationId() + "." + citnB01X.getPlaceRep().getRepId() + " :: " + citnB01X.getSourceRef() + " :: " + citnB01X.getDescription());
+
             System.out.println("\nUPD..............................................\n");
-            CitationBridge citnB02 = dataService.updateCitation(citnB01.getCitationId(), 2, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000");
+            CitationBridge citnB02 = dataService.updateCitation(citnB01.getCitationId(), repId, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000");
             System.out.println("CITN: " + citnB02.getCitationId() + "." + citnB02.getPlaceRep().getRepId() + " :: " + citnB02.getSourceRef() + " :: " + citnB02.getDescription());
 
             System.out.println("\nALL..............................................\n");
@@ -66,9 +70,14 @@ public class CitationTest {
             }
 
             System.out.println("\nALL (after delete)...............................\n");
-            dataService.deleteCitation(citnB01.getCitationId(), 2, "wjohnson000");
+            dataService.deleteCitation(citnB01.getCitationId(), repId, "wjohnson000");
+
+            System.out.println("\nNEW..............................................\n");
+            CitationBridge citnB01Y = dataService.createCitation(repId, 462, 22, new Date(), "citn-desc-y", "citn-ref-y", "wjohnson000");
+            System.out.println("CITNY: " + citnB01Y.getCitationId() + "." + citnB01Y.getPlaceRep().getRepId() + " :: " + citnB01Y.getSourceRef() + " :: " + citnB01Y.getDescription());
 
             PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
+            System.out.println("PLACE-REP: " + placeRepB03.getRepId() + "." + placeRepB03.getVersion() + "." + placeRepB03.getRevision());
             citnBs = placeRepB03.getAllCitations();
             for (CitationBridge citnB : citnBs) {
                 System.out.println("CITN: " + citnB.getCitationId() + "." + citnB.getPlaceRep().getRepId() + " :: " + citnB.getSourceRef() + " :: " + citnB.getDescription());

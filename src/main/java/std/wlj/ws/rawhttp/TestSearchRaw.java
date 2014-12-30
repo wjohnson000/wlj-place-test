@@ -13,8 +13,10 @@ public class TestSearchRaw {
 //    private static String baseUrl = "http://place-ws-stage.dev.fsglobal.org/int-std-ws-place/places";
 
     private static String[] interps = {
-        "5,Hungary,Békés",
-        "Hungary,Békés",
+//        "5,Hungary,Békés",
+//        "Hungary,Békés",
+//        "徳島県徳島市北常三島町",
+        "徳島県徳島市北常三島町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町町"
     };
 
 

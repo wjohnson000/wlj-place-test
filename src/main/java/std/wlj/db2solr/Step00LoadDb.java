@@ -23,10 +23,10 @@ public class Step00LoadDb {
     /**
      * Command-line arguments
      */
-    private static String dbURL  = "jdbc:postgresql://localhost:5432/standards";
-    private static String dbUser = "postgres";   // "sams_place";
-    private static String dbPassword = "admin";  // "sams_place";
-    private static String dataFile = "C:/temp/load-place-db/load-base-values.sql";
+    private static String dbURL  = "jdbc:postgresql://localhost:5432/wlj";
+    private static String dbUser = "wlj";
+    private static String dbPassword = "wlj";
+    private static String dataFile = "C:/Tools/flat-file/load-base-values.sql";
 
     /**
      * Create a connection to the database, or NULL if the connection can't be made.
@@ -139,6 +139,8 @@ public class Step00LoadDb {
     private static void doInsert(Connection conn, String sql) {
         Statement stmt = null;
         try {
+        	int ndx = sql.indexOf(';');
+        	logger.error("  First: " + sql.substring(0, ndx).trim());
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
         } catch(SQLException ex) {
@@ -146,6 +148,7 @@ public class Step00LoadDb {
         } finally {
             if (stmt != null) try { stmt.close(); } catch(Exception ex) { }
         }
+        logger.error("");
     }
 
     /**
