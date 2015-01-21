@@ -63,12 +63,12 @@
   </logger>
 
   <logger additivity="false" name="org.apache.lucene">
-    <level value="debug"/>
+    <level value="info"/>
     <appender-ref ref="console"/>
   </logger>
 
   <logger additivity="false" name="org.apache.solr">
-    <level value="debug"/>
+    <level value="info"/>
     <appender-ref ref="console"/>
   </logger>
 

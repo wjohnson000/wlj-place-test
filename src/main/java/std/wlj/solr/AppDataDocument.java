@@ -22,7 +22,7 @@ public class AppDataDocument {
         SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("id:CITATION-TYPE");
+        SolrQuery query = new SolrQuery("id:SOURCE");
         query.setRows(10);
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());

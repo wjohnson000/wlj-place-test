@@ -36,12 +36,15 @@ public class RunSolrLoadProcess {
         Connection conn = getConnection();
 
         // Crank up the data load process
+        long then = System.nanoTime();
         LoadSolrProcessor solrProcessor = new LoadSolrProcessor(conn, solrConn);
-        solrProcessor.runLoad(tempDirectory, true, true, true);
+        solrProcessor.runLoad(tempDirectory, false, false, true);
+        long nnow = System.nanoTime();
 
         // Go bye-bye ...
         solrConn.shutdown();
         conn.close();
+        System.out.println("Total run time: " + (nnow - then) / 1000000);
         System.exit(0);
     }
 
