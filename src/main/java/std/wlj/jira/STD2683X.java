@@ -1,4 +1,4 @@
-package std.wlj.solr;
+package std.wlj.jira;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
 
-public class SearchMasterById {
+public class STD2683X {
 
     public static void main(String... args) throws PlaceDataException {
 //        String solrHome = "http://localhost:8983/solr/places";
