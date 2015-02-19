@@ -15,6 +15,7 @@ public class STD2683 {
     /** Base URL of the application */
     private static String baseUrl =   "https://familysearch.org/int-std-ws-place/places/request?limit=1000&pubType=pub_only&text=Dolinivka&threshold=0&valType=val_non_val&noCache=true";
 //    private static String baseUrl = "https://familysearch.org/int-std-ws-place/places/request?limit=1000&pubType=pub_only&text=Dolinivka&threshold=0&valType=val_non_val";
+//    private static String baseUrl =   "http://localhost:8080/std-ws-place/places/request?text=Dolinivka&threshold=0&valType=val_non_val";
 
     /**
      * Run two tests ... a GET of a specific place, and a search
