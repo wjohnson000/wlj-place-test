@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<std.lib.core.version>2.0.4.b23</std.lib.core.version>
-		<std.lib.place.version>2.0.2-SNAPSHOT</std.lib.place.version>
+		<std.lib.place.version>2.0.3-SNAPSHOT</std.lib.place.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
 		<std.ws.core.version>2.0.0.b39</std.ws.core.version>
 		<std.ws.place.version>2.0.1.b251</std.ws.place.version>
