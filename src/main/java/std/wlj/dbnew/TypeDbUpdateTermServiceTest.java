@@ -22,7 +22,7 @@ public class TypeDbUpdateTermServiceTest {
 
         ApplicationContext appContext = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
             DbWritableService dbWService = new DbWritableService(ds);
 

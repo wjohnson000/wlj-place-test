@@ -30,7 +30,7 @@ public class CitationTest {
 
         try {
             int repId = 123457;
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
             SolrService       solrService = new SolrService();
             DbReadableService dbRService  = new DbReadableService(ds);

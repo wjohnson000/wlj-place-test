@@ -25,7 +25,7 @@ public class GroupDbServiceTest {
 
         ApplicationContext appContext = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
             BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
             DbReadableService dbRService = new DbReadableService(ds);
             DbWritableService dbWService = new DbWritableService(ds);

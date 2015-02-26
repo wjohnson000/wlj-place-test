@@ -40,7 +40,7 @@ public class PlaceAndRepAndCitnTest {
 
         ApplicationContext appContext = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
             ds = (BasicDataSource)appContext.getBean("dataSource");
             SolrService       solrService = new SolrService();
             DbReadableService dbRService  = new DbReadableService(ds);

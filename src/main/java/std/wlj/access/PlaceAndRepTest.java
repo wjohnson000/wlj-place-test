@@ -51,7 +51,7 @@ public class PlaceAndRepTest {
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
 
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
         ds = (BasicDataSource)appContext.getBean("dataSource");
         SolrService       solrService = new SolrService();
         dbRService  = new DbReadableService(ds);

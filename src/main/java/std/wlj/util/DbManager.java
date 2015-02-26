@@ -29,7 +29,7 @@ public class DbManager {
      * @return Local DB connection
      */
     public static DbServices getLocal() {
-        ApplicationContext appContext = getAppContext("postgres-context-localhost.xml");
+        ApplicationContext appContext = getAppContext("postgres-context-localhost-wlj.xml");
         DataSource ds = (DataSource)appContext.getBean("dataSource");
         return (new DbServices(new DbReadableService(ds), new DbWritableService(ds)));
     }

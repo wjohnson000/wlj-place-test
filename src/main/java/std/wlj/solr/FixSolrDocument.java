@@ -24,7 +24,7 @@ public class FixSolrDocument {
         SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("id:9161141-*");  // new SolrQuery("id:8866947-*");
+        SolrQuery query = new SolrQuery("id:1648021-*");  // new SolrQuery("id:8866947-*");
         query.setRows(1000);
         query.setSort("revision", ORDER.asc);
         List<PlaceRepDoc> docs = solrConn.search(query);
@@ -46,14 +46,11 @@ public class FixSolrDocument {
         }
 
         // Modify the document ...
-//        if (xDoc != null) {
-//            xDoc.setId("9161141-483440");
-//            xDoc.setRevision(483440);
+        if (xDoc != null) {
 //            xDoc.setForwardRevision(null);
-//            xDoc.setCentroid("19.429945,97.855056");
 //            solrConn.add(xDoc);
 //            solrConn.commit();
-//        }
+        }
         System.exit(0);
     }
 }

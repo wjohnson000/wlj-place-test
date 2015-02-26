@@ -41,7 +41,7 @@ public class PlaceAndRepDbServiceTest {
 
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
         ds = (BasicDataSource)appContext.getBean("dataSource");
         dbRService = new DbReadableService(ds);
         dbWService = new DbWritableService(ds);

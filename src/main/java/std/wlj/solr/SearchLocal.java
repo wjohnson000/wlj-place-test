@@ -2,54 +2,45 @@ package std.wlj.solr;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.solr.client.solrj.SolrQuery;
+import org.familysearch.standards.place.data.AppDataManager;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
 
-public class SearchMasterById {
+public class SearchLocal {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "http://familysearch.org/int-solr/places";
+        String solrHome = "C:/Users/wjohnson000/.places/test-delete-me";
 
         System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
+        System.setProperty("solr.master.url", "");
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance(solrHome, false);
 
         // Do a look-up by documents ...
-        Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
-//        SolrQuery query = new SolrQuery("revision:[786979 TO 800000]");
-//        SolrQuery query = new SolrQuery("id:553594-*");
-        SolrQuery query = new SolrQuery("ownerId:560122");
-        query.setRows(32);
-        query.setSort("revision", SolrQuery.ORDER.asc);
+        SolrQuery query = new SolrQuery("id:*");
+        query.setSort("repId", SolrQuery.ORDER.asc);
+        query.setRows(132);
         List<PlaceRepDoc> docs = solrConn.search(query);
-        System.out.println("CNT: " + docs.size());
-        for (PlaceRepDoc doc : docs) {
-            PlaceRepDoc currDoc = uniqueDocs.get(doc.getRepId());
-            if (currDoc == null) {
-                uniqueDocs.put(doc.getRepId(), doc);
-            } else if (doc.getRevision() > currDoc.getRevision()) {
-                uniqueDocs.put(doc.getRepId(), doc);
-            }
-        }
 
-        for (PlaceRepDoc doc : uniqueDocs.values()) {
+        for (PlaceRepDoc doc : docs) {
+            if (AppDataManager.isAppDataDoc(doc)) {
+                continue;
+            }
+
             System.out.println("ID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
             System.out.println("  Place:  " + doc.getPlaceId());
             System.out.println("  F-Rev:  " + doc.getForwardRevision());
             System.out.println("  D-Name: " + doc.getDisplayNameMap());
             System.out.println("  P-Name: " + doc.getNames());
-            System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
-            System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
+            for (String extXref : doc.getExtXrefs()) {
+                System.out.println("  Ext-Xref: " + extXref);
+            }
         }
 
         System.exit(0);

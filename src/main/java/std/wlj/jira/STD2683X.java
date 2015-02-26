@@ -26,7 +26,7 @@ public class STD2683X {
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
-        SolrQuery query = new SolrQuery("repId:7095506");
+        SolrQuery query = new SolrQuery("ownerId:4219431");
 //        SolrQuery query = new SolrQuery("ownerId:4219431");
         query.setSort("revision", SolrQuery.ORDER.asc);
         query.setRows(32);

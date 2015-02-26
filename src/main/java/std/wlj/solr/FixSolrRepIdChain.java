@@ -10,7 +10,12 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
 
-public class FixSolr9266829 {
+/**
+ * Fix the chain in this documents ...
+ * @author wjohnson000
+ *
+ */
+public class FixSolrRepIdChain {
 
     public static void main(String... args) throws PlaceDataException {
         String solrHome = "http://familysearch.org/int-solr/places";
@@ -22,7 +27,7 @@ public class FixSolr9266829 {
         SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("id:1830533-*");
+        SolrQuery query = new SolrQuery("id:8313703-*");
         query.setRows(1000);
         query.setSort("revision", ORDER.asc);
         List<PlaceRepDoc> docs = solrConn.search(query);
@@ -32,27 +37,20 @@ public class FixSolr9266829 {
         for (PlaceRepDoc doc : docs) {
             xDoc = doc;
             System.out.println("ID: " + doc.getId() + " --> " + doc.getRevision() + " --> " + doc.getType() + " --> " + doc.getDeleteId() + " --> " + doc.getPlaceDeleteId() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()));
+            System.out.println("  PAR: " + doc.getParentId());
+            System.out.println("  CHN: " + Arrays.toString(doc.getRepIdChain()));
+            System.out.println("  CHN: " + Arrays.toString(doc.getRepIdChainAsInt()));
             System.out.println("  FWD: " + doc.getForwardRevision());
-            System.out.println("  DSP: " + doc.getAllDisplayNames());
-            System.out.println("  CTR: " + doc.getCentroid());
-            for (String varn : doc.getVariantNames()) {
-                System.out.println("  VAR: " + varn);
-            }
-            for (String citn: doc.getCitations()) {
-            	System.out.println("  CIT: " + citn);
-            }
-            for (String xref: doc.getExtXrefs()) {
-                System.out.println("  XRF: " + xref);
-            }
         }
 
         // Modify the document ...
         if (xDoc != null) {
-//            xDoc.setId("9266829-591351");
-//            xDoc.setRevision(591351);
-//            xDoc.setForwardRevision(null);
-//            xDoc.setCentroid("17.930266,100.61622");
-//            xDoc.getCitations().add("64490401|398|460|2014-11-12|ห้วยมะยม|13255813");
+//            int[] newChain = new int[xDoc.getRepIdChainAsInt().length];
+//            System.arraycopy(xDoc.getRepIdChainAsInt(), 0, newChain, 1, newChain.length-1);
+//            newChain[0] = xDoc.getRepId();
+//            newChain[1] = xDoc.getParentId();
+//            System.out.println("NewChain: " + Arrays.toString(newChain));
+//            xDoc.setRepIdChainAsInt(newChain);
 //            solrConn.add(xDoc);
 //            solrConn.commit();
         }

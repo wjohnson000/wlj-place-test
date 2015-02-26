@@ -21,27 +21,15 @@ public class ExtXrefTypeCreate {
     public static void main(String[] args) throws Exception {
         LocalizedNameDescModel nameDesc01 = new LocalizedNameDescModel();
         nameDesc01.setLocale("en");
-        nameDesc01.setName("XrefNew");
-        nameDesc01.setDescription("xref-type-new-desc-en");
-
-        LocalizedNameDescModel nameDesc02 = new LocalizedNameDescModel();
-        nameDesc02.setLocale("fr");
-        nameDesc02.setName("XrefNewFr");
-        nameDesc02.setDescription("xref-type-new-desc-fr");
-
-        LocalizedNameDescModel nameDesc03 = new LocalizedNameDescModel();
-        nameDesc03.setLocale("de");
-        nameDesc03.setName("XrefNewDe");
-        nameDesc03.setDescription("xref-type-new-desc-de");
+        nameDesc01.setName("NGA USA");
+        nameDesc01.setDescription("NGA United States UFI");
 
         List<LocalizedNameDescModel> names = new ArrayList<LocalizedNameDescModel>();
         names.add(nameDesc01);
-        names.add(nameDesc02);
-        names.add(nameDesc03);
 
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
-        typeModel.setCode("XREF_NEW");
+        typeModel.setCode("NGA_US_UFI");
         typeModel.setIsPublished(true);
         typeModel.setName(names);
         
