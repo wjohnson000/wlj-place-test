@@ -19,19 +19,19 @@ public class AttributeCreateAndUpdate {
      * get the attributes again.
      */
     public static void main(String[] args) throws Exception {
-        int repId = 1;
+        int repId = 553594;
 
         readAttributes(repId);
         AttributeModel attrModel = addAttribute(repId);
-        readAttributes(repId);
-        updateAttribute(repId, attrModel);
-        readAttributes(repId);
+        System.out.println("Attr: " + attrModel.getId() + " . " + attrModel.getYear() + " . " + attrModel.getValue());
     }
 
     private static void readAttributes(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/");
         RootModel model = TestUtil.doGET(url);
-        System.out.println("READ: " + model);
+        for (AttributeModel aModel : model.getAttributes()) {
+            System.out.println("ATT: " + aModel.getId() + "|" + aModel.getYear() + "|" + aModel.getLocale() + "|" + aModel.getValue());
+        }
     }
 
     private static AttributeModel addAttribute(int repId) throws Exception {
@@ -45,7 +45,7 @@ public class AttributeCreateAndUpdate {
         attrModel.setRepId(repId);
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - NEWEST");
-        attrModel.setYear(1999);
+        attrModel.setYear(1930);
         attrModel.setLocale("en");
 
         RootModel model = new RootModel();
@@ -54,17 +54,5 @@ public class AttributeCreateAndUpdate {
         RootModel modelX = TestUtil.doPOST(url, model);
         System.out.println("CREATE: " + modelX);
         return modelX.getAttribute();
-    }
-
-    private static void updateAttribute(int repId, AttributeModel attrModel) throws Exception {
-        URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/" + attrModel.getId());
-
-        attrModel.setValue("WLJ - TEST - UPDATED");
-
-        RootModel model = new RootModel();
-        model.setAttribute(attrModel);
-
-        RootModel modelX = TestUtil.doPUT(url, model);
-        System.out.println("UPDATE: " + modelX);
     }
 }

@@ -11,10 +11,10 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
 
-public class SearchStageById {
+public class SearchDevById {
 
     public static void main(String... args) throws PlaceDataException {
-        String solrHome = "http://place-solr-stage.dev.fsglobal.org/int-solr/places";
+        String solrHome = "http://place-solr-dev.dev.fsglobal.org/int-solr-repeater/places";
 
         System.setProperty("solr.solr.home", solrHome);
         System.setProperty("solr.master.url", solrHome);
@@ -24,7 +24,7 @@ public class SearchStageById {
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
-        SolrQuery query = new SolrQuery("id:266-*");
+        SolrQuery query = new SolrQuery("id:553594-*");
 //        SolrQuery query = new SolrQuery("ownerId:3491780");
         query.setSort("revision", SolrQuery.ORDER.asc);
         query.setRows(32);
@@ -47,8 +47,11 @@ public class SearchStageById {
             System.out.println("  P-Name: " + doc.getNames());
             System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
-            for (String appData : doc.getVariantNames()) {
-                System.out.println("  " + appData);
+//            for (String citn : doc.getCitations()) {
+//                System.out.println("  Citn:  " + citn);
+//            }
+            for (String attr : doc.getAttributes()) {
+                System.out.println("  Attr:  " + attr);
             }
         }
 
