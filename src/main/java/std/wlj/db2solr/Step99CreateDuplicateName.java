@@ -63,7 +63,7 @@ public class Step99CreateDuplicateName {
         varNames.add(makeNameDef(0, "en", "provo", 445));
         varNames.add(makeNameDef(0, "en", "provo", 445));
 
-        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear(), placeB.getToYear(), varNames, wlj);
+        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear(), placeB.getToYear(), varNames, wlj, null);
     }
 
     /**

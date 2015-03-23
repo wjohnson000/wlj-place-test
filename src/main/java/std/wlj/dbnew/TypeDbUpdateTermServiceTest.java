@@ -27,7 +27,7 @@ public class TypeDbUpdateTermServiceTest {
             DbWritableService dbWService = new DbWritableService(ds);
 
             System.out.println("\nNEW..............................................\n");
-            TypeBridge typeB01 = dbWService.createType(TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000");
+            TypeBridge typeB01 = dbWService.createType(TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB01.getTypeId() + " :: " + typeB01.getCode() + " :: " + typeB01.getNames());
 
             System.out.println("\nUPD..............................................\n");
@@ -35,7 +35,7 @@ public class TypeDbUpdateTermServiceTest {
             descr.put("ru", "ru-description");
             names.put("fr", "fr-name-new");
             descr.put("fr", "fr-description");
-            TypeBridge typeB02 = dbWService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000");
+            TypeBridge typeB02 = dbWService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB02.getTypeId() + " :: " + typeB02.getCode() + " :: " + typeB02.getNames());
         } catch(Exception ex) {
             System.out.println("Ex: " + ex.getMessage());

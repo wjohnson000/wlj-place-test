@@ -2,6 +2,8 @@ package std.wlj.dbnew;
 
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.service.DbReadableService;
@@ -23,8 +25,15 @@ public class PlaceRepReadTest {
     static DbWritableService dbWService = null;
 
     public static void main(String[] args) throws Exception {
+        String password = JOptionPane.showInputDialog("Password:");
+        if (password == null) {
+            System.exit(0);
+        }
+
         ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-aws-prod.xml");
         ds = (BasicDataSource)appContext.getBean("dataSource");
+        ds.setPassword(password);
+
         dbRService = new DbReadableService(ds);
         dbWService = new DbWritableService(ds);
 

@@ -130,7 +130,8 @@ public class ThreadedDbServiceTest {
                 1900,
                 2000,
                 makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "f", "es", "es-Quilly", "f"),
-                username);
+                username,
+                null);
             return prBridge.getAssociatedPlace();
         } catch (PlaceDataException e) {
             System.out.println("Unable to create placep: " + e.getMessage());
@@ -148,7 +149,8 @@ public class ThreadedDbServiceTest {
                 pBridge.getFromYear()+1,
                 pBridge.getToYear()+1,
                 makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "f", "es", "es-Quilly", "f"),
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to update place-rep " + pBridge.getPlaceId() + ": " + e.getMessage());
             return null;
@@ -175,7 +177,8 @@ public class ThreadedDbServiceTest {
                 true,
                 true,
                 null,
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to create place-rep: " + e.getMessage());
             return null;
@@ -201,7 +204,8 @@ public class ThreadedDbServiceTest {
                 prBridge.isPublished(),
                 prBridge.isValidated(),
                 null,
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to update place-rep " + prBridge.getRepId() + ": " + e.getMessage());
             return null;
@@ -221,7 +225,8 @@ public class ThreadedDbServiceTest {
                 1910,
                 "en",
                 "value." + attrTypeId,
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to create attribute: " + e.getMessage());
             return null;
@@ -240,7 +245,8 @@ public class ThreadedDbServiceTest {
                 aBridge.getYear() + 1,
                 aBridge.getLocale(),
                 aBridge.getValue(),
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to update attribute -- " + aBridge.getAttributeId() + ": " + e.getMessage());
             return null;
@@ -252,7 +258,7 @@ public class ThreadedDbServiceTest {
      */
     private static int deleteAttribute(AttributeBridge aBridge) {
         try {
-            return dbWService.deleteAttribute(aBridge.getAttributeId(), aBridge.getPlaceRep().getRepId(), username);
+            return dbWService.deleteAttribute(aBridge.getAttributeId(), aBridge.getPlaceRep().getRepId(), username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to delete attribute -- " + aBridge.getAttributeId() + ": " + e.getMessage());
             return 0;
@@ -274,7 +280,8 @@ public class ThreadedDbServiceTest {
                 null,
                 "Description",
                 "Src-Ref" + citTypeId + "." + sourceId,
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to create citation: " + e.getMessage());
             return null;
@@ -295,7 +302,8 @@ public class ThreadedDbServiceTest {
                 cBridge.getDate(),
                 cBridge.getDescription() + "-X",
                 cBridge.getSourceRef(),
-                username);
+                username,
+                null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to update citation -- " + cBridge.getCitationId() + ": " + e.getMessage());
             return null;
@@ -307,7 +315,7 @@ public class ThreadedDbServiceTest {
      */
     private static int deleteCitation(CitationBridge cBridge) {
         try {
-            return dbWService.deleteCitation(cBridge.getCitationId(), cBridge.getPlaceRep().getRepId(), username);
+            return dbWService.deleteCitation(cBridge.getCitationId(), cBridge.getPlaceRep().getRepId(), username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to delete citation -- " + cBridge.getCitationId() + ": " + e.getMessage());
             return 0;

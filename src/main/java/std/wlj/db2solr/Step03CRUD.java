@@ -113,7 +113,8 @@ public class Step03CRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
-            wlj);
+            wlj,
+            null);
     }
 
     /**
@@ -152,7 +153,8 @@ public class Step03CRUD {
             1700,
             null,
             varNames,
-            wlj);
+            wlj,
+            null);
     }
 
     /**
@@ -177,7 +179,8 @@ public class Step03CRUD {
             true, 
             true,
             null,
-            wlj);
+            wlj,
+            null);
     }
 
     /**
@@ -209,7 +212,8 @@ public class Step03CRUD {
             1700,
             null,
             varNames,
-            wlj);
+            wlj,
+            null);
 
         PlaceBridge placeB = readService.getPlace(repB.getPlaceId(), null);
 //        PlaceBridge placeBX = repB.getAssociatedPlace();
@@ -219,7 +223,7 @@ public class Step03CRUD {
         for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
             varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
         }
-        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear()-100, placeB.getToYear(), varNames, "wlj");
+        dataService.updatePlace(placeB.getPlaceId(), placeB.getFromYear()-100, placeB.getToYear(), varNames, "wlj", null);
 
         // Modify the place-rep, save it
         Double lattd = repB.getLatitude();
@@ -251,7 +255,8 @@ public class Step03CRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
-            "wlj");
+            "wlj",
+            null);
     }
 
     /**
@@ -268,7 +273,7 @@ public class Step03CRUD {
             varNames.add(makeNameDef(pNameB.getNameId(), String.valueOf(pNameB.getName().getLocale()), pNameB.getName().get(), pNameB.getType().getTypeId()));
         }
 
-        dataService.updatePlace(placeB.getPlaceId(), 1850, placeB.getToYear(), varNames, wlj);
+        dataService.updatePlace(placeB.getPlaceId(), 1850, placeB.getToYear(), varNames, wlj, null);
     }
 
     /**
@@ -303,9 +308,10 @@ public class Step03CRUD {
             placeB.getFromYear(),
             placeB.getToYear(),
             varNames,
-            "wlj");
+            "wlj",
+            null);
 
-        dataService.deleteRep(newRepB.getRepId(), 8, wlj);
+        dataService.deleteRep(newRepB.getRepId(), 8, wlj, null);
     }
 
     /**

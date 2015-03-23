@@ -24,9 +24,9 @@ public class SearchStageById {
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
-        SolrQuery query = new SolrQuery("id:266-*");
+        SolrQuery query = new SolrQuery("repId:[6707155 TO 7000001]");
 //        SolrQuery query = new SolrQuery("ownerId:3491780");
-        query.setSort("revision", SolrQuery.ORDER.asc);
+        query.setSort("repId", SolrQuery.ORDER.asc);
         query.setRows(32);
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());

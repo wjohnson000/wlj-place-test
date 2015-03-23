@@ -56,13 +56,13 @@ public class TypeTest {
             System.out.println("TYPE: " + typeB00.getTypeId() + " :: " + typeB00.getCode() + " :: " + typeB00.getNames());
 
             System.out.println("\nNEW..............................................\n");
-            TypeBridge typeB01 = dataService.createType(TypeBridge.TYPE.NAME, "N-WLJ-02", names, descr, true, "wjohnson000");
+            TypeBridge typeB01 = dataService.createType(TypeBridge.TYPE.NAME, "N-WLJ-02", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB01.getTypeId() + " :: " + typeB01.getCode() + " :: " + typeB01.getNames());
 
             System.out.println("\nUPD..............................................\n");
             names.put("ru", "ru-name");
             descr.put("ru", "ru-description");
-            TypeBridge typeB02 = dataService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-02", names, descr, true, "wjohnson000");
+            TypeBridge typeB02 = dataService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-02", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB02.getTypeId() + " :: " + typeB02.getCode() + " :: " + typeB02.getNames());
 
             System.out.println("\nALL [Name]........................................\n");

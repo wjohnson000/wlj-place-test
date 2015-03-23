@@ -31,14 +31,14 @@ public class ExtXrefDbServiceTest {
 
             System.out.println("\nNEW/UPD..........................................\n");
             Set<Integer> repIds = new HashSet<>(Arrays.asList(2, 3, 4, 5));
-            extXrefBs = dbWService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000");
+            extXrefBs = dbWService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000", null);
             for (ExternalReferenceBridge extXrefB : extXrefBs) {
                 System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
             }
 
             System.out.println("\nNEW/UPD..........................................\n");
             repIds = new HashSet<>(Arrays.asList(4, 5, 6));
-            extXrefBs = dbWService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000");
+            extXrefBs = dbWService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000", null);
             for (ExternalReferenceBridge extXrefB : extXrefBs) {
                 System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
             }

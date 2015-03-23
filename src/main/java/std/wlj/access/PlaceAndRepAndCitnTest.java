@@ -50,22 +50,22 @@ public class PlaceAndRepAndCitnTest {
             PlaceRepBridge placeRepB01 = createQuilly();
             int repId = placeRepB01.getRepId();
 
-            CitationBridge citnB01 = dataService.createCitation(repId, 460, 1, null, "desc-c01", "ref-c01", fakeUser);
-            CitationBridge citnB02 = dataService.createCitation(repId, 460, 1, null, "desc-c02", "ref-c02", fakeUser);
-            CitationBridge citnB03 = dataService.createCitation(repId, 460, 1, null, "desc-c03", "ref-c03", fakeUser);
+            CitationBridge citnB01 = dataService.createCitation(repId, 460, 1, null, "desc-c01", "ref-c01", fakeUser, null);
+            CitationBridge citnB02 = dataService.createCitation(repId, 460, 1, null, "desc-c02", "ref-c02", fakeUser, null);
+            CitationBridge citnB03 = dataService.createCitation(repId, 460, 1, null, "desc-c03", "ref-c03", fakeUser, null);
 
-            dataService.deleteCitation(citnB02.getCitationId(), repId, fakeUser);
+            dataService.deleteCitation(citnB02.getCitationId(), repId, fakeUser, null);
 
-            CitationBridge citnB04 = dataService.createCitation(repId, 460, 1, null, "desc-c04", "ref-c04", fakeUser);
+            CitationBridge citnB04 = dataService.createCitation(repId, 460, 1, null, "desc-c04", "ref-c04", fakeUser, null);
 
-            dataService.deleteCitation(citnB03.getCitationId(), repId, fakeUser);
+            dataService.deleteCitation(citnB03.getCitationId(), repId, fakeUser, null);
 
-            CitationBridge citnB05 = dataService.createCitation(repId, 460, 1, null, "desc-c05", "ref-c05", fakeUser);
-            CitationBridge citnB06 = dataService.createCitation(repId, 460, 1, null, "desc-c06", "ref-c06", fakeUser);
-            CitationBridge citnB07 = dataService.createCitation(repId, 460, 1, null, "desc-c07", "ref-c07", fakeUser);
+            CitationBridge citnB05 = dataService.createCitation(repId, 460, 1, null, "desc-c05", "ref-c05", fakeUser, null);
+            CitationBridge citnB06 = dataService.createCitation(repId, 460, 1, null, "desc-c06", "ref-c06", fakeUser, null);
+            CitationBridge citnB07 = dataService.createCitation(repId, 460, 1, null, "desc-c07", "ref-c07", fakeUser, null);
 
-            dataService.deleteCitation(citnB06.getCitationId(), repId, fakeUser);
-            dataService.deleteCitation(citnB01.getCitationId(), repId, fakeUser);
+            dataService.deleteCitation(citnB06.getCitationId(), repId, fakeUser, null);
+            dataService.deleteCitation(citnB01.getCitationId(), repId, fakeUser, null);
 
             PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
             List<CitationBridge> citnBs = placeRepB03.getAllCitations();
@@ -107,7 +107,8 @@ public class PlaceAndRepAndCitnTest {
             1900,
             2000,
             makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "f", "es", "es-Quilly", "f"),
-            fakeUser);
+            fakeUser,
+            null);
     }
 
     /**

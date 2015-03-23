@@ -86,7 +86,8 @@ public class Step03DisplayNameCRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
-            wlj);
+            wlj,
+            null);
     }
 
 }

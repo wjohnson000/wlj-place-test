@@ -13,20 +13,22 @@ import org.familysearch.standards.place.data.solr.SolrConnection;
 public class SearchLocal {
 
     public static void main(String... args) throws PlaceDataException {
-        String solrHome = "C:/Users/wjohnson000/.places/test-delete-me";
+        String solrHome = "C:/Tools/solr/slave-x";
 
         System.setProperty("solr.solr.home", solrHome);
         System.setProperty("solr.master.url", "");
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
+        System.setProperty("solr.replication.url", "");
         SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance(solrHome, false);
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("id:*");
-        query.setSort("repId", SolrQuery.ORDER.asc);
+        SolrQuery query = new SolrQuery("id:8159284-*");
+        query.setSort("revision", SolrQuery.ORDER.asc);
         query.setRows(132);
         List<PlaceRepDoc> docs = solrConn.search(query);
 
+        System.out.println("CNT: " + docs.size());
         for (PlaceRepDoc doc : docs) {
             if (AppDataManager.isAppDataDoc(doc)) {
                 continue;

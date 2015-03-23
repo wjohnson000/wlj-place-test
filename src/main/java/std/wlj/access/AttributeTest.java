@@ -48,11 +48,11 @@ public class AttributeTest {
             }
 
             System.out.println("\nNEW..............................................\n");
-            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 2020, "fr", "attr-value-fr", "wjohnson000");
+            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 2020, "fr", "attr-value-fr", "wjohnson000", null);
             System.out.println("ATTR: " + attrB01.getAttributeId() + "." + attrB01.getPlaceRep().getRepId() + " :: " + attrB01.getLocale() + " :: " + attrB01.getValue());
 
             System.out.println("\nUPD..............................................\n");
-            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 2030, "fr", "attr-value-fr-new", "wjohnson000");
+            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 2030, "fr", "attr-value-fr-new", "wjohnson000", null);
             System.out.println("ATTR: " + attrB02.getAttributeId() + "." + attrB02.getPlaceRep().getRepId() + " :: " + attrB02.getLocale() + " :: " + attrB02.getValue());
 
             System.out.println("\nALL..............................................\n");
@@ -64,7 +64,7 @@ public class AttributeTest {
             }
 
             System.out.println("\nALL (after delete)...............................\n");
-            dataService.deleteAttribute(attrB01.getAttributeId(), repId, "wjohnson000");
+            dataService.deleteAttribute(attrB01.getAttributeId(), repId, "wjohnson000", null);
 
             PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
             attrBs = placeRepB03.getAllAttributes();

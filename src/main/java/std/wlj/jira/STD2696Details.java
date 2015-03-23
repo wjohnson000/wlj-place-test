@@ -21,6 +21,14 @@ import org.familysearch.standards.place.data.solr.SolrConnection;
 public class STD2696Details {
 
     private static Map<String,PlaceRepDoc> docCache = new HashMap<>();
+    private static Set<String> fixedIds = new HashSet<>();
+    static {
+        fixedIds.add("10330742");        
+        fixedIds.add("10335852");        
+        fixedIds.add("10335858");        
+        fixedIds.add("10336168");        
+    }
+
 
     public static void main(String... args) throws PlaceDataException, IOException {
         String solrHome = "http://familysearch.org/int-solr-repeater/places";
@@ -48,37 +56,30 @@ public class STD2696Details {
         for (String entry : entries) {
             if (++count % 200 == 0) System.out.println("Processed count=" + count);
 
-            boolean isOK = true;
-            Set<Integer> chainIds = new HashSet<>();
-            List<PlaceRepDoc> chainDocs = new ArrayList<>();
             String[] tokens = entry.split("\\|");
-            if (tokens.length == 2) {
+            for (String repId : tokens) {
+                boolean isOK = true;
+                Set<Integer> chainIds = new HashSet<>();
+                List<PlaceRepDoc> chainDocs = new ArrayList<>();
                 try {
-                    PlaceRepDoc pxrDoc = getDoc(solrConn, tokens[0]);
-                    PlaceRepDoc parDoc = getDoc(solrConn, tokens[1]);
-
-                    if (pxrDoc != null) {
-                        chainDocs.add(pxrDoc);
-                        chainIds.add(pxrDoc.getRepId());
-                    }
-                    if (parDoc != null) {
-                        chainDocs.add(parDoc);
-                        chainIds.add(parDoc.getRepId());
+                    PlaceRepDoc prDoc = getDoc(solrConn, repId);
+                    if (prDoc != null) {
+                        chainDocs.add(prDoc);
+                        chainIds.add(prDoc.getRepId());
 
                         // Follow the chain of the replacement id ...
-                        while (parDoc != null  &&  isOK) {
-//                            if (parDoc.getDeleteId() != null) {
-//                                parDoc = getDoc(solrConn, String.valueOf(parDoc.getDeleteId()));
-//                            } else {
-//                                parDoc = (parDoc.getParentId() <= 0) ? null : getDoc(solrConn, String.valueOf(parDoc.getParentId()));
-//                            }
-                            parDoc = (parDoc.getParentId() <= 0) ? null : getDoc(solrConn, String.valueOf(parDoc.getParentId()));
-                            if (parDoc != null) {
-                                chainDocs.add(parDoc);
-                                if (chainIds.contains(parDoc.getRepId())) {
+                        while (prDoc != null  &&  isOK) {
+                            if (prDoc.getDeleteId() != null  &&  ! fixedIds.contains(String.valueOf(prDoc.getDeleteId()))) {
+                                prDoc = getDoc(solrConn, String.valueOf(prDoc.getDeleteId()));
+                            } else {
+                                prDoc = (prDoc.getParentId() <= 0) ? null : getDoc(solrConn, String.valueOf(prDoc.getParentId()));
+                            }
+                            if (prDoc != null) {
+                                chainDocs.add(prDoc);
+                                if (chainIds.contains(prDoc.getRepId())) {
                                      isOK = false;
                                 }
-                                chainIds.add(parDoc.getRepId());
+                                chainIds.add(prDoc.getRepId());
                             }
                         }
                     }
@@ -89,10 +90,12 @@ public class STD2696Details {
 
 //                if (! isOK) {
                     System.out.println("OK? " + isOK);
-                    for (PlaceRepDoc prDoc : chainDocs) {
+                    for (int i=chainDocs.size()-1;  i>=0;  i--) {
+                        PlaceRepDoc prDoc = chainDocs.get(i);
                         StringBuilder buff = new StringBuilder();
                         buff.append(prDoc.getRepId());
                         buff.append("|" + prDoc.getRevision());
+                        buff.append("|" + prDoc.getParentId());
                         buff.append("|" + Arrays.toString(prDoc.getRepIdChainAsInt()));
                         buff.append("|" + prDoc.getPrefLocale());
                         buff.append("|" + prDoc.getDisplayName(prDoc.getPrefLocale()));
@@ -102,6 +105,7 @@ public class STD2696Details {
                     System.out.println();
                     System.out.println();
 //                }
+
             }
         }
 

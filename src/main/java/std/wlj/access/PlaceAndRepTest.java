@@ -105,7 +105,7 @@ public class PlaceAndRepTest {
             List<PlaceRepBridge> placeRebP01CX = placeRepB01.getChildren();
 
             // Delete a place-rep
-            PlaceRepBridge placeRepB03D  = dataService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000");
+            PlaceRepBridge placeRepB03D  = dataService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000", null);
             PlaceRepBridge placeRepB03DX = dbRService.getRep(placeRepB03.getRepId(), null);
             PlaceRepBridge placeRepB04DX = dbRService.getRep(placeRepB04.getRepId(), null);
 
@@ -200,7 +200,8 @@ public class PlaceAndRepTest {
             1900,
             2000,
             makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "f", "es", "es-Quilly", "f"),
-            "wjohnson000");
+            "wjohnson000",
+            null);
     }
 
     /**
@@ -214,7 +215,8 @@ public class PlaceAndRepTest {
             1925,
             null,
             makePlaceNames("en", "Quilly", "t", "en", "QuillyX", "f", "de", "DE-Quilly", "f", "fr", "FR-Quilly", "t", "da", "da-Quilly", "f"),
-            "wjohnson000"
+            "wjohnson000",
+            null
         );
     }
 
@@ -239,7 +241,8 @@ public class PlaceAndRepTest {
             1900,
             2000,
             makePlaceNames("en", "Qually", "t", "en", "QuallyX", "f", "de", "DE-Qually", "f", "fr", "FR-Qually", "f", "es", "es-Qually", "f"),
-            "wjohnson000");
+            "wjohnson000",
+            null);
     }
 
     /**
@@ -263,7 +266,8 @@ public class PlaceAndRepTest {
             null,
             null,
             makePlaceNames("en", "Nerf", "f", "en", "NerfX", "f", "de", "DE-Nerf", "f", "fr", "FR-Nerf", "f", "es", "es-Nerf", "f"),
-            "wjohnson000");
+            "wjohnson000",
+            null);
     }
 
     /**
@@ -287,7 +291,8 @@ public class PlaceAndRepTest {
             true,
             true,
             null,
-            "wjohnson000"
+            "wjohnson000",
+            null
         );
     }
 
@@ -312,7 +317,8 @@ public class PlaceAndRepTest {
             true,
             true,
             null,
-            "wjohnson000"
+            "wjohnson000",
+            null
         );
     }
 
@@ -331,7 +337,8 @@ public class PlaceAndRepTest {
             true,
             true,
             null,
-            "wjohnson000");
+            "wjohnson000",
+            null);
     }
 
     /**

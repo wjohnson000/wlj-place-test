@@ -88,7 +88,7 @@ public class GroupDbServiceTest {
             System.out.println("\nNEW..................................................\n");
             Set<Integer> members = new HashSet<>(Arrays.asList(2, 3, 4, 5));
             Set<Integer> subGroups = new HashSet<>(Arrays.asList(65, 70, 75));
-            groupB = dbWService.createGroup(GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000");
+            groupB = dbWService.createGroup(GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");
@@ -102,7 +102,7 @@ public class GroupDbServiceTest {
             subGroups = new HashSet<>(Arrays.asList(70, 75, 80));
             names.put("ru", "ru-name");
             descr.put("ru", "ru-desc");
-            groupB = dbWService.updateGroup(groupB.getGroupId(), GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000");
+            groupB = dbWService.updateGroup(groupB.getGroupId(), GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");
@@ -116,7 +116,7 @@ public class GroupDbServiceTest {
             subGroups = new HashSet<>(Arrays.asList(65, 75, 80));
             names.remove("fr");
             descr.remove("fr");
-            groupB = dbWService.updateGroup(groupB.getGroupId(), GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000");
+            groupB = dbWService.updateGroup(groupB.getGroupId(), GroupBridge.TYPE.PLACE_REP, members, subGroups, names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");

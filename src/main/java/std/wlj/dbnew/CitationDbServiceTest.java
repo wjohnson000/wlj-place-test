@@ -31,11 +31,11 @@ public class CitationDbServiceTest {
             }
 
             System.out.println("\nNEW..............................................\n");
-            CitationBridge citnB01 = dbWService.createCitation(2, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000");
+            CitationBridge citnB01 = dbWService.createCitation(2, 463, 22, new Date(), "citn-desc", "citn-ref", "wjohnson000", null);
             System.out.println("CITN: " + citnB01.getCitationId() + "." + citnB01.getPlaceRep().getRepId() + " :: " + citnB01.getSourceRef() + " :: " + citnB01.getDescription());
 
             System.out.println("\nUPD..............................................\n");
-            CitationBridge citnB02 = dbWService.updateCitation(citnB01.getCitationId(), 2, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000");
+            CitationBridge citnB02 = dbWService.updateCitation(citnB01.getCitationId(), 2, 463, 22, new Date(), "citn-desc-new", "citn-ref-new", "wjohnson000", null);
             System.out.println("CITN: " + citnB02.getCitationId() + "." + citnB02.getPlaceRep().getRepId() + " :: " + citnB02.getSourceRef() + " :: " + citnB02.getDescription());
 
             System.out.println("\nALL..............................................\n");
@@ -46,7 +46,7 @@ public class CitationDbServiceTest {
             }
 
             System.out.println("\nALL (after delete)...............................\n");
-            dbWService.deleteCitation(citnB01.getCitationId(), 2, "wjohnson000");
+            dbWService.deleteCitation(citnB01.getCitationId(), 2, "wjohnson000", null);
 
             placeRepB = dbRService.getRep(2, null);
             citnBs = placeRepB.getAllCitations();
