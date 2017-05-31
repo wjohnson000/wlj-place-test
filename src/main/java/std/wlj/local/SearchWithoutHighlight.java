@@ -6,12 +6,12 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class SearchWithoutHighlight {
     public static void main(String... args) throws Exception {
-//        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
-//        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://107.21.173.161:8983/solr/places");
-        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data/");
+        SolrConnection solrConn = SolrManager.awsDevConnection(false);
 
         // Regular search, highlight search
         String[] textes = {

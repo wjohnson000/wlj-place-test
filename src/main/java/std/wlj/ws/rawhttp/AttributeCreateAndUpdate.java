@@ -28,7 +28,7 @@ public class AttributeCreateAndUpdate {
 
     private static void readAttributes(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         for (AttributeModel aModel : model.getAttributes()) {
             System.out.println("ATT: " + aModel.getId() + "|" + aModel.getYear() + "|" + aModel.getLocale() + "|" + aModel.getValue());
         }
@@ -51,7 +51,7 @@ public class AttributeCreateAndUpdate {
         RootModel model = new RootModel();
         model.setAttribute(attrModel);
 
-        RootModel modelX = TestUtil.doPOST(url, model);
+        RootModel modelX = HttpHelper.doPOST(url, model);
         System.out.println("CREATE: " + modelX);
         return modelX.getAttribute();
     }

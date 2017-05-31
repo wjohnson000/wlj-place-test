@@ -40,6 +40,27 @@ public class DbUtil {
     }
 
     /**
+     * Get the next available transaction
+     * 
+     * @param conn db connection
+     * @return
+     */
+    public static int getTranxId(Connection conn) {
+        try(Statement stmt = conn.createStatement()) {
+            stmt.execute("INSERT INTO transaction DEFAULT VALUES");
+
+            ResultSet rset = stmt.executeQuery("SELECT MAX(tran_id) FROM transaction");
+            if (rset.next()) {
+                return rset.getInt(1);
+            }
+        } catch(SQLException ex) { 
+            System.out.println("Unable to create a transaction ... ");
+        }
+
+        return -1;
+    }
+
+    /**
      * Seed the place-chain data with all chains involving every place-rep that
      * is a parent to at least one other place-rep
      * @throws Exception

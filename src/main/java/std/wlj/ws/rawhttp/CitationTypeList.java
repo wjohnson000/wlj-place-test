@@ -16,7 +16,7 @@ public class CitationTypeList {
      */
     public static void main(String[] args) throws Exception {
         URL url = new URL(citationUrl);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("GET-ALL -- RM: " + model);
     }
 }

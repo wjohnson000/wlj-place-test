@@ -2,13 +2,11 @@ package std.wlj.dbnew;
 
 import java.util.*;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 
 
 /**
@@ -33,22 +31,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class PlaceAndRepDbServiceTest {
 
-    static BasicDataSource ds = null;
-    static DbReadableService dbRService = null;
-    static DbWritableService dbWService = null;
+    static DbServices dbServices = null;
 
     private static Random random = new Random();
 
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-        ds = (BasicDataSource)appContext.getBean("dataSource");
-        dbRService = new DbReadableService(ds);
-        dbWService = new DbWritableService(ds);
+        dbServices = DbConnectionManager.getDbServicesWLJ();
 
         createPlacesAndReps();
 
-        ((ClassPathXmlApplicationContext)appContext).close();
+        dbServices.shutdown();
         System.exit(0);
     }
 
@@ -61,41 +54,41 @@ public class PlaceAndRepDbServiceTest {
         try {
             PlaceRepBridge placeRepB01 = createQuilly();
             PlaceBridge    placeB01a   = placeRepB01.getAssociatedPlace();
-            PlaceBridge    placeB01b   = dbRService.getPlace(placeB01a.getPlaceId(), null);
+            PlaceBridge    placeB01b   = dbServices.readService.getPlace(placeB01a.getPlaceId());
 
             PlaceRepBridge placeRepB02 = createQually(placeRepB01.getRepId());
             PlaceBridge    placeB02a   = placeRepB02.getAssociatedPlace();
-            PlaceBridge    placeB02b   = dbRService.getPlace(placeB02a.getPlaceId(), null);
+            PlaceBridge    placeB02b   = dbServices.readService.getPlace(placeB02a.getPlaceId());
 
             PlaceRepBridge placeRepB03 = createNerf01(placeRepB02.getRepId());
             PlaceBridge    placeB03a   = placeRepB03.getAssociatedPlace();
-            PlaceBridge    placeB03b   = dbRService.getPlace(placeB03a.getPlaceId(), null);
+            PlaceBridge    placeB03b   = dbServices.readService.getPlace(placeB03a.getPlaceId());
 
             PlaceRepBridge placeRepB04 = createNerfRep02(placeB03a.getPlaceId(), placeRepB02.getRepId());
             PlaceRepBridge placeRepB05 = createNerfRep03(placeB03a.getPlaceId(), placeRepB02.getRepId());
 
-            PlaceRepBridge placeRepB01R = dbRService.getRep(placeRepB01.getRepId(), null);
-            PlaceRepBridge placeRepB02R = dbRService.getRep(placeRepB02.getRepId(), null);
-            PlaceRepBridge placeRepB03R = dbRService.getRep(placeRepB03.getRepId(), null);
-            PlaceRepBridge placeRepB04R = dbRService.getRep(placeRepB04.getRepId(), null);
-            PlaceRepBridge placeRepB05R = dbRService.getRep(placeRepB05.getRepId(), null);
+            PlaceRepBridge placeRepB01R = dbServices.readService.getRep(placeRepB01.getRepId());
+            PlaceRepBridge placeRepB02R = dbServices.readService.getRep(placeRepB02.getRepId());
+            PlaceRepBridge placeRepB03R = dbServices.readService.getRep(placeRepB03.getRepId());
+            PlaceRepBridge placeRepB04R = dbServices.readService.getRep(placeRepB04.getRepId());
+            PlaceRepBridge placeRepB05R = dbServices.readService.getRep(placeRepB05.getRepId());
 
             // Update a place
             PlaceBridge    placeB01U    = updateQuillyPlace(placeB01a.getPlaceId());
-            PlaceBridge    placeB01Ra   = dbRService.getPlace(placeB01U.getPlaceId(), null);
+            PlaceBridge    placeB01Ra   = dbServices.readService.getPlace(placeB01U.getPlaceId());
 
             // Update a place-rep
             PlaceRepBridge placeRepB03U  = updateNerfPlaceRep01(placeRepB03.getRepId(), placeB03a.getPlaceId(), placeRepB02.getRepId());
-            PlaceRepBridge placeRepB03UR = dbRService.getRep(placeRepB03U.getRepId(), null);
+            PlaceRepBridge placeRepB03UR = dbServices.readService.getRep(placeRepB03U.getRepId());
 
             // Retrieve children of PlaceRep01, anyone that has Place01 as the owner
             List<PlaceRepBridge> placeRepB01C  = placeB01a.getContainedPlaceReps();
             List<PlaceRepBridge> placeRebP01CX = placeRepB01.getChildren();
 
             // Delete a place-rep
-            PlaceRepBridge placeRepB03D  = dbWService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000", null);
-            PlaceRepBridge placeRepB03DX = dbRService.getRep(placeRepB03.getRepId(), null);
-            PlaceRepBridge placeRepB04DX = dbRService.getRep(placeRepB04.getRepId(), null);
+            PlaceRepBridge placeRepB03D  = dbServices.writeService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000", null);
+            PlaceRepBridge placeRepB03DX = dbServices.readService.getRep(placeRepB03.getRepId());
+            PlaceRepBridge placeRepB04DX = dbServices.readService.getRep(placeRepB04.getRepId());
 
             List<PlaceRepBridge> placeRepB01C02  = placeB01a.getContainedPlaceReps();
             List<PlaceRepBridge> placeRebP01CX02 = placeRepB01.getChildren();
@@ -173,7 +166,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createQuilly() throws PlaceDataException {
-        return dbWService.createPlace(
+        return dbServices.writeService.createPlace(
             -1,
             1900,
             null,
@@ -198,7 +191,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceBridge updateQuillyPlace(int placeId) throws PlaceDataException {
-        return dbWService.updatePlace(
+        return dbServices.writeService.updatePlace(
             placeId,
             1925,
             null,
@@ -214,7 +207,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createQually(int parentId) throws PlaceDataException {
-        return dbWService.createPlace(
+        return dbServices.writeService.createPlace(
             parentId,
             1900,
             null,
@@ -239,7 +232,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerf01(int parentId) throws PlaceDataException {
-        return dbWService.createPlace(
+        return dbServices.writeService.createPlace(
             parentId,
             1910,
             1925,
@@ -266,7 +259,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerfRep02(int placeId, int parentId) throws PlaceDataException {
-        return dbWService.createRep(
+        return dbServices.writeService.createRep(
             placeId,
             parentId,
             1925,
@@ -292,7 +285,7 @@ public class PlaceAndRepDbServiceTest {
      * @throws PlaceDataException 
      */
     private static PlaceRepBridge createNerfRep03(int placeId, int parentId) throws PlaceDataException {
-        return dbWService.createRep(
+        return dbServices.writeService.createRep(
             placeId,
             parentId,
             1968,
@@ -311,7 +304,7 @@ public class PlaceAndRepDbServiceTest {
     }
 
     private static PlaceRepBridge updateNerfPlaceRep01(int repId, int placeId, int parentId) throws PlaceDataException {
-        return dbWService.updateRep(
+        return dbServices.writeService.updateRep(
                 repId,
                 placeId,
                 parentId,
@@ -324,6 +317,7 @@ public class PlaceAndRepDbServiceTest {
                 -111.4,
                 true,
                 true,
+                null,
                 null,
                 "wjohnson000",
                 null);

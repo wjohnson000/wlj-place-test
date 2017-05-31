@@ -2,10 +2,12 @@ package std.wlj.local;
 
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class ClearRepository {
     public static void main(String... args) throws Exception {
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
+        SolrConnection solrConn = SolrManager.localHttpConnection();
 
         solrConn.delete("*:*");
 

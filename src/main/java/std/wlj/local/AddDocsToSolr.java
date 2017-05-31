@@ -8,18 +8,14 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class AddDocsToSolr {
     private static SolrConnection solrConn = null;
 
 	public static void main(String... args) throws PlaceDataException {
-        solrConn = SolrConnection.connectToRemoteInstance("http://place-solr.dev.fsglobal.org/solr/places");
-//        solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8080/solr/places");
-//        solrConn = SolrConnection.connectToEmbeddedInstance("C:/Tools/solr/data/solr-places/solr");
-//        System.setProperty("solr.master.url", "");
-//        System.setProperty("solr.master", "false");
-//        System.setProperty("solr.slave", "false");
-//        solrConn = SolrConnection.connectToEmbeddedInstance("C:/Tools/solr/data/tokoro");
+        solrConn = SolrManager.awsDevConnection(false);
 
         int count = 100000;
         int groupCnt = 500;

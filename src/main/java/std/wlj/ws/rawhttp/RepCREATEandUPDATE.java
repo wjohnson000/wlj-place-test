@@ -18,14 +18,17 @@ import org.familysearch.standards.place.ws.model.VariantModel;
 public class RepCREATEandUPDATE {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
-
+//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places";
 
     /**
      * Create a place w/ associated place-rep, then try and update the display names
      * of the place-rep
      */
     public static void main(String[] args) throws Exception {
+        HttpHelper.overrideHTTPS = true;
+        HttpHelper.acceptType = "application/json";
+
         RootModel outModel = createRep();
         System.out.println("PLACE: " + outModel);
         getRep(outModel.getPlace().getReps().get(0).getId());
@@ -37,7 +40,7 @@ public class RepCREATEandUPDATE {
 
     private static void getRep(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
@@ -91,7 +94,7 @@ public class RepCREATEandUPDATE {
         prModel.setPlace(newPlace);
 
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         return model;
     }
 
@@ -110,7 +113,7 @@ public class RepCREATEandUPDATE {
             prModel.setPlaceRepresentation(repModel);
 
             URL url = new URL(baseUrl + "/reps/" + repModel.getId());
-            RootModel model = TestUtil.doPUT(url, prModel);
+            RootModel model = HttpHelper.doPUT(url, prModel);
             return model;
         } else {
             return null;

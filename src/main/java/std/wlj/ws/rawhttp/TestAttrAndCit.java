@@ -20,19 +20,19 @@ public class TestAttrAndCit {
         readCitations();
 
         System.out.println("Bad URLS ...");
-    	for (String badUrl : TestUtil.getBadUrls()) {
+    	for (String badUrl : HttpHelper.getBadUrls()) {
     		System.out.println("  " + badUrl);
     	}
     }
 
     private static void readAttributes() throws Exception {
         URL url = new URL(awsUrl + "/reps/1/attributes/");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model.toJSON());
 
         for (int i=1;  i<4;  i++) {
             url = new URL(awsUrl + "/reps/1/attributes/" + i);
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("RM: " + (model==null ? "" : model.toJSON()));
     	}
     }

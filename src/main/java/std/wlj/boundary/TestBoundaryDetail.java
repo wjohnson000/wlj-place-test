@@ -2,16 +2,19 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbUtil;
+
 public class TestBoundaryDetail {
 
     public static void main(String... args) throws Exception {
-        Connection conn = DbBase.getConn();
+        Connection conn = DbConnectionManager.getConnectionStds();
 
         // These inserts should work ...
-        int transxId = DbBase.getTranxId(conn);
+        int transxId = DbUtil.getTranxId(conn);
         System.out.println("Update OK? " + insertRepBoundary(conn, 9, 11));
 
-        transxId = DbBase.getTranxId(conn);
+        transxId = DbUtil.getTranxId(conn);
         System.out.println("TransxId: " + transxId);
         System.out.println("Update OK? " + insertRepBoundary(conn, 9, 11, transxId));
 

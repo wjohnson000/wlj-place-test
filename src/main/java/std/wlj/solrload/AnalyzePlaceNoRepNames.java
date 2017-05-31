@@ -12,8 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.familysearch.standards.place.solr.load.PlaceRepFileGenerator;
-import org.familysearch.standards.place.util.flatfile.FileResultSet;
+import org.familysearch.standards.place.db.util.FileResultSet;
 
 
 public class AnalyzePlaceNoRepNames {

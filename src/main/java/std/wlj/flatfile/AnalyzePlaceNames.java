@@ -9,13 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-
-
-
-
-
-import org.familysearch.standards.place.util.flatfile.FileResultSet;
-
+import org.familysearch.standards.place.db.util.FileResultSet;
 
 public class AnalyzePlaceNames {
 

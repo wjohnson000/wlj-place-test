@@ -17,19 +17,15 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class STD2696 {
 
     private static Map<String,PlaceRepDoc> docCache = new HashMap<>();
 
     public static void main(String... args) throws PlaceDataException, IOException {
-        String solrHome = "http://familysearch.org/int-solr-repeater/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
 
         List<String> entries = Files.readAllLines(Paths.get("C:/temp/deleted-reps.txt"), Charset.forName("UTF-8"));
         entries.clear();

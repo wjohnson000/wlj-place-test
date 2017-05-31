@@ -12,6 +12,10 @@ import org.familysearch.standards.place.data.DataMetrics;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Filter;
 import org.familysearch.standards.place.scoring.Scorer;
+import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+
+import std.wlj.util.SolrManager;
 
 
 public class TestInterpretation {
@@ -178,13 +182,9 @@ public class TestInterpretation {
         long parseTime = 0;
         StdLocale en = new StdLocale("en");
 
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService solrService = new SolrService();
-        PlaceService placeService = new PlaceService(solrService);
+        SolrService  solrService = SolrManager.localHttpService();
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         // Throw away task to get things going ...
         PlaceRequestBuilder requestBldr = new PlaceRequestBuilder();
@@ -202,38 +202,38 @@ public class TestInterpretation {
             totalTime += execTime;
 
             PlaceRepresentation[] interps = results.getPlaceRepresentations();
-            Set<Scorer> scorers = results.getMetrics().getTimedScorers();
-            Set<Filter> filters = results.getMetrics().getTimedFilters();
-
-            parseTime += results.getMetrics().getParseTime();
-
-            System.out.println("|" + text + "|" + execTime);
-            for (Scorer scorer : scorers) {
-                System.out.println(scorer.getClass().getSimpleName() + " time|" + results.getMetrics().getScorerTime(scorer));
-            }
-            for (Filter filter : filters) {
-                System.out.println(filter.getClass().getSimpleName() + " time|" + results.getMetrics().getFilterTime(filter));
-            }
-            System.out.println("Initial candidate count|" + results.getMetrics().getRawCandidateCount());
-            System.out.println("Pre-scoring candidate count|" + results.getMetrics().getPreScoringCandidateCount());
-            System.out.println("Final candidate count|" + interps.length);
-            System.out.println("Parse time|" + results.getMetrics().getParseTime());
-            System.out.println("Identify Candidate time|" + results.getMetrics().getIdentifyCandidatesTime());
-            System.out.println("Identify Candidate (lookup) time|" + results.getMetrics().getIdentifyCandidateLookupTime());
-            System.out.println("Identify Candidate (tail match) time|" + results.getMetrics().getIdentifyCandidateTailMatchTime());
-            System.out.println("Identify Candidate (max hit filter) time|" + results.getMetrics().getIdentifyCandidateMaxHitFilterTime());
-            System.out.println("Scoring time|" + results.getMetrics().getScoringTime());
-            System.out.println("Assembly time|" + results.getMetrics().getAssemblyTime());
-            System.out.println("Initial ParsedInputText count|" + results.getMetrics().getInitialParsedInputTextCount());
-            System.out.println("Final ParsedInputText count|" + results.getMetrics().getFinalParsedInputTextCount());
+//            Set<Scorer> scorers = results.getMetrics().getTimedScorers();
+//            Set<Filter> filters = results.getMetrics().getTimedFilters();
+//
+//            parseTime += results.getMetrics().get.getParseTime();
+//
+//            System.out.println("|" + text + "|" + execTime);
+//            for (Scorer scorer : scorers) {
+//                System.out.println(scorer.getClass().getSimpleName() + " time|" + results.getMetrics().getScorerTime(scorer));
+//            }
+//            for (Filter filter : filters) {
+//                System.out.println(filter.getClass().getSimpleName() + " time|" + results.getMetrics().getFilterTime(filter));
+//            }
+//            System.out.println("Initial candidate count|" + results.getMetrics().getRawCandidateCount());
+//            System.out.println("Pre-scoring candidate count|" + results.getMetrics().getPreScoringCandidateCount());
+//            System.out.println("Final candidate count|" + interps.length);
+//            System.out.println("Parse time|" + results.getMetrics().getParseTime());
+//            System.out.println("Identify Candidate time|" + results.getMetrics().getIdentifyCandidatesTime());
+//            System.out.println("Identify Candidate (lookup) time|" + results.getMetrics().getIdentifyCandidateLookupTime());
+//            System.out.println("Identify Candidate (tail match) time|" + results.getMetrics().getIdentifyCandidateTailMatchTime());
+//            System.out.println("Identify Candidate (max hit filter) time|" + results.getMetrics().getIdentifyCandidateMaxHitFilterTime());
+//            System.out.println("Scoring time|" + results.getMetrics().getScoringTime());
+//            System.out.println("Assembly time|" + results.getMetrics().getAssemblyTime());
+//            System.out.println("Initial ParsedInputText count|" + results.getMetrics().getInitialParsedInputTextCount());
+//            System.out.println("Final ParsedInputText count|" + results.getMetrics().getFinalParsedInputTextCount());
             for (int j = 0; j < interps.length; j++) {
-                scorers = interps[j].getMetadata().getInterpretation().getScorecard().getScorersThatScored();
+//                scorers = interps[j].getMetadata().getInterpretation().getScorecard().getScorersThatScored();
                 System.out.println(constructIdChain(interps[j]) + "|" + interps[j].getFullPreferredDisplayName().get() + "|" + interps[j].getMetadata().getInterpretation().getParsedInput().toNormalizedString());
                 System.out.println("DEBUG: " + interps[j].getMetadata().getInterpretation().toString());
                 System.out.println("Raw/Relevance Score|" + interps[j].getMetadata().getScoring().getRawScore() + "|" + interps[j].getMetadata().getScoring().getRelevanceScore());
-                for (Scorer scorer : scorers) {
-                    System.out.println("     " + scorer.getClass().getSimpleName() + ": " + interps[j].getMetadata().getInterpretation().getScorecard().getScoreFromScorer(scorer));
-                }
+//                for (Scorer scorer : scorers) {
+//                    System.out.println("     " + scorer.getClass().getSimpleName() + ": " + interps[j].getMetadata().getInterpretation().getScorecard().getScoreFromScorer(scorer));
+//                }
             }
         }
 

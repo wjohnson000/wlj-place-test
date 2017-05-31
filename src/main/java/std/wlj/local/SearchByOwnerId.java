@@ -9,15 +9,12 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 import org.familysearch.standards.place.data.solr.SolrSearchResults;
 
+import std.wlj.util.SolrManager;
+
 
 public class SearchByOwnerId {
     public static void main(String... args) throws Exception {
-        System.setProperty("solr.solr.home", "C:/Tools/solr/data/tokoro");
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/Tools/solr/data/tokoro");
+        SolrConnection solrConn = SolrManager.localEmbeddedConnection("D:/solr/tokoro");
 
         // Do a first look-up
         SolrQuery query = new SolrQuery("id:1-*");

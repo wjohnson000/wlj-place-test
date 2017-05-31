@@ -20,12 +20,12 @@ public class ExtXrefTypeGetAll {
         System.out.println("---------------------------------------------------------------------------------");
 
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("POST -- RM: " + model);
 
         for (TypeModel typeModel : model.getTypes()) {
             url = new URL(baseUrl + "/" + typeModel.getId());
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }
     }

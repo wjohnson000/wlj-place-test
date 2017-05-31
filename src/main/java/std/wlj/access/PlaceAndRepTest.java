@@ -2,15 +2,14 @@ package std.wlj.access;
 
 import java.util.*;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.data.solr.SolrService;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.SolrManager;
 
 
 /**
@@ -35,32 +34,23 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class PlaceAndRepTest {
 
-    static BasicDataSource ds = null;
-    static PlaceDataServiceImpl dataService = null;
-    static DbReadableService dbRService = null;
-    static DbWritableService dbWService = null;
-
     private static Random random = new Random();
 
+    private static DbServices dbServices;
+    private static SolrService solrService;
+    private static PlaceDataServiceImpl dataService;
 
     public static void main(String[] args) throws Exception {
-//      System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
-//      System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
-        System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-        ds = (BasicDataSource)appContext.getBean("dataSource");
-        SolrService       solrService = new SolrService();
-        dbRService  = new DbReadableService(ds);
-        dbWService  = new DbWritableService(ds);
-        dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
+        dbServices = DbConnectionManager.getDbServicesWLJ();
+        solrService = SolrManager.awsIntService(true);
+        dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
         createPlacesAndReps();
 
-        ((ClassPathXmlApplicationContext)appContext).close();
+        if (dataService != null) dataService.shutdown();
+        if (dbServices != null) dbServices.shutdown();
+        if (solrService != null) solrService.shutdown();
+
         System.exit(0);
     }
 
@@ -73,32 +63,32 @@ public class PlaceAndRepTest {
         try {
             PlaceRepBridge placeRepB01 = createQuilly();
             PlaceBridge    placeB01a   = placeRepB01.getAssociatedPlace();
-            PlaceBridge    placeB01b   = dbRService.getPlace(placeB01a.getPlaceId(), null);
+            PlaceBridge    placeB01b   = dbServices.readService.getPlace(placeB01a.getPlaceId());
 
             PlaceRepBridge placeRepB02 = createQually(placeRepB01.getRepId());
             PlaceBridge    placeB02a   = placeRepB02.getAssociatedPlace();
-            PlaceBridge    placeB02b   = dbRService.getPlace(placeB02a.getPlaceId(), null);
+            PlaceBridge    placeB02b   = dbServices.readService.getPlace(placeB02a.getPlaceId());
 
             PlaceRepBridge placeRepB03 = createNerf01(placeRepB02.getRepId());
             PlaceBridge    placeB03a   = placeRepB03.getAssociatedPlace();
-            PlaceBridge    placeB03b   = dbRService.getPlace(placeB03a.getPlaceId(), null);
+            PlaceBridge    placeB03b   = dbServices.readService.getPlace(placeB03a.getPlaceId());
 
             PlaceRepBridge placeRepB04 = createNerfRep02(placeB03a.getPlaceId(), placeRepB02.getRepId());
             PlaceRepBridge placeRepB05 = createNerfRep03(placeB03a.getPlaceId(), placeRepB02.getRepId());
 
-            PlaceRepBridge placeRepB01R = dbRService.getRep(placeRepB01.getRepId(), null);
-            PlaceRepBridge placeRepB02R = dbRService.getRep(placeRepB02.getRepId(), null);
-            PlaceRepBridge placeRepB03R = dbRService.getRep(placeRepB03.getRepId(), null);
-            PlaceRepBridge placeRepB04R = dbRService.getRep(placeRepB04.getRepId(), null);
-            PlaceRepBridge placeRepB05R = dbRService.getRep(placeRepB05.getRepId(), null);
+            PlaceRepBridge placeRepB01R = dbServices.readService.getRep(placeRepB01.getRepId());
+            PlaceRepBridge placeRepB02R = dbServices.readService.getRep(placeRepB02.getRepId());
+            PlaceRepBridge placeRepB03R = dbServices.readService.getRep(placeRepB03.getRepId());
+            PlaceRepBridge placeRepB04R = dbServices.readService.getRep(placeRepB04.getRepId());
+            PlaceRepBridge placeRepB05R = dbServices.readService.getRep(placeRepB05.getRepId());
 
             // Update a place
             PlaceBridge    placeB01U    = updateQuillyPlace(placeB01a.getPlaceId());
-            PlaceBridge    placeB01Ra   = dbRService.getPlace(placeB01U.getPlaceId(), null);
+            PlaceBridge    placeB01Ra   = dbServices.readService.getPlace(placeB01U.getPlaceId());
 
             // Update a place-rep
             PlaceRepBridge placeRepB03U  = updateNerfPlaceRep01(placeRepB03.getRepId(), placeB03a.getPlaceId(), placeRepB02.getRepId());
-            PlaceRepBridge placeRepB03UR = dbRService.getRep(placeRepB03U.getRepId(), null);
+            PlaceRepBridge placeRepB03UR = dbServices.readService.getRep(placeRepB03U.getRepId());
 
             // Retrieve children of PlaceRep01, anyone that has Place01 as the owner
             List<PlaceRepBridge> placeRepB01C  = placeB01a.getContainedPlaceReps();
@@ -106,8 +96,8 @@ public class PlaceAndRepTest {
 
             // Delete a place-rep
             PlaceRepBridge placeRepB03D  = dataService.deleteRep(placeRepB03.getRepId(), placeRepB04.getRepId(), "wjohnson000", null);
-            PlaceRepBridge placeRepB03DX = dbRService.getRep(placeRepB03.getRepId(), null);
-            PlaceRepBridge placeRepB04DX = dbRService.getRep(placeRepB04.getRepId(), null);
+            PlaceRepBridge placeRepB03DX = dbServices.readService.getRep(placeRepB03.getRepId());
+            PlaceRepBridge placeRepB04DX = dbServices.readService.getRep(placeRepB04.getRepId());
 
             List<PlaceRepBridge> placeRepB01C02  = placeB01a.getContainedPlaceReps();
             List<PlaceRepBridge> placeRebP01CX02 = placeRepB01.getChildren();
@@ -336,6 +326,7 @@ public class PlaceAndRepTest {
             -111.4,
             true,
             true,
+            null,
             null,
             "wjohnson000",
             null);

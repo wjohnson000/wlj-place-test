@@ -22,19 +22,19 @@ public class TestTypeAll {
         readTypes("/citation-types", 1, 0);  // ID range = 1050 - 1055 ... these may be dummy values
 
         System.out.println("Bad URLS ...");
-    	for (String badUrl : TestUtil.getBadUrls()) {
+    	for (String badUrl : HttpHelper.getBadUrls()) {
     		System.out.println("  " + badUrl);
     	}
     }
 
     private static void readTypes(String subUrl, int firstId, int lastId) throws Exception {
         URL url = new URL(baseUrl + subUrl);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
 //        System.out.println("RM: " + model);
 
         for (int i=firstId;  i<=lastId; i++) {
             url = new URL(baseUrl + subUrl + "/" + i);
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("RM: " + model);
     	}
     }

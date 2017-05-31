@@ -45,7 +45,7 @@ public class RepGroupUPDATE {
 
     private static PlaceRepGroupModel getPRGroup(int prgId) throws Exception {
         URL url = new URL(baseUrl + "/" + prgId);
-        RootModel responseModel = TestUtil.doGET(url);
+        RootModel responseModel = HttpHelper.doGET(url);
         return responseModel.getPlaceRepGroup();
     }
 
@@ -65,7 +65,7 @@ public class RepGroupUPDATE {
         URL url = new URL(baseUrl);
         RootModel requestModel = new RootModel();
         requestModel.setPlaceRepGroup(model);
-        RootModel responseModel = TestUtil.doPOST(url, requestModel);
+        RootModel responseModel = HttpHelper.doPOST(url, requestModel);
         return responseModel.getPlaceRepGroup();
 
     }
@@ -102,7 +102,7 @@ public class RepGroupUPDATE {
         RootModel inModel = new RootModel();
         inModel.setPlaceRepGroup(existing);
 
-        RootModel responseModel = TestUtil.doPUT(url, inModel);
+        RootModel responseModel = HttpHelper.doPUT(url, inModel);
         return responseModel.getPlaceRepGroup();
     }
 
@@ -120,14 +120,14 @@ public class RepGroupUPDATE {
         URL url = new URL(baseUrl);
         RootModel requestModel = new RootModel();
         requestModel.setPlaceRepGroup(model);
-        RootModel responseModel = TestUtil.doPOST(url, requestModel);
+        RootModel responseModel = HttpHelper.doPOST(url, requestModel);
 
         existing.getSubGroups().add(responseModel.getPlaceRepGroup());
 
         url = new URL(baseUrl + "/" + existing.getId());
         requestModel = new RootModel();
         requestModel.setPlaceRepGroup(existing);
-        responseModel = TestUtil.doPUT(url, requestModel);
+        responseModel = HttpHelper.doPUT(url, requestModel);
         return responseModel.getPlaceRepGroup();
     }
 

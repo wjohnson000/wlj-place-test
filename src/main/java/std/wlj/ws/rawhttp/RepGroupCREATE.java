@@ -43,7 +43,7 @@ public class RepGroupCREATE {
         System.out.println("\nREQUEST 01 -----------------------------------------------------------------------------------");
         System.out.println(requestModel.toJSON());
 
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         otherPRGM = responseModel.getPlaceRepGroup();
 //        System.out.println("\nRESPONSE 01 -----------------------------------------------------------------------------------");
 //        System.out.println(responseModel.toJSON());
@@ -56,7 +56,7 @@ public class RepGroupCREATE {
         System.out.println(requestModel.toJSON());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceRepGroupModel mountainPRGM = responseModel.getPlaceRepGroup();
 //        System.out.println("\nRESPONSE 02 -----------------------------------------------------------------------------------");
 //        System.out.println(responseModel.toJSON());
@@ -69,7 +69,7 @@ public class RepGroupCREATE {
         System.out.println(requestModel.toJSON());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceRepGroupModel pacificPRGM = responseModel.getPlaceRepGroup();
 //        System.out.println("\nRESPONSE 03 -----------------------------------------------------------------------------------");
 //        System.out.println(responseModel.toJSON());
@@ -82,7 +82,7 @@ public class RepGroupCREATE {
         System.out.println(requestModel.toJSON());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceRepGroupModel westernPRGM = responseModel.getPlaceRepGroup();
 //        System.out.println("\nRESPONSE 04 -----------------------------------------------------------------------------------");
 //        System.out.println(responseModel.toJSON());

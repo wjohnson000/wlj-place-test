@@ -28,13 +28,13 @@ public class DeleteTest {
 
     private static void readPlaceRep(int repId) throws Exception {
         URL url = new URL(awsUrl + "/reps/" + repId);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("READ place-rep: " + model);
     }
 
     private static void deletePlaceRep(int oldRepId, int newRepId) throws Exception {
         URL url = new URL(awsUrl + "/reps/" + oldRepId + "?newRepId=" + newRepId);
-        RootModel model =TestUtil.doDELETE(url);
+        RootModel model = HttpHelper.doDELETE(url);
         System.out.println("DELETE place-rep: " + model);
     }
 }

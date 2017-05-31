@@ -6,12 +6,14 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class AddDocToSolr {
 	public static void main(String... args) throws PlaceDataException {
-//      SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://place-solr.dev.fsglobal.org/solr/places");
-      SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8080/solr/places");
-//      SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/Tools/solr/data/solr-places/solr");
+//      SolrConnection solrConn = SolrManager.awsDevConnection(false);
+      SolrConnection solrConn = SolrManager.localHttpConnection();
+//      SolrConnection solrConn = SolrManager.localEmbeddedConnection("C:/Tools/solr/data/solr-places/solr");
       
 
       PlaceRepDoc prDoc = new PlaceRepDoc();

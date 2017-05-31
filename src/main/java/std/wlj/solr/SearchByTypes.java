@@ -13,18 +13,17 @@ import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+
+import std.wlj.util.SolrManager;
 
 
 public class SearchByTypes {
 
     public static void main(String... args) throws PlaceDataException {
-        System.setProperty("solr.solr.home", "C:/Tools/solr/data/tokoro");
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService  solrService = new SolrService();
-        PlaceService placeService = new PlaceService(new DefaultPlaceRequestProfile(solrService));
+        SolrService  solrService = SolrManager.localEmbeddedService();
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         PlaceRepDoc prBridge = new PlaceRepDoc();
         prBridge.setId("351");

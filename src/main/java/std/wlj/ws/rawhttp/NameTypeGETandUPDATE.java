@@ -35,15 +35,15 @@ public class NameTypeGETandUPDATE {
         RootModel model;
 
         url = new URL(baseUrl);
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "445");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "2020");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
@@ -71,7 +71,7 @@ public class NameTypeGETandUPDATE {
         RootModel inModel = new RootModel();
         inModel.setType(theType);
 
-        RootModel outModel = TestUtil.doPOST(url, inModel);
+        RootModel outModel = HttpHelper.doPOST(url, inModel);
         System.out.println("RM01: " + outModel.toJSON());
         return outModel.getType();
     }
@@ -91,7 +91,7 @@ public class NameTypeGETandUPDATE {
         inModel.setType(nameModel);
 
         System.out.println("UPDATE: " + inModel.toJSON());
-        RootModel outModel = TestUtil.doPUT(url, inModel);
+        RootModel outModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM02: " + outModel.toJSON());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import std.wlj.datasource.PGConnection;
+import std.wlj.datasource.DbConnectionManager;
 
 /**
  * Pull place-rep data for US from an AWS database, saving the following fields:
@@ -63,7 +63,7 @@ public class Analyze02_DbUSALevels {
     static Map<Integer, PlaceRep02> repMap = new HashMap<>();
 
     public static void main(String...args) throws IOException {
-        try(Connection conn=PGConnection.getConnectionAws()) {
+        try(Connection conn=DbConnectionManager.getConnectionAws()) {
             populateTypes(conn);
 
             getReps(conn, "rep_id", Arrays.asList(1));

@@ -7,6 +7,8 @@ import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.DataMetrics;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
 
 import std.wlj.util.SolrManager;
 
@@ -57,8 +59,11 @@ public class TestCacheStuff {
         long parseTime = 0;
         StdLocale en = new StdLocale("en");
 
-        SolrService solrService = SolrManager.getLocalTokoro();
-        PlaceService placeService = new PlaceService(solrService);
+//        System.setProperty("solr.skip.warmup", "true");
+
+        SolrService solrService = SolrManager.localEmbeddedService();
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         // Throw away task to get things going ...
         PlaceRequestBuilder requestBldr = new PlaceRequestBuilder();
@@ -67,7 +72,7 @@ public class TestCacheStuff {
         placeService.requestPlaces(request);
 
         // Do an interpretation on all of the places
-        for (int i=0;  i<20;  i++) {
+        for (int i=0;  i<2;  i++) {
             for (String text : textToInterpret) {
                 long beginTime = System.nanoTime();
                 requestBldr = placeService.createRequestBuilder(text, en);
@@ -76,7 +81,6 @@ public class TestCacheStuff {
 
                 long execTime = System.nanoTime() - beginTime;
                 totalTime += execTime;
-                parseTime += results.getMetrics().getParseTime();
 
                 System.out.println("|" + text + "|" + execTime);
                 try { Thread.sleep(15L); } catch (Exception ex) { }

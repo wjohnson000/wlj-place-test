@@ -8,9 +8,9 @@ import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
-import org.familysearch.standards.place.scoring.Scorer;
-import org.familysearch.standards.place.search.RequestMetrics;
-import org.familysearch.standards.place.util.NamePriorityHelper;
+import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+//import org.familysearch.standards.place.util.NamePriorityHelper;
 
 
 public class TestFindLots {
@@ -97,12 +97,13 @@ public class TestFindLots {
     };
 
     public static void main(String... args) throws PlaceDataException {
-        SolrService solrService = SolrManager.getLocalTokoro();
-        PlaceService placeService = new PlaceService(solrService);
+        SolrService solrService = SolrManager.localEmbeddedService();
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
         System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
-        System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
+//        System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         // Do a couple of interpretations for fun ...
         for (String throwAway : new String[] { "Utah, USA", "Darlington, South Carolina" } ) {
@@ -117,26 +118,6 @@ public class TestFindLots {
             builder.setShouldCollectMetrics(true);
 
             PlaceResults results = placeService.requestPlaces(builder.getRequest());
-            RequestMetrics metrics = results.getMetrics();
-            System.out.print(text + " (O)");
-            System.out.print("|" + metrics.getTotalTime());
-            System.out.print("|" + metrics.getAssemblyTime());
-            System.out.print("|" + metrics.getIdentifyCandidateLookupTime());
-            System.out.print("|" + metrics.getIdentifyCandidatesTime());
-            System.out.print("|" + metrics.getParseTime());
-            System.out.print("|" + metrics.getPreScoringCandidateCount());
-            System.out.print("|" + metrics.getRawCandidateCount());
-
-            for (String scorerClass : new String[] { "NameVariantPriorityScorer", "ExactMatchScorer", "FirstLastTokenHitScorer" }) {
-                long time = 0;
-                for (Scorer scorer : metrics.getTimedScorers()) {
-                    if (scorer.getClass().getSimpleName().equals(scorerClass)) {
-                        time = metrics.getScorerTime(scorer);
-                    }
-                }
-                System.out.print("|" + time);
-            }
-
             System.out.print("|");
             for (PlaceRepresentation placeRep : results.getPlaceRepresentations()) {
                 System.out.print(placeRep + ",");

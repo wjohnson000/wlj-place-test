@@ -14,8 +14,8 @@ import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
-import std.wlj.util.DbManager;
-import std.wlj.util.DbManager.DbServices;
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 import std.wlj.util.SolrManager;
 
 /**
@@ -31,8 +31,8 @@ public class Step03CRUD {
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbServices dbServices = DbManager.getLocal();
-        SolrService solrService = SolrManager.getLocalHttp();
+        DbServices dbServices = DbConnectionManager.getDbServicesSams();
+        SolrService solrService = SolrManager.localHttpService();
         readService = dbServices.readService;
         dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
@@ -67,7 +67,7 @@ public class Step03CRUD {
         }
 
         dataService.shutdown();
-        DbManager.closeAppContext();
+        dbServices.shutdown();
 
         System.exit(0);
     }
@@ -81,7 +81,7 @@ public class Step03CRUD {
      * @throws PlaceDataException if something bad happens
      */
     private static void editPlaceRep(int repId, String locale) throws PlaceDataException {
-        PlaceRepBridge repB = readService.getRep(repId, null);
+        PlaceRepBridge repB = readService.getRep(repId);
 
         Double lattd = repB.getLatitude();
         Double longt = repB.getLongitude();
@@ -113,6 +113,7 @@ public class Step03CRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
+            null,
             wlj,
             null);
     }
@@ -215,7 +216,7 @@ public class Step03CRUD {
             wlj,
             null);
 
-        PlaceBridge placeB = readService.getPlace(repB.getPlaceId(), null);
+        PlaceBridge placeB = readService.getPlace(repB.getPlaceId());
 //        PlaceBridge placeBX = repB.getAssociatedPlace();
 
         // Get the current place, modify the start-data, save it
@@ -255,6 +256,7 @@ public class Step03CRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
+            null,
             "wlj",
             null);
     }
@@ -266,7 +268,7 @@ public class Step03CRUD {
      */
     private static void editProvoPlace() throws PlaceDataException {
         // Get the current place, modify the start-data, save it
-        PlaceBridge placeB = readService.getPlace(8, null);
+        PlaceBridge placeB = readService.getPlace(8);
 
         List<VariantNameDef> varNames = new ArrayList<>();
         for (PlaceNameBridge pNameB : placeB.getAllVariantNames()) {
@@ -281,8 +283,8 @@ public class Step03CRUD {
      * delete the place.
      */
     private static void createAndDeleteProvo() throws PlaceDataException {
-        PlaceBridge placeB = readService.getPlace(8, null);
-        PlaceRepBridge repB = readService.getRep(10, null);
+        PlaceBridge placeB = readService.getPlace(8);
+        PlaceRepBridge repB = readService.getRep(10);
 
         int[] jurisIds = repB.getJurisdictionIdentifiers();
         int parentId = (jurisIds == null  ||  jurisIds.length < 2) ? -1 : jurisIds[1];

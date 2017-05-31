@@ -11,18 +11,13 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class STD2683X {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "http://familysearch.org/int-solr/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrManager.awsProdConnection(false);
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
@@ -44,7 +39,6 @@ public class STD2683X {
         for (PlaceRepDoc doc : docs) {
             System.out.println("ID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
             System.out.println("  Place:  " + doc.getPlaceId());
-            System.out.println("  F-Rev:  " + doc.getForwardRevision());
             System.out.println("  D-Name: " + doc.getDisplayNameMap());
             System.out.println("  P-Name: " + doc.getNames());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());

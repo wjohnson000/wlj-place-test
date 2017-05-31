@@ -26,19 +26,19 @@ public class TestCreateSource {
         prModel.setSource(sourceModel);
 
         URL url = new URL(sourceUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
         SourceModel srcModel = model.getSource();
 
         // Read ALL sources
         url = new URL(sourceUrl);
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("GET-ALL -- Count: " + model.getSources().size());
 
         // Read only the one new source
         if (srcModel != null) {
             url = new URL(sourceUrl + "/" + srcModel.getId());
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }
 
@@ -49,13 +49,13 @@ public class TestCreateSource {
         prModel = new RootModel();
         prModel.setSource(srcModel);
         url = new URL(sourceUrl + "/" + srcModel.getId());
-        model = TestUtil.doPUT(url, prModel);
+        model = HttpHelper.doPUT(url, prModel);
         System.out.println("PUT -- RM: " + model);
 
         // Read only the one new source
         if (srcModel != null) {
             url = new URL(sourceUrl + "/" + srcModel.getId());
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }
     }

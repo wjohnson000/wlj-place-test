@@ -7,6 +7,8 @@ import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.*;
 
+import std.wlj.datasource.DbConnectionManager;
+
 
 /**
  * Generate three files required to look for chains that have cycles in them, particularly
@@ -16,28 +18,15 @@ import java.util.*;
  *
  */
 public class ZzzFindCycles01 {
-    private static final String DB_DRIVER = "org.postgresql.Driver";
-    private static final String DB_URL    = "jdbc:postgresql://std-ws-place-rds-dev.cu21thytneyp.us-east-1.rds.amazonaws.com:1836/sams_place";
-    private static final String DB_USER   = "fs_schema_owner";
-    private static final String DB_PASSWD = "fzBJBhzRiqqaTPsRVzTzEjzhvnuFLoFvduFVSoGWtnOugJukTbaxiNEVlScwHfj";
-//    private static final String DB_URL    = "jdbc:postgresql://localhost:5432/wlj";
-//    private static final String DB_USER   = "wlj";
-//    private static final String DB_PASSWD = "wlj";
-
 
     public static void main(String... args) throws Exception {
-        try (Connection conn = makeConn()) {
+        try (Connection conn = DbConnectionManager.getConnectionAwsDev55()) {
             saveChildParMap(conn);
             saveDelRepIdMap(conn);
             saveLatestChildParMap(conn);
         } catch(SQLException ex) {
             System.out.println("EX: " + ex.getMessage());
         }
-    }
-
-    private static Connection makeConn() throws Exception {
-        Class.forName(DB_DRIVER);
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
     }
 
     private static void saveChildParMap(Connection conn) throws Exception {

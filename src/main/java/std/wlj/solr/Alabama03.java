@@ -10,18 +10,13 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class Alabama03 {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "http://familysearch.org/int-solr/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrManager.awsProdConnection(false);
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();

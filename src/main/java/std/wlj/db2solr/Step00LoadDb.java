@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.familysearch.standards.core.logging.Logger;
 
+import std.wlj.datasource.DbConnectionManager;
 import std.wlj.util.FileUtils;
 
 
@@ -20,33 +21,8 @@ public class Step00LoadDb {
 
     private static Logger logger = new Logger(Step00LoadDb.class);
 
-    /**
-     * Command-line arguments
-     */
-    private static String dbURL  = "jdbc:postgresql://localhost:5432/wlj";
-    private static String dbUser = "wlj";
-    private static String dbPassword = "wlj";
     private static String dataFile = "C:/Tools/flat-file/load-base-values.sql";
 
-    /**
-     * Create a connection to the database, or NULL if the connection can't be made.
-     *
-     * @return
-     * @throws SQLException
-     */
-    private static Connection getConnection() {
-        try {
-            String dbDriver = "org.postgresql.Driver";
-            Class.forName(dbDriver);
-            return DriverManager.getConnection(dbURL, dbUser, dbPassword);
-        } catch (ClassNotFoundException ex) {
-            logger.error("Driver class not found: " + ex);
-            return null;
-        } catch (SQLException ex) {
-            logger.error("Unable to make db connection: " + ex);
-            return null;
-        }
-    }
 
     /**
      * Load the SQL from the given file, pulling everything from between sets of
@@ -157,7 +133,7 @@ public class Step00LoadDb {
      * @param args
      */
     public static void main(String... args) throws SQLException {
-        Connection conn = getConnection();
+        Connection conn = DbConnectionManager.getConnectionWLJ();
         if (conn != null) {
             conn.setAutoCommit(true);
             loadSQL(conn);

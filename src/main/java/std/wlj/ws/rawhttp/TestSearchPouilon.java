@@ -21,7 +21,7 @@ public class TestSearchPouilon {
 
     private static void searchPouillon() throws Exception {
         URL url = new URL(baseUrl + "/request?text=Pouillon&limit=1000&threshold=0&fuzzy=ED_80&pubType=pub_only");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 }

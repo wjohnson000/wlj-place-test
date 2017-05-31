@@ -10,7 +10,7 @@ import org.familysearch.standards.place.ws.model.PlaceRepresentationModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.VariantModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 /**
@@ -48,13 +48,13 @@ public class STD2639 {
 
     private static PlaceModel getPlace(int plcId) throws Exception {
         URL url = new URL(baseUrl + "/" + plcId);
-        RootModel responseModel = TestUtil.doGET(url);
+        RootModel responseModel = HttpHelper.doGET(url);
         return responseModel.getPlace();
     }
 
     private static PlaceRepresentationModel getRep(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "?children=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         return model.getPlaceRepresentation();
     }
 

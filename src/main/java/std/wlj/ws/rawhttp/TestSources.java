@@ -19,14 +19,14 @@ public class TestSources {
         readSources();
 
         System.out.println("Bad URLS ...");
-    	for (String badUrl : TestUtil.getBadUrls()) {
+    	for (String badUrl : HttpHelper.getBadUrls()) {
     		System.out.println("  " + badUrl);
     	}
     }
 
     private static void readSources() throws Exception {
         URL url = new URL(baseUrl + "/sources?this=that&what=whatever");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
 //        url = new URL(baseUrl + "/sources/");
@@ -35,7 +35,7 @@ public class TestSources {
 //
         for (int i=1;  i<250;  i+=250) {
             url = new URL(baseUrl + "/sources/" + i);
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("RM: " + model);
     	}
     }

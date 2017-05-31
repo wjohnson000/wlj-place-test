@@ -2,6 +2,9 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbUtil;
+
 public class TestRepBoundary {
 
     private static final String SIMPLE_BOUNDARY =
@@ -24,20 +27,20 @@ public class TestRepBoundary {
 
 
     public static void main(String... args) throws Exception {
-        Connection conn = DbBase.getConn();
+        Connection conn = DbConnectionManager.getConnectionStds();
 
         // These inserts should work ...
-        int transxId = DbBase.getTranxId(conn);
+        int transxId = DbUtil.getTranxId(conn);
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, 1060, 68));
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, 1061, 68));
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, 1062, 68));
 
-        transxId = DbBase.getTranxId(conn);
+        transxId = DbUtil.getTranxId(conn);
         System.out.println("TransxId: " + transxId);
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, transxId, 1060, 68));
 
         // These inserts should fail!!
-        transxId = DbBase.getTranxId(conn);
+        transxId = DbUtil.getTranxId(conn);
         System.out.println("Update OK? " + insertBndyDetail(conn, 11, transxId, 1060, 68));
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, 11111, 1060, 68));
         System.out.println("Update OK? " + insertBndyDetail(conn, 9, 1, 1060, 68));

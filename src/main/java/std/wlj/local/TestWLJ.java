@@ -7,10 +7,12 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class TestWLJ {
     public static void main(String... args) throws Exception {
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://place-solr.dev.fsglobal.org/solr/places");
+        SolrConnection solrConn = SolrManager.awsDevConnection(false);
 
         solrConn.delete("id:11111111-1");
         solrConn.commit();

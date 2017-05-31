@@ -7,30 +7,28 @@ import java.util.TreeMap;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.place.data.PlaceDataException;
+import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+
+import std.wlj.util.SolrManager;
 
 
 public class SearchMasterById {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "http://familysearch.org/int-solr-repeater/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
-//        SolrQuery query = new SolrQuery("revision:[786979 TO 800000]");
-        SolrQuery query = new SolrQuery("id:6921462-*");
+//        SolrQuery query = new SolrQuery("names:q");
+//        SolrQuery query = new SolrQuery("repId:8193107 OR repId:3497695");
+        SolrQuery query = new SolrQuery("repId:6102");
 //        SolrQuery query = new SolrQuery("parentId:1442484");
-        query.setRows(32);
-        query.setSort("revision", SolrQuery.ORDER.asc);
-//        query.setFilterQueries("-forwardRevision: [* TO *]");
+//      SolrQuery query = new SolrQuery("repIdChain:7099871");
+        query.setRows(10);
+        query.setSort("repId", SolrQuery.ORDER.desc);
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());
         for (PlaceRepDoc doc : docs) {
@@ -45,15 +43,29 @@ public class SearchMasterById {
         for (PlaceRepDoc doc : docs) {
             System.out.println("ID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
             System.out.println("  Place:  " + doc.getPlaceId());
-            System.out.println("  F-Rev:  " + doc.getForwardRevision());
-            System.out.println("  Par-Id:  " + doc.getParentId());
+            System.out.println("  Par-Id: " + doc.getParentId());
+            System.out.println("  Typ-Id: " + doc.getType());
             System.out.println("  D-Name: " + doc.getDisplayNameMap());
             System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
             System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
-            for (String appData : doc.getVariantNames()) {
-                System.out.println("  " + appData);
+            System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + " . " + doc.getLongitude());
+            System.out.println("  Publsh: " + doc.isPublished());
+            System.out.println("  Valitd: " + doc.isValidated());
+            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            for (String varName : doc.getVariantNames()) {
+                System.out.println("  V-Name: " + varName);
             }
+            for (String citn : doc.getCitations()) {
+                System.out.println("    Citn: " + citn);
+            }
+            for (String attr : doc.getAttributes()) {
+                System.out.println("    Attr: " + attr);
+            }
+//            doc.setDataService(theService);
+//            for (PlaceRepBridge prB : doc.getResolvedJurisdictions()) {
+//                System.out.println("  Juris: " + prB.getRepId());
+//            }
         }
 
         System.exit(0);

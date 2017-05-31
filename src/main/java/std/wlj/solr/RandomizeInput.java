@@ -6,11 +6,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import edu.emory.mathcs.backport.java.util.Collections;
-
 
 public class RandomizeInput {
     public static void main(String... args) throws Exception {

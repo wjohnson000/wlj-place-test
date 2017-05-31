@@ -34,15 +34,15 @@ public class AttributeTypeStuff {
         RootModel model;
 
         url = new URL(baseUrl);
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "1010");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "2020");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
@@ -70,7 +70,7 @@ public class AttributeTypeStuff {
         RootModel inModel = new RootModel();
         inModel.setType(theType);
 
-        RootModel outModel = TestUtil.doPOST(url, inModel);
+        RootModel outModel = HttpHelper.doPOST(url, inModel);
         System.out.println("RM01: " + outModel);
         return outModel.getType();
     }
@@ -88,7 +88,7 @@ public class AttributeTypeStuff {
         RootModel inModel = new RootModel();
         inModel.setType(attrModel);
 
-        RootModel outModel = TestUtil.doPUT(url, inModel);
+        RootModel outModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM02: " + outModel);
     }
 }

@@ -52,7 +52,7 @@ public class CitationTypeCreate {
         System.out.println("---------------------------------------------------------------------------------");
 
         URL url = new URL(citationUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
         TypeModel citModel = model.getType();
         System.out.println("---------------------------------------------------------------------------------");
@@ -61,7 +61,7 @@ public class CitationTypeCreate {
 
         if (citModel != null) {
             url = new URL(citationUrl + "/" + citModel.getId());
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }
     }

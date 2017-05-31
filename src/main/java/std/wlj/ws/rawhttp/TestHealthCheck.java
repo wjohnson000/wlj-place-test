@@ -19,16 +19,16 @@ public class TestHealthCheck {
         RootModel model;
 
         url = new URL(baseUrl);
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
-        model = TestUtil.doHEAD(url);
+        model = HttpHelper.doHEAD(url);
         System.out.println("RM: " + model);
 
-        model = TestUtil.doOPTIONS(url);
+        model = HttpHelper.doOPTIONS(url);
         System.out.println("RM: " + model);
 
-        model = TestUtil.doDELETE(url);
+        model = HttpHelper.doDELETE(url);
         System.out.println("RM: " + model);
     }
 }

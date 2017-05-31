@@ -26,7 +26,7 @@ public class TestPlaceType {
 
     private static void readPlaceTypes() throws Exception {
         URL url = new URL(baseUrl + "/place-types");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
 //        for (int i=1;  i<1000;  i+=25) {
@@ -38,12 +38,12 @@ public class TestPlaceType {
 
     private static void readPlaceTypeGroups() throws Exception {
         URL url = new URL(baseUrl + "/type-groups");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         for (int i=1;  i<700;  i+=25) {
             url = new URL(baseUrl + "/type-groups/" + i);
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("RM: " + model);
     	}
     }

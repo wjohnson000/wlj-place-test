@@ -70,7 +70,7 @@ public class TestCreate {
         prModel.setPlaceRepresentation(newRep);
 
         URL url = new URL(baseUrl + "/1337578");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 

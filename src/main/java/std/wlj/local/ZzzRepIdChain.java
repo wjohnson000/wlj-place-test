@@ -9,11 +9,12 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class ZzzRepIdChain {
     public static void main(String... args) throws PlaceDataException {
-		SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
-//        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data");
+		SolrConnection solrConn = SolrManager.localHttpConnection();
 
         SolrQuery query = new SolrQuery("repIdChainInt:64");
         query.setRows(64);

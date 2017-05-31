@@ -3,17 +3,18 @@ package std.wlj.local;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
-import org.familysearch.standards.place.data.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataTypeMapper;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
 
 public class UpdateXrefDoc {
     public static void main(String... args) throws Exception {
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
-//        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data");
+        SolrConnection solrConn = SolrManager.localHttpConnection();
 
-        String[] appDocIds = { AppDataManager.EXT_XREF_TYPE_ID };
+        String[] appDocIds = { AppDataTypeMapper.EXT_XREF_TYPE_ID };
         for (String appDocId : appDocIds) {
             System.out.println("SEARCH --> id:" + appDocId);
             SolrQuery query = new SolrQuery("id:" + appDocId);

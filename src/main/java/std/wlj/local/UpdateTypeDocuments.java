@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
-import org.familysearch.standards.place.data.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataTypeMapper;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 import org.familysearch.standards.place.util.PlaceHelper;
 
+import std.wlj.util.SolrManager;
+
 
 public class UpdateTypeDocuments {
     public static void main(String... args) throws Exception {
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance("http://localhost:8983/solr/places");
-//        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data");
+        SolrConnection solrConn = SolrManager.awsDevConnection(false);
 
-        String[] appDocIds = { AppDataManager.ATTR_TYPE_ID, AppDataManager.NAME_TYPE_ID };
+        String[] appDocIds = { AppDataTypeMapper.ATTR_TYPE_ID, AppDataTypeMapper.NAME_TYPE_ID };
         for (String appDocId : appDocIds) {
             SolrQuery query = new SolrQuery("id:" + appDocId);
             List<PlaceRepDoc> docs = solrConn.search(query);

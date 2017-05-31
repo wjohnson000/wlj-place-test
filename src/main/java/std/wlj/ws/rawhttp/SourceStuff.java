@@ -31,15 +31,15 @@ public class SourceStuff {
         RootModel model;
 
         url = new URL(baseUrl);
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "10");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
         url = new URL(baseUrl + "2020");
-        model = TestUtil.doGET(url);
+        model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
@@ -59,7 +59,7 @@ public class SourceStuff {
         inModel.setSource(theSource);
         System.out.println("InModel: " + inModel);
 
-        RootModel outModel = TestUtil.doPOST(url, inModel);
+        RootModel outModel = HttpHelper.doPOST(url, inModel);
         System.out.println("OutModel: " + outModel);
         return outModel.getSource();
     }

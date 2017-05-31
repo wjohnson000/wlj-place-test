@@ -80,7 +80,7 @@ public class GetPutPostDelete {
     private static void searchTen() throws Exception {
         URL url = new URL(baseUrl + "/request");
         for (String text : textes) {
-            RootModel model = TestUtil.doGET(url, "text", text, "limit", "2", "pubType", "pub_only");
+            RootModel model = HttpHelper.doGET(url, "text", text, "limit", "2", "pubType", "pub_only");
             logIt("Search '" + text + "'", model, (model==null ? null : model.getSearchResults()));
         }
     }
@@ -135,7 +135,7 @@ public class GetPutPostDelete {
         prModel.setPlace(newPlace);
 
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         logIt("Make Place+Rep", model, (model==null ? null : model.getPlace()));
     }
 
@@ -168,7 +168,7 @@ public class GetPutPostDelete {
         prModel.setType(typeModel);
 
         URL url = new URL(baseUrl + "/attribute-types?noCache=true");
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         logIt("Make Name-Type", model, (model==null ? null : model.getType()));
     }
 
@@ -179,7 +179,7 @@ public class GetPutPostDelete {
     public static void getTypeThree() throws Exception {
         for (String typeURL : typeURLs) {
             URL url = new URL(baseUrl + "/" + typeURL);
-            RootModel model = TestUtil.doGET(url);
+            RootModel model = HttpHelper.doGET(url);
             logIt("Get type '" + typeURL + "'", model, (model==null ? null : model.getTypes()));
         }
     }

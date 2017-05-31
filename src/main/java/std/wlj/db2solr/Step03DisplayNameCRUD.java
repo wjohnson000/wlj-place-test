@@ -8,9 +8,9 @@ import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
-import std.wlj.util.DbManager;
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 import std.wlj.util.SolrManager;
-import std.wlj.util.DbManager.DbServices;
 
 
 /**
@@ -26,8 +26,8 @@ public class Step03DisplayNameCRUD {
     private static String wlj = "wjohnson000";
 
     public static void main(String... args) {
-        DbServices dbServices = DbManager.getLocal();
-        SolrService solrService = SolrManager.getLocalHttp();
+        DbServices dbServices = DbConnectionManager.getDbServicesSams();
+        SolrService solrService = SolrManager.localHttpService();
         readService = dbServices.readService;
         dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
@@ -41,7 +41,7 @@ public class Step03DisplayNameCRUD {
         }
 
         dataService.shutdown();
-        DbManager.closeAppContext();
+        dbServices.shutdown();
 
         System.exit(0);
     }
@@ -54,7 +54,7 @@ public class Step03DisplayNameCRUD {
      * @throws PlaceDataException if something bad happens
      */
     private static void editPlaceRep(int repId, int whatever) throws PlaceDataException {
-        PlaceRepBridge repB = readService.getRep(repId, null);
+        PlaceRepBridge repB = readService.getRep(repId);
 
         Double lattd = repB.getLatitude();
         Double longt = repB.getLongitude();
@@ -86,6 +86,7 @@ public class Step03DisplayNameCRUD {
             repB.isPublished(),
             repB.isValidated(),
             groupId,
+            null,
             wlj,
             null);
     }

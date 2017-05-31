@@ -12,6 +12,8 @@ import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
 
+import std.wlj.datasource.DbConnectionManager;
+
 
 public class STD9999 {
 	private static String inputPath = "C:/temp/place-rep-deleted.csv";
@@ -34,7 +36,7 @@ public class STD9999 {
 	}
 
 	public static void main(String... args) throws Exception {
-		Connection conn = getConn();
+		Connection conn = DbConnectionManager.getConnectionAws();
 		List<String> output = new ArrayList<>();
 		Map<Integer,List<Integer>> newToDelMap = getRepIds();
 
@@ -75,19 +77,6 @@ public class STD9999 {
 
 		conn.close();
 		System.exit(0);
-	}
-
-	/**
-	 * Prompt for a username, password ... get the connection
-	 * @return
-	 * @throws Exception
-	 */
-	private static Connection getConn() throws Exception {
-		String username = JOptionPane.showInputDialog("Username:");
-		String password = JOptionPane.showInputDialog("Password:");
-
-		Class.forName("org.postgresql.Driver");
-		return DriverManager.getConnection("jdbc:postgresql://localhost:22/sams_place", username, password);
 	}
 
 	/**

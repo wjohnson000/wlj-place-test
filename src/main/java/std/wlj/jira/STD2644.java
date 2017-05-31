@@ -12,7 +12,7 @@ import org.familysearch.standards.place.ws.model.PlaceSearchResultsModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.VariantModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 /**
@@ -36,7 +36,7 @@ public class STD2644 {
 
         for (String text : textes) {
             URL url = new URL(baseUrl + "/request?text=" + text + "&fuzzy=ED&&threshold=0&pubType=pub_only&valType=val_non");
-            RootModel model = TestUtil.doGET(url);
+            RootModel model = HttpHelper.doGET(url);
 //            System.out.println("RM: " + model);
             for (PlaceSearchResultsModel results : model.getSearchResults()) {
                 for (PlaceSearchResultModel result : results.getResults()) {

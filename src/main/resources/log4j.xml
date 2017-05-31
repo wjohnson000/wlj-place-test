@@ -58,7 +58,7 @@
   <!-- standards logging  -->
   <!-- ======================= -->
   <logger additivity="false" name="org.familysearch.standards">
-    <level value="debug"/>
+    <level value="info"/>
     <appender-ref ref="console"/>
   </logger>
 
@@ -73,7 +73,7 @@
   </logger>
 
   <logger additivity="false" name="org.familysearch.standards.place.database.load">
-    <level value="debug"/>
+    <level value="info"/>
     <appender-ref ref="console"/>
   </logger>
 

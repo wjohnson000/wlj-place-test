@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.place.util.flatfile.FileResultSet;
-
+import org.familysearch.standards.place.db.util.FileResultSet;
 
 public class AnalyzePlaceNoRepNoDeleteId {
     private static final String DELIMITER = "\\|";
@@ -138,12 +137,8 @@ public class AnalyzePlaceNoRepNoDeleteId {
      * Close all of the files and set the readers back to "null".
      */
     private static void closeReaders() {
-        try {
-            placeRS.close();
-            placeNameRS.close();
-        } catch(SQLException ex) {
-            System.out.println("EX: " + ex.getMessage());
-        }
+        placeRS.close();
+        placeNameRS.close();
 
         placeRS = null;
         placeNameRS = null;

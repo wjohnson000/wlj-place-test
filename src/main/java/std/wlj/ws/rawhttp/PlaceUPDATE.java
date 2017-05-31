@@ -39,7 +39,7 @@ public class PlaceUPDATE {
 
     private static PlaceModel getPlace(int plcId) throws Exception {
         URL url = new URL(baseUrl + "/" + plcId);
-        RootModel responseModel = TestUtil.doGET(url);
+        RootModel responseModel = HttpHelper.doGET(url);
         return responseModel.getPlace();
     }
 
@@ -52,7 +52,7 @@ public class PlaceUPDATE {
         RootModel inModel = new RootModel();
         inModel.setPlace(existing);
 
-        RootModel responseModel = TestUtil.doPUT(url, inModel);
+        RootModel responseModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM: " + responseModel);
 
         return responseModel.getPlace();
@@ -76,7 +76,7 @@ public class PlaceUPDATE {
         RootModel inModel = new RootModel();
         inModel.setPlace(existing);
 
-        RootModel responseModel = TestUtil.doPUT(url, inModel);
+        RootModel responseModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM: " + responseModel);
 
         return responseModel.getPlace();

@@ -4,11 +4,12 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
-import org.familysearch.standards.place.data.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataManager;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
 import std.wlj.util.FileUtils;
+import std.wlj.util.SolrManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +18,7 @@ import com.google.gson.GsonBuilder;
 public class Step02DumpSolr {
     public static void main(String... args) throws Exception {
         PrintWriter writer = FileUtils.getWriter("C:/temp/load-place-db/solr-content-02-clean.txt");
-        SolrConnection solrConn = SolrConnection.connectToEmbeddedInstance("C:/tools/Solr/data/");
+        SolrConnection solrConn = SolrManager.localEmbeddedConnection("D:/solr/create-me");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         int skipCnt = 0;

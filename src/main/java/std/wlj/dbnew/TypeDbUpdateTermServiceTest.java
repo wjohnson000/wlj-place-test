@@ -3,12 +3,10 @@ package std.wlj.dbnew;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.data.TypeBridge;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 
 public class TypeDbUpdateTermServiceTest {
 
@@ -20,14 +18,12 @@ public class TypeDbUpdateTermServiceTest {
         descr.put("en", "en-description");
         descr.put("fr", "fr-description");
 
-        ApplicationContext appContext = null;
+        DbServices dbServices = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-            BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-            DbWritableService dbWService = new DbWritableService(ds);
+            dbServices = DbConnectionManager.getDbServicesWLJ();
 
             System.out.println("\nNEW..............................................\n");
-            TypeBridge typeB01 = dbWService.createType(TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
+            TypeBridge typeB01 = dbServices.writeService.createType(TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB01.getTypeId() + " :: " + typeB01.getCode() + " :: " + typeB01.getNames());
 
             System.out.println("\nUPD..............................................\n");
@@ -35,13 +31,13 @@ public class TypeDbUpdateTermServiceTest {
             descr.put("ru", "ru-description");
             names.put("fr", "fr-name-new");
             descr.put("fr", "fr-description");
-            TypeBridge typeB02 = dbWService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
+            TypeBridge typeB02 = dbServices.writeService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ-BB", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB02.getTypeId() + " :: " + typeB02.getCode() + " :: " + typeB02.getNames());
         } catch(Exception ex) {
             System.out.println("Ex: " + ex.getMessage());
         } finally {
             System.out.println("Shutting down ...");
-            ((ClassPathXmlApplicationContext)appContext).close();
+            if (dbServices != null) dbServices.shutdown();
         }
 
         System.exit(0);

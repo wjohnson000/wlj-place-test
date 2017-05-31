@@ -8,9 +8,9 @@ import org.familysearch.standards.place.ws.model.RootModel;
 public class TestSearch {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://localhost:8080/solr/places";
 //    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
-    private static String baseUrl = "http://place-solr.dev.fsglobal.org/solr/places";
+//    private static String baseUrl = "http://place-solr.dev.fsglobal.org/solr/places";
 
 
     /**
@@ -19,31 +19,31 @@ public class TestSearch {
     public static void main(String[] args) throws Exception {
 //        readUSA();
         searchProvo();
-        healthCheck();
-        searchKnighton();
+//        healthCheck();
+//        searchKnighton();
     }
 
     private static void readUSA() throws Exception {
         URL url = new URL(baseUrl + "/1");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
     private static void searchProvo() throws Exception {
-        URL url = new URL(baseUrl + "/request?id:*");
-        RootModel model = TestUtil.doGET(url);
+        URL url = new URL(baseUrl + "/request?id:372");
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
     private static void searchKnighton() throws Exception {
         URL url = new URL(baseUrl + "/request?text=Knighton-on-Teme");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
     private static void healthCheck() throws Exception {
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 }

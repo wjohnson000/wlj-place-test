@@ -40,7 +40,7 @@ public class ExtXrefTypeCreate {
         System.out.println("---------------------------------------------------------------------------------");
 
         URL url = new URL(xrefationUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         System.out.println("POST -- RM: " + model);
         TypeModel xrefModel = model.getType();
         System.out.println("---------------------------------------------------------------------------------");
@@ -49,7 +49,7 @@ public class ExtXrefTypeCreate {
 
         if (xrefModel != null) {
             url = new URL(xrefationUrl + "/" + xrefModel.getId());
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             System.out.println("GET-ONE -- RM: " + model);
         }
     }

@@ -8,19 +8,13 @@ import org.familysearch.standards.place.data.SearchParameter;
 import org.familysearch.standards.place.data.SearchParameters;
 import org.familysearch.standards.place.data.solr.SolrService;
 
+import std.wlj.util.SolrManager;
+
 
 public class STD2660 {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "http://familysearch.org/int-solr/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService  solrService = new SolrService();
+        SolrService  solrService = SolrManager.awsProdService(true);
         SearchParameters params = new SearchParameters();
         params.addParam(SearchParameter.RequiredParentParam.createParam(351));
         params.addParam(SearchParameter.RequiredTypeParam.createParam(186));

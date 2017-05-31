@@ -16,10 +16,10 @@ public class TestAppEndpoint {
      */
     public static void main(String[] args) throws Exception {
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
 
-        model = TestUtil.doPOST(url, null);
+        model = HttpHelper.doPOST(url, null);
         System.out.println("RM: " + model);
 }
 }

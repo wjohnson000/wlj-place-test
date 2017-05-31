@@ -84,7 +84,6 @@ public final class CompareBridges {
         compare("    *IsVal:", repB01.isValidated(), repB02.isValidated());
         compare("    *UUID:", repB01.getUUID(), repB02.getUUID());
         compare("    *DispNames:", repB01.getAllDisplayNames(), repB02.getAllDisplayNames());
-        compare("    *Version:", repB01.getVersion(), repB02.getVersion());
     }
 
     public static void compare(SourceBridge sourceB01, SourceBridge sourceB02) {

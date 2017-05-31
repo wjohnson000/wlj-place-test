@@ -11,7 +11,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 import org.familysearch.standards.place.ws.model.VariantModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 /**
@@ -46,7 +46,7 @@ public class STD2665 {
      */
     private static PlaceModel getPlace(int plcId) throws Exception {
         URL url = new URL(baseUrl + "/" + plcId + "?noCache=true");
-        RootModel responseModel = TestUtil.doGET(url);
+        RootModel responseModel = HttpHelper.doGET(url);
         return responseModel.getPlace();
     }
 
@@ -69,7 +69,7 @@ public class STD2665 {
         RootModel inModel = new RootModel();
         inModel.setPlace(currModel);
 
-        RootModel outModel = TestUtil.doPUT(url, inModel);
+        RootModel outModel = HttpHelper.doPUT(url, inModel);
         return (outModel == null) ? null : outModel.getPlace();
     }
 

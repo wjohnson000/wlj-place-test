@@ -7,7 +7,7 @@ import java.util.List;
 import org.familysearch.standards.place.ws.model.CitationModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 public class STD2663ProdServer {
@@ -29,13 +29,13 @@ public class STD2663ProdServer {
 
     private static void getRep(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 
     private static void readCitations(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         printIt("Read the model ...", repId, model);
     }
 
@@ -74,7 +74,7 @@ public class STD2663ProdServer {
     private static void removeCitation(int repId, int citnId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations/" + citnId + "?noCache=true");
 
-        TestUtil.doDELETE(url);
+        HttpHelper.doDELETE(url);
     }
 
 }

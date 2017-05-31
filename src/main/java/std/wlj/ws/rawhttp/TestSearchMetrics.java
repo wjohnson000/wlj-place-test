@@ -123,16 +123,16 @@ public class TestSearchMetrics {
                 buff.append(textx);
                 buff.append("|").append(loop);
                 buff.append("|").append(time / ONE_MILLION);
-                buff.append("|").append(metrics.getTimings().getTotalTime() / ONE_MILLION);
-                buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
-                buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
-                buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);
+//                buff.append("|").append(metrics.getTimings().getTotalTime() / ONE_MILLION);
+//                buff.append("|").append(metrics.getTimings().getIdentifyCandidatesLookupTime() / ONE_MILLION);
+//                buff.append("|").append(metrics.getTimings().getParseTime() / ONE_MILLION);
+//                buff.append("|").append(metrics.getTimings().getScoringTime() / ONE_MILLION);
                 ScorerModel nvpScorer = null;
-                for (ScorerModel scorer : metrics.getScorers().getScorers()) {
-                    if (scorer.getName().equals("NameVariantPriorityScorer")) {
-                        nvpScorer = scorer;
-                    }
-                }
+//                for (ScorerModel scorer : metrics.getScorers().getScorers()) {
+//                    if (scorer.getName().equals("NameVariantPriorityScorer")) {
+//                        nvpScorer = scorer;
+//                    }
+//                }
                 if (nvpScorer == null) {
                     buff.append("|-1");
                 } else {
@@ -153,6 +153,6 @@ public class TestSearchMetrics {
 
     private static RootModel doSearch(String text) throws Exception {
         URL url = new URL(baseUrl + "/request?text=" + text + "&metrics=true");
-        return TestUtil.doGET(url);
+        return HttpHelper.doGET(url);
     }
 }

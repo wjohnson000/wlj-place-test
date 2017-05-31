@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.Iterator;
 
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.solr.load.PlaceRepReader;
+import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class TestPlaceRepReader {
 	public static void main(String... args) {
-		File parentDir = new File("C:/temp/place-extract/wlj-one");
-		PlaceRepReader prReader = new PlaceRepReader(parentDir);
+		File parentDir = new File("D:/tmp/flat-files/one-ten-thousand");
+		PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(parentDir);
 
 		int docCount = 0;
 		Iterator<PlaceRepDoc> iter = prReader.iterator();

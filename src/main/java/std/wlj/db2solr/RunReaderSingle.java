@@ -13,15 +13,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.solr.load.PlaceRepReader;
-
+import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class RunReaderSingle {
     public static void main(String... args) throws IOException {
         String dataDir = "C:/temp/place-extract/wlj-one";
         String jsonDir = "C:/temp/place-extract/docs-one";
 
-        PlaceRepReader prReader = new PlaceRepReader(new File(dataDir));
+        PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(new File(dataDir));
         Iterator<PlaceRepDoc> iter = prReader.iterator();
         while (iter.hasNext()) {
             PlaceRepDoc prDoc = iter.next();
@@ -46,7 +45,6 @@ public class RunReaderSingle {
         details.add("repId: " + prDoc.getRepId());
         details.add("parentId: " + prDoc.getParentId());
         details.add("revision: " + prDoc.getRevision());
-        details.add("fwdRevision: " + prDoc.getForwardRevision());
         details.add("ownerId: " + prDoc.getOwnerId());
         details.add("typeId: " + prDoc.getType());
         details.add("centroid: " + prDoc.getCentroid());

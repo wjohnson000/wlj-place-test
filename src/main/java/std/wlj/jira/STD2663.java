@@ -17,7 +17,7 @@ import org.familysearch.standards.place.ws.model.RootModel;
 import org.familysearch.standards.place.ws.model.TypeModel;
 import org.familysearch.standards.place.ws.model.VariantModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 /**
@@ -222,7 +222,7 @@ public class STD2663 {
         prModel.setPlace(newPlace);
 
         URL url = new URL(baseUrl);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         return (model == null) ? null : model.getPlace();
     }
 
@@ -274,7 +274,7 @@ public class STD2663 {
         prModel.setPlaceRepresentation(newRep);
 
         URL url = new URL(baseUrl + "/" + placeId);
-        RootModel model = TestUtil.doPOST(url, prModel);
+        RootModel model = HttpHelper.doPOST(url, prModel);
         return (model == null) ? null : model.getPlaceRepresentation();
     }
 
@@ -331,7 +331,7 @@ public class STD2663 {
         RootModel model = new RootModel();
         model.setCitation(citnModel);
 
-        RootModel modelX = TestUtil.doPOST(url, model);
+        RootModel modelX = HttpHelper.doPOST(url, model);
         return (modelX == null) ? null : modelX.getCitation();
     }
 
@@ -359,7 +359,7 @@ public class STD2663 {
         RootModel model = new RootModel();
         model.setAttribute(attrModel);
 
-        RootModel modelX = TestUtil.doPOST(url, model);
+        RootModel modelX = HttpHelper.doPOST(url, model);
         return (modelX == null) ? null : modelX.getAttribute();
     }
 
@@ -372,7 +372,7 @@ public class STD2663 {
     private static PlaceRepresentationModel deletePlaceRep(int repId, int replaceRepId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "?newRepId=" + replaceRepId);
 
-        RootModel model = TestUtil.doDELETE(url);
+        RootModel model = HttpHelper.doDELETE(url);
         return (model == null) ? null : model.getPlaceRepresentation();
     }
 
@@ -384,7 +384,7 @@ public class STD2663 {
      */
     private static List<CitationModel> readCitations(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         return model.getCitations();
     }
 
@@ -396,7 +396,7 @@ public class STD2663 {
      */
     private static List<AttributeModel> readAttributes(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/attributes?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         return model.getAttributes();
     }
 
@@ -410,7 +410,7 @@ public class STD2663 {
     private static void removeCitation(int repId, int citnId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations/" + citnId + "?noCache=true");
 
-        TestUtil.doDELETE(url);
+        HttpHelper.doDELETE(url);
     }
 
 }

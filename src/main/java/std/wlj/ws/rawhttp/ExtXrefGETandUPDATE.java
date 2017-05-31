@@ -28,7 +28,7 @@ public class ExtXrefGETandUPDATE {
         RootModel outModel;
 
         url = new URL("http://localhost:8080/std-ws-place/places/reps/7/xrefs");
-        outModel = TestUtil.doGET(url);
+        outModel = HttpHelper.doGET(url);
 
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println("GET ...");
@@ -46,7 +46,7 @@ public class ExtXrefGETandUPDATE {
         System.out.println("---------------------------------------------------------------------------------");
 
         url = new URL(baseUrl + "XREF_NEW.abc123");
-        outModel = TestUtil.doPUT(url, inModel);
+        outModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM01: " + outModel);
 
         System.out.println("---------------------------------------------------------------------------------");
@@ -55,7 +55,7 @@ public class ExtXrefGETandUPDATE {
         System.out.println("---------------------------------------------------------------------------------");
 
         url = new URL(baseUrl + "XREF_NEW.abc123");
-        outModel = TestUtil.doGET(url);
+        outModel = HttpHelper.doGET(url);
         System.out.println("RM02: " + outModel);
 
         System.out.println("---------------------------------------------------------------------------------");
@@ -72,7 +72,7 @@ public class ExtXrefGETandUPDATE {
         System.out.println("---------------------------------------------------------------------------------");
 
         url = new URL(baseUrl + "XREF_NEW.abc123");
-        outModel = TestUtil.doPUT(url, inModel);
+        outModel = HttpHelper.doPUT(url, inModel);
         System.out.println("RM01: " + outModel);
 
         System.out.println("---------------------------------------------------------------------------------");
@@ -81,7 +81,7 @@ public class ExtXrefGETandUPDATE {
         System.out.println("---------------------------------------------------------------------------------");
 
         url = new URL(baseUrl + "XREF_NEW.abc123");
-        outModel = TestUtil.doGET(url);
+        outModel = HttpHelper.doGET(url);
         System.out.println("RM02: " + outModel);
 
         System.out.println("---------------------------------------------------------------------------------");

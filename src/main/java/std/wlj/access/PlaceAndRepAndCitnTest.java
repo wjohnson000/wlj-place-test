@@ -6,48 +6,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.CitationBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.data.solr.SolrService;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.SolrManager;
 
 public class PlaceAndRepAndCitnTest {
 
-	/** DB and SOLR services */
 	private static final String fakeUser = "wjohnson000";
-
-	private static BasicDataSource ds = null;
-	private static PlaceDataServiceImpl dataService = null;
-
     private static Random random = new Random();
 
 
     public static void main(String... args) {
-//        System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
-//        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
-        System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
+        PlaceDataServiceImpl dataService = null;
+        DbServices dbServices = null;
+        SolrService solrService = null;
 
-        ApplicationContext appContext = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-            ds = (BasicDataSource)appContext.getBean("dataSource");
-            SolrService       solrService = new SolrService();
-            DbReadableService dbRService  = new DbReadableService(ds);
-            DbWritableService dbWService  = new DbWritableService(ds);
-            dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
+            dbServices = DbConnectionManager.getDbServicesWLJ();
+            solrService = SolrManager.awsIntService(true);
+            dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
-            PlaceRepBridge placeRepB01 = createQuilly();
+            PlaceRepBridge placeRepB01 = createQuilly(dataService);
             int repId = placeRepB01.getRepId();
 
             CitationBridge citnB01 = dataService.createCitation(repId, 460, 1, null, "desc-c01", "ref-c01", fakeUser, null);
@@ -67,9 +53,9 @@ public class PlaceAndRepAndCitnTest {
             dataService.deleteCitation(citnB06.getCitationId(), repId, fakeUser, null);
             dataService.deleteCitation(citnB01.getCitationId(), repId, fakeUser, null);
 
-            PlaceRepBridge placeRepB03 = dbRService.getRep(repId, null);
+            PlaceRepBridge placeRepB03 = dbServices.readService.getRep(repId);
             List<CitationBridge> citnBs = placeRepB03.getAllCitations();
-            System.out.println("PLACE-REP: " + placeRepB03.getRepId() + "." + placeRepB03.getVersion() + "." + placeRepB03.getRevision());
+            System.out.println("PLACE-REP: " + placeRepB03.getRepId() + "." + placeRepB03.getRevision());
             for (CitationBridge citnB : citnBs) {
                 System.out.println("CITN: " + citnB.getCitationId() + "." + citnB.getPlaceRep().getRepId() + " :: " + citnB.getSourceRef() + " :: " + citnB.getDescription());
             }
@@ -78,8 +64,9 @@ public class PlaceAndRepAndCitnTest {
             ex.printStackTrace();
         } finally {
             System.out.println("Shutting down ...");
-            ((ClassPathXmlApplicationContext)appContext).close();
             if (dataService != null) dataService.shutdown();
+            if (dbServices != null) dbServices.shutdown();
+            if (solrService != null) solrService.shutdown();
         }
 
         System.exit(0);
@@ -91,7 +78,7 @@ public class PlaceAndRepAndCitnTest {
      * @return
      * @throws PlaceDataException 
      */
-    private static PlaceRepBridge createQuilly() throws PlaceDataException {
+    private static PlaceRepBridge createQuilly(PlaceDataServiceImpl dataService) throws PlaceDataException {
         return dataService.createPlace(
             -1,
             1900,

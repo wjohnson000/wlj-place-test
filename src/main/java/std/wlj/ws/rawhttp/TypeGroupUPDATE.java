@@ -41,7 +41,7 @@ public class TypeGroupUPDATE {
 
     private static PlaceTypeGroupModel getPRGroup(int prgId) throws Exception {
         URL url = new URL(baseUrl + "/" + prgId);
-        RootModel responseModel = TestUtil.doGET(url);
+        RootModel responseModel = HttpHelper.doGET(url);
         return responseModel.getPlaceTypeGroup();
     }
 
@@ -77,7 +77,7 @@ public class TypeGroupUPDATE {
         RootModel inModel = new RootModel();
         inModel.setPlaceTypeGroup(existing);
 System.out.println("In Model:\n" + inModel.toJSON());
-        RootModel responseModel = TestUtil.doPUT(url, inModel);
+        RootModel responseModel = HttpHelper.doPUT(url, inModel);
         return responseModel.getPlaceTypeGroup();
     }
 
@@ -95,14 +95,14 @@ System.out.println("In Model:\n" + inModel.toJSON());
         URL url = new URL(baseUrl);
         RootModel requestModel = new RootModel();
         requestModel.setPlaceTypeGroup(model);
-        RootModel responseModel = TestUtil.doPOST(url, requestModel);
+        RootModel responseModel = HttpHelper.doPOST(url, requestModel);
 
         existing.getSubGroups().add(responseModel.getPlaceTypeGroup());
 
         url = new URL(baseUrl + "/" + existing.getId());
         requestModel = new RootModel();
         requestModel.setPlaceTypeGroup(existing);
-        responseModel = TestUtil.doPUT(url, requestModel);
+        responseModel = HttpHelper.doPUT(url, requestModel);
         return responseModel.getPlaceTypeGroup();
     }
 

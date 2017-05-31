@@ -8,10 +8,12 @@ import org.familysearch.standards.place.data.SearchParameters;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
 
+import std.wlj.util.SolrManager;
+
 
 public class FindUSA {
     public static void main(String... args) throws PlaceDataException {
-        SolrService solrService = new SolrService();
+        SolrService  solrService = SolrManager.localHttpService();
 
         System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
         System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());

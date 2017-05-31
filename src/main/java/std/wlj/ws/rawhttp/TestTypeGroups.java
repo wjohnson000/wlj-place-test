@@ -34,13 +34,13 @@ public class TestTypeGroups {
 
     private static void readTypeGroups() throws Exception {
         URL url = new URL(baseUrl + "/type-groups/");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("MODEL: " + model);
 
         int id = 1;
         while (true) {
             url = new URL(baseUrl + "/type-groups/" + id);
-            model = TestUtil.doGET(url);
+            model = HttpHelper.doGET(url);
             if (model == null) break;
 
             PlaceTypeGroupModel typeGroup = model.getPlaceTypeGroup();

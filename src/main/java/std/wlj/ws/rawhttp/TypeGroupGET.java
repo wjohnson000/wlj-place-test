@@ -26,7 +26,7 @@ public class TypeGroupGET {
         URL url = new URL(baseUrl);
 
         // Read all Place-Rep GROUPS, save the IDs
-        responseModel = TestUtil.doGET(url);
+        responseModel = HttpHelper.doGET(url);
         System.out.println("All Place-Rep GROUPS: \n" + responseModel.toJSON());
     }
 }

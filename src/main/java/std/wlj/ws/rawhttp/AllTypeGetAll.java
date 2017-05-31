@@ -32,7 +32,7 @@ public class AllTypeGetAll {
 
     	for (String typeSvc : typeSvcs) {
             URL url = new URL(baseUrl + typeSvc);
-            RootModel model = TestUtil.doGET(url);
+            RootModel model = HttpHelper.doGET(url);
             for (TypeModel typeModel : model.getTypes()) {
             	typeData.put(typeModel.getId(), typeSvc + "." + typeModel.getCode());
             }

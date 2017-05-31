@@ -4,60 +4,53 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.ExternalReferenceBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.SolrManager;
 
 
 public class ExtXrefTest {
 
     public static void main(String... args) {
-//      System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
-//      System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-      System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
-      System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
-      System.setProperty("solr.master", "false");
-      System.setProperty("solr.slave", "false");
+        PlaceDataServiceImpl dataService = null;
+        DbServices dbServices = null;
+        SolrService solrService = null;
 
-      ApplicationContext appContext = null;
-      PlaceDataServiceImpl dataService = null;
-      try {
-          appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
-          BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-          SolrService       solrService = new SolrService();
-          DbReadableService dbRService  = new DbReadableService(ds);
-          DbWritableService dbWService  = new DbWritableService(ds);
-          dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
+        try {
+            dbServices = DbConnectionManager.getDbServicesWLJ();
+            solrService = SolrManager.awsIntService(true);
+            dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
-          Set<ExternalReferenceBridge> extXrefBs = dataService.getExternalReferences("RANDMC", "ABC-DEF");
-          System.out.println("\nALL..............................................\n");
-          for (ExternalReferenceBridge extXrefB : extXrefBs) {
-              System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
-          }
+            Set<ExternalReferenceBridge> extXrefBs = dataService.getExternalReferences("NGA_US_UFI", "ABC-DEF");
+            System.out.println("\nALL..............................................\n");
+            for (ExternalReferenceBridge extXrefB : extXrefBs) {
+                System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
+            }
 
-          System.out.println("\nNEW/UPD..........................................\n");
-          Set<Integer> repIds = new HashSet<>(Arrays.asList(2, 3, 4, 5));
-          extXrefBs = dataService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000", null);
-          for (ExternalReferenceBridge extXrefB : extXrefBs) {
-              System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
-          }
+            System.out.println("\nNEW/UPD..........................................\n");
+            Set<Integer> repIds = new HashSet<>(Arrays.asList(1000002, 1000003, 1000004, 1000005));
+            extXrefBs = dataService.createOrUpdateExternalReference("NGA_US_UFI", "ABC-DEF", repIds, "wjohnson000", null);
+            for (ExternalReferenceBridge extXrefB : extXrefBs) {
+                System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
+            }
 
-          System.out.println("\nNEW/UPD..........................................\n");
-          repIds = new HashSet<>(Arrays.asList(4, 5, 6));
-          extXrefBs = dataService.createOrUpdateExternalReference("RANDMC", "ABC-DEF", repIds, "wjohnson000", null);
-          for (ExternalReferenceBridge extXrefB : extXrefBs) {
-              System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
-          }
+            System.out.println("\nNEW/UPD..........................................\n");
+            repIds = new HashSet<>(Arrays.asList(1000004, 1000005, 1000006));
+            extXrefBs = dataService.createOrUpdateExternalReference("NGA_US_UFI", "ABC-DEF", repIds, "wjohnson000", null);
+            for (ExternalReferenceBridge extXrefB : extXrefBs) {
+                System.out.println("EXT-XREF: " + extXrefB.getRefId() + "." + extXrefB.getReference() + " :: " + extXrefB.getType().getCode() + " :: " + extXrefB.getPlaceRep().getRepId());
+            }
         } catch(Exception ex) {
             System.out.println("Ex: " + ex.getMessage());
         } finally {
             System.out.println("Shutting down ...");
-            ((ClassPathXmlApplicationContext)appContext).close();
+            if (dataService != null) dataService.shutdown();
+            if (dbServices != null) dbServices.shutdown();
+            if (solrService != null) solrService.shutdown();
         }
 
         System.exit(0);

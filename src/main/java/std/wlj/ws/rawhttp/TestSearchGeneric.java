@@ -11,9 +11,10 @@ import org.familysearch.standards.place.ws.model.RootModel;
 public class TestSearchGeneric {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "http://localhost:8080/solr/places";
+//  private static String baseUrl = "http://localhost:8080/std-ws-place/places";
 //    private static String baseUrl = "http://familysearch.org/int-std-ws-place/places";
-      private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
+//      private static String baseUrl = "http://place-ws-test.dev.fsglobal.org/int-std-ws-place/places";
 
     /**
      * Run two tests ... a GET of a specific place, and a search
@@ -42,7 +43,7 @@ public class TestSearchGeneric {
 
         for (String[] search : searchStuff) {
             URL urlx = new URL(baseUrl + "/request");
-            RootModel modelx = TestUtil.doGET(urlx, search);
+            RootModel modelx = HttpHelper.doGET(urlx, search);
             System.out.println("RM-count: " + modelx.getSearchResults().get(0).getCount());
             for (PlaceSearchResultModel placeModel : modelx.getSearchResults().get(0).getResults()) {
                 PlaceRepresentationModel repModel = placeModel.getRep();

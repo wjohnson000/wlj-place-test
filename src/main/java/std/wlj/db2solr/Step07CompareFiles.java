@@ -89,7 +89,6 @@ public class Step07CompareFiles {
         compareValue(buff, "owner-id", doc01.getType(), doc02.getType());
         compareValue(buff, "uuid", doc01.getUUID(), doc02.getUUID());
         compareValue(buff, "revision", doc01.getRevision(), doc02.getRevision());
-        compareValue(buff, "fwd-revision", doc01.getForwardRevision(), doc02.getForwardRevision());
         compareValue(buff, "published", doc01.getPublished(), doc02.getPublished());
         compareValue(buff, "validated", doc01.getValidated(), doc02.getValidated());
         compareValue(buff, "type-group", doc01.getTypeGroup(), doc02.getTypeGroup());

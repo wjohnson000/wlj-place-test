@@ -10,7 +10,11 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
-import org.familysearch.standards.place.search.RequestMetrics;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+//import org.familysearch.standards.place.search.RequestMetrics;
+//import org.familysearch.standards.place.Metrics;
+
+import std.wlj.util.SolrManager;
 
 
 public class STD2644Raw {
@@ -23,13 +27,9 @@ public class STD2644Raw {
 
 
     public static void main(String... args) throws PlaceDataException {
-        System.setProperty("solr.master.url", "");
-        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService solrService = new SolrService();
-        PlaceService placeService = new PlaceService(new DefaultPlaceRequestProfile(solrService));
+        SolrService solrService = SolrManager.localEmbeddedService();
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
         System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
@@ -48,14 +48,14 @@ public class STD2644Raw {
             PlaceResults results = placeService.requestPlaces(builder.getRequest());
             long nnow = System.nanoTime();
 
-            RequestMetrics metrics = results.getMetrics();
+//            Metrics metrics = results.getMetrics();
             StringBuilder buff = new StringBuilder();
             buff.append(text);
             buff.append("|").append((nnow - then) / ONE_MILLION);
-            buff.append("|").append(metrics.getTotalTime() / ONE_MILLION);
-            buff.append("|").append(metrics.getIdentifyCandidateLookupTime() / ONE_MILLION);
-            buff.append("|").append(metrics.getParseTime() / ONE_MILLION);
-            buff.append("|").append(metrics.getScoringTime() / ONE_MILLION);
+//            buff.append("|").append(metrics.getTotalTime() / ONE_MILLION);
+//            buff.append("|").append(metrics.getIdentifyCandidateLookupTime() / ONE_MILLION);
+//            buff.append("|").append(metrics.getParseTime() / ONE_MILLION);
+//            buff.append("|").append(metrics.getScoringTime() / ONE_MILLION);
             buff.append("|-1");
 
             buff.append("|").append(results.getReturnedCount());

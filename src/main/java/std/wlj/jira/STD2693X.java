@@ -2,30 +2,24 @@ package std.wlj.jira;
 
 import java.util.Arrays;
 
-import org.familysearch.standards.place.data.AppDataManager;
+import org.familysearch.standards.place.appdata.AppDataManager;
 import org.familysearch.standards.place.data.PlaceNameBridge;
 import org.familysearch.standards.place.data.VariantNameSorter;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrService;
 
+import std.wlj.util.SolrManager;
+
 
 public class STD2693X {
     public static void main(String... args) throws Exception {
-        String solrHome = "http://familysearch.org/int-solr/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService  solrService = new SolrService();
+        SolrService  solrService = SolrManager.awsProdService(true);
         AppDataManager appDataManager = new AppDataManager(solrService);
         VariantNameSorter.initMap(appDataManager);
 
-        PlaceRepDoc doc = solrService.findPlaceRep(266, null);
+        PlaceRepDoc doc = solrService.findPlaceRep(266);
 
         System.out.println("ID: " + doc.getId() + " --> " + doc.getRevision() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()));
-        System.out.println("  FWD: " + doc.getForwardRevision());
         System.out.println("  DSP: " + doc.getAllDisplayNames());
         System.out.println("  DEL: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
 //            for (String varn : doc.getVariantNames()) {

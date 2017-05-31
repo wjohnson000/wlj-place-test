@@ -2,18 +2,21 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbUtil;
+
 public class TestBoundary {
 
     public static void main(String... args) throws Exception {
-        Connection conn = DbBase.getConn();
+        Connection conn = DbConnectionManager.getConnectionStds();
 
         int bndryId = insertBoundary(conn, "Silly Boundary", "1900", null);
         System.out.println("BndryId: " + bndryId);
 
         // These updates should work ...
-        DbBase.getTranxId(conn);
+        DbUtil.getTranxId(conn);
         System.out.println("Update OK? " + updateBoundary(conn, bndryId, "Silly Boundary update 01", "1901", "2020"));
-        int transxId = DbBase.getTranxId(conn);
+        int transxId = DbUtil.getTranxId(conn);
         System.out.println("TransxId: " + transxId);
         System.out.println("Update OK? " + updateBoundary(conn, bndryId, transxId, "Silly Boundary update 02", "1901", "2020"));
 

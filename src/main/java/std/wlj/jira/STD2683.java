@@ -7,7 +7,7 @@ import org.familysearch.standards.place.ws.model.PlaceRepresentationModel;
 import org.familysearch.standards.place.ws.model.PlaceSearchResultModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 public class STD2683 {
@@ -23,7 +23,7 @@ public class STD2683 {
     public static void main(String[] args) throws Exception {
         URL url = new URL(baseUrl);
 
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM-count: " + model.getSearchResults().get(0).getCount());
         for (PlaceSearchResultModel placeModel : model.getSearchResults().get(0).getResults()) {
             PlaceRepresentationModel repModel = placeModel.getRep();

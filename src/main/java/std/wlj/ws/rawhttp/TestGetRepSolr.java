@@ -23,7 +23,7 @@ public class TestGetRepSolr {
 
     private static void getRep(int repId) throws Exception {
         URL url = new URL(masterUrl + "?q=id:" + repId + "-*&wt=json");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM: " + model);
     }
 }

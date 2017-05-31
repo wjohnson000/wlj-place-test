@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.net.*;
-import std.wlj.ws.rawhttp.TestUtil;
+import std.wlj.ws.rawhttp.HttpHelper;
 
 
 public class STD2683XX {
@@ -19,7 +19,7 @@ public class STD2683XX {
     public static void main(String[] args) throws Exception {
         for (String delUrl : delUrls) {
             URL url = new URL(delUrl);
-            TestUtil.doDELETE(url);
+            HttpHelper.doDELETE(url);
         }
     }
 }

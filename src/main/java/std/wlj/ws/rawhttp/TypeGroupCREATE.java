@@ -37,7 +37,7 @@ public class TypeGroupCREATE {
         System.out.println(requestModel.toJSON());
         System.out.println(requestModel.toXML());
 
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         otherPRGM = responseModel.getPlaceTypeGroup();
         System.out.println("\n-----------------------------------------------------------------------------------");
         System.out.println(responseModel.toJSON());
@@ -52,7 +52,7 @@ public class TypeGroupCREATE {
         System.out.println(requestModel.toXML());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceTypeGroupModel mountainPRGM = responseModel.getPlaceTypeGroup();
         System.out.println("\n-----------------------------------------------------------------------------------");
         System.out.println(responseModel.toJSON());
@@ -67,7 +67,7 @@ public class TypeGroupCREATE {
         System.out.println(requestModel.toXML());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceTypeGroupModel pacificPRGM = responseModel.getPlaceTypeGroup();
         System.out.println("\n-----------------------------------------------------------------------------------");
         System.out.println(responseModel.toJSON());
@@ -82,7 +82,7 @@ public class TypeGroupCREATE {
         System.out.println(requestModel.toXML());
 
         url = new URL(baseUrl);
-        responseModel = TestUtil.doPOST(url, requestModel);
+        responseModel = HttpHelper.doPOST(url, requestModel);
         PlaceTypeGroupModel westernPRGM = responseModel.getPlaceTypeGroup();
         System.out.println("\n-----------------------------------------------------------------------------------");
         System.out.println(responseModel.toJSON());

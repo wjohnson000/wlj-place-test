@@ -37,11 +37,6 @@ import std.wlj.util.FileUtils;
 
 
 public class InsertKMLGeography {
-    private static String jdbcDriver   = "org.postgresql.Driver";
-    private static String jdbcURL      = "jdbc:postgresql://ec2-23-21-26-193.compute-1.amazonaws.com:5432/p124";
-    private static String jdbcUser     = "postgres";
-    private static String jdbcPassword = "admin";
-
 
 //    public static void main(String[] args) throws Exception {
 //        Connection conn = getConn();

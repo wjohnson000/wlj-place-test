@@ -8,15 +8,11 @@ import org.familysearch.standards.place.data.SearchParameters;
 //import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
 
+import std.wlj.util.SolrManager;
+
 public class STD2661 {
     public static void main(String... args) throws PlaceDataException {
-//        System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
-//        System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-        System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
-        System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrService solrService = new SolrService();
+        SolrService  solrService = SolrManager.localHttpService();
 
         SearchParameters params = new SearchParameters();
         params.addParam(SearchParameter.PlaceRepParam.createParam(3688));

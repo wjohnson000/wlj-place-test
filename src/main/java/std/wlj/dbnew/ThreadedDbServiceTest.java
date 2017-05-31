@@ -9,13 +9,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 
 /**
  * Kick of several threads to create stuff, make sure that nothing gets the same
@@ -29,14 +27,12 @@ public class ThreadedDbServiceTest {
     private static String username = "wjohnson000";
     private static Random random   = new Random();
 
-    private static ApplicationContext appContext = null;
-    private static DbWritableService  dbWService = null;
+    private static DbServices dbServices = null;
 
     public static void main(String... args) {
 
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-            dbWService = new DbWritableService((BasicDataSource)appContext.getBean("dataSource"));
+            dbServices = DbConnectionManager.getDbServicesWLJ();
 
             ExecutorService exSvc = Executors.newFixedThreadPool(10);
             for (int i=0;  i<100;  i++) {
@@ -57,7 +53,7 @@ public class ThreadedDbServiceTest {
             System.out.println("Ex: " + ex.getMessage());
         } finally {
             System.out.println("Shutting down ...");
-            ((ClassPathXmlApplicationContext)appContext).close();
+            if (dbServices != null) dbServices.shutdown();
         }
 
         System.exit(0);
@@ -115,7 +111,7 @@ public class ThreadedDbServiceTest {
         int placeTypeId = random.nextInt(314) + 1;
 
         try {
-            PlaceRepBridge prBridge = dbWService.createPlace(
+            PlaceRepBridge prBridge = dbServices.writeService.createPlace(
                 -1,
                 1900,
                 null,
@@ -144,7 +140,7 @@ public class ThreadedDbServiceTest {
      */
     private static PlaceBridge updatePlace(PlaceBridge pBridge) {
         try {
-            return dbWService.updatePlace(
+            return dbServices.writeService.updatePlace(
                 pBridge.getPlaceId(),
                 pBridge.getFromYear()+1,
                 pBridge.getToYear()+1,
@@ -164,7 +160,7 @@ public class ThreadedDbServiceTest {
         int placeTypeId = random.nextInt(314) + 1;
 
         try {
-            return dbWService.createRep(
+            return dbServices.writeService.createRep(
                 placeId,
                 -1,
                 1800,
@@ -190,7 +186,7 @@ public class ThreadedDbServiceTest {
      */
     private static PlaceRepBridge updatePlaceRep(PlaceRepBridge prBridge) {
         try {
-            return dbWService.updateRep(
+            return dbServices.writeService.updateRep(
                 prBridge.getRepId(),
                 prBridge.getPlaceId(),
                 -1,
@@ -203,6 +199,7 @@ public class ThreadedDbServiceTest {
                 prBridge.getLongitude(),
                 prBridge.isPublished(),
                 prBridge.isValidated(),
+                null,
                 null,
                 username,
                 null);
@@ -219,7 +216,7 @@ public class ThreadedDbServiceTest {
         int attrTypeId = random.nextInt(31) + 994;
 
         try {
-            return dbWService.createAttribute(
+            return dbServices.writeService.createAttribute(
                 repId,
                 attrTypeId,
                 1910,
@@ -238,7 +235,7 @@ public class ThreadedDbServiceTest {
      */
     private static AttributeBridge updateAttribute(AttributeBridge aBridge) {
         try {
-            return dbWService.updateAttribute(
+            return dbServices.writeService.updateAttribute(
                 aBridge.getAttributeId(),
                 aBridge.getPlaceRep().getRepId(),
                 aBridge.getType().getTypeId(),
@@ -258,7 +255,7 @@ public class ThreadedDbServiceTest {
      */
     private static int deleteAttribute(AttributeBridge aBridge) {
         try {
-            return dbWService.deleteAttribute(aBridge.getAttributeId(), aBridge.getPlaceRep().getRepId(), username, null);
+            return dbServices.writeService.deleteAttribute(aBridge.getAttributeId(), aBridge.getPlaceRep().getRepId(), username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to delete attribute -- " + aBridge.getAttributeId() + ": " + e.getMessage());
             return 0;
@@ -273,7 +270,7 @@ public class ThreadedDbServiceTest {
         int sourceId  = random.nextInt(378) + 1;
 
         try {
-            return dbWService.createCitation(
+            return dbServices.writeService.createCitation(
                 repId,
                 citTypeId,
                 sourceId,
@@ -294,7 +291,7 @@ public class ThreadedDbServiceTest {
      */
     private static CitationBridge updateCitation(CitationBridge cBridge) {
         try {
-            return dbWService.updateCitation(
+            return dbServices.writeService.updateCitation(
                 cBridge.getCitationId(),
                 cBridge.getPlaceRep().getRepId(),
                 cBridge.getType().getTypeId(),
@@ -315,7 +312,7 @@ public class ThreadedDbServiceTest {
      */
     private static int deleteCitation(CitationBridge cBridge) {
         try {
-            return dbWService.deleteCitation(cBridge.getCitationId(), cBridge.getPlaceRep().getRepId(), username, null);
+            return dbServices.writeService.deleteCitation(cBridge.getCitationId(), cBridge.getPlaceRep().getRepId(), username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to delete citation -- " + cBridge.getCitationId() + ": " + e.getMessage());
             return 0;

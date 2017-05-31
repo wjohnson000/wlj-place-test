@@ -12,8 +12,9 @@ public class TestSearchUSA {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places/request?text=USA";
-    private static String baseUrl =   "https://familysearch.org/int-std-ws-place/places/request?limit=1000&pubType=pub_only&text=Dolinivka&threshold=0&valType=val_non_val&noCache=true";
-//    private static String baseUrl = "https://familysearch.org/int-std-ws-place/places/request?limit=1000&pubType=pub_only&text=Dolinivka&threshold=0&valType=val_non_val";
+//    private static String baseUrl =   "https://familysearch.org/int-std-ws-place/places/request?limit=1000&pubType=pub_only&text=Dolinivka&threshold=0&valType=val_non_val&noCache=true";
+//    private static String baseUrl = "http://ws.place.std.cmn.beta.us-east-1.test.fslocal.org/int-std-ws-place/places/request?text=Over+Stratton%2C+Somerset%2C+England%2C+United+Kingdom&limit=1";
+    private static String baseUrl = "http://familysearch.org/int-std-ws-place/places/request?text=Over+Stratton%2C+Somerset%2C+England%2C+United+Kingdom&limit=1";
 
     /**
      * Run two tests ... a GET of a specific place, and a search
@@ -21,7 +22,7 @@ public class TestSearchUSA {
     public static void main(String[] args) throws Exception {
         URL url = new URL(baseUrl);
 
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         System.out.println("RM-count: " + model.getSearchResults().get(0).getCount());
         for (PlaceSearchResultModel placeModel : model.getSearchResults().get(0).getResults()) {
             PlaceRepresentationModel repModel = placeModel.getRep();

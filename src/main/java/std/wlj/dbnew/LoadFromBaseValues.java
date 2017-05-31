@@ -6,6 +6,9 @@ import java.util.*;
 
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
+
+import std.wlj.datasource.DbConnectionManager;
+
 import org.familysearch.standards.core.logging.Logger;
 
 
@@ -21,9 +24,6 @@ public class LoadFromBaseValues {
     /**
      * Command-line arguments
      */
-    private static String dbURL  = "jdbc:postgresql://localhost:5432/standards";
-    private static String dbUser = "postgres";   // "sams_place";
-    private static String dbPassword = "admin";  // "sams_place";
     private static String sqlDirectory = "C:/temp/place-2.0/sql-files";
     private static String version = "1.19";
 
@@ -59,26 +59,6 @@ public class LoadFromBaseValues {
             "COPY sams_place.GROUP_TERM(term_id, group_id, locale, name, description) FROM stdin"
         };
         tableCopyStmts.put("04-group", copyArrayGroup);
-    }
-
-    /**
-     * Create a connection to the database, or NULL if the connection can't be made.
-     *
-     * @return
-     * @throws SQLException
-     */
-    private static Connection getConnection() {
-        try {
-            String dbDriver = "org.postgresql.Driver";
-            Class.forName(dbDriver);
-            return DriverManager.getConnection(dbURL, dbUser, dbPassword);
-        } catch (ClassNotFoundException ex) {
-            logger.error("Driver class not found: " + ex);
-            return null;
-        } catch (SQLException ex) {
-            logger.error("Unable to make db connection: " + ex);
-            return null;
-        }
     }
 
     /**
@@ -225,7 +205,7 @@ public class LoadFromBaseValues {
     public static void main(String... args) throws SQLException {
         long nnow = System.currentTimeMillis();
 
-        Connection conn = getConnection();
+        Connection conn = DbConnectionManager.getConnectionSams();
         if (conn != null) {
             conn.setAutoCommit(true);
             startLoad(conn);

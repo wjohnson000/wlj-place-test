@@ -8,21 +8,18 @@ import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+
+import std.wlj.util.SolrManager;
 
 
 public class STD2683XXX {
 
     public static void main(String... args) throws PlaceDataException {
-//        String solrHome = "http://localhost:8983/solr/places";
-        String solrHome = "C:/Users/wjohnson000/.places/solr-places/solr";
+        SolrService  solrService = SolrManager.awsProdService(true);
 
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService  solrService = new SolrService();
-        PlaceService placeService = new PlaceService(new DefaultPlaceRequestProfile(solrService));
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         PlaceRequestBuilder builder = new PlaceRequestBuilder();
         builder.setText("Dolinivka");

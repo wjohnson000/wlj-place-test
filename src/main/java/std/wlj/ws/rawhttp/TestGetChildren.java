@@ -16,7 +16,7 @@ public class TestGetChildren {
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
-        RootModel model = TestUtil.doGET(new URL(theUrl));
+        RootModel model = HttpHelper.doGET(new URL(theUrl));
         System.out.println("RM: " + model);
     }
 }

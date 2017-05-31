@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.familysearch.standards.place.util.flatfile.FileResultSet;
+import org.familysearch.standards.place.db.util.FileResultSet;
 
 public class CountDummyPlaceAndName {
 	public static void main(String... args) throws Exception {

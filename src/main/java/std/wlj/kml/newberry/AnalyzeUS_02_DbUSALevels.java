@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import std.wlj.datasource.PGConnection;
+import std.wlj.datasource.DbConnectionManager;
 
 public class AnalyzeUS_02_DbUSALevels {
 
@@ -38,7 +38,7 @@ public class AnalyzeUS_02_DbUSALevels {
     static Map<Integer, PlaceRepX> repMap = new HashMap<>();
 
     public static void main(String...args) {
-        try(Connection conn=PGConnection.getConnectionDev55()) {
+        try(Connection conn=DbConnectionManager.getConnectionAwsDev55()) {
             populateTypes(conn);
 
             getReps(conn, "rep_id", Arrays.asList(1));

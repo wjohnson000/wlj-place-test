@@ -6,14 +6,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.GroupBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.SolrManager;
 
 public class GroupTest {
 
@@ -25,22 +24,14 @@ public class GroupTest {
         descr.put("en", "en-description");
         descr.put("fr", "fr-description");
 
-//      System.setProperty("solr.master.url", "C:/tools/solr/data/tokoro");
-//      System.setProperty("solr.solr.home", "C:/tools/solr/data/tokoro");
-      System.setProperty("solr.master.url", "http://localhost:8983/solr/places");
-      System.setProperty("solr.solr.home", "http://localhost:8983/solr/places");
-      System.setProperty("solr.master", "false");
-      System.setProperty("solr.slave", "false");
-
-      ApplicationContext appContext = null;
       PlaceDataServiceImpl dataService = null;
+      DbServices dbServices = null;
+      SolrService solrService = null;
+
       try {
-          appContext = new ClassPathXmlApplicationContext("postgres-context-aws-int.xml");
-          BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-          SolrService       solrService = new SolrService();
-          DbReadableService dbRService  = new DbReadableService(ds);
-          DbWritableService dbWService  = new DbWritableService(ds);
-          dataService = new PlaceDataServiceImpl(solrService, dbRService, dbWService);
+          dbServices = DbConnectionManager.getDbServicesSams();
+          solrService = SolrManager.localHttpService();
+          dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
           System.out.println("\nALL [TYPE]........................................\n");
           Set<GroupBridge> groupBs = dataService.getGroups(GroupBridge.TYPE.PLACE_TYPE, false);
@@ -151,7 +142,9 @@ public class GroupTest {
           ex.printStackTrace();
       } finally {
           System.out.println("Shutting down ...");
-          ((ClassPathXmlApplicationContext)appContext).close();
+          if (dataService != null) dataService.shutdown();
+          if (dbServices != null) dbServices.shutdown();
+          if (solrService != null) solrService.shutdown();
       }
 
       System.exit(0);

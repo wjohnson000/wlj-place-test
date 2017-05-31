@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.dbcp.BasicDataSource;
 import org.familysearch.standards.place.data.TypeBridge;
-import org.familysearch.standards.place.service.DbReadableService;
-import org.familysearch.standards.place.service.DbWritableService;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import std.wlj.datasource.DbConnectionManager;
+import std.wlj.datasource.DbConnectionManager.DbServices;
 
 public class TypeDbServiceTest {
 
@@ -22,46 +19,43 @@ public class TypeDbServiceTest {
         descr.put("en", "en-description");
         descr.put("fr", "fr-description");
 
-        ApplicationContext appContext = null;
+        DbServices dbServices = null;
         try {
-            appContext = new ClassPathXmlApplicationContext("postgres-context-localhost-wlj.xml");
-            BasicDataSource ds = (BasicDataSource)appContext.getBean("dataSource");
-            DbReadableService dbRService = new DbReadableService(ds);
-            DbWritableService dbWService = new DbWritableService(ds);
+            dbServices = DbConnectionManager.getDbServicesWLJ();
 
             System.out.println("\nALL [Name]........................................\n");
-            Set<TypeBridge> typeBs = dbRService.getTypes(TypeBridge.TYPE.NAME, false);
+            Set<TypeBridge> typeBs = dbServices.readService.getTypes(TypeBridge.TYPE.NAME, false);
             for (TypeBridge typeB : typeBs) {
                 System.out.println("TYPE: " + typeB.getTypeId() + " :: " + typeB.getCode() + " :: " + typeB.getNames());
             }
 
             System.out.println("\nONE..............................................\n");
-            TypeBridge typeB00 = dbRService.getTypeById(TypeBridge.TYPE.NAME, 444, false);
+            TypeBridge typeB00 = dbServices.readService.getTypeById(TypeBridge.TYPE.NAME, 444, false);
             System.out.println("TYPE: " + typeB00.getTypeId() + " :: " + typeB00.getCode() + " :: " + typeB00.getNames());
 
             System.out.println("\nTWO..............................................\n");
-            typeB00 = dbRService.getTypeByCode(TypeBridge.TYPE.NAME, "ISONAME", false);
+            typeB00 = dbServices.readService.getTypeByCode(TypeBridge.TYPE.NAME, "ISONAME", false);
             System.out.println("TYPE: " + typeB00.getTypeId() + " :: " + typeB00.getCode() + " :: " + typeB00.getNames());
 
             System.out.println("\nNEW..............................................\n");
-            TypeBridge typeB01 = dbWService.createType(TypeBridge.TYPE.NAME, "N-WLJ", names, descr, true, "wjohnson000", null);
+            TypeBridge typeB01 = dbServices.writeService.createType(TypeBridge.TYPE.NAME, "N-WLJ", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB01.getTypeId() + " :: " + typeB01.getCode() + " :: " + typeB01.getNames());
 
             System.out.println("\nUPD..............................................\n");
             names.put("ru", "ru-name");
             descr.put("ru", "ru-description");
-            TypeBridge typeB02 = dbWService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ", names, descr, true, "wjohnson000", null);
+            TypeBridge typeB02 = dbServices.writeService.updateType(typeB01.getTypeId(), TypeBridge.TYPE.NAME, "N-WLJ", names, descr, true, "wjohnson000", null);
             System.out.println("TYPE: " + typeB02.getTypeId() + " :: " + typeB02.getCode() + " :: " + typeB02.getNames());
 
             System.out.println("\nALL [Name]........................................\n");
-            for (TypeBridge typeB : dbRService.getTypes(TypeBridge.TYPE.NAME, false)) {
+            for (TypeBridge typeB : dbServices.readService.getTypes(TypeBridge.TYPE.NAME, false)) {
                 System.out.println("TYPE: " + typeB.getTypeId() + " :: " + typeB.getCode() + " :: " + typeB.getNames());
             }
         } catch(Exception ex) {
             System.out.println("Ex: " + ex.getMessage());
         } finally {
             System.out.println("Shutting down ...");
-            ((ClassPathXmlApplicationContext)appContext).close();
+            if (dbServices != null) dbServices.shutdown();
         }
 
         System.exit(0);

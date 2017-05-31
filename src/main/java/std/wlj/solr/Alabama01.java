@@ -15,21 +15,18 @@ import org.familysearch.standards.place.data.TypeImpl;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.search.PlaceRequestProfile;
+
+import std.wlj.util.SolrManager;
 
 
 public class Alabama01 {
 
     public static void main(String... args) throws PlaceDataException {
-        String solrHome = "http://localhost:8983/solr/places";
-//        String solrHome = "http://familysearch.org/int-solr/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-
-        SolrService  solrService = new SolrService();
-        PlaceService placeService = new PlaceService(new DefaultPlaceRequestProfile(solrService));
+        SolrService  solrService = SolrManager.localHttpService();
+//        SolrService  solrService = SolrManager.localEmbeddedService("D:/solr/stand-alone-6.5.0");
+        PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
+        PlaceService placeService = new PlaceService(profile);
 
         PlaceRepDoc repDoc = new PlaceRepDoc();
         repDoc.setRepId(351);
@@ -51,6 +48,8 @@ public class Alabama01 {
             System.out.println("    -- " + resultModel.getFullDisplayName(StdLocale.ENGLISH).get() + "  [" + resultModel.getType().getCode() + "]");
         }
 
-        System.exit(0);
+        placeService.shutdown();
+
+//        System.exit(0);
     }
 }

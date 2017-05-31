@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,16 +28,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import std.wlj.datasource.DbConnectionManager;
+
 
 public class InsertKMLSingle {
-    private static String jdbcDriver   = "org.postgresql.Driver";
-    private static String jdbcURL      = "jdbc:postgresql://ec2-23-21-26-193.compute-1.amazonaws.com:5432/p124";
-    private static String jdbcUser     = "postgres";
-    private static String jdbcPassword = "admin";
-
-
     public static void main(String[] args) throws Exception {
-        Connection conn = getConn();
+        Connection conn = DbConnectionManager.getConnectionStds();
 
         File kmlDir = new File("C:/tools/gis-files/kml-files/World countries boundaries inc South Sudan.kml");
         System.out.println("Processing file: " + kmlDir);
@@ -52,21 +47,6 @@ public class InsertKMLSingle {
         }
 
         conn.close();
-    }
-
-    /**
-     * Create a return a database connection ...
-     * 
-     * @return
-     */
-    private static Connection getConn() {
-        try {
-            Class.forName(jdbcDriver);
-            return DriverManager.getConnection(jdbcURL, jdbcUser, jdbcPassword);
-        } catch(Exception ex) {
-            System.out.println("Unable to create connection -- " + ex.getMessage());
-            return null;
-        }
     }
 
     /**

@@ -36,7 +36,7 @@ public class CitationCreateAndUpdate {
 
     private static void readCitations(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/citations?noCache=true");
-        RootModel model = TestUtil.doGET(url);
+        RootModel model = HttpHelper.doGET(url);
         printIt("Read the model ...", repId, model);
     }
 
@@ -61,7 +61,7 @@ public class CitationCreateAndUpdate {
         System.out.println(model.toJSON());
         System.out.println("---------------------------------------------------------------------------------");
 
-        RootModel modelX = TestUtil.doPOST(url, model);
+        RootModel modelX = HttpHelper.doPOST(url, model);
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println(modelX.toJSON());
         System.out.println("---------------------------------------------------------------------------------");

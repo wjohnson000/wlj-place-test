@@ -7,15 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.solr.load.PlaceRepReader;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
-
+import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class RunReaderChunked {
     public static void main(String... args) throws IOException {
@@ -24,7 +22,7 @@ public class RunReaderChunked {
 
         String[] subDirs = new File(dataDir).list();
         for (String subDir : subDirs) {
-            PlaceRepReader prReader = new PlaceRepReader(new File(dataDir, subDir));
+            PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(new File(dataDir, subDir));
             Iterator<PlaceRepDoc> iter = prReader.iterator();
             while (iter.hasNext()) {
                 PlaceRepDoc prDoc = iter.next();
@@ -50,7 +48,6 @@ public class RunReaderChunked {
         details.add("repId: " + prDoc.getRepId());
         details.add("parentId: " + prDoc.getParentId());
         details.add("revision: " + prDoc.getRevision());
-        details.add("fwdRevision: " + prDoc.getForwardRevision());
         details.add("ownerId: " + prDoc.getOwnerId());
         details.add("typeId: " + prDoc.getType());
         details.add("centroid: " + prDoc.getCentroid());

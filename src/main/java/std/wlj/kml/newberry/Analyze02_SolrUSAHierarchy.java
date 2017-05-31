@@ -16,7 +16,7 @@ import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
-import std.wlj.datasource.PGConnection;
+import std.wlj.datasource.DbConnectionManager;
 import std.wlj.util.SolrManager;
 
 /**
@@ -67,7 +67,7 @@ public class Analyze02_SolrUSAHierarchy {
     public static void main(String...args) {
         solrConn = SolrManager.awsProdConnection(false);
 
-        try(Connection conn=PGConnection.getConnectionAws()) {
+        try(Connection conn=DbConnectionManager.getConnectionAws()) {
             populateTypes(conn);
 
             getReps("repId", Arrays.asList(1));

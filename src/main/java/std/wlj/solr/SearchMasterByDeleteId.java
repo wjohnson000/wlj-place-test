@@ -9,17 +9,13 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.util.SolrManager;
+
 
 public class SearchMasterByDeleteId {
 
     public static void main(String... args) throws PlaceDataException {
-        String solrHome = "http://familysearch.org/int-solr-repeater/places";
-
-        System.setProperty("solr.solr.home", solrHome);
-        System.setProperty("solr.master.url", solrHome);
-        System.setProperty("solr.master", "false");
-        System.setProperty("solr.slave", "false");
-        SolrConnection solrConn = SolrConnection.connectToRemoteInstance(solrHome);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
 
         // Do a look-up for deleted documents
         int skip = 0;

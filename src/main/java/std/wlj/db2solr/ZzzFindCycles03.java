@@ -4,7 +4,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.*;
+
+import std.wlj.datasource.DbConnectionManager;
 
 
 /**
@@ -30,14 +31,8 @@ public class ZzzFindCycles03 {
         }
     }
 
-    private static final String DB_DRIVER = "org.postgresql.Driver";
-    private static final String DB_URL    = "jdbc:postgresql://std-ws-place-rds-dev.cu21thytneyp.us-east-1.rds.amazonaws.com:1836/sams_place";
-    private static final String DB_USER   = "fs_schema_owner";
-    private static final String DB_PASSWD = "fzBJBhzRiqqaTPsRVzTzEjzhvnuFLoFvduFVSoGWtnOugJukTbaxiNEVlScwHfj";
-
-
     public static void main(String... args) throws Exception {
-        try (Connection conn = makeConn()) {
+        try (Connection conn = DbConnectionManager.getConnectionAws()) {
             for (String line : Files.readAllLines(Paths.get("C:/temp/zzz-rep-replaced.txt"), Charset.forName("UTF-8"))) {
                 String[] tokens = line.split("\\|");
                 if (tokens.length > 2) {
@@ -65,11 +60,6 @@ public class ZzzFindCycles03 {
         } catch(SQLException ex) {
             System.out.println("EX: " + ex.getMessage());
         }
-    }
-
-    private static Connection makeConn() throws Exception {
-        Class.forName(DB_DRIVER);
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWD);
     }
 
     private static RepInfo getRepInfo(int repId, Connection conn) throws SQLException {
