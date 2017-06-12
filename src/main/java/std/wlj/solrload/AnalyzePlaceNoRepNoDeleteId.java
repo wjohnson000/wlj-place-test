@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.place.db.util.FileResultSet;
+import org.familysearch.standards.loader.sql.FileResultSet;
 
 public class AnalyzePlaceNoRepNoDeleteId {
     private static final String DELIMITER = "\\|";

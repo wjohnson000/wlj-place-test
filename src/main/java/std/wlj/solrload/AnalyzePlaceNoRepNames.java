@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.familysearch.standards.place.db.util.FileResultSet;
+import org.familysearch.standards.loader.sql.FileResultSet;
 
 
 public class AnalyzePlaceNoRepNames {

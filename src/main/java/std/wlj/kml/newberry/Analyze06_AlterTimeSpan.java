@@ -83,7 +83,7 @@ public class Analyze06_AlterTimeSpan {
         if (fields.length > 15) {
             bData.allData  = Arrays.asList(fields);
             bData.loadMe   = "true".equals(fields[0]);
-            bData.pmName   = fields[4];
+            bData.pmName   = fields[3] + "." + fields[4];
             bData.fromDate = fields[5];
             bData.toDate   = fields[6];
         }

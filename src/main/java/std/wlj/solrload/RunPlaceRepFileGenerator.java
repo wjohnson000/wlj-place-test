@@ -5,9 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.familysearch.standards.place.db.loader.helper.DbHelper;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepFileGenerator;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepFileGeneratorSave;
+import org.familysearch.standards.loader.helper.DbHelper;
+import org.familysearch.standards.loader.helper.PlaceRepFileGenerator;
 
 import std.wlj.datasource.DbConnectionManager;
 
@@ -38,14 +37,6 @@ public class RunPlaceRepFileGenerator {
 		long startT = System.currentTimeMillis();
 		File dirFile = new File("D:/tmp/flat-files/one-million-old");
 		PlaceRepFileGenerator generator = new PlaceRepFileGenerator(dbService);
-		generator.generateFiles(dirFile, 1, 1_000_000);
-		System.out.println("\n\nTotal Time:" + (System.currentTimeMillis() - startT)/1000.0);
-	}
-
-	private static void dumpFilesOneMillionNewer() {
-		long startT = System.currentTimeMillis();
-		File dirFile = new File("D:/tmp/flat-files/one-million-new");
-		PlaceRepFileGeneratorSave generator = new PlaceRepFileGeneratorSave(dbService);
 		generator.generateFiles(dirFile, 1, 1_000_000);
 		System.out.println("\n\nTotal Time:" + (System.currentTimeMillis() - startT)/1000.0);
 	}

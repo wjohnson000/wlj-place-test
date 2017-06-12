@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class RunReaderSingle {
     public static void main(String... args) throws IOException {

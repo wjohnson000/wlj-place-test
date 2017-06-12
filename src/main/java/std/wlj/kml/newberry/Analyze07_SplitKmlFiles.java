@@ -23,6 +23,7 @@ public class Analyze07_SplitKmlFiles {
         String pmName;
         String fromDate;
         String toDate;
+        String newToDate;
         String repId;
 
         @Override public String toString() {
@@ -32,7 +33,7 @@ public class Analyze07_SplitKmlFiles {
 
     static final String basePath = "D:/postgis/newberry/";
     static final String pathToIn = basePath + "bndy-06-match.txt";
-    static final String kmlDIr   = "rep-boundary";
+    static final String kmlDir   = "rep-boundary";
 
     static Map<String, KmlToRep07> kmlToRepMap = new HashMap<>();
 
@@ -57,7 +58,8 @@ public class Analyze07_SplitKmlFiles {
                 kmlRep.pmName = fields[4];
                 kmlRep.fromDate = fields[5];
                 kmlRep.toDate = fields[6];
-                kmlRep.repId = fields[10];
+                kmlRep.newToDate = fields[7];
+                kmlRep.repId = fields[11];
                 kmlRep.key = kmlRep.toString();
                 
                 kmlToRepMap.put(kmlRep.key, kmlRep);
@@ -116,6 +118,10 @@ public class Analyze07_SplitKmlFiles {
         FolderModel folderModel = new FolderModel();
         folderModel.setName(kmlRep.pmName);
         folderModel.addPlacemark(pMark);
+        TimeSpanModel timeSpan = pMark.getTimeSpan();
+        if (timeSpan != null) {
+            timeSpan.setEnd((kmlRep.newToDate.isEmpty()) ? null : kmlRep.newToDate);
+        }
 
         DocumentModel docModel = new DocumentModel();
         docModel.setName("Generated file for place-rep " + kmlRep.repId + " (" + kmlRep.pmName + ")");
@@ -129,10 +135,10 @@ public class Analyze07_SplitKmlFiles {
             buff.append(kmlRep.repId);
             buff.append("-").append(kmlRep.file.substring(0, 2));
             buff.append("-").append(kmlRep.fromDate);
-            buff.append("-TO-").append(kmlRep.toDate).append(".kml");
+            buff.append("-TO-").append((kmlRep.newToDate.isEmpty()) ? "EOT" : kmlRep.newToDate).append(".kml");
 
             String kmlRaw = POJOMarshalUtil.toXML(kmlModel);
-            Files.write(Paths.get(basePath, kmlDIr, buff.toString()), kmlRaw.getBytes(), StandardOpenOption.CREATE_NEW);
+            Files.write(Paths.get(basePath, kmlDir, buff.toString()), kmlRaw.getBytes(), StandardOpenOption.CREATE_NEW);
         } catch(IOException ex) {
             System.out.println("Unable to save file for: " + kmlRep.pmName + " . " + kmlRep.repId + " --> " + ex.getMessage());
         }

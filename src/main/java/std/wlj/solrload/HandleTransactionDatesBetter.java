@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.familysearch.standards.place.db.util.FileResultSet;
+import org.familysearch.standards.loader.sql.FileResultSet;
 
 public class HandleTransactionDatesBetter {
 

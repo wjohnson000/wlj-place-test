@@ -5,8 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.familysearch.standards.place.db.loader.helper.DbHelper;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepFileGenerator;
+import org.familysearch.standards.loader.helper.DbHelper;
+import org.familysearch.standards.loader.helper.PlaceRepFileGenerator;
 
 import std.wlj.datasource.DbConnectionManager;
 

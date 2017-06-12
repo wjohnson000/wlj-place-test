@@ -6,10 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.familysearch.standards.core.logging.Logger;
+import org.familysearch.standards.loader.helper.PlaceNoRepDocGenerator;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
-import org.familysearch.standards.place.db.loader.helper.PlaceNoRepDocGenerator;
 
 import std.wlj.util.SolrManager;
 

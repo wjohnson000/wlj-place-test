@@ -17,18 +17,19 @@ import std.wlj.util.SolrManager;
 public class SearchMasterById {
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(false);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
 //        SolrQuery query = new SolrQuery("names:q");
-//        SolrQuery query = new SolrQuery("repId:8193107 OR repId:3497695");
-        SolrQuery query = new SolrQuery("repId:6102");
+        SolrQuery query = new SolrQuery("repId:1");
+//        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:1442484");
 //      SolrQuery query = new SolrQuery("repIdChain:7099871");
         query.setRows(10);
         query.setSort("repId", SolrQuery.ORDER.desc);
+
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());
         for (PlaceRepDoc doc : docs) {
@@ -56,16 +57,21 @@ public class SearchMasterById {
             for (String varName : doc.getVariantNames()) {
                 System.out.println("  V-Name: " + varName);
             }
-            for (String citn : doc.getCitations()) {
-                System.out.println("    Citn: " + citn);
-            }
             for (String attr : doc.getAttributes()) {
                 System.out.println("    Attr: " + attr);
             }
-//            doc.setDataService(theService);
-//            for (PlaceRepBridge prB : doc.getResolvedJurisdictions()) {
-//                System.out.println("  Juris: " + prB.getRepId());
-//            }
+            for (String citn : doc.getCitations()) {
+                System.out.println("    Citn: " + citn);
+            }
+            for (String altJuris : doc.getAltJurisdictions()) {
+                System.out.println("    AltJ: " + altJuris);
+            }
+            for (String extXrefs : doc.getExtXrefs()) {
+                System.out.println("    Xref: " + extXrefs);
+            }
+            for (String appD : doc.getAppData()) {
+                System.out.println("    Appd: " + appD);
+            }
         }
 
         System.exit(0);

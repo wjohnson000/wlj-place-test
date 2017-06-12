@@ -43,7 +43,7 @@ public class CopyTo55 {
     }
 
     public static void main(String...args) {
-        processProject("std-ws-place");
+        processProject("std-ws-solr");
     }
 
     static void processProject(String project) {

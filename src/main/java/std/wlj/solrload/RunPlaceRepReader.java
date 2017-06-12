@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class RunPlaceRepReader {
 	final static String selector = "new";

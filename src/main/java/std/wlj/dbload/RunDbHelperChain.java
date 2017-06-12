@@ -2,10 +2,8 @@ package std.wlj.dbload;
 
 import java.util.Arrays;
 
-//import java.util.Iterator;
-//import java.util.Map;
+import org.familysearch.standards.loader.helper.DbHelper;
 
-import org.familysearch.standards.place.db.loader.helper.DbHelper;
 import std.wlj.datasource.DbConnectionManager;
 
 public class RunDbHelperChain {

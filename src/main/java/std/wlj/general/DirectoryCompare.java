@@ -36,6 +36,7 @@ public class DirectoryCompare {
         OK_EXT.add(".html");
         OK_EXT.add(".java");
         OK_EXT.add(".js");
+        OK_EXT.add(".json");
         OK_EXT.add(".jsp");
         OK_EXT.add(".project");
         OK_EXT.add(".properties");
@@ -253,8 +254,8 @@ public class DirectoryCompare {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-place/place-model/src/main/java/org/familysearch/standards/place/ws/model/kml";
-        String fileTwo = "C:/Users/wjohnson000/git/wlj-place-test/src/main/java/std/wlj/kml/model";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place-db/place-db-webapp";
+        String fileTwo = "C:/Users/wjohnson000/git/std-ws-dbload-55/dbload-webapp-55";
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;
         dcEngine.ignoreWhiteSpace = true;

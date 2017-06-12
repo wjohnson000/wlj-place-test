@@ -2,9 +2,9 @@ package std.wlj.solrload;
 
 import java.util.List;
 
+import org.familysearch.standards.loader.helper.DbHelper;
+import org.familysearch.standards.loader.reader.AppDataReader;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.db.loader.helper.DbHelper;
-import org.familysearch.standards.place.db.reader.AppDataReader;
 
 import std.wlj.datasource.DbConnectionManager;
 
@@ -24,7 +24,7 @@ public class RunAppDataGenerator {
         for (PlaceRepDoc appDoc : appDocs) {
             System.out.println("==========================================================================");
             System.out.println("ID: " + appDoc.getId());
-            if (appDoc.getId().equals("GROUP-HIERARCHY")) {
+            if (appDoc.getId().equals("NAME-TYPE")  ||  appDoc.getId().equals("NAME-PRIORITY")) {
                 for (String appData : appDoc.getAppData()) {
                     System.out.println("  " + appData);
                 }

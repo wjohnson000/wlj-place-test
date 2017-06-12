@@ -1,7 +1,7 @@
 package std.wlj.dbload;
 
-import org.familysearch.standards.place.db.loader.helper.SolrHelper;
-import org.familysearch.standards.place.db.loader.model.SolrResponse;
+import org.familysearch.standards.loader.helper.SolrHelper;
+import org.familysearch.standards.loader.model.SolrResponse;
 
 public class TestSolrUtility {
     public static void main(String... args) {

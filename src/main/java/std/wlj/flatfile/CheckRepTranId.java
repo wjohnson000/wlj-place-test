@@ -4,17 +4,17 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
-import org.familysearch.standards.place.db.loader.model.PlaceDataModel;
-import org.familysearch.standards.place.db.loader.model.PlaceRepDataModel;
-import org.familysearch.standards.place.db.loader.model.RepAuxDataModel;
-import org.familysearch.standards.place.db.reader.IdChainReader;
-import org.familysearch.standards.place.db.reader.PlaceDataReader;
-import org.familysearch.standards.place.db.reader.PlaceNameReader;
-import org.familysearch.standards.place.db.reader.PlaceRepDataReader;
-import org.familysearch.standards.place.db.reader.RepAttributeReader;
-import org.familysearch.standards.place.db.reader.RepCitationReader;
-import org.familysearch.standards.place.db.reader.RepExtXrefReader;
-import org.familysearch.standards.place.db.reader.RepNameReader;
+import org.familysearch.standards.loader.model.PlaceDataModel;
+import org.familysearch.standards.loader.model.PlaceRepDataModel;
+import org.familysearch.standards.loader.model.RepAuxDataModel;
+import org.familysearch.standards.loader.reader.IdChainReader;
+import org.familysearch.standards.loader.reader.PlaceDataReader;
+import org.familysearch.standards.loader.reader.PlaceNameReader;
+import org.familysearch.standards.loader.reader.PlaceRepDataReader;
+import org.familysearch.standards.loader.reader.RepAttributeReader;
+import org.familysearch.standards.loader.reader.RepCitationReader;
+import org.familysearch.standards.loader.reader.RepExtXrefReader;
+import org.familysearch.standards.loader.reader.RepNameReader;
 
 public class CheckRepTranId {
 

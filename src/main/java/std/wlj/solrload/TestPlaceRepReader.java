@@ -3,8 +3,8 @@ package std.wlj.solrload;
 import java.io.File;
 import java.util.Iterator;
 
+import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-import org.familysearch.standards.place.db.loader.helper.PlaceRepDocGenerator;
 
 public class TestPlaceRepReader {
 	public static void main(String... args) {

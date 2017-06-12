@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.familysearch.standards.place.db.util.FileResultSet;
+import org.familysearch.standards.loader.sql.FileResultSet;
 
 public class HandleTransactionDatesGranularity {
 

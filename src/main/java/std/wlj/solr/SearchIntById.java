@@ -21,7 +21,7 @@ public class SearchIntById {
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
 //        SolrQuery query = new SolrQuery("-createDate:[* TO *]");
-        SolrQuery query = new SolrQuery("repId:374148");
+        SolrQuery query = new SolrQuery("repId:144");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("ownerId:3491780");
         query.setSort("repId", SolrQuery.ORDER.asc);
@@ -46,8 +46,17 @@ public class SearchIntById {
             System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
             System.out.println("  Dates:  " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            for (String attrs : doc.getAttributes()) {
+                System.out.println("  AT: " + attrs);
+            }
+            for (String citns : doc.getCitations()) {
+                System.out.println("  CT: " + citns);
+            }
             for (String altJuris : doc.getAltJurisdictions()) {
                 System.out.println("  AJ: " + altJuris);
+            }
+            for (String extXrefs : doc.getExtXrefs()) {
+                System.out.println("  XR: " + extXrefs);
             }
             for (String appData : doc.getAppData()) {
                 System.out.println("  " + appData);
