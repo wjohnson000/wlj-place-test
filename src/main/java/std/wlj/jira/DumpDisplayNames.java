@@ -18,7 +18,6 @@ public class DumpDisplayNames {
         }
     }
 
-
     static void dumpDisplayNames(Connection conn) throws IOException {
         int repId = 1;
         boolean again = true;

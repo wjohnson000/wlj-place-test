@@ -17,13 +17,13 @@ import std.wlj.util.SolrManager;
 public class SearchMasterById {
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(false);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
 //        SolrQuery query = new SolrQuery("names:q");
-        SolrQuery query = new SolrQuery("repId:1");
+        SolrQuery query = new SolrQuery("id:NAME-TYPE OR id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:1442484");
 //      SolrQuery query = new SolrQuery("repIdChain:7099871");

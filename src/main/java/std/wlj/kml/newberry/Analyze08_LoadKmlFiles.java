@@ -17,7 +17,8 @@ public class Analyze08_LoadKmlFiles {
 
     static final String PATH_TO_LOAD = "D:/postgis/newberry/rep-boundary";
 
-    static final String WS_ENDPOINT  = "https://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places/reps/";
+//    static final String WS_ENDPOINT  = "https://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places/reps/";
+    static final String WS_ENDPOINT  = "https://familysearch.org/int-std-ws-place/places/reps/";
     static final ContentType CONTENT_TYPE = ContentType.create("application/vnd.google-earth.kml+xml", "UTF-8");
 
     public static void main(String... args) {
@@ -36,6 +37,10 @@ public class Analyze08_LoadKmlFiles {
             String kml = new String(contents);
             if (kml.charAt(0) != '<') {
                 kml = kml.substring(1);
+            }
+
+            if (repId.startsWith("10")) {
+                return;
             }
 
             String url = WS_ENDPOINT + repId + "/boundaries";

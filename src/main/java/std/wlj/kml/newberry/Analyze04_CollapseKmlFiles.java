@@ -128,14 +128,14 @@ public class Analyze04_CollapseKmlFiles {
                     int duration = dayDuration(kmlData);
                     int ptDiff   = Math.abs(kmlData.coordCnt - kmlDataPrev.coordCnt);
                     double dist  = distance(kmlData, kmlDataPrev);
-
-                    if (duration > SIX_YEARS  ||  (duration > SIX_MONTHS  &&  (ptDiff > kmlDataPrev.coordCnt/20  ||  dist > EIGHT_KM))) {
+//                    if (duration > SIX_YEARS  ||  (duration > SIX_MONTHS  &&  (ptDiff > kmlDataPrev.coordCnt/20  ||  dist > EIGHT_KM))) {
+                    if (ptDiff > kmlDataPrev.coordCnt/8  ||  dist > EIGHT_KM) {
                         addData(true, kmlData, newKmlData);
+                        kmlDataPrev = kmlData;
                     } else {
                         discardCnt++;
                         addData(false, kmlData, newKmlData);
                     }
-                    kmlDataPrev = kmlData;
                 }
                 addData(true, kmlDataLast, newKmlData);
             }
