@@ -19,9 +19,9 @@ public class RunDbDumpRange {
     public static void main(String... args) throws InterruptedException {
         DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceSams());
 
-        long startRepId = 374100;
-        long endRepId   = 374200;
-        File dataDirectory = new File(baseDir, "eight-million");
+        long startRepId = 1;
+        long endRepId   = 10000;
+        File dataDirectory = new File(baseDir, "ten-thou");
         dataDirectory.mkdirs();
 
         System.out.println("Range: " + startRepId + " --> " + endRepId);

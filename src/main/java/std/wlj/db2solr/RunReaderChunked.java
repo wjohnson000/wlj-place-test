@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
+import org.familysearch.standards.loader.helper.PlaceRepDocReader;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
 public class RunReaderChunked {
@@ -22,7 +22,7 @@ public class RunReaderChunked {
 
         String[] subDirs = new File(dataDir).list();
         for (String subDir : subDirs) {
-            PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(new File(dataDir, subDir));
+            PlaceRepDocReader prReader = new PlaceRepDocReader(new File(dataDir, subDir));
             Iterator<PlaceRepDoc> iter = prReader.iterator();
             while (iter.hasNext()) {
                 PlaceRepDoc prDoc = iter.next();

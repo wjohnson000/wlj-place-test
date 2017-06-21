@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
+import org.familysearch.standards.loader.helper.PlaceRepDocReader;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
 public class RunPlaceRepReader {
@@ -23,7 +23,7 @@ public class RunPlaceRepReader {
 
 	public static void main(String... args) throws IOException {
 
-		PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(parentDir);
+		PlaceRepDocReader prReader = new PlaceRepDocReader(parentDir);
 
 		int docCount = 0;
 		Iterator<PlaceRepDoc> iter = prReader.iterator();

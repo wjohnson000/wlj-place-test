@@ -12,6 +12,6 @@ public class RunLoadManager {
 
         String solrURL = "http://localhost:8080/solr/places";
         LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceWLJ());
-        LoadManager.getInstance().acceptLoader(new FullLoader());
+        LoadManager.getInstance().acceptLoader(new FullLoader("some-user"));
    }
 }

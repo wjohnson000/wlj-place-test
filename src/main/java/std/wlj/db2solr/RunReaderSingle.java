@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.familysearch.standards.loader.helper.PlaceRepDocGenerator;
+import org.familysearch.standards.loader.helper.PlaceRepDocReader;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
 public class RunReaderSingle {
@@ -20,7 +20,7 @@ public class RunReaderSingle {
         String dataDir = "C:/temp/place-extract/wlj-one";
         String jsonDir = "C:/temp/place-extract/docs-one";
 
-        PlaceRepDocGenerator prReader = new PlaceRepDocGenerator(new File(dataDir));
+        PlaceRepDocReader prReader = new PlaceRepDocReader(new File(dataDir));
         Iterator<PlaceRepDoc> iter = prReader.iterator();
         while (iter.hasNext()) {
             PlaceRepDoc prDoc = iter.next();
