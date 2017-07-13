@@ -42,18 +42,19 @@ public class TestAnalysisShim {
     public static void main(String...args) throws Exception {
         System.setProperty("enable.save.analytics", "true");
 //        System.setProperty("analytics.base.url", "https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
-        System.setProperty("analytics.base.url", "http://ws.analysis.std.cmn.dev.us-east-1.dev.fslocal.org/interpretation/");
-//        System.setProperty("analytics.base.url", "http://localhost:8080/std-ws-analysis/interpretation");
+//        System.setProperty("analytics.base.url", "http://ws.analysis.std.cmn.dev.us-east-1.dev.fslocal.org/interpretation/");
+        System.setProperty("analytics.base.url", "http://localhost:8080/std-ws-analysis/interpretation");
         
-        SolrService  solrService = SolrManager.localEmbeddedService();
+        SolrService  solrService = SolrManager.localEmbeddedService("D:/solr/stand-alone-6.5.0");
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
         
         List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
         System.out.println("PlaceNames.count=" + placeNames.size());
+        mainX(placeService, 1, placeNames);
         long time0 = System.nanoTime();
         for (int i=0;  i<20;  i++) {
-            fScheduler.submit(() -> mainX(placeService, 300, placeNames));
+            fScheduler.submit(() -> mainX(placeService, 50, placeNames));
         }
         fScheduler.shutdown();
         fScheduler.awaitTermination(1200, TimeUnit.SECONDS);

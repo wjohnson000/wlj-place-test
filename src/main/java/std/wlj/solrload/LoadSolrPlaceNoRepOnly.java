@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.familysearch.standards.core.logging.Logger;
-import org.familysearch.standards.loader.helper.PlaceNoRepDocGenerator;
+import org.familysearch.standards.loader.helper.PlaceNoRepDocReader;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
@@ -19,9 +19,9 @@ public class LoadSolrPlaceNoRepOnly {
         SolrConnection solrConn = SolrManager.localEmbeddedConnection(solrLocal);
 
         File parentDir = new File("D:/tmp/flat-files/one-infinity");
-        PlaceNoRepDocGenerator prReader = new PlaceNoRepDocGenerator(parentDir);
+        PlaceNoRepDocReader prReader = new PlaceNoRepDocReader(parentDir);
 
-        Logger logger = new Logger(PlaceNoRepDocGenerator.class);
+        Logger logger = new Logger(PlaceNoRepDocReader.class);
         System.out.println("Debug? " + logger.isDebugEnabled());
 
         int docCount = 0;

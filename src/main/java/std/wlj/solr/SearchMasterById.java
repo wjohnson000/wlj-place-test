@@ -23,7 +23,7 @@ public class SearchMasterById {
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
 //        SolrQuery query = new SolrQuery("names:q");
-        SolrQuery query = new SolrQuery("id:NAME-TYPE OR id:NAME-PRIORITY");
+        SolrQuery query = new SolrQuery("repId: 111");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:1442484");
 //      SolrQuery query = new SolrQuery("repIdChain:7099871");

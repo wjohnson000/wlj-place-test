@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,12 +34,14 @@ public class HowManyReps {
                 String[] chunks = PlaceHelper.split(trxByDay, '\t');
                 if (chunks.length > 3) {
                     String date    = chunks[0];
+                    if (date.startsWith("2014")) continue;
+                    if (date.startsWith("2015")) continue;
+
                     int    trxLow  = Integer.parseInt(chunks[2]);
                     int    trxHigh = Integer.parseInt(chunks[3]);
-                    if (! date.startsWith("2014")) {
-                        List<Integer> reps = getReps(conn, trxLow, trxHigh);
-                        System.out.println("Date: " + date + " --> count: " + reps.size());
-                    }
+
+                    List<Integer> reps = getReps(conn, trxLow, trxHigh);
+                    System.out.println("Date: " + date + " --> count: " + reps.size());
                 }
             }
         } catch(SQLException ex) {

@@ -67,7 +67,7 @@ public class SolrManager {
     // ============================================================================================
 
     public static SolrService localEmbeddedService() {
-        return doSetupForService("D:/solr/newbie-6.1.0", "D:/solr/newbie-6.1.0");
+        return doSetupForService("D:/solr/newbie-6.5.0", "D:/solr/newbie-6.5.0");
     }
 
     public static SolrService localEmbeddedService(String solrHome) {

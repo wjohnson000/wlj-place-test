@@ -22,7 +22,7 @@ public class FindIllegalDisplayNames {
         List<String> badNames = new ArrayList<>();
         NameValidator validator = new NameValidator(null, new MessageFactory());
 
-        List<String> allLines = Files.readAllLines(Paths.get("C:/temp/display-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get("D:/important/display-name-all.txt"), Charset.forName("UTF-8"));
         System.out.println("Line-count: " + allLines.size());
 
         int count = 0;
@@ -31,25 +31,27 @@ public class FindIllegalDisplayNames {
             if (++count % 100_000 == 0) {
                 System.out.println(" ... " + count);
             }
+            if (line.contains("true")) {
+                continue;
+            }
+
             String[] chunks = line.split("\\|");
             if (chunks.length > 3) {
                 String name = chunks[2];
                 try {
-                    validator.validateDisplayName(name);
+                    String namex = name.replace((char)96, ' ');
+                    validator.validateDisplayName(namex);
                 } catch(PlaceDataException ex) {
-                    String lineData = line + "|" + getUChars(name);
+                    Set<Integer> badCP = name.codePoints()
+                        .filter(cp -> ! isValidCodepoint(validator, cp))
+                        .peek(cp -> badChars.add(cp))
+                        .mapToObj(cp -> Integer.valueOf(cp))
+                        .collect(Collectors.toSet());
+                    String badUChars = badCP.stream()
+                        .map(cp -> getUChars(new String(Character.toChars(cp))))
+                        .collect(Collectors.joining(" "));
+                    String lineData = line + "|" + badUChars + "|" + getUChars(name);
                     badNames.add(lineData);
-                    final int length = name.length();
-                    for (int offset=0;  offset<length; ) {
-                        int cp = name.codePointAt(offset);
-                        String nameX = "A" + new String(Character.toChars(cp)) + "Z";
-                        try {
-                            validator.validateDisplayName(nameX);
-                        } catch (PlaceDataException ex2) {
-                            badChars.add(cp);
-                        }
-                        offset += Character.charCount(cp);
-                    }
                 }
             }
         }
@@ -58,10 +60,20 @@ public class FindIllegalDisplayNames {
 
         for (Integer cp : badChars) {
             String sCH = new String(Character.toChars(cp));
-            System.out.println(getUChars(sCH) + "|" + cp + "|" + sCH);
+            System.out.println(getUChars(sCH) + "|" + cp + "|" + sCH + "|" + Character.getName(cp));
         }
 
         System.exit(0);
+    }
+
+    static boolean isValidCodepoint(NameValidator validator, int codePoint) {
+        try {
+            String nameX = 'A' + new String(Character.toChars(codePoint)) + 'Z';
+            validator.validateDisplayName(nameX);
+            return true;
+        } catch(Exception exx) {
+            return false;
+        }
     }
 
     static String getUChars(String text) {
@@ -70,5 +82,4 @@ public class FindIllegalDisplayNames {
             .map(hex -> "U+" + StringUtils.leftPad(hex, 4, "0"))
             .collect(Collectors.joining(" "));
     }
-
 }
