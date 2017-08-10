@@ -2,6 +2,9 @@ package std.wlj.solr;
 
 import java.util.Arrays;
 
+import org.familysearch.standards.core.Localized;
+import org.familysearch.standards.core.StdLocale;
+import org.familysearch.standards.place.PlaceRepresentation;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
@@ -13,11 +16,15 @@ import std.wlj.util.SolrManager;
 public class SearchMasterByIdSolrService {
 
     public static void main(String... args) throws PlaceDataException {
+        int repId = 279;
+        repId = 3252009;
+        repId = 2373218;
+//        repId = 6720850;
         SolrService solrService = SolrManager.awsProdService(true);
 
-        PlaceRepDoc doc = solrService.findPlaceRepNoCache(6720850);
+        PlaceRepDoc doc = solrService.findPlaceRepNoCache(repId);
         if (doc == null) {
-            System.out.println("Doc not found -- repId: " + 6720850);
+            System.out.println("Doc not found -- repId: " + repId);
         } else { 
             System.out.println("ID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
             System.out.println("  Place:  " + doc.getPlaceId());
@@ -33,11 +40,10 @@ public class SearchMasterByIdSolrService {
                 System.out.println("  Juris: " + prB.getRepId());
             }
 
-//            if (doc.getChildren() != null) {
-//                for (PlaceRepBridge prBridge : doc.getChildren()) {
-//                    System.out.println("Child:  " + prBridge.getRepId() + "." + prBridge.getRevision() + " --> " + Arrays.toString(prBridge.getJurisdictionIdentifiers()));
-//                }
-//            }
+            doc.setDataService(solrService);
+            PlaceRepresentation rep = new PlaceRepresentation(doc);
+            Localized<String> name = rep.getFullDisplayName(StdLocale.KOREAN);
+            System.out.println("  D-Name: " + name.get());
         }
 
         System.exit(0);

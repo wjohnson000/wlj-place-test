@@ -18,7 +18,7 @@
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
 		<std.ws.core.version>2.0.0.b68</std.ws.core.version>
 		<std.ws.place.version>2.1.0.b730</std.ws.place.version>
-		<com.amazonaws.version>1.11.119</com.amazonaws.version>
+		<com.amazonaws.version>1.11.160</com.amazonaws.version>
 		<jersey.version>1.19</jersey.version>
 		<jackson.version>2.8.6</jackson.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
@@ -144,11 +144,13 @@
             <artifactId>std-ws-analysis-service</artifactId>
             <version>${std.ws.analysis.version}</version>
         </dependency>
+        <!--
 		<dependency>
 			<groupId>org.familysearch.standards</groupId>
 			<artifactId>std-lib-bulk-place-changes</artifactId>
 			<version>${std.lib.bulk.version}</version>
 		</dependency>
+        -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -259,6 +261,12 @@
 			<groupId>org.familysearch.sas</groupId>
 			<artifactId>sas-core</artifactId>
 			<version>[1.37.b179,)</version>
+			<exclusions>
+			  <exclusion>
+			    <groupId>ch.qos.logback</groupId>
+			    <artifactId>logback-classic</artifactId>
+			  </exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.familysearch.sas</groupId>
@@ -298,7 +306,17 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

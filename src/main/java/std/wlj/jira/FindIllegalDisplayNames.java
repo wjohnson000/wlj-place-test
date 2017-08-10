@@ -39,8 +39,8 @@ public class FindIllegalDisplayNames {
             if (chunks.length > 3) {
                 String name = chunks[2];
                 try {
-                    String namex = name.replace((char)96, ' ');
-                    validator.validateDisplayName(namex);
+//                    String namex = name.replace((char)96, ' ');
+                    validator.validateDisplayName(name);
                 } catch(PlaceDataException ex) {
                     Set<Integer> badCP = name.codePoints()
                         .filter(cp -> ! isValidCodepoint(validator, cp))
