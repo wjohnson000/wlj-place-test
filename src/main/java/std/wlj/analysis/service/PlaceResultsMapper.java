@@ -21,8 +21,10 @@ import org.familysearch.standards.analysis.model.ScorerModel;
 import org.familysearch.standards.analysis.model.TokenMatchModel;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.core.logging.Logger;
+import org.familysearch.standards.core.parse.TokenType;
 import org.familysearch.standards.place.Metrics;
 import org.familysearch.standards.place.PlaceRepresentation;
+import org.familysearch.standards.place.PlaceRequest;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceResults.Annotation;
 import org.familysearch.standards.place.data.PlaceNameBridge;
@@ -30,8 +32,7 @@ import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.scoring.Scorecard;
 import org.familysearch.standards.place.scoring.Scorer;
 import org.familysearch.standards.place.search.interp.Interpretation;
-import org.familysearch.standards.place.search.parse.Token;
-import org.familysearch.standards.place.search.parse.Token.TokenType;
+import org.familysearch.standards.place.search.parser.PlaceNameToken;
 
 public class PlaceResultsMapper {
 
@@ -79,6 +80,15 @@ public class PlaceResultsMapper {
         return interpModel;
     }
 
+    public InterpretationModel mapToModel(PlaceRequest request, PlaceResults results, Object notUsed, StdLocale locale) {
+        InterpretationModel interpModel = new InterpretationModel();
+
+        setRequestData(interpModel, request);
+        setResultData(interpModel, results);
+
+        return interpModel;
+    }
+
     protected void setRequestData(InterpretationModel interpModel, UriInfo uriInfo, HttpHeaders headers, StdLocale locale) {
         RequestModel requestModel = new RequestModel();
 
@@ -109,6 +119,22 @@ public class PlaceResultsMapper {
         if (! params.isEmpty()) {
             requestModel.setParams(params);
         }
+    }
+
+    protected void setRequestData(InterpretationModel interpModel, PlaceRequest request) {
+        RequestModel requestModel = new RequestModel();
+
+        requestModel.setTypeCode("search");
+        requestModel.setPlaceName(request.getText().get());
+        requestModel.setEventDate(new Date());
+        if (request.getTargetLanguage() != null) {
+            requestModel.setAcceptLang(request.getTargetLanguage().toString());
+        }
+        requestModel.setUserAgent("wjohnson000");
+        requestModel.setCollectionId(null);
+        requestModel.setParams(null);
+
+        interpModel.setRequest(requestModel);
     }
 
     protected void setResultData(InterpretationModel interpModel, PlaceResults results) {
@@ -172,7 +198,7 @@ public class PlaceResultsMapper {
         PlaceRepBridge[] prBridge = interp.getTokenIndexMatches();
 
         int ndx = 0;
-        for (Token token : interp.getParsedInput().getTokens()) {
+        for (PlaceNameToken token : interp.getParsedInput().getTokens()) {
             List<String> tokenTypes = token.getTypes().stream()
                     .map(TokenType::toString)
                     .collect(Collectors.toList());
@@ -182,9 +208,9 @@ public class PlaceResultsMapper {
 
             TokenMatchModel tokenModel = new TokenMatchModel();
             tokenModel.setTokenIndex(ndx);
-            tokenModel.setRawToken(token.getOriginalToken());
-            tokenModel.setNormalizedToken(token.getOriginalNormalizedToken());
-            tokenModel.setTokenScript(token.getScript().getCode());
+            tokenModel.setRawToken(token.getOriginalValue().toString());
+            tokenModel.setNormalizedToken(token.getText().get());
+            tokenModel.setTokenScript(token.getText().getLocale().getScript().getCode());
             tokenModel.setTokenTypes(tokenTypes);
 
             if (repB != null) {

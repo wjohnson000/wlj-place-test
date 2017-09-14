@@ -17,6 +17,7 @@ public class DbConnectionManager {
     private static BasicDataSource sams  = null;
     private static BasicDataSource stds  = null;
     private static BasicDataSource wlj   = null;
+    private static BasicDataSource pcas  = null;
     private static BasicDataSource aws   = null;
     private static BasicDataSource dev55 = null;
 
@@ -107,6 +108,28 @@ public class DbConnectionManager {
 
     public static DbServices getDbServicesWLJ() {
         DataSource ds = getDataSourceWLJ();
+        return new DbServices(new DbReadableService(ds), new DbWritableService(ds));
+    }
+
+    /** =============================================================================
+     *  Connection or DataSource to 'pcas' database with username='pcas'
+     *  ============================================================================= */
+    public static Connection getConnectionPCAS() throws SQLException {
+        if (pcas == null) {
+            pcas = setupDataSource("pcas");
+        }
+        return pcas.getConnection();
+    }
+
+    public static DataSource getDataSourcePCAS() {
+        if (pcas == null) {
+            pcas = setupDataSource("pcas");
+        }
+        return pcas;
+    }
+
+    public static DbServices getDbServicesPCAS() {
+        DataSource ds = getDataSourcePCAS();
         return new DbServices(new DbReadableService(ds), new DbWritableService(ds));
     }
 

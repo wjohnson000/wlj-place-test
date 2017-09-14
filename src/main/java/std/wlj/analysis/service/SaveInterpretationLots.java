@@ -46,7 +46,7 @@ public class SaveInterpretationLots {
         HttpHelperAnalysis.contentType  = "application/standards-analysis-v2+xml";
 
         svcUrl = new URL("http://localhost:8080/std-ws-analysis/interpretation");
-        svcUrl = new URL("https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
+//        svcUrl = new URL("https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
         System.out.println("The URL: " + svcUrl);
 
         List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
@@ -59,14 +59,14 @@ public class SaveInterpretationLots {
         long total01 = 0L;
         long total02 = 0L;
         long total03 = 0L;
-        for (int cnt=0;  cnt<2;  cnt++) {
+        PlaceResultsMapper mapper = new PlaceResultsMapper();
+        for (int cnt=0;  cnt<1200;  cnt++) {
             String text = placeNames.get(random.nextInt(placeNames.size()));
             text = text.replace('"', ' ').trim();
-            if (cnt == 0) text = ", Delaware, Delaware, United States";
-            if (cnt < textes.length) {
+            if (cnt == 0) {
+                text = ", Delaware, Delaware, United States";
+            } else if (cnt < textes.length) {
                 text = textes[cnt];
-            } else {
-                break;
             }
             System.out.println(">>> Search for: " + text);
 
@@ -82,23 +82,23 @@ public class SaveInterpretationLots {
                 PlaceResults results = placeService.requestPlaces(request);
                 long time1 = System.nanoTime();
                 
-//                InterpretationModel interpModel = PlaceResultsMapper.mapToModel(request, results, null, StdLocale.ENGLISH);
-//                RootModel rootModel = new RootModel();
-//                rootModel.setInterpretation(interpModel);
+                InterpretationModel interpModel = mapper.mapToModel(request, results, null, StdLocale.ENGLISH);
+                RootModel rootModel = new RootModel();
+                rootModel.setInterpretation(interpModel);
                 long time2 = System.nanoTime();
-//                System.out.println("IM: " + interpModel.getResult().getTotalRepCount());
-//                System.out.println(" C: " + interpModel.getResult().getResultReps());
-//                HttpHelperAnalysis.doPOST(svcUrl, rootModel);
-//
-//                // POST the request, but don't show any concern about the response
-//                try(CloseableHttpClient client = HttpClients.createDefault()) {
-//                    HttpPost httpPost = new HttpPost(String.valueOf(svcUrl));
-//                    StringEntity entity = new StringEntity(POJOMarshalUtil.toXML(rootModel), contentType);
-//                    httpPost.setEntity(entity);
-//                    client.execute(httpPost);
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
+                System.out.println("IM: " + interpModel.getResult().getTotalRepCount());
+                System.out.println(" C: " + interpModel.getResult().getResultReps());
+                HttpHelperAnalysis.doPOST(svcUrl, rootModel);
+
+                // POST the request, but don't show any concern about the response
+                try(CloseableHttpClient client = HttpClients.createDefault()) {
+                    HttpPost httpPost = new HttpPost(String.valueOf(svcUrl));
+                    StringEntity entity = new StringEntity(POJOMarshalUtil.toXML(rootModel), contentType);
+                    httpPost.setEntity(entity);
+                    client.execute(httpPost);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 long time3 = System.nanoTime();
 
                 total01 += (time1 - time0);

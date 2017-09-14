@@ -47,7 +47,7 @@ public class SearchResultDAORead {
             System.out.println("     " + dbResult.getRequest().getParameters());
             System.out.println("RES: " + dbResult.getResult().getId() + " :: " + dbResult.getResult().getMd5Hash());
             System.out.println("     " + dbResult.getResult().getAnnotations());
-            for (DbResultRep dbRep : dbResult.getReps()) {
+            for (DbResultRep dbRep : dbResult.getResultReps()) {
                 System.out.println("REP: " + dbRep.getRepId() + " :: " + dbRep.getRelevanceScore());
                 System.out.println("     " + dbRep.getParsePath());
             }

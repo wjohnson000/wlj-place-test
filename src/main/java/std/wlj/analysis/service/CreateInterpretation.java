@@ -16,7 +16,7 @@ import std.wlj.datasource.DbConnectionManager;
 public class CreateInterpretation {
 
     public static void main(String...args) throws AnalysisSystemException {
-        DAOFactory daoFactory = new DAOFactoryImpl(DbConnectionManager.getDataSourceWLJ());
+        DAOFactory daoFactory = new DAOFactoryImpl(DbConnectionManager.getDataSourcePCAS());
 
         AnalysisService aService = new AnalysisServiceImpl(daoFactory);
         InterpretationModel interpModel = new InterpretationModel();
@@ -102,7 +102,7 @@ public class CreateInterpretation {
         model.setRawToken(rawToken);
         model.setVariantText(variantText);
         model.setNormalizedToken(variantText.toLowerCase());
-        model.setTokenScript("tkn-script");
+        model.setTokenScript("tkns");
         model.setTokenIndex(repId % 4 + 1);
         model.setVariantTypeCode("type-" + repId);
         model.setVariantLocale("en");

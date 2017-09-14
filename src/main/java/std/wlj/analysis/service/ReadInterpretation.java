@@ -16,7 +16,7 @@ public class ReadInterpretation {
         DAOFactory daoFactory = new DAOFactoryImpl(DbConnectionManager.getDataSourceWLJ());
 
         AnalysisService aService = new AnalysisServiceImpl(daoFactory);
-        InterpretationModel intModel01 = aService.readInterpretation(1);
+        InterpretationModel intModel01 = aService.search(1L);
 
         System.out.println("1.F =\n" + intModel01);
         printAsJSON(intModel01);
