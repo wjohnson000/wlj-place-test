@@ -19,10 +19,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
+import org.familysearch.standards.analysis.model.InterpretationModel;
 import org.familysearch.standards.analysis.model.ResultModel;
 import org.familysearch.standards.analysis.model.ResultRepModel;
 import org.familysearch.standards.analysis.model.RootModel;
-import org.familysearch.standards.analysis.model.SearchResultModel;
 import org.familysearch.standards.analysis.model.SearchResultsModel;
 import org.familysearch.standards.loader.AppConstants;
 import org.familysearch.standards.place.util.PlaceHelper;
@@ -144,7 +144,7 @@ public class ProcessMostUsed {
             lines.add(buff.toString());
         } else {
             boolean first = true;
-            for (SearchResultModel srModel : srsModel.getResults()) {
+            for (InterpretationModel interpModel : srsModel.getResults()) {
                 StringBuilder buff = new StringBuilder();
                 if (first) {
                     first = false;
@@ -152,10 +152,10 @@ public class ProcessMostUsed {
                 } else {
                     buff.append("|");
                 }
-                buff.append("|").append(srsModel.getResults().get(0).getPlaceName());
-                buff.append("|").append(String.valueOf(srsModel.getResults().get(0).getParams()));
+                buff.append("|").append(interpModel.getRequest().getPlaceName());
+                buff.append("|").append(String.valueOf(interpModel.getRequest().getParams()));
 
-                ResultModel resModel = srModel.getResult();
+                ResultModel resModel = interpModel.getResult();
                 buff.append("|").append(resModel.getTotalRepCount());
                 buff.append("|").append(resModel.getAnnotations().stream().collect(Collectors.joining(",")));
 

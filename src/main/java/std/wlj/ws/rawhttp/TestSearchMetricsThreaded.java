@@ -1,14 +1,13 @@
 package std.wlj.ws.rawhttp;
 
-import java.io.*;
 import java.net.*;
+import java.util.Map;
+import java.util.TreeMap;
 
-import org.familysearch.standards.place.ws.model.PlaceSearchResultModel;
-import org.familysearch.standards.place.ws.model.PlaceSearchResultsModel;
 import org.familysearch.standards.place.ws.model.RootModel;
 
 
-public class TestSearchMetrics {
+public class TestSearchMetricsThreaded {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
@@ -98,48 +97,65 @@ public class TestSearchMetrics {
 
     private static final double ONE_MILLION = 1000000.0;
 
+    private static Map<String,Long> thrTime  = new TreeMap<>();
+    private static Map<String,Long> thrOKCnt = new TreeMap<>();
 
     /**
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
+        int numThr = 1;
+
         HttpHelper.acceptType = "application/xml";
-        HttpHelper.authId = "Bearer USYS51AC6CAECB3C8B49CFD279D28AE18B84_idses-refa08.a.fsglobal.net";
+        HttpHelper.authId = "Bearer USYSD682A1109FC51738706632FA82A2F071_idses-refa03.a.fsglobal.net";
 
-        PrintWriter pwOut = new PrintWriter(new FileWriter(new File("C:/temp/results-new.txt")));
-
-        long totalTime = 0;
-        for (int loop=1;  loop<=2;  loop++) {
-            for (String textx : textes) {
-                long time0 = System.nanoTime();
-                RootModel model = doSearch(textx);
-                long time1 = System.nanoTime();
-                totalTime += (time1 - time0);
-
-                if (model == null  ||  model.getSearchResults() == null) {
-                    continue;
-                }
-
-                PlaceSearchResultsModel resultsModel = model.getSearchResults().get(0);
-
-                StringBuilder buff = new StringBuilder();
-                buff.append(textx);
-                buff.append("|").append(loop);
-                buff.append("|").append((time1 - time0) / ONE_MILLION);
-                buff.append("|").append(resultsModel.getCount());
-                if (resultsModel.getResults() != null) {
-                    for (PlaceSearchResultModel resultModel : resultsModel.getResults()) {
-                        buff.append("|").append(resultModel.getRep().getId());
+        Thread[] threads = new Thread[numThr];
+        for (int i=0;  i<threads.length;  i++) {
+            threads[i] = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        runInterpretations();
+                    } catch (Exception e) {
+                        System.out.println("OOPS!! " + e.getMessage());
                     }
                 }
-                System.out.println(buff.toString());
-                pwOut.println(buff.toString());
+            },
+            "thr-" + i);
+            threads[i].start();
+        }
+
+        // Sit here until all the threads finish
+        boolean isRunning = true;
+        while(isRunning) {
+            try { Thread.sleep(1000); } catch(Exception ex) { }
+            isRunning = false;
+            for (Thread thread : threads) {
+                if (thread.isAlive()) {
+                    isRunning = true;
+                }
             }
         }
 
-        System.out.println("TT: " + (totalTime / ONE_MILLION));
-        pwOut.close();
+        thrTime.entrySet().forEach(entry -> System.out.println(entry.getKey() + " --> " + (entry.getValue() / ONE_MILLION) + " --> " + thrOKCnt.getOrDefault(entry.getKey(), 0L)));
+
         System.exit(0);
+    }
+
+    private static void runInterpretations() throws Exception{
+        for (String textx : textes) {
+            long time0 = System.nanoTime();
+            doSearch(textx);
+            long time1 = System.nanoTime();
+
+            String threadName = Thread.currentThread().getName();
+
+            long totalTime = thrTime.getOrDefault(threadName, 0L);
+            thrTime.put(threadName, totalTime + (time1 - time0));
+
+            long count = thrOKCnt.getOrDefault(threadName, 0L);
+            thrOKCnt.put(threadName, count+1);
+        }
     }
 
     private static RootModel doSearch(String text) throws Exception {
