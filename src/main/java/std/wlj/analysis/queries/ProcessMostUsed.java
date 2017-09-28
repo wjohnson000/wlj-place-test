@@ -20,7 +20,6 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.io.IOUtils;
 import org.familysearch.standards.analysis.model.InterpretationModel;
-import org.familysearch.standards.analysis.model.ResultModel;
 import org.familysearch.standards.analysis.model.ResultRepModel;
 import org.familysearch.standards.analysis.model.RootModel;
 import org.familysearch.standards.analysis.model.SearchResultsModel;
@@ -35,7 +34,8 @@ public class ProcessMostUsed {
 
     private static String inFile  = "D:/pcas/most-used-text.log";
     private static String outFile = "D:/pcas/most-used-details";
-    private static String baseURL = "http://familysearch.org/int-std-ws-analysis/interpretation/request/";
+//    private static String baseURL = "http://familysearch.org/int-std-ws-analysis/interpretation/request/";
+    private static String baseURL = "http://localhost:8080/std-ws-analysis/interpretation/request/";
 
     /** XML object mapper */
     public static Unmarshaller xmlUnmarshaller;
@@ -152,14 +152,13 @@ public class ProcessMostUsed {
                 } else {
                     buff.append("|");
                 }
-                buff.append("|").append(interpModel.getRequest().getPlaceName());
-                buff.append("|").append(String.valueOf(interpModel.getRequest().getParams()));
+                buff.append("|").append(interpModel.getPlaceName());
+                buff.append("|").append(String.valueOf(interpModel.getParameters()));
 
-                ResultModel resModel = interpModel.getResult();
-                buff.append("|").append(resModel.getTotalRepCount());
-                buff.append("|").append(resModel.getAnnotations().stream().collect(Collectors.joining(",")));
+                buff.append("|").append(interpModel.getTotalRepCount());
+                buff.append("|").append(interpModel.getAnnotations().stream().collect(Collectors.joining(",")));
 
-                for (ResultRepModel repModel : resModel.getResultReps()) {
+                for (ResultRepModel repModel : interpModel.getResultReps()) {
                     buff.append("|").append(repModel.getRepId());
                     buff.append("|").append(repModel.getRelevanceScore());
                     buff.append("|").append(repModel.getInterpLang());

@@ -20,34 +20,23 @@ public class CreateInterpretation {
 
         AnalysisService aService = new AnalysisServiceImpl(daoFactory);
         InterpretationModel interpModel = new InterpretationModel();
-        interpModel.setRequest(makeRequest());
-        interpModel.setResult(makeResult());
+        populateInterpretation(interpModel);
         InterpretationModel interpModelNew = aService.create(interpModel);
         System.out.println("IM.id: " + interpModelNew.getId());
     }
 
-    static RequestModel makeRequest() {
-        RequestModel model = new RequestModel();
-
+    static void populateInterpretation(InterpretationModel model) {
         model.setAcceptLang("en");
         model.setCollectionId("the-collection-id");
         model.setEventDate(new java.util.Date());
-        model.setParams(makeParams("parent", "Utah", "type", "TOWN"));
-        model.setPlaceName("Provo, YT, USA");
+        model.setParameters(makeParams("parent", "Utah", "type", "TOWN"));
+        model.setPlaceName("Provo, ZT, USA");
         model.setUserAgent("wjohnson000");
-
-        return model;
-    }
-
-    static ResultModel makeResult() {
-        ResultModel model = new ResultModel();
 
         model.setMd5Hash("md5-hash-result-" + System.nanoTime());
         model.setAnnotations(Arrays.asList("Annotation-01", "Annotation-02", "Annotation-03"));
         model.setTotalRepCount(111);
         model.setResultReps(Arrays.asList(makeResultRep1(), makeResultRep2(), makeResultRep3()));
-
-        return model;
     }
 
     static ResultRepModel makeResultRep1() {

@@ -13,7 +13,7 @@ import org.familysearch.standards.place.ws.model.TypeModel;
 public class CitationCreateAndUpdate {
 
     /** Base URL of the application */
-    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+    private static String baseUrl = "https://beta.familysearch.org/int-std-ws-place/places";
 //    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
 
 
@@ -22,6 +22,9 @@ public class CitationCreateAndUpdate {
      * get the citations again.
      */
     public static void main(String[] args) throws Exception {
+        HttpHelper.acceptType = "application/xml";
+        HttpHelper.authId = "Bearer USYSD8D316A3B393EF2BB96F3198FF848C07_idses-refa06.a.fsglobal.net";
+
         int repId = 123456;
 
         int[] citnTypeIds = { 463, 465, 466, 467 };

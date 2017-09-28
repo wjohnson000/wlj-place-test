@@ -31,7 +31,7 @@ public class CopyAppDataDocs {
 
     public static void main(String... args) throws PlaceDataException {
         SolrConnection solrConnFROM = SolrManager.awsProdConnection(false);
-        SolrConnection solrConnTO   = SolrManager.awsIntConnection(true);
+        SolrConnection solrConnTO   = SolrManager.localHttpConnection();
 
         // Do a look-up by doc-id
         SolrQuery query;

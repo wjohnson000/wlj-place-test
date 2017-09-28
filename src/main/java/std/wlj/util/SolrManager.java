@@ -23,8 +23,8 @@ public class SolrManager {
     private static final String AWS_URL_BETA_MASTER    = "https://beta.familysearch.org/int-solr/places";
     private static final String AWS_URL_BETA_REPEATER  = "https://beta.familysearch.org/int-solr-repeater/places";
 
-    private static final String AWS_URL_PROD_MASTER    = "https://familysearch.org/int-solr/places";
-    private static final String AWS_URL_PROD_REPEATER  = "https://familysearch.org/int-solr-repeater/places";
+    private static final String AWS_URL_PROD_MASTER    = "https://www.familysearch.org/int-solr/places";
+    private static final String AWS_URL_PROD_REPEATER  = "https://www.familysearch.org/int-solr-repeater/places";
 
     // ============================================================================================
     // Methods to return a 'SolrConnection' instance

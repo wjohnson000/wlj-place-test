@@ -1,18 +1,23 @@
 package std.wlj.ws.rawhttp;
 
 import java.net.*;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.familysearch.standards.place.ws.model.MetricModel;
+import org.familysearch.standards.place.ws.model.MetricsModel;
+import org.familysearch.standards.place.ws.model.PlaceSearchResultsModel;
 import org.familysearch.standards.place.ws.model.RootModel;
-
 
 public class TestSearchMetricsThreaded {
 
     /** Base URL of the application */
-//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places";
     private static String baseUrl = "http://localhost:8080/std-ws-place/places";
+//    private static String baseUrl = "https://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+//    private static String baseUrl = "https://beta.familysearch.org/int-std-ws-place/places";
+//    private static String baseUrl = "http://ws.place.std.cmn.beta.us-east-1.test.fslocal.org/places";
+//    private static String baseUrl = "https://www.familysearch.org/int-std-ws-place/places";
 
     /** Sample data for interpretation ... */
     private static String[] textes = {
@@ -107,7 +112,8 @@ public class TestSearchMetricsThreaded {
         int numThr = 1;
 
         HttpHelper.acceptType = "application/xml";
-        HttpHelper.authId = "Bearer USYSD682A1109FC51738706632FA82A2F071_idses-refa03.a.fsglobal.net";
+        HttpHelper.userAgent  = "wlj-test";
+//        HttpHelper.authId = "Bearer USYSD682A1109FC51738706632FA82A2F071_idses-refa03.a.fsglobal.net";
 
         Thread[] threads = new Thread[numThr];
         for (int i=0;  i<threads.length;  i++) {
@@ -142,14 +148,24 @@ public class TestSearchMetricsThreaded {
         System.exit(0);
     }
 
-    private static void runInterpretations() throws Exception{
+    static void runInterpretations() throws Exception{
         for (String textx : textes) {
+            System.out.println("\n================================================================================");
             long time0 = System.nanoTime();
-            doSearch(textx);
+            RootModel rootModel = doSearch(textx);
             long time1 = System.nanoTime();
+            System.out.println("Time: " + (time1-time0)/ONE_MILLION);
 
+//            List<PlaceSearchResultsModel> prsmx = rootModel.getSearchResults();
+//            for (PlaceSearchResultsModel prsm : prsmx) {
+//                System.out.println("New PlaceSearchResult ...");
+//                MetricsModel mm = prsm.getMetrics();
+//                List<MetricModel> mmm = mm.getMetrics();
+//                for (MetricModel mmmm : mmm) {
+//                    System.out.println("  " + mmmm.getMetricName() + " --> " + mmmm.getMetricValue());
+//                }
+//            }
             String threadName = Thread.currentThread().getName();
-
             long totalTime = thrTime.getOrDefault(threadName, 0L);
             thrTime.put(threadName, totalTime + (time1 - time0));
 
@@ -158,8 +174,8 @@ public class TestSearchMetricsThreaded {
         }
     }
 
-    private static RootModel doSearch(String text) throws Exception {
-        URL url = new URL(baseUrl + "/request?text=" + text + "&metrics=true");
+    static RootModel doSearch(String text) throws Exception {
+        URL url = new URL(baseUrl + "/request?text=" + text + "&metrics=true" + "&sessionId=USYSD682A1109FC51738706632FA82A2F071_idses-refa03.a.fsglobal.net");
         return HttpHelper.doGET(url);
     }
 }

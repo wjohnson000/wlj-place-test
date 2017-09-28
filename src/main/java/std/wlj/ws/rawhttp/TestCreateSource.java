@@ -9,13 +9,16 @@ import org.familysearch.standards.place.ws.model.SourceModel;
 public class TestCreateSource {
 
     /** Base URL of the application */
-    private static String sourceUrl = "http://localhost:8080/std-ws-place/places/sources";
+    private static String sourceUrl = "https://beta.familysearch.org/int-std-ws-place/places/sources";
 
 
     /**
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
+        HttpHelper.acceptType = "application/xml";
+        HttpHelper.authId = "Bearer USYSD8D316A3B393EF2BB96F3198FF848C07_idses-refa06.a.fsglobal.net";
+
         SourceModel sourceModel = new SourceModel();
         sourceModel.setId(0);
         sourceModel.setTitle("wlj-title");

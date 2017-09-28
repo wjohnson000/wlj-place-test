@@ -70,6 +70,9 @@ public class HttpHelper {
     /** Experiment (feature) header tags */
     public static String featureTag = "";
 
+    /** User-Agent header */
+    public static String userAgent = "";
+
     /** Proxy information */
     public static String proxyDNS = null;
     public static int    proxyPort = 0;
@@ -288,6 +291,7 @@ public class HttpHelper {
         urlConn.setConnectTimeout(connectTimeOut);
         urlConn.setReadTimeout(readTimeOut);
         urlConn.setRequestProperty("Authorization", authId);
+        urlConn.setRequestProperty("User-Agent", userAgent);
         urlConn.setRequestProperty("Accept-Language", "en");
         urlConn.setRequestProperty("Accept-Charset", "utf-8");
 

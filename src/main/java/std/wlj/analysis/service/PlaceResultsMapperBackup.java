@@ -5,13 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.UriInfo;
 
 import org.familysearch.standards.analysis.model.InterpretationModel;
 import org.familysearch.standards.analysis.model.ResultRepModel;
@@ -22,6 +17,7 @@ import org.familysearch.standards.core.logging.Logger;
 import org.familysearch.standards.core.parse.TokenType;
 import org.familysearch.standards.place.Metrics;
 import org.familysearch.standards.place.PlaceRepresentation;
+import org.familysearch.standards.place.PlaceRequest;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceResults.Annotation;
 import org.familysearch.standards.place.data.PlaceNameBridge;
@@ -31,9 +27,9 @@ import org.familysearch.standards.place.scoring.Scorer;
 import org.familysearch.standards.place.search.interp.Interpretation;
 import org.familysearch.standards.place.search.parser.PlaceNameToken;
 
-public class PlaceResultsMapper {
+public class PlaceResultsMapperBackup {
 
-    protected static final Logger logger = new Logger(PlaceResultsMapper.class);
+    protected static final Logger logger = new Logger(PlaceResultsMapperBackup.class);
 
     private static final Set<String> PARAM_NAMES = new HashSet<>();
     static {
@@ -68,42 +64,26 @@ public class PlaceResultsMapper {
         PARAM_NAMES.add("center");
     }
 
-    public InterpretationModel mapToModel(UriInfo uriInfo, HttpHeaders headers, PlaceResults results, StdLocale locale) {
+    public InterpretationModel mapToModel(PlaceRequest request, PlaceResults results, Object notUsed, StdLocale locale) {
         InterpretationModel interpModel = new InterpretationModel();
 
-        addRequestData(interpModel, uriInfo, headers, locale);
-        addRequestParams(interpModel, uriInfo);
+        addRequestData(interpModel, request);
         addResultData(interpModel, results);
         addResultReps(interpModel, results);
 
         return interpModel;
     }
 
-    protected void addRequestData(InterpretationModel interpModel, UriInfo uriInfo, HttpHeaders headers, StdLocale locale) {
-        if (uriInfo.getPath().contains("request")) {
-            interpModel.setTypeCode("search");
-            interpModel.setPlaceName(uriInfo.getQueryParameters().getFirst("text"));
-        } else if (uriInfo.getPath().contains("interp")) {
-            interpModel.setTypeCode("interpretation");
-            interpModel.setPlaceName(uriInfo.getQueryParameters().getFirst("name"));
-        }
+    protected void addRequestData(InterpretationModel interpModel, PlaceRequest request) {
+        interpModel.setTypeCode("search");
+        interpModel.setPlaceName(request.getText().get());
         interpModel.setEventDate(new Date());
-        interpModel.setAcceptLang(String.valueOf(locale));
-        interpModel.setUserAgent(headers.getRequestHeaders().getFirst("user-agent"));
-        interpModel.setCollectionId(null);
-
-    }
-
-    protected void addRequestParams(InterpretationModel requestModel, UriInfo uriInfo) {
-        MultivaluedMap<String,String> queryParams = uriInfo.getQueryParameters();
-
-        Map<String, String> params = PARAM_NAMES.stream()
-            .filter(param -> queryParams.containsKey(param))
-            .collect(Collectors.toMap(param -> param , param -> queryParams.getFirst(param)));
-
-        if (! params.isEmpty()) {
-            requestModel.setParameters(params);
+        if (request.getTargetLanguage() != null) {
+            interpModel.setAcceptLang(request.getTargetLanguage().toString());
         }
+        interpModel.setUserAgent("wjohnson000");
+        interpModel.setCollectionId(null);
+        interpModel.setParameters(null);
     }
 
     protected void addResultData(InterpretationModel interpModel, PlaceResults results) {
@@ -193,4 +173,5 @@ public class PlaceResultsMapper {
         }
         repModel.setTokenMatches(tokenMatches);
     }
+
 }

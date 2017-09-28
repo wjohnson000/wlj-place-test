@@ -45,8 +45,8 @@ public class SaveInterpretationLots {
         HttpHelperAnalysis.acceptType   = "application/standards-analysis-v2+xml";
         HttpHelperAnalysis.contentType  = "application/standards-analysis-v2+xml";
 
-        svcUrl = new URL("http://localhost:8080/std-ws-analysis/interpretation");
-//        svcUrl = new URL("https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
+//        svcUrl = new URL("http://localhost:8080/std-ws-analysis/interpretation");
+        svcUrl = new URL("https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
         System.out.println("The URL: " + svcUrl);
 
         List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
@@ -59,7 +59,7 @@ public class SaveInterpretationLots {
         long total01 = 0L;
         long total02 = 0L;
         long total03 = 0L;
-        PlaceResultsMapper mapper = new PlaceResultsMapper();
+        PlaceResultsMapperBackup mapper = new PlaceResultsMapperBackup();
         for (int cnt=0;  cnt<1200;  cnt++) {
             String text = placeNames.get(random.nextInt(placeNames.size()));
             text = text.replace('"', ' ').trim();
@@ -86,8 +86,8 @@ public class SaveInterpretationLots {
                 RootModel rootModel = new RootModel();
                 rootModel.setInterpretation(interpModel);
                 long time2 = System.nanoTime();
-                System.out.println("IM: " + interpModel.getResult().getTotalRepCount());
-                System.out.println(" C: " + interpModel.getResult().getResultReps());
+                System.out.println("IM: " + interpModel.getTotalRepCount());
+                System.out.println(" C: " + interpModel.getResultReps());
                 HttpHelperAnalysis.doPOST(svcUrl, rootModel);
 
                 // POST the request, but don't show any concern about the response
