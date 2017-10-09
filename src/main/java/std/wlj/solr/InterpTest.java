@@ -527,7 +527,6 @@ public class InterpTest {
             request = service.createRequestBuilder( text[ i ], new StdLocale( "en" ) );
             request.setFilterResults( false ).setShouldCollectMetrics( true );
             request.setResultsLimit( 10 );
-            request.setCanModifyRequest( true );
             //          request.setFilterResults( true );
             //            request.setFuzzyType( PlaceRequest.FuzzyType.EDIT_DISTANCE );
             request.setUseWildcards( true );

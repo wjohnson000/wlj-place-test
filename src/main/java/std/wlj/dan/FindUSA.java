@@ -15,8 +15,8 @@ public class FindUSA {
     public static void main(String... args) throws PlaceDataException {
         SolrService  solrService = SolrManager.localHttpService();
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
-        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 
         SearchParameters params = new SearchParameters();
         params.addParam(SearchParameter.PlaceRepParam.createParam(1));

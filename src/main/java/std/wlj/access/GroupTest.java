@@ -34,7 +34,7 @@ public class GroupTest {
           dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
           System.out.println("\nALL [TYPE]........................................\n");
-          Set<GroupBridge> groupBs = dataService.getGroups(GroupBridge.TYPE.PLACE_TYPE, false);
+          Set<GroupBridge> groupBs = dataService.getGroups(GroupBridge.TYPE.PLACE_TYPE);
           for (GroupBridge groupB : groupBs) {
               System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
               System.out.println("   M: " + groupB.getDirectMembers());
@@ -46,7 +46,7 @@ public class GroupTest {
           }
 
           System.out.println("\nALL [PLACE-REP]...................................\n");
-          groupBs = dataService.getGroups(GroupBridge.TYPE.PLACE_REP, false);
+          groupBs = dataService.getGroups(GroupBridge.TYPE.PLACE_REP);
           for (GroupBridge groupB : groupBs) {
               System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
               System.out.println("   M: " + groupB.getDirectMembers());
@@ -57,7 +57,7 @@ public class GroupTest {
           }
 
           System.out.println("\nMEMBERS [PLACE-REP]...................................\n");
-          groupBs = dataService.getGroupsByMemberId(GroupBridge.TYPE.PLACE_REP, 4, false);
+          groupBs = dataService.getGroupsByMemberId(GroupBridge.TYPE.PLACE_REP, 4);
           for (GroupBridge groupB : groupBs) {
               System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
               System.out.println("   M: " + groupB.getDirectMembers());
@@ -69,7 +69,7 @@ public class GroupTest {
           }
 
           System.out.println("\nONE [TYPE].........................................\n");
-          GroupBridge groupB = dataService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, 4, false);
+          GroupBridge groupB = dataService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, 4);
           System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
           System.out.println("   M: " + groupB.getDirectMembers());
           System.out.print("   S: ");
@@ -129,7 +129,7 @@ public class GroupTest {
           System.out.println();
 
           System.out.println("\nONE [PLACE-TYPE].....................................\n");
-          groupB = dataService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, groupB.getGroupId(), false);
+          groupB = dataService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, groupB.getGroupId());
           System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
           System.out.println("   M: " + groupB.getDirectMembers());
           System.out.print("   S: ");

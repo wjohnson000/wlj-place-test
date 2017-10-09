@@ -17,7 +17,6 @@ public class SearchForPlaceReps {
         SearchParameters params = new SearchParameters();
         params.addParam( SearchParameter.PlaceParam.createParam( 1941217 ) );
         params.addParam( SearchParameter.FilterDeleteParam.createParam( true ) );
-        params.addParam( SearchParameter.NoCacheParam.createParam( true ) );
 
         PlaceSearchResults results = solrService.search(params);
         System.out.println("PlaceReps: " + results.getReturnedCount());

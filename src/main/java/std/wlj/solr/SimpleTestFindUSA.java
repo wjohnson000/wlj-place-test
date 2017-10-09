@@ -15,8 +15,8 @@ public class SimpleTestFindUSA {
         SearchParameters params = new SearchParameters();
         PlaceSearchResults results;
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, true).size());
-        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, true).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 
         params.addParam( SearchParameter.PlaceParam.createParam( 1 ) );
         results = solrService.search( params );

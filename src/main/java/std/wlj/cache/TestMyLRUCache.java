@@ -3,14 +3,13 @@ package std.wlj.cache;
 
 public class TestMyLRUCache {
 
-    static MyLRUCache<String,MyObject> myCache = new MyLRUCache<String,MyObject>(10000, 1, 60);
+    static MyLRUCache<String,MyObject> myCache = new MyLRUCache<String,MyObject>(10000, 1, 6);
     static long evictCnt = 0;
     static long expireCnt = 0;
 
     public static void main(String... args) {
 
         myCache.addListener(new MyLRUCache.CacheListener<String>() {
-
             @Override
             public void expiredElement(String key) {
                 expireCnt++;
@@ -29,28 +28,31 @@ public class TestMyLRUCache {
                     int  count01 = 0;
                     int  count02 = 0;
                     int  maxSize = 0;
-                    long time01  = 0;
-                    long time02  = 0;
+                    long timePut = 0;
+                    long timeGet = 0;
 
-                    long     nnow;
-                    long     then;
+                    long timeStart;
+                    long timeEnd;
+                    long  time01;
+                    long  time02;
                     MyObject what;
 
-                    for (int i=0;  i<200000;  i++) {
+                    timeStart = System.nanoTime();
+                    for (int i=0;  i<500_000;  i++) {
                         what = MyObject.getInstance();
                         String key = String.valueOf(what.key);
-                        nnow = System.nanoTime();
+                        time01 = System.nanoTime();
                         myCache.put(key, what, 1);
-                        then = System.nanoTime();
-                        time01 += (then - nnow);
-                        if (i%10000 == 0) maxSize = Math.max(maxSize, myCache.size());
+                        time02 = System.nanoTime();
+                        timePut += (time02 - time01);
+                        if (i%10_000 == 0) maxSize = Math.max(maxSize, myCache.size());
 
-                        for (int j=0;  j<20000;  j+=111) {
+                        for (int j=0;  j<20_000;  j+=111) {
                             key = String.valueOf(j);
-                            nnow = System.nanoTime();
+                            time01 = System.nanoTime();
                             what = myCache.getIfNotExpired(key);
-                            then = System.nanoTime();
-                            time02 += (then - nnow);
+                            time02 = System.nanoTime();
+                            timeGet += (time02 - time01);
 
                             if (what == null) {
                                 count01++;
@@ -59,6 +61,7 @@ public class TestMyLRUCache {
                             }
                         }
                     }
+                    timeEnd = System.nanoTime();
 
                     System.out.println("MY-LRU-CACHE STATISTICS ...");
                     System.out.println("---------------------------");
@@ -66,8 +69,9 @@ public class TestMyLRUCache {
                     System.out.println("Missing count: " + count01);
                     System.out.println("  Found count: " + count02);
                     System.out.println("  Total count: " + (count01 + count02));
-                    System.out.println("     PUT time: " + (time01 / 1000000.0));
-                    System.out.println("     GET time: " + (time02 / 1000000.0));
+                    System.out.println("     TOT time: " + ((timeEnd - timeStart) / 1_000_000.0));
+                    System.out.println("     PUT time: " + (timePut / 1_000_000.0));
+                    System.out.println("     GET time: " + (timeGet / 1_000_000.0));
                     System.out.println("    Evict Cnt: " + evictCnt);
                     System.out.println("   Expire Cnt: " + expireCnt);
                 }

@@ -38,7 +38,7 @@ public class SearchByTypes {
             builder = new PlaceRequestBuilder();
             builder.addRequiredParent(placeRep);
             for (int type : types) {
-                builder.addRequiredPlaceType(new PlaceType(solrService.getTypeById(TypeBridge.TYPE.PLACE, type, false)));
+                builder.addRequiredPlaceType(new PlaceType(solrService.getTypeById(TypeBridge.TYPE.PLACE, type)));
             }
             PlaceResults results = placeService.requestPlaces(builder.getRequest());
 

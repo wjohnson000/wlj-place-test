@@ -14,7 +14,7 @@ import std.wlj.util.SolrManager;
 public class STD2693X {
     public static void main(String... args) throws Exception {
         SolrService  solrService = SolrManager.awsProdService(true);
-        AppDataManager appDataManager = new AppDataManager(solrService);
+        AppDataManager appDataManager = new AppDataManager(solrService, true);
         VariantNameSorter.initMap(appDataManager);
 
         PlaceRepDoc doc = solrService.findPlaceRep(266);

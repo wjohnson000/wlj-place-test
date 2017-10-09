@@ -1,16 +1,11 @@
 package std.wlj.cache;
 
-public class TestEHCacheIndexing {
+import std.wlj.cache.lru.BasicLRUCache;
+import std.wlj.cache.lru.BasicLRUSynchronizedCache;
 
-    static EHCacheIndexing.EHCacheBuilder<String,MyObject> builder = new EHCacheIndexing.EHCacheBuilder<String,MyObject>();
-    static EHCacheIndexing<String,MyObject> myCache;
-    static {
-        builder.setCacheName("myCache");
-        builder.setTimeToLive(1);
-        builder.setTimetoIdle(6);
-        builder.setMaxElements(10_000);
-        myCache = builder.build();
-    }
+public class TestLRUCache {
+
+    static  BasicLRUSynchronizedCache<String, MyObject> myCache = new BasicLRUSynchronizedCache<String, MyObject>(10_000);
 
     public static void main(String... args) {
         Thread[] threads = new Thread[4];
@@ -27,7 +22,6 @@ public class TestEHCacheIndexing {
                     long timeEnd;
                     long time01;
                     long time02;
-
                     MyObject what;
 
                     timeStart = System.nanoTime();
@@ -56,15 +50,20 @@ public class TestEHCacheIndexing {
                     }
                     timeEnd = System.nanoTime();
 
-                    System.out.println();
-                    System.out.println("EH-CACHE-IDX STATISTICS ...");
-                    System.out.println("---------------------------");
+                    System.out.println("BASIC-LRU-SYNCHRONIZED CACHE STATISTICS ...");
+                    System.out.println("-------------------------------------------");
                     System.out.println("MaxSize      : " + maxSize);
                     System.out.println("Missing count: " + count01);
                     System.out.println("  Found count: " + count02);
+                    System.out.println("  Total count: " + (count01 + count02));
                     System.out.println("     TOT time: " + ((timeEnd - timeStart) / 1_000_000.0));
                     System.out.println("     PUT time: " + (timePut / 1_000_000.0));
                     System.out.println("     GET time: " + (timeGet / 1_000_000.0));
+                    System.out.println(" ...get count: " + myCache.getGetCount());
+                    System.out.println(" ...put count: " + myCache.getPutCount());
+                    System.out.println(" ...rem count: " + myCache.getRemoveCount());
+                    System.out.println(" ...ddd count: " + myCache.getDiscardCount());
+                    System.out.println("\n");
                 }
             });
             threads[i].start();

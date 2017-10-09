@@ -24,13 +24,13 @@ public class SourceTest {
             dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
             System.out.println("\nALL..............................................\n");
-            Set<SourceBridge> sourceBs = dataService.getSources(false);
+            Set<SourceBridge> sourceBs = dataService.getSources();
             for (SourceBridge sourceB : sourceBs) {
                 System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
             }
 
             System.out.println("\nONE..............................................\n");
-            SourceBridge sourceB = dataService.getSourceById(11, false);
+            SourceBridge sourceB = dataService.getSourceById(11);
             System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
 
             System.out.println("\nNEW..............................................\n");

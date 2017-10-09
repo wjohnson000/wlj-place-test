@@ -31,8 +31,8 @@ public class STD2644Raw {
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
-        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 
         for (String text : textes) {
             PlaceRequestBuilder builder;

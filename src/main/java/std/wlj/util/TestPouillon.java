@@ -20,8 +20,8 @@ public class TestPouillon {
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
-        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 //        System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         System.out.println("--------------------------------------------------------------------------------------");

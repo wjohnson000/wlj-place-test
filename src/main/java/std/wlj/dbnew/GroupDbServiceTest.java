@@ -26,7 +26,7 @@ public class GroupDbServiceTest {
             dbServices = DbConnectionManager.getDbServicesWLJ();
 
             System.out.println("\nALL [TYPE]........................................\n");
-            Set<GroupBridge> groupBs = dbServices.readService.getGroups(GroupBridge.TYPE.PLACE_TYPE, false);
+            Set<GroupBridge> groupBs = dbServices.readService.getGroups(GroupBridge.TYPE.PLACE_TYPE);
             for (GroupBridge groupB : groupBs) {
                 System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
                 System.out.println("   M: " + groupB.getDirectMembers());
@@ -38,7 +38,7 @@ public class GroupDbServiceTest {
             }
 
             System.out.println("\nALL [PLACE-REP]...................................\n");
-            groupBs = dbServices.readService.getGroups(GroupBridge.TYPE.PLACE_REP, false);
+            groupBs = dbServices.readService.getGroups(GroupBridge.TYPE.PLACE_REP);
             for (GroupBridge groupB : groupBs) {
                 System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
                 System.out.println("   M: " + groupB.getDirectMembers());
@@ -49,7 +49,7 @@ public class GroupDbServiceTest {
             }
 
             System.out.println("\nMEMBERS [PLACE-REP]...................................\n");
-            groupBs = dbServices.readService.getGroupsByMemberId(GroupBridge.TYPE.PLACE_REP, 4, false);
+            groupBs = dbServices.readService.getGroupsByMemberId(GroupBridge.TYPE.PLACE_REP, 4);
             for (GroupBridge groupB : groupBs) {
                 System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
                 System.out.println("   M: " + groupB.getDirectMembers());
@@ -61,7 +61,7 @@ public class GroupDbServiceTest {
             }
 
             System.out.println("\nONE [TYPE].........................................\n");
-            GroupBridge groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, 4, false);
+            GroupBridge groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_TYPE, 4);
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");
@@ -71,7 +71,7 @@ public class GroupDbServiceTest {
             System.out.println();
 
             System.out.println("\nONE [PLACE-REP].....................................\n");
-            groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_REP, 80, false);
+            groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_REP, 80);
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");
@@ -121,7 +121,7 @@ public class GroupDbServiceTest {
             System.out.println();
 
             System.out.println("\nONE [PLACE-REP].....................................\n");
-            groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_REP, groupB.getGroupId(), false);
+            groupB = dbServices.readService.getGroupById(GroupBridge.TYPE.PLACE_REP, groupB.getGroupId());
             System.out.println("TYPE: " + groupB.getGroupId() + " :: " + groupB.isPublished() + " :: " + groupB.getNames());
             System.out.println("   M: " + groupB.getDirectMembers());
             System.out.print("   S: ");

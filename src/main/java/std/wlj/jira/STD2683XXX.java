@@ -23,7 +23,6 @@ public class STD2683XXX {
 
         PlaceRequestBuilder builder = new PlaceRequestBuilder();
         builder.setText("Dolinivka");
-        builder.setUseCache(false);
 
         PlaceResults results = placeService.requestPlaces(builder.getRequest());
         System.out.println("Count: " + results.getReturnedCount());

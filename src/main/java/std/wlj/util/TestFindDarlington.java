@@ -16,8 +16,8 @@ public class TestFindDarlington {
     public static void main(String... args) throws PlaceDataException {
         SolrService solrService = SolrManager.localEmbeddedService();  //.awsService55();
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, false).size());
-        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME, false).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Place-Name count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
 //        System.out.println("Name-Priority: " + NamePriorityHelper.getInstance());
 
         for (int i=0;  i<6;  i++) {

@@ -32,4 +32,27 @@ public class MyObject implements java.io.Serializable {
      * No one else can make one of dese tings ...
      */
     private MyObject() { }
+    
+    @Override
+    public int hashCode() {
+        return key;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        } else if (obj == this) {
+            return true;
+        } else if (! (obj instanceof MyObject)) {
+            return false;
+        } else {
+            return obj.hashCode() == this.hashCode();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return key + " . " + firstName;
+    }
 }

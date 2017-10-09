@@ -10,9 +10,9 @@ public class SimpleTestAppData {
     public static void main(String... args) throws PlaceDataException {
         SolrService solrService = SolrService.getInstance();
 
-        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE, true).size());
-        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME, true).size());
-        System.out.println("Place-Type-Group count: " + solrService.getGroups(GroupBridge.TYPE.PLACE_REP, true).size());
+        System.out.println("Place-Type count: " + solrService.getTypes(TypeBridge.TYPE.PLACE).size());
+        System.out.println("Name-Type count: " + solrService.getTypes(TypeBridge.TYPE.NAME).size());
+        System.out.println("Place-Type-Group count: " + solrService.getGroups(GroupBridge.TYPE.PLACE_REP).size());
 
         System.exit(0);
     }

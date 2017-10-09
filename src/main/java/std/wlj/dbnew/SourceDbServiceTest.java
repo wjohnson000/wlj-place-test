@@ -16,13 +16,13 @@ public class SourceDbServiceTest {
             dbServices = DbConnectionManager.getDbServicesWLJ();
 
             System.out.println("\nALL..............................................\n");
-            Set<SourceBridge> sourceBs = dbServices.readService.getSources(false);
+            Set<SourceBridge> sourceBs = dbServices.readService.getSources();
             for (SourceBridge sourceB : sourceBs) {
                 System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
             }
 
             System.out.println("\nONE..............................................\n");
-            SourceBridge sourceB = dbServices.readService.getSourceById(11, false);
+            SourceBridge sourceB = dbServices.readService.getSourceById(11);
             System.out.println("SRC: " + sourceB.getSourceId() + " :: " + sourceB.getTitle() + " :: " + sourceB.getDescription());
 
             System.out.println("\nNEW..............................................\n");

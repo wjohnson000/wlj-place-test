@@ -25,6 +25,7 @@ import org.xml.sax.XMLReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import std.wlj.kml.model.*;
 
@@ -69,7 +70,10 @@ public class POJOMarshalUtil {
      */
     public static String toJSON(Object model) {
         try {
-            ObjectWriter jsonWriterPP = jsonMapper.writerWithDefaultPrettyPrinter();
+            ObjectWriter jsonWriterPP = jsonMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .withoutFeatures(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                    .without(SerializationFeature.FAIL_ON_EMPTY_BEANS);
             return jsonWriterPP.writeValueAsString(model);
         } catch (Exception e) {
             logger.error(e, "Model", "Unable to unmarshal JSON: " + e.getLocalizedMessage());
@@ -85,7 +89,10 @@ public class POJOMarshalUtil {
      */
     public static String toJSONPlain(Object model) {
         try {
-            ObjectWriter jsonWriterPP = jsonMapper.writer();
+            ObjectWriter jsonWriterPP = jsonMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .withoutFeatures(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                    .without(SerializationFeature.FAIL_ON_EMPTY_BEANS);
             return jsonWriterPP.writeValueAsString(model);
         } catch (Exception e) {
             logger.error(e, "Model", "Unable to unmarshal JSON: " + e.getLocalizedMessage());
