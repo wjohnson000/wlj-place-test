@@ -1,14 +1,13 @@
 package std.wlj.cache;
 
-import std.wlj.cache.lru.BasicLRUCache;
-import std.wlj.cache.lru.BasicLRUSynchronizedCache;
+import std.wlj.cache.lru.LRUCache;
 
-public class TestLRUCache {
+public class TestLRUCacheNotSynchronized {
 
-    static  BasicLRUSynchronizedCache<String, MyObject> myCache = new BasicLRUSynchronizedCache<String, MyObject>(10_000);
+    static  LRUCache<String, MyObject> myCache = new LRUCache<String, MyObject>("name", 10_000, false);
 
     public static void main(String... args) {
-        Thread[] threads = new Thread[4];
+        Thread[] threads = new Thread[1];
         for (int i=0;  i<threads.length;  i++) {
             threads[i] = new Thread(new Runnable() {
                 @Override public void run() {
@@ -50,7 +49,7 @@ public class TestLRUCache {
                     }
                     timeEnd = System.nanoTime();
 
-                    System.out.println("BASIC-LRU-SYNCHRONIZED CACHE STATISTICS ...");
+                    System.out.println("LRU CACHE (NOT SYNCHRONIZED) STATISTICS ...");
                     System.out.println("-------------------------------------------");
                     System.out.println("MaxSize      : " + maxSize);
                     System.out.println("Missing count: " + count01);
@@ -59,10 +58,10 @@ public class TestLRUCache {
                     System.out.println("     TOT time: " + ((timeEnd - timeStart) / 1_000_000.0));
                     System.out.println("     PUT time: " + (timePut / 1_000_000.0));
                     System.out.println("     GET time: " + (timeGet / 1_000_000.0));
-                    System.out.println(" ...get count: " + myCache.getGetCount());
-                    System.out.println(" ...put count: " + myCache.getPutCount());
-                    System.out.println(" ...rem count: " + myCache.getRemoveCount());
-                    System.out.println(" ...ddd count: " + myCache.getDiscardCount());
+                    System.out.println(" ...get count: " + myCache.getStats().getGetCount());
+                    System.out.println(" ...put count: " + myCache.getStats().getPutCount());
+                    System.out.println(" ...rem count: " + myCache.getStats().getRemoveCount());
+                    System.out.println(" ...ddd count: " + myCache.getStats().getDiscardCount());
                     System.out.println("\n");
                 }
             });
