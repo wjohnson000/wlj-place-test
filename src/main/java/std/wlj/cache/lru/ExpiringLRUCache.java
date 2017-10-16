@@ -144,6 +144,14 @@ public class ExpiringLRUCache<K, V> extends CacheImplBase<K, V> {
         return tCache;
     }
 
+    /**
+     * Unwrap the {@link CacheEntry} instances and pass the associated value[s] to the listeners.
+     * 
+     * @param type event type, one of {@link EventType}
+     * @param key cache key affected
+     * @param oldValue old associated with the key, or null if key not in cache
+     * @param newValue new value associated with the key, or null if not applicable
+     */
     void notifyListenersUnwrap(EventType type, K key, CacheEntry<V> oldValue, CacheEntry<V> newValue) {
         V oldV = (oldValue == null) ? null : oldValue.getValue();
         V newV = (newValue == null) ? null : newValue.getValue();

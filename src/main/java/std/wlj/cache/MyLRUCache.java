@@ -18,7 +18,7 @@ import org.familysearch.standards.core.logging.Logger;
 
 /**
  * Implement a LRU (least-recently-used) and expiring (time-to-live) cache.  This
- * is based on {@link org.familysearch.standards.core.LRUCache} but can't directly
+ * is based on {@link org.familysearch.standards.core.cache.LRUCache} but can't directly
  * extend it because of the lack of a "remove(...)" method.
  * <p/>
  * If the cache limit is reached, all stale [expired] values will be removed.  If
@@ -29,7 +29,7 @@ import org.familysearch.standards.core.logging.Logger;
  * applied.  If no "cleanup-delay" is supplied, a default value of 30 seconds will
  * be used.
  * <p/>
- * Note: the class has been copied from {@link org.familysearch.standards.core.LRUCache},
+ * Note: the class has been copied from {@link org.familysearch.standards.core.cache.LRUCache},
  * which in turn was based on a LRUCache created by Christian d'Heureuse.  However a
  * "remove" method was added so that elements can be "un-cached" when required.
  * <p/>
