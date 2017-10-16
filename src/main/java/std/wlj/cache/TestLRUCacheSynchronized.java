@@ -64,7 +64,7 @@ public class TestLRUCacheSynchronized {
                     System.out.println(" ...put count: " + myCache.getStats().getPutCount());
                     System.out.println(" ...rem count: " + myCache.getStats().getRemoveCount());
                     System.out.println(" ...exp count: " + myCache.getStats().getExpireCount());
-                    System.out.println(" ...ddd count: " + myCache.getStats().getDiscardCount());
+                    System.out.println(" ...ddd count: " + myCache.getStats().getEvictCount());
                     System.out.println("\n");
                 }
             });

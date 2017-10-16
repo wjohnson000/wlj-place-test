@@ -29,7 +29,7 @@ import std.wlj.cache.lru.listener.EventType;
  * the best practice.
  * <p/>
  * <strong>NOTE:</strong> this cache is synchronized by default, making it usable in a
- * multi-threaded environment.  Synchronization can disabled via a constructor parameter,
+ * multi-threaded environment.  Synchronization can be disabled via a constructor parameter,
  * but don't say we didn't warn you!
  * <p/>
  * 
@@ -88,6 +88,7 @@ public class ExpiringLRUCache<K, V> extends CacheImplBase<K, V> {
             notifyListenersUnwrap(EventType.EXPIRED, key, cacheEntry, null);
             return null;
         } else {
+            cacheStats.incrHitCount();
             if (expireType == ExpireType.USE_ACCESS_TIME) {
                 cacheEntry.updateAccessTime();
             }
@@ -118,7 +119,14 @@ public class ExpiringLRUCache<K, V> extends CacheImplBase<K, V> {
         return cache.size();
     }
 
-    Map<K, CacheEntry<V>> createCache(int cacheSize) {
+    /**
+     * Create the initial cache based on a {@LinkedHashMap}, evicting the oldest entry once
+     * the maximum size has been reached.
+     * 
+     * @param cacheSize maximum cache size
+     * @return
+     */
+    Map<K, CacheEntry<V>> createCache(final int cacheSize) {
         Map<K, CacheEntry<V>> tCache = new LinkedHashMap<K, CacheEntry<V>>(cacheSize, 0.75F, true) {
             private static final long serialVersionUID = 1L;
 
@@ -127,7 +135,7 @@ public class ExpiringLRUCache<K, V> extends CacheImplBase<K, V> {
                 if (size() <= cacheSize) {
                     return false;
                 } else {
-                    cacheStats.incrDiscardCount();
+                    cacheStats.incrEvictCount();
                     notifyListenersUnwrap(EventType.EVICTED, eldest.getKey(), eldest.getValue(), null);
                     return true;
                 }

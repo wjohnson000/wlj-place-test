@@ -60,8 +60,8 @@ public class TestLRUCacheNotSynchronized {
                     System.out.println("     GET time: " + (timeGet / 1_000_000.0));
                     System.out.println(" ...get count: " + myCache.getStats().getGetCount());
                     System.out.println(" ...put count: " + myCache.getStats().getPutCount());
+                    System.out.println(" ...evc count: " + myCache.getStats().getEvictCount());
                     System.out.println(" ...rem count: " + myCache.getStats().getRemoveCount());
-                    System.out.println(" ...ddd count: " + myCache.getStats().getDiscardCount());
                     System.out.println("\n");
                 }
             });

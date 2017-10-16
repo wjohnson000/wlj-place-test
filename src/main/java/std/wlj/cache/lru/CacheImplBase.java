@@ -46,19 +46,32 @@ public abstract class CacheImplBase<K, V> implements Cache<K, V> {
         listeners.remove(listener);
     }
 
+    /**
+     * Notify all listeners that some cache action has occurred.
+     * 
+     * @param type event type, one of {@link EventType}
+     * @param key cache key affected
+     * @param oldValue old associated with the key, or null if key not in cache
+     * @param newValue new value associated with the key, or null if not applicable
+     */
     protected void notifyListeners(EventType type, K key, V oldValue, V newValue) {
         for (CacheEventListener<K, V> listener : listeners) {
             switch(type) {
                 case EVICTED:
-                    listener.notifyElementEvicted(key, oldValue);  break;
+                    listener.notifyElementEvicted(key, oldValue);
+                    break;
                 case EXPIRED:
-                    listener.notifyElementExpired(key, oldValue);  break;
+                    listener.notifyElementExpired(key, oldValue);
+                    break;
                 case REMOVED:
-                    listener.notifyElementRemoved(key, oldValue);  break;
+                    listener.notifyElementRemoved(key, oldValue);
+                    break;
                 case REMOVE_ALL:
-                    listener.notifyElementRemoveAll();  break;
+                    listener.notifyElementRemoveAll();
+                    break;
                 case UPDATED:
-                    listener.notifyElementUpdated(key, oldValue, newValue);  break;
+                    listener.notifyElementUpdated(key, oldValue, newValue);
+                    break;
             }
         }
     }
