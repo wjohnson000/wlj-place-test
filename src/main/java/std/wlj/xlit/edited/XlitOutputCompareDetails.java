@@ -1,10 +1,6 @@
-package std.wlj.xlit;
+package std.wlj.xlit.edited;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,17 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 public class XlitOutputCompareDetails {
 
     static final String TAB              = "\t";
-    static final String BASE_DIR         = "D:/xlit/km/truth";
     static final String KM_PHONETIC_FILE = "km-phonetic.txt";
     static final String XLIT_FILE        = "xlit-output.txt";
     static final String XLIT_NAKED_FILE  = "xlit-output-naked.txt";
-    static final String COMPARE_FILE       = "xlit-output-compare.txt";
+    static final String COMPARE_FILE     = "xlit-output-compare.txt";
     static final String COMPARE_DETAILS_FILE = "xlit-output-compare-details.txt";
 
     static       int count = 0;
@@ -38,31 +32,31 @@ public class XlitOutputCompareDetails {
     }
 
     static void createCompare() throws Exception {
-        List<String> nameAndOrig = Files.readAllLines(Paths.get(BASE_DIR, XLIT_FILE), Charset.forName("UTF-8"));
+        List<String> nameAndOrig = UtilStuff.readFile(XLIT_FILE);
         List<String[]> nameToOrig = nameAndOrig.stream()
             .map(line -> PlaceHelper.split(line, '\t'))
-            .filter(row -> row.length == 3)
+            .filter(row -> row.length == 4)
             .collect(Collectors.toList());
 
-        List<String> nameAndNew  = Files.readAllLines(Paths.get(BASE_DIR, XLIT_NAKED_FILE), Charset.forName("UTF-8"));
+        List<String> nameAndNew  = UtilStuff.readFile(XLIT_NAKED_FILE);
         Map<String,String> nameToNew = nameAndNew.stream()
             .map(line -> PlaceHelper.split(line, '\t'))
             .filter(row -> row.length == 2)
             .collect(Collectors.toMap(row -> row[0], row -> row[1]));
 
         List<String> results = nameToOrig.stream()
-            .map(row -> row[0] + "\t" + row[1] + "\t" + nameToNew.getOrDefault(row[0], "UNKNOWN"))
+            .map(row -> row[0] + "\t" + row[1] + "\t" + row[2] + "\t" + nameToNew.getOrDefault(row[0], "UNKNOWN"))
             .collect(Collectors.toList());
 
-        Files.write(Paths.get(BASE_DIR, COMPARE_FILE), results, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        UtilStuff.writeFile(COMPARE_FILE, results);
     }
 
     static void createCompareDetails() throws Exception {
-        List<String> data = Files.readAllLines(Paths.get(BASE_DIR, COMPARE_FILE), Charset.forName("UTF-8"));
+        List<String> data = UtilStuff.readFile(COMPARE_FILE);
         List<String> output = data.stream()
             .map(line -> getDetails(line))
             .collect(Collectors.toList());
-        Files.write(Paths.get(BASE_DIR, COMPARE_DETAILS_FILE), output, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        UtilStuff.writeFile(COMPARE_DETAILS_FILE, output);
 
         System.out.println("\nCount01: " + matchCount01);
         System.out.println("Count02: " + matchCount02);
@@ -73,45 +67,45 @@ public class XlitOutputCompareDetails {
         System.out.print(".");
 
         String[] chunks = PlaceHelper.split(line, '\t');
-        if (chunks.length < 3) {
+        if (chunks.length < 4) {
             return line;
         }
 
         String enName      = chunks[0];
-        String kmDesired   = chunks[1];
-        String kmGenerated = chunks[2];
+        String kmDesiredO  = chunks[1];
+        String kmDesiredN  = chunks[2];
+        if (kmDesiredN == null  ||  kmDesiredN.trim().isEmpty()) {
+            kmDesiredN = kmDesiredO;
+        }
+        String kmGenerated = chunks[3];
         List<String> choices = getChoices(kmGenerated);
-        String bestMatch = getBestMatch(kmDesired, choices).replaceAll(" ", "");
+        String bestMatch = getBestMatch(kmDesiredN, choices).replaceAll(" ", "");
 
-        String kmPhonetic01 = getKmPhonetic(kmDesired);
+        String kmPhonetic01 = getKmPhonetic(kmDesiredO);
         String kmPhoneXxx01 = kmPhonetic01.replaceAll(" ", "").trim().toLowerCase();
-        String kmPhonetic02 = getKmPhonetic(bestMatch);
+        String kmPhonetic02 = getKmPhonetic(kmDesiredN);
         String kmPhoneXxx02 = kmPhonetic02.replaceAll(" ", "").trim().toLowerCase();
+        String kmPhonetic03 = getKmPhonetic(bestMatch);
+        String kmPhoneXxx03 = kmPhonetic03.replaceAll(" ", "").trim().toLowerCase();
 
-        if (kmDesired.equals(bestMatch)) matchCount01++;
-        if (kmPhoneXxx01.equals(kmPhoneXxx02)) matchCount02++;
+        if (kmDesiredN.equals(bestMatch)) matchCount01++;
+        if (kmPhoneXxx02.equals(kmPhoneXxx03)) matchCount02++;
 
         StringBuilder buff = new StringBuilder();
         buff.append(enName);
-        buff.append(TAB).append(kmDesired.equals(bestMatch) ? "TRUE" : "");
-        buff.append(TAB).append(kmPhoneXxx01.equals(kmPhoneXxx02) ? "TRUE" : "");
-        buff.append(TAB).append(kmDesired).append(TAB).append(kmPhonetic01).append(TAB).append(getUChars(kmDesired));
+        buff.append(TAB).append(kmDesiredN.equals(bestMatch) ? "TRUE" : "");
+        buff.append(TAB).append(kmPhoneXxx01.equals(kmPhoneXxx03) ? "TRUE" : "");
+        buff.append(TAB).append(kmPhoneXxx02.equals(kmPhoneXxx03) ? "TRUE" : "");
+        buff.append(TAB).append(kmDesiredO).append(TAB).append(kmPhonetic01).append(TAB).append(UtilStuff.getUChars(kmDesiredO));
+        buff.append(TAB).append(kmDesiredN).append(TAB).append(kmPhonetic02).append(TAB).append(UtilStuff.getUChars(kmDesiredN));
         buff.append(TAB).append(kmGenerated).append(TAB).append(getEnCharsInKm(kmGenerated)).append(TAB).append(choices.size());
-        buff.append(TAB).append(bestMatch).append(TAB).append(kmPhonetic02).append(TAB).append(getUChars(bestMatch));
+        buff.append(TAB).append(bestMatch).append(TAB).append(kmPhonetic03).append(TAB).append(UtilStuff.getUChars(bestMatch));
 
         return buff.toString();
     }
 
-    static String getUChars(String text) {
-        if (text == null) return "Uknown";
-        return text.chars()
-            .mapToObj(ch -> Integer.toHexString(ch).toUpperCase())
-            .map(hex -> "U+" + StringUtils.leftPad(hex, 4, "0"))
-            .collect(Collectors.joining(" "));
-    }
-
     static void loadKmPhonetics() throws IOException {
-        List<String> kmPhone = Files.readAllLines(Paths.get(BASE_DIR, KM_PHONETIC_FILE), Charset.forName("UTF-8"));
+        List<String> kmPhone = UtilStuff.readFile(KM_PHONETIC_FILE);
         kmPhone.stream()
             .map(km -> PlaceHelper.split(km, '\t'))
             .filter(kmp -> kmp.length > 1)
@@ -123,7 +117,7 @@ public class XlitOutputCompareDetails {
         List<String> kmPhoneOutput = km2Phonetic.entrySet().stream()
             .map(entry -> entry.getKey() + "\t" + entry.getValue())
             .collect(Collectors.toList());
-        Files.write(Paths.get(BASE_DIR, KM_PHONETIC_FILE), kmPhoneOutput, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        UtilStuff.writeFile(KM_PHONETIC_FILE, kmPhoneOutput);
     }
 
     static String getKmPhonetic(String kmText) {
