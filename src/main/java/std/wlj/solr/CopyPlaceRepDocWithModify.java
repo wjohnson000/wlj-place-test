@@ -11,22 +11,9 @@ import org.familysearch.standards.place.data.solr.SolrConnection;
 import std.wlj.util.SolrManager;
 
 
-public class CopyAppDataDocs {
+public class CopyPlaceRepDocWithModify {
 
     private static final String[] docIds = {
-        "ATTRIBUTE-TYPE",
-        "CITATION-TYPE",
-        "EXT-XREF-TYPE",
-        "NAME-TYPE",
-//        "PLACE-TYPE",
-        "RESOLUTION-TYPE",
-        "FEEDBACK-RESOLUTION-TYPE",
-        "FEEDBACK-STATE-TYPE",
-        "REP-RELATION",
-
-        "SOURCE",
-        "GROUP-HIERARCHY",
-        "NAME-PRIORITY",
         "1",
         "100",
         "101",
@@ -49,6 +36,11 @@ public class CopyAppDataDocs {
         }
 
         System.out.println("CNT: " + docs.size());
+        docs.forEach(doc -> System.out.println("ID: " + doc.getId() + " --> " + doc.getType()));
+        docs.forEach(doc -> {
+            doc.setRepId(doc.getRepId() + 20_000_000);
+            doc.setId(String.valueOf(doc.getRepId()));
+        });
         docs.forEach(doc -> System.out.println("ID: " + doc.getId() + " --> " + doc.getType()));
 
         solrConnTO.add(docs);

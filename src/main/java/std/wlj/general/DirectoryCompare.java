@@ -254,8 +254,8 @@ public class DirectoryCompare {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-        String fileOne = "D:/solr/solr-6.5.0/example/files/conf";
-        String fileTwo = "D:/solr/solr-7.0.0/example/files/conf";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place-db";
+        String fileTwo = "C:/Users/wjohnson000/git/std-ws-dbload-55";
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;
         dcEngine.ignoreWhiteSpace = true;

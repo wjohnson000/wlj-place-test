@@ -194,7 +194,7 @@ public class DetermineNewLine {
     // Get this silly thing a-goin'
     public static void main(String[] args) {
 //        String fileOne = "C:/Users/wjohnson000/git/std-ws-place-55";
-        String fileOne = "C:/Users/wjohnson000/git/std-solr-core";
+        String fileOne = "C:/Users/wjohnson000/git/std-lib-place-55";
         DetermineNewLine dcEngine = new DetermineNewLine();
         dcEngine.doVerbose  = false;
         dcEngine.countDir(new File(fileOne));

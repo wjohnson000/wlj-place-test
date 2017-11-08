@@ -20,6 +20,7 @@ public class DbConnectionManager {
     private static BasicDataSource pcas  = null;
     private static BasicDataSource aws   = null;
     private static BasicDataSource dev55 = null;
+    private static BasicDataSource name  = null;
 
     private static Properties jdbcProps = new Properties();
     static {
@@ -175,6 +176,23 @@ public class DbConnectionManager {
     public static DbServices getDbServicesDev55() {
         DataSource ds = getDataSourceDev55();
         return new DbServices(new DbReadableService(ds), new DbWritableService(ds));
+    }
+
+    /** =============================================================================
+     *  Connection or DataSource to AWS-NAME database with username='fs_schema_owner'
+     *  ============================================================================= */
+    public static Connection getConnectionName() throws SQLException {
+        if (name == null) {
+            name = setupDataSource("aws-name");
+        }
+        return name.getConnection();
+    }
+
+    public static DataSource getDataSourceAwsName() {
+        if (name == null) {
+            name = setupDataSource("aws-name");
+        }
+        return name;
     }
 
     /** =============================================================================

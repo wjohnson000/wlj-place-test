@@ -11,22 +11,9 @@ import org.familysearch.standards.place.data.solr.SolrConnection;
 import std.wlj.util.SolrManager;
 
 
-public class CopyAppDataDocs {
+public class CopyPlaceRepDocWithNoModify {
 
     private static final String[] docIds = {
-        "ATTRIBUTE-TYPE",
-        "CITATION-TYPE",
-        "EXT-XREF-TYPE",
-        "NAME-TYPE",
-//        "PLACE-TYPE",
-        "RESOLUTION-TYPE",
-        "FEEDBACK-RESOLUTION-TYPE",
-        "FEEDBACK-STATE-TYPE",
-        "REP-RELATION",
-
-        "SOURCE",
-        "GROUP-HIERARCHY",
-        "NAME-PRIORITY",
         "1",
         "100",
         "101",
