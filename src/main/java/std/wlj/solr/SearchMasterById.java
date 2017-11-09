@@ -16,19 +16,26 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);  //.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-        SolrQuery query = new SolrQuery("repId:395699");
+//        SolrQuery query = new SolrQuery("repId:395699");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
-//        SolrQuery query = new SolrQuery("names:q");
+//        SolrQuery query = new SolrQuery("names:honduras");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:1442484");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
+        SolrQuery query = new SolrQuery("type:81 AND -deleteId:[* TO *]");
+//        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
+
+//        SolrQuery query = new SolrQuery("type:81");
+//        query.addFilterQuery("-deleteId:[* TO *]");
+
         query.setRows(20);
         query.setSort("repId", SolrQuery.ORDER.desc);
+        System.out.println("QRY: " + query);
 
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());

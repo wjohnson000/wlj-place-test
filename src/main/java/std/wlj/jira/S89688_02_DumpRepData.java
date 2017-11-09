@@ -57,7 +57,7 @@ public class S89688_02_DumpRepData {
                 while (rset.next()) {
                     again = true;
 
-                    parChildData.add(rset.getString("rep_id") + "|" + rset.getString("parent_id") + "|" + rset.getString("owner_id"));
+                    parChildData.add(rset.getString("rep_id") + "|" + rset.getString("parent_id") + "|" + rset.getString("owner_id") + "|" + rset.getString("delete_id"));
 
                     int placeTypeId = rset.getInt("place_type_id");
                     int deleteId    = rset.getInt("delete_id");

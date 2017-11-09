@@ -5,16 +5,31 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 
 public class S89688_05_GeneratePlaceSQL {
+
+    static final class RepDataTiny {
+        int     repId;
+        int     parId;
+        int     parPlaceId;
+        boolean deleteMe = false;
+
+        public RepDataTiny(int repId, int parId) {
+            this.repId = repId;
+            this.parId = parId;
+        }
+
+        @Override public String toString() { return repId + " . " + parId + " . " + parPlaceId + " . " + deleteMe; }
+    }
 
     static final int    stmtLimit   = 50_000;
     static final String inPlaceFileName     = "s89688-place-data.txt";
@@ -35,7 +50,7 @@ public class S89688_05_GeneratePlaceSQL {
     };
 
     public static void main(String...args) throws IOException {
-        Map<Integer, List<Integer>> placeToRep = getPlaceToRep();
+        Map<Integer, List<RepDataTiny>> placeToRep = getPlaceToRep();
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
             .limit(100)
@@ -46,26 +61,37 @@ public class S89688_05_GeneratePlaceSQL {
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
-        
-        // Keep iff included in "rep-data-all"
-        
+
+        keepIfRepsDeleted(placeToRep);
+        System.out.println("\n>>>> SIZE: " + placeToRep.size());
+        placeToRep.entrySet().stream()
+            .limit(100)
+            .forEach(System.out::println);
+
+        setParentPlaceId(placeToRep);
+        System.out.println("\n>>>> SIZE: " + placeToRep.size());
+        placeToRep.entrySet().stream()
+            .limit(100)
+            .forEach(System.out::println);
+
         System.exit(0);
     }
 
-    static Map<Integer, List<Integer>> getPlaceToRep() throws IOException {
+    static Map<Integer, List<RepDataTiny>> getPlaceToRep() throws IOException {
       List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inRepParentFileName), Charset.forName("UTF-8"));
 
       return allLines.stream()
           .map(line -> PlaceHelper.split(line, '|'))
           .filter(data -> data.length > 2)
-          .map(data -> new int[] { Integer.parseInt(data[0]), Integer.parseInt(data[2]) })
+          .map(data -> new String[] { data[0], ("null".equals(data[1]) ? "0" : data[1]), data[2] })
+          .map(data -> new int[] { Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]) })
           .collect(Collectors.groupingBy(
-              data -> data[1],
+              data -> data[2],
               HashMap::new,
-              Collectors.mapping(data -> data[0], Collectors.toList())));
+              Collectors.mapping(data -> new RepDataTiny(data[0], data[1]), Collectors.toList())));
     }
 
-    static void removeDeletedPlaces(Map<Integer, List<Integer>> placeToRep) throws IOException {
+    static void removeDeletedPlaces(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inPlaceFileName), Charset.forName("UTF-8"));
 
         allLines.stream()
@@ -74,6 +100,74 @@ public class S89688_05_GeneratePlaceSQL {
             .filter(data -> data.length > 4)
             .map(data -> Integer.parseInt(data[4]))
             .forEach(placeId -> placeToRep.remove(placeId));
+    }
+
+    static void keepIfRepsDeleted(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inRepDataFileName), Charset.forName("UTF-8"));
+
+        // We are doing multiple operations, so use traditional looping
+        Set<Integer> idsToKeep = new HashSet<>();
+        for (String line : allLines) {
+            String[] data = PlaceHelper.split(line, '|');
+            if (data.length > 4) {
+                int repId = Integer.parseInt(data[0]);
+                int parId = ("null".equals(data[2])) ? 0 : Integer.parseInt(data[2]);
+                int plcId = Integer.parseInt(data[3]);
+
+                idsToKeep.add(plcId);
+
+                List<RepDataTiny> repTs = placeToRep.get(plcId);
+                if (repTs != null) {
+                    boolean found = false;
+                    for (RepDataTiny repT : repTs) {
+                        if (repT.repId == repId) {
+                            found = true;
+                            repT.deleteMe = true;
+                            if (repT.parId != parId) {
+                                System.out.println("Oops!! -- mismatched place for: " + repT + " and " + parId);
+                            }
+                        }
+                    }
+                    if (! found) {
+                        System.out.println("Oops!! -- not found for: " + repId);
+                    }
+                }
+            }
+        }
+
+        Set<Integer> idsToDelete = new HashSet<>(placeToRep.keySet());
+        idsToDelete.removeAll(idsToKeep);
+        
+        idsToDelete.forEach(key -> placeToRep.remove(key));
+    }
+
+    static void setParentPlaceId(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inRepParentFileName), Charset.forName("UTF-8"));
+
+        Map<Integer, Integer> repOwner = allLines.stream()
+            .map(line -> PlaceHelper.split(line, '|'))
+            .filter(data -> data.length > 2)
+            .collect(Collectors.toMap(data -> Integer.parseInt(data[0]), data -> Integer.parseInt(data[2])));
+
+        for (List<RepDataTiny> repTs : placeToRep.values()) {
+            boolean deleteAll = repTs.stream().allMatch(repT -> repT.deleteMe);
+            if (deleteAll) {
+                Set<Integer> parPlaceIds = repTs.stream()
+                    .map(repT -> repT.parId)
+                    .map(parId -> repOwner.get(parId))
+                    .filter(parPlaceId -> parPlaceId != null)
+                    .collect(Collectors.toSet());
+                if (parPlaceIds.size() == 0) {
+                    System.out.println("No parents: " + repTs);
+                } else if (parPlaceIds.size() == 1) {
+                    repTs.get(0).parPlaceId = parPlaceIds.stream().findFirst().orElse(0);
+                } else {
+                    System.out.println("Multiple parents: " + repTs + " --> " + parPlaceIds);
+                }
+            } else {
+                System.out.println("Don't delete this one: " + repTs);
+            }
+        }
     }
 
     /**
