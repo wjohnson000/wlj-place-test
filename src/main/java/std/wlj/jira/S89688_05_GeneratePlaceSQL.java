@@ -21,6 +21,7 @@ public class S89688_05_GeneratePlaceSQL {
         int     repId;
         int     parId;
         int     parPlaceId;
+        boolean isDeleted = false;
         boolean deleteMe = false;
 
         public RepDataTiny(int repId, int parId) {
@@ -68,6 +69,12 @@ public class S89688_05_GeneratePlaceSQL {
             .limit(100)
             .forEach(System.out::println);
 
+        removeDeletedReps(placeToRep);
+        System.out.println("\n>>>> SIZE: " + placeToRep.size());
+        placeToRep.entrySet().stream()
+            .limit(100)
+            .forEach(System.out::println);
+        
         setParentPlaceId(placeToRep);
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
@@ -141,6 +148,24 @@ public class S89688_05_GeneratePlaceSQL {
         idsToDelete.forEach(key -> placeToRep.remove(key));
     }
 
+    static void removeDeletedReps(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inRepParentFileName), Charset.forName("UTF-8"));
+
+        Set<Integer> deletedReps = allLines.stream()
+                .map(line -> PlaceHelper.split(line, '|'))
+                .filter(data -> data.length > 3)
+                .filter(data -> (! "null".equals(data[3])))
+                .map(data -> Integer.parseInt(data[0]))
+                .collect(Collectors.toSet());
+
+        for (Map.Entry<Integer, List<RepDataTiny>> entry : placeToRep.entrySet()) {
+            List<RepDataTiny> newRepTs = entry.getValue().stream()
+                .filter(repT -> ! deletedReps.contains(repT.repId))
+                .collect(Collectors.toList());
+            placeToRep.put(entry.getKey(), newRepTs);
+        }
+    }
+
     static void setParentPlaceId(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inRepParentFileName), Charset.forName("UTF-8"));
 
@@ -162,7 +187,7 @@ public class S89688_05_GeneratePlaceSQL {
                 } else if (parPlaceIds.size() == 1) {
                     repTs.get(0).parPlaceId = parPlaceIds.stream().findFirst().orElse(0);
                 } else {
-                    System.out.println("Multiple parents: " + repTs + " --> " + parPlaceIds);
+                    repTs.get(0).parPlaceId = parPlaceIds.stream().findFirst().orElse(0);
                 }
             } else {
                 System.out.println("Don't delete this one: " + repTs);
