@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class S89688_05_GeneratePlaceSQL {
         @Override public String toString() { return repId + " . " + parId + " . " + parPlaceId + " . " + deleteMe; }
     }
 
-    static final int    stmtLimit   = 50_000;
+    static final int    stmtLimit           = 50_000;
     static final String inPlaceFileName     = "s89688-place-data.txt";
     static final String inRepParentFileName = "s89688-rep-data-parent.txt";
     static final String inRepDataFileName   = "s89688-rep-data-all.txt";
@@ -80,6 +81,8 @@ public class S89688_05_GeneratePlaceSQL {
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
+
+        generatePlaceUpdateSQL(placeToRep);
 
         System.exit(0);
     }
@@ -195,42 +198,63 @@ public class S89688_05_GeneratePlaceSQL {
         }
     }
 
+    static void generatePlaceUpdateSQL(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inPlaceFileName), Charset.forName("UTF-8"));
+        System.out.println("Places: " + allLines.size());
+
+        int fileCount = 1;
+        List<String> sqlStuff = new ArrayList<>(stmtLimit);
+        Arrays.stream(beginSQL).forEach(sql -> sqlStuff.add(sql));
+
+        for (String line : allLines) {
+            String[] data = PlaceHelper.split(line, '|');
+            try {
+                int placeId = Integer.parseInt(data[0]);
+                List<RepDataTiny> repTs = placeToRep.get(placeId);
+                int deleteId = (repTs == null  || repTs.isEmpty()) ? 0 : repTs.get(0).parPlaceId;
+                if (deleteId > 0) {
+                    sqlStuff.add(updatePlaceSQL(data, deleteId));
+                    if (sqlStuff.size() == stmtLimit) {
+                        Arrays.stream(endSQL).forEach(sql -> sqlStuff.add(sql));
+                        generateSqlFile(fileCount, sqlStuff);
+                        fileCount++;
+                        sqlStuff.clear();
+                        Arrays.stream(beginSQL).forEach(sql -> sqlStuff.add(sql));
+                    }
+                }
+            } catch(NumberFormatException ex) {
+                // Do nothing ...
+            }
+        }
+
+        Arrays.stream(endSQL).forEach(sql -> sqlStuff.add(sql));
+        generateSqlFile(fileCount, sqlStuff);
+    }
+
     /**
-     * Generate the SQL that will update the place-rep to version it.
+     * Generate the SQL that will update the place to version it.
      * 
      * @param data Array with all of the existing data fields ... change nothing
      *        but the "delete_id" and the "tran_id"
+     * @param deleteId the new deleteId
      */
-    static String updateRepSQL(String[] data) {
-        if (data.length < 16) {
+    static String updatePlaceSQL(String[] data, int deleteId) {
+        if (data.length < 5) {
             System.out.println("Too few fields!! " + Arrays.toString(data));
             return "";
-        } else if (! "null".equals(data[9])) {
+        } else if (! "null".equals(data[4])) {
             System.out.println("Already deleted!! " + Arrays.toString(data));
             return "";
         }
 
         StringBuilder buff = new StringBuilder();
 
-        buff.append("  INSERT INTO place_rep(rep_id, tran_id, parent_id, owner_id, centroid_long, centroid_lattd, ");
-        buff.append("place_type_id, parent_from_year, parent_to_year, delete_id, pref_locale, pub_flag, validated_flag, ");
-        buff.append("uuid, group_id, pref_boundary_id) ");
+        buff.append("  INSERT INTO place(place_id, tran_id, from_year, to_year, delete_id) ");
         buff.append("VALUES (").append(numericData(data[0]));
         buff.append(", ").append("tranx_id");
         buff.append(", ").append(numericData(data[2]));
         buff.append(", ").append(numericData(data[3]));
-        buff.append(", ").append(numericData(data[4]));
-        buff.append(", ").append(numericData(data[5]));
-        buff.append(", ").append(numericData(data[6]));
-        buff.append(", ").append(numericData(data[7]));
-        buff.append(", ").append(numericData(data[8]));
-        buff.append(", ").append(numericData(data[2]));   // Use the parent as the new "delete_id"
-        buff.append(", ").append(characterData(data[10]));
-        buff.append(", ").append(booleanData(data[11]));
-        buff.append(", ").append(booleanData(data[12]));
-        buff.append(", ").append(characterData(data[13]));
-        buff.append(", ").append(numericData(data[14]));
-        buff.append(", ").append(numericData(data[15]));
+        buff.append(", ").append(numericData(String.valueOf(deleteId)));
         buff.append(");");
 
         return buff.toString();

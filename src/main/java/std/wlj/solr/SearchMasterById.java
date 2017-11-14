@@ -27,7 +27,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
-        SolrQuery query = new SolrQuery("type:81 AND -deleteId:[* TO *]");
+        SolrQuery query = new SolrQuery("type:81");
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
 
 //        SolrQuery query = new SolrQuery("type:81");
