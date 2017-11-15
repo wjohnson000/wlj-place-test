@@ -16,16 +16,15 @@ import java.util.stream.Collectors;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 
-public class S89688_05_GeneratePlaceSQL {
+public class S89688_05_ZZZ_GeneratePlaceSQL {
 
-    static final class RepDataTiny {
+    static final class RepDataTinyZZZ {
         int     repId;
         int     parId;
         int     parPlaceId;
-        boolean isDeleted = false;
         boolean deleteMe = false;
 
-        public RepDataTiny(int repId, int parId) {
+        public RepDataTinyZZZ(int repId, int parId) {
             this.repId = repId;
             this.parId = parId;
         }
@@ -53,71 +52,85 @@ public class S89688_05_GeneratePlaceSQL {
     };
 
     public static void main(String...args) throws IOException {
-        Map<Integer, List<RepDataTiny>> placeToRep = getPlaceToRep();
+        Map<Integer, List<RepDataTinyZZZ>> placeToRep = getPlaceToRep();
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
+        System.out.println(".......... " + placeToRep.get(5315980));
 
         removeDeletedPlaces(placeToRep);
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
+        System.out.println(".......... " + placeToRep.get(5315980));
 
-        keepIfRepsDeleted(placeToRep);
+        markRepsToDelete(placeToRep);
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
+        System.out.println(".......... " + placeToRep.get(5315980));
 
-        removeDeletedReps(placeToRep);
-        System.out.println("\n>>>> SIZE: " + placeToRep.size());
-        placeToRep.entrySet().stream()
-            .limit(100)
-            .forEach(System.out::println);
-        
         setParentPlaceId(placeToRep);
         System.out.println("\n>>>> SIZE: " + placeToRep.size());
         placeToRep.entrySet().stream()
             .limit(100)
             .forEach(System.out::println);
+        System.out.println(".......... " + placeToRep.get(5315980));
 
         generatePlaceUpdateSQL(placeToRep);
 
         System.exit(0);
     }
 
-    static Map<Integer, List<RepDataTiny>> getPlaceToRep() throws IOException {
+    static Map<Integer, List<RepDataTinyZZZ>> getPlaceToRep() throws IOException {
       List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), Charset.forName("UTF-8"));
+      System.out.println(">> getPlaceToRep <<  Line count: " + allLines.size());
 
       return allLines.stream()
+          .filter(line -> line.endsWith("null"))
           .map(line -> PlaceHelper.split(line, '|'))
-          .filter(data -> data.length > 2)
+          .filter(data -> data.length > 3)
           .map(data -> new String[] { data[0], ("null".equals(data[1]) ? "0" : data[1]), data[2] })
           .map(data -> new int[] { Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]) })
           .collect(Collectors.groupingBy(
               data -> data[2],
               HashMap::new,
-              Collectors.mapping(data -> new RepDataTiny(data[0], data[1]), Collectors.toList())));
+              Collectors.mapping(data -> new RepDataTinyZZZ(data[0], data[1]), Collectors.toList())));
     }
 
-    static void removeDeletedPlaces(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+    static void removeDeletedPlaces(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), Charset.forName("UTF-8"));
+        System.out.println(">> removeDeletedPlaces <<  Line count: " + allLines.size());
 
         allLines.stream()
             .filter(line -> ! line.endsWith("null"))
             .map(line -> PlaceHelper.split(line, '|'))
             .filter(data -> data.length > 4)
-            .map(data -> Integer.parseInt(data[4]))
+            .map(data -> Integer.parseInt(data[0]))
             .forEach(placeId -> placeToRep.remove(placeId));
     }
 
-    static void keepIfRepsDeleted(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+    static void markRepsToDelete(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepDataFileName), Charset.forName("UTF-8"));
+        System.out.println(">> markRepsToDelete <<  Line count: " + allLines.size());
 
-        // We are doing multiple operations, so use traditional looping
-        Set<Integer> idsToKeep = new HashSet<>();
+        // Step '0' -- remove any place that is NOT associated with a rep to be deleted
+        System.out.println("   CountB: " + placeToRep.size());
+        Set<Integer> idsToKeep = allLines.stream()
+            .map(line -> PlaceHelper.split(line, '|'))
+            .filter(data -> data.length > 4)
+            .map(data -> Integer.parseInt(data[3]))
+            .collect(Collectors.toSet());
+
+        Set<Integer> idsToDelete = new HashSet<>(placeToRep.keySet());
+        idsToDelete.removeAll(idsToKeep);
+        idsToDelete.forEach(key -> placeToRep.remove(key));
+
+        // Step '1' -- flag "to-be-deleted" reps as deleted
+        System.out.println("   CountA: " + placeToRep.size());
         for (String line : allLines) {
             String[] data = PlaceHelper.split(line, '|');
             if (data.length > 4) {
@@ -125,12 +138,10 @@ public class S89688_05_GeneratePlaceSQL {
                 int parId = ("null".equals(data[2])) ? 0 : Integer.parseInt(data[2]);
                 int plcId = Integer.parseInt(data[3]);
 
-                idsToKeep.add(plcId);
-
-                List<RepDataTiny> repTs = placeToRep.get(plcId);
+                List<RepDataTinyZZZ> repTs = placeToRep.get(plcId);
                 if (repTs != null) {
                     boolean found = false;
-                    for (RepDataTiny repT : repTs) {
+                    for (RepDataTinyZZZ repT : repTs) {
                         if (repT.repId == repId) {
                             found = true;
                             repT.deleteMe = true;
@@ -145,40 +156,18 @@ public class S89688_05_GeneratePlaceSQL {
                 }
             }
         }
-
-        Set<Integer> idsToDelete = new HashSet<>(placeToRep.keySet());
-        idsToDelete.removeAll(idsToKeep);
-        
-        idsToDelete.forEach(key -> placeToRep.remove(key));
     }
 
-    static void removeDeletedReps(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+    static void setParentPlaceId(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), Charset.forName("UTF-8"));
-
-        Set<Integer> deletedReps = allLines.stream()
-                .map(line -> PlaceHelper.split(line, '|'))
-                .filter(data -> data.length > 3)
-                .filter(data -> (! "null".equals(data[3])))
-                .map(data -> Integer.parseInt(data[0]))
-                .collect(Collectors.toSet());
-
-        for (Map.Entry<Integer, List<RepDataTiny>> entry : placeToRep.entrySet()) {
-            List<RepDataTiny> newRepTs = entry.getValue().stream()
-                .filter(repT -> ! deletedReps.contains(repT.repId))
-                .collect(Collectors.toList());
-            placeToRep.put(entry.getKey(), newRepTs);
-        }
-    }
-
-    static void setParentPlaceId(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), Charset.forName("UTF-8"));
+        System.out.println(">> setParentPlaceId <<  Line count: " + allLines.size());
 
         Map<Integer, Integer> repOwner = allLines.stream()
             .map(line -> PlaceHelper.split(line, '|'))
             .filter(data -> data.length > 2)
             .collect(Collectors.toMap(data -> Integer.parseInt(data[0]), data -> Integer.parseInt(data[2])));
 
-        for (List<RepDataTiny> repTs : placeToRep.values()) {
+        for (List<RepDataTinyZZZ> repTs : placeToRep.values()) {
             boolean deleteAll = repTs.stream().allMatch(repT -> repT.deleteMe);
             if (deleteAll) {
                 Set<Integer> parPlaceIds = repTs.stream()
@@ -187,11 +176,11 @@ public class S89688_05_GeneratePlaceSQL {
                     .filter(parPlaceId -> parPlaceId != null)
                     .collect(Collectors.toSet());
                 if (parPlaceIds.size() == 0) {
-                    System.out.println("No parents: " + repTs);
-                } else if (parPlaceIds.size() == 1) {
-                    repTs.get(0).parPlaceId = parPlaceIds.stream().findFirst().orElse(0);
+                    System.out.println("No owner?: " + repTs);
+//                } else if (parPlaceIds.size() == 1) {
+//                    repTs.forEach(repT -> repT.parPlaceId = parPlaceIds.stream().findFirst().orElse(0));
                 } else {
-                    repTs.get(0).parPlaceId = parPlaceIds.stream().findFirst().orElse(0);
+                    repTs.forEach(repT -> repT.parPlaceId = parPlaceIds.stream().findFirst().orElse(0));
                 }
             } else {
                 System.out.println("Don't delete this one: " + repTs);
@@ -199,9 +188,9 @@ public class S89688_05_GeneratePlaceSQL {
         }
     }
 
-    static void generatePlaceUpdateSQL(Map<Integer, List<RepDataTiny>> placeToRep) throws IOException {
+    static void generatePlaceUpdateSQL(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
         List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), Charset.forName("UTF-8"));
-        System.out.println("Places: " + allLines.size());
+        System.out.println(">> generatePlaceUpdateSQL <<  Line count: " + allLines.size());
 
         int fileCount = 1;
         List<String> sqlStuff = new ArrayList<>(stmtLimit);
@@ -211,16 +200,19 @@ public class S89688_05_GeneratePlaceSQL {
             String[] data = PlaceHelper.split(line, '|');
             try {
                 int placeId = Integer.parseInt(data[0]);
-                List<RepDataTiny> repTs = placeToRep.get(placeId);
-                int deleteId = (repTs == null  || repTs.isEmpty()) ? 0 : repTs.get(0).parPlaceId;
-                if (deleteId > 0) {
-                    sqlStuff.add(updatePlaceSQL(data, deleteId));
-                    if (sqlStuff.size() == stmtLimit) {
-                        Arrays.stream(endSQL).forEach(sql -> sqlStuff.add(sql));
-                        generateSqlFile(fileCount, sqlStuff);
-                        fileCount++;
-                        sqlStuff.clear();
-                        Arrays.stream(beginSQL).forEach(sql -> sqlStuff.add(sql));
+                List<RepDataTinyZZZ> repTs = placeToRep.get(placeId);
+                if (repTs != null) {
+                    RepDataTinyZZZ repT = repTs.stream().findFirst().orElse(null);
+                    int deleteId = (repT == null) ? 0 : repT.parPlaceId;
+                    if (deleteId > 0) {
+                        sqlStuff.add(updatePlaceSQL(data, deleteId));
+                        if (sqlStuff.size() == stmtLimit) {
+                            Arrays.stream(endSQL).forEach(sql -> sqlStuff.add(sql));
+                            generateSqlFile(fileCount, sqlStuff);
+                            fileCount++;
+                            sqlStuff.clear();
+                            Arrays.stream(beginSQL).forEach(sql -> sqlStuff.add(sql));
+                        }
                     }
                 }
             } catch(NumberFormatException ex) {

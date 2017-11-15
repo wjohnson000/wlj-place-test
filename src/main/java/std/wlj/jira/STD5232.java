@@ -10,7 +10,8 @@ import std.wlj.ws.rawhttp.HttpHelper;
 public class STD5232 {
 
     /** Base URL of the application */
-    private static String masterUrl = "https://place-solr-dev.dev.fsglobal.org/int-solr-55/places/query";
+//    private static String masterUrl = "https://place-solr-dev.dev.fsglobal.org/int-solr-55/places/query";
+      private static String masterUrl = "https://www.familysearch.org/int-solr/places/query";
 //    private static String masterUrl = "https://beta.familysearch.org/int-solr/places/query";
 //    private static String masterUrl = "http://localhost:8080/solr-710/places/select";
 //    private static String masterUrl = "http://localhost:8080/solr-710/places/query";
@@ -33,7 +34,7 @@ public class STD5232 {
         "&rqq=(type:173 OR type:198 OR type:200 OR type:209 OR type:210 OR type:215 OR type:246 " +
                        "OR type:254 OR type:270 OR type:278 OR type:301 OR type:323 OR type:343 " + 
                        "OR type:362 OR type:375 OR type:520 OR type:521)" +
-        "&rows=10" +
+        "&rows=150" +
         "&fq=published:1 -deleteId:[* TO *]" +
         "&fl=*,score" +
         "&debugQuery=true" +

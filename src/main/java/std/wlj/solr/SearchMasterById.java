@@ -16,10 +16,10 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsDevConnection(true);  //.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsDev55Connection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-//        SolrQuery query = new SolrQuery("repId:395699");
+//        SolrQuery query = new SolrQuery("repId:10734614");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:honduras");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
@@ -27,8 +27,9 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
-        SolrQuery query = new SolrQuery("type:81");
+//        SolrQuery query = new SolrQuery("type:81");
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
+        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
@@ -53,6 +54,7 @@ public class SearchMasterById {
             System.out.println("  Validd: " + doc.isValidated());
             System.out.println("  PrefBd: " + doc.getPreferredBoundaryId());
             System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            System.out.println("  CGroup: " + doc.getTypeGroup());
 
             doc.getDisplayNames().stream().limit(MAX_ROWS).forEach(dispName -> System.out.println("  D-Name: " + dispName));
             doc.getVariantNames().stream().limit(MAX_ROWS).forEach(varName -> System.out.println("  V-Name: " + varName));

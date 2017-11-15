@@ -14,6 +14,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
 public class S89688_04_GeneratePlaceRepSQL {
 
     static final int    stmtLimit   = 50_000;
+    static final String fileBase    = "C:/temp/delete-by-type";
     static final String inFileName  = "s89688-rep-data-all.txt";
     static final String sqlFileName = "s89688-rep-%04d.sql";
 
@@ -30,7 +31,7 @@ public class S89688_04_GeneratePlaceRepSQL {
     };
 
     public static void main(String...args) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", inFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inFileName), Charset.forName("UTF-8"));
         System.out.println("Reps: " + allLines.size());
 
         int fileCount = 1;
@@ -115,6 +116,6 @@ public class S89688_04_GeneratePlaceRepSQL {
     static void generateSqlFile(int fileCount, List<String> sqlStuff) throws IOException {
         String fileName = String.format(sqlFileName, fileCount);
         System.out.println("Saving file: " + fileName);
-        Files.write(Paths.get("C:/temp", fileName), sqlStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(fileBase, fileName), sqlStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

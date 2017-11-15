@@ -18,10 +18,11 @@ import std.wlj.datasource.DbConnectionManager;
 
 public class S89688_03_DeleteRepStats {
 
+    static final String fileBase = "C:/temp/delete-by-type";
     static final String fileName  = "s89688-rep-data-all.txt";
 
     public static void main(String...args) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get("C:/temp", fileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
         System.out.println("Reps: " + allLines.size());
 
         Map<Integer, String> typeDetails = getTypeData();

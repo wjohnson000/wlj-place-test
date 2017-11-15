@@ -8,11 +8,10 @@ import org.familysearch.standards.place.ws.model.RootModel;
 public class TestGetRep {
 
     /** Base URL of the application */
+    private static String baseUrl = "http://www.familysearch.org/int-std-ws-place/places";
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places/reps";
-//    private static String baseUrl = "http://ec2-54-204-45-169.compute-1.amazonaws.com:8080/std-ws-place/places/reps";
-//    private static String baseUrl = "http://54.221.37.64:8080/std-ws-place/places/reps";
-    private static String baseUrl =  "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places";
-//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places/reps";
+//    private static String baseUrl =  "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places";
+//    private static String baseUrl = "http://place-ws-dev.dev.fsglobal.org/int-std-ws-place-55/places";
 
 
     /**
@@ -21,8 +20,8 @@ public class TestGetRep {
     public static void main(String[] args) throws Exception {
     	HttpHelper.overrideHTTPS = true;
 
-        getRep(393288);
-        getRep(1);
+        getRep(10734614);
+//        getRep(1);
     }
 
     private static void getRep(int repId) throws Exception {

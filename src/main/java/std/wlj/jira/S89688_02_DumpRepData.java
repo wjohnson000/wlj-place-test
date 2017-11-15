@@ -13,6 +13,7 @@ import std.wlj.datasource.DbConnectionManager;
 
 public class S89688_02_DumpRepData {
 
+    static final String fileBase         = "C:/temp/delete-by-type";
     static final String fileNameVerbose  = "s89688-rep-data-all.txt";
     static final String fileNameParChild = "s89688-rep-data-parent.txt";
 
@@ -31,8 +32,8 @@ public class S89688_02_DumpRepData {
 
     public static void main(String... args) {
         try(Connection conn = DbConnectionManager.getConnectionAws()) {
-            Files.write(Paths.get("C:/temp/", fileNameVerbose),  Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
-            Files.write(Paths.get("C:/temp/", fileNameParChild), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(fileBase, fileNameVerbose),  Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(fileBase, fileNameParChild), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             dumpDisplayNames(conn);
         } catch(SQLException | IOException ex) {
             System.out.println("Unable to do something ... " + ex.getMessage());
@@ -74,8 +75,8 @@ public class S89688_02_DumpRepData {
                 System.out.println("Unable to do get rep-data ... " + ex.getMessage());
             }
 
-            Files.write(Paths.get("C:/temp/", fileNameVerbose),  verboseData,  Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-            Files.write(Paths.get("C:/temp/", fileNameParChild), parChildData, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileNameVerbose),  verboseData,  Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileNameParChild), parChildData, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
             repId += 1_000_000;
         }
     }

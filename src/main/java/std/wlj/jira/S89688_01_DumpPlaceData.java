@@ -12,11 +12,12 @@ import std.wlj.datasource.DbConnectionManager;
 
 public class S89688_01_DumpPlaceData {
 
+    static final String fileBase = "C:/temp/delete-by-type";
     static final String fileName = "s89688-place-data.txt";
 
     public static void main(String... args) {
         try(Connection conn = DbConnectionManager.getConnectionAws()) {
-            Files.write(Paths.get("C:/temp/", fileName), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(fileBase, fileName), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             dumpPlaceNames(conn);
         } catch(SQLException | IOException ex) {
             System.out.println("Unable to do something ... " + ex.getMessage());
@@ -45,7 +46,7 @@ public class S89688_01_DumpPlaceData {
                 System.out.println("Unable to do get places ... " + ex.getMessage());
             }
 
-            Files.write(Paths.get("C:/temp/", fileName), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileName), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
             placeId += 1_000_000;
         }
     }
