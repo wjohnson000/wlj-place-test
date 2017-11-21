@@ -10,9 +10,13 @@ import java.util.*;
 import std.wlj.datasource.DbConnectionManager;
 
 public class DumpVariantNames {
+
+    static final String fileBase = "C:/temp";
+    static final String fileName = "db-variant-name-all.txt";
+
     public static void main(String... args) {
         try(Connection conn = DbConnectionManager.getConnectionAws()) {
-            Files.write(Paths.get("C:/temp/variant-name-all.txt"), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(fileBase, fileName), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             dumpPlaceNames(conn);
         } catch(SQLException | IOException ex) {
             System.out.println("Unable to do something ... " + ex.getMessage());
@@ -49,7 +53,7 @@ public class DumpVariantNames {
                 System.out.println("Unable to do get place-names ... " + ex.getMessage());
             }
 
-            Files.write(Paths.get("C:/temp/variant-name-all.txt"), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileName), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
             placeId += 500_000;
         }
     }

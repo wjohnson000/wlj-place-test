@@ -9,9 +9,13 @@ import java.util.*;
 import std.wlj.datasource.DbConnectionManager;
 
 public class DumpExtXrefs {
+
+    static final String fileBase = "C:/temp";
+    static final String fileName = "db-ext-xref-all.txt";
+
     public static void main(String... args) {
         try(Connection conn = DbConnectionManager.getConnectionAws()) {
-            Files.write(Paths.get("C:/temp/external-xref-all.txt"), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(Paths.get(fileBase, fileName), Arrays.asList(""), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
             dumpExternalXrefs(conn);
         } catch(SQLException | IOException ex) {
             System.out.println("Unable to do something ... " + ex.getMessage());
@@ -39,7 +43,7 @@ public class DumpExtXrefs {
                 System.out.println("Unable to do get external-xrefs ... " + ex.getMessage());
             }
 
-            Files.write(Paths.get("C:/temp/external-xref-all.txt"), data, StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileName), data, StandardOpenOption.APPEND);
             xrefId += 1_000_000;
         }
     }
