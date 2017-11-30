@@ -396,7 +396,6 @@ public class ZzzShowXML {
     	feedbackModel.setComment("QA comment: testing feedback creation");
     	feedbackModel.setSubmitterKey("QA");
     	feedbackModel.setContext("QA context");
-    	feedbackModel.setEmailContact("QA_email@hotmail.com");
     	feedbackModel.setLocation("QA Location");
     	feedbackModel.setPlaceName("QA placeName");
     	feedbackModel.setSourceDescription("QA source description");

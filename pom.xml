@@ -11,13 +11,13 @@
 		<java.compiler.version>1.8</java.compiler.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    	<std.lib.core.version>3.2.0-SNAPSHOT</std.lib.core.version>
+    	<std.lib.core.version>3.3.0-SNAPSHOT</std.lib.core.version>
 		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
         <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
-		<std.ws.core.version>2.0.0.b68</std.ws.core.version>
-		<std.ws.place.version>2.1.0.b730</std.ws.place.version>
+		<std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
+		<std.ws.place.version>2.1.0-SNAPSHOT</std.ws.place.version>
 
 		<binding.register.client.version>1.0.b20</binding.register.client.version>
 		<com.amazonaws.version>1.11.160</com.amazonaws.version>
@@ -89,6 +89,14 @@
 			    <groupId>org.eclipse.jetty</groupId>
 			    <artifactId>*</artifactId>
 			  </exclusion>
+              <exclusion>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>*</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+              </exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -126,6 +134,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-core-lang</artifactId>
+            <version>${std.lib.core.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-core-parse</artifactId>
+            <version>${std.lib.core.version}</version>
+            <type>jar</type>
+        </dependency>
 		<dependency>
 			<groupId>org.familysearch.standards</groupId>
 			<artifactId>std-ws-core-model</artifactId>
@@ -141,19 +161,29 @@
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-ws-analysis-dal</artifactId>
             <version>${std.ws.analysis.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>*</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-ws-analysis-service</artifactId>
             <version>${std.ws.analysis.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>*</artifactId>
+              </exclusion>
+            </exclusions>
         </dependency>
-        <!--
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-lib-bulk-place-changes</artifactId>
-			<version>${std.lib.bulk.version}</version>
-		</dependency>
-        -->
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>3.2.2</version>
+        </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -269,6 +299,14 @@
 			    <groupId>ch.qos.logback</groupId>
 			    <artifactId>logback-classic</artifactId>
 			  </exclusion>
+              <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+              </exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>

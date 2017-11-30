@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import std.wlj.datasource.DbConnectionManager;
 
@@ -16,18 +16,18 @@ public class DumpPlaceReps {
     static final String fileBase = "C:/temp";
     static final String fileName = "db-place-rep-all.txt";
 
-    static int[] placeTypeInt = {
-          1,    2,    3,    5,    6,   10,   11,   12,   13,   14,   15,   17,   18,
-         19,   21,   22,   24,   32,   37,   39,   40,   42,   44,   46,   47,   48,
-         50,   51,   53,   54,   55,   59,   63,   64,   68,   69,   70,   74,   75,
-         76,   79,   83,   84,   85,   86,   87,   88,   89,   90,   92,   97,  102,
-        103,  104,  107,  108,  109,  110,  111,  112,  114,  115,  116,  118,  120,
-        121,  124,  125,  126,  128,  131,  133,  135,
-    };
-
-    static Set<Integer> placeTypeSet = Arrays.stream(placeTypeInt)
-        .mapToObj(pt -> Integer.valueOf(pt))
-        .collect(Collectors.toSet());
+//    static int[] placeTypeInt = {
+//          1,    2,    3,    5,    6,   10,   11,   12,   13,   14,   15,   17,   18,
+//         19,   21,   22,   24,   32,   37,   39,   40,   42,   44,   46,   47,   48,
+//         50,   51,   53,   54,   55,   59,   63,   64,   68,   69,   70,   74,   75,
+//         76,   79,   83,   84,   85,   86,   87,   88,   89,   90,   92,   97,  102,
+//        103,  104,  107,  108,  109,  110,  111,  112,  114,  115,  116,  118,  120,
+//        121,  124,  125,  126,  128,  131,  133,  135,
+//    };
+//
+//    static Set<Integer> placeTypeSet = Arrays.stream(placeTypeInt)
+//        .mapToObj(pt -> Integer.valueOf(pt))
+//        .collect(Collectors.toSet());
 
     public static void main(String... args) {
         try(Connection conn = DbConnectionManager.getConnectionAws()) {
