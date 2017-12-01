@@ -33,3 +33,4 @@ atlassian-ide-plugin.xml
 
 # misc
 *~
+/bin/

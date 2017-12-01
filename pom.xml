@@ -119,7 +119,7 @@
 			<groupId>org.familysearch.standards</groupId>
 			<artifactId>std-ws-place-db-webapp</artifactId>
 			<version>${std.place.db.version}</version>
-			<!-- <classifier>${webClassifier}</classifier> -->
+			<classifier>${webClassifier}</classifier>
             <type>jar</type>
 		</dependency>
 		<dependency>
