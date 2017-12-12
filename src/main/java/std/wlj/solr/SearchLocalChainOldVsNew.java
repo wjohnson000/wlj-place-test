@@ -20,7 +20,7 @@ public class SearchLocalChainOldVsNew {
 
     public static void main(String... args) throws PlaceDataException, IOException {
 //        SolrService solrSvc = SolrManager.localEmbeddedService("D:/solr/stand-alone-6.1.0");
-        SolrService solrSvc = SolrManager.awsProdService(false);
+        SolrService solrSvc = SolrManager.localHttpService();
 
         long total = 0;
         List<String> lines = new ArrayList<>();

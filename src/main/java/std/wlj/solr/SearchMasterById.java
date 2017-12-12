@@ -16,25 +16,28 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(false);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
+//        SolrQuery query = new SolrQuery("repId:1234");
+//        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:honduras");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
-//        SolrQuery query = new SolrQuery("parentId:1442484");
+//        SolrQuery query = new SolrQuery("parentId:325");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
 //        SolrQuery query = new SolrQuery("type:81");
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
+//        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
+        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(80);
+        query.setRows(12);
         query.setSort("repId", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
@@ -46,6 +49,7 @@ public class SearchMasterById {
             System.out.println("  Place:  " + doc.getPlaceId());
             System.out.println("  Par-Id: " + doc.getParentId());
             System.out.println("  Typ-Id: " + doc.getType());
+            System.out.println("  Locale: " + doc.getPrefLocale());
             System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
             System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());

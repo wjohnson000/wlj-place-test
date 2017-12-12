@@ -1,4 +1,4 @@
-package std.wlj.jira;
+package std.wlj.dbdump;
 
 import java.io.IOException;
 import java.sql.Connection;
