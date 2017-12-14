@@ -9,7 +9,7 @@
   </appender>
 
   <logger name="org.familysearch.standards" level="info" />
-  <logger name="org.apache.solr" level="debug" />
+  <logger name="org.apache.solr" level="info" />
 
   <root level="info">
     <appender-ref ref="STDOUT" />

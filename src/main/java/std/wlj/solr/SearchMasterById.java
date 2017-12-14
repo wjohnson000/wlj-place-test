@@ -16,13 +16,13 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(false);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-//        SolrQuery query = new SolrQuery("repId:1234");
+        SolrQuery query = new SolrQuery("repId:(1234 2345 3456)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
-//        SolrQuery query = new SolrQuery("names:honduras");
+//        SolrQuery query = new SolrQuery("names:unitedstates");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:325");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
@@ -32,12 +32,12 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
-        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
+//        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(12);
+        query.setRows(500);
         query.setSort("repId", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
