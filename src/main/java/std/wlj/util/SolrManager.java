@@ -107,6 +107,10 @@ public class SolrManager {
     // ============================================================================================
     
     private static SolrConnection doSetupForEmbeddedConnection(String solrPath) {
+        System.setProperty("place.api.useCache", "true");
+        System.setProperty("interp.cache.maxcount", "1000");
+        System.setProperty("interp.cache.timeout", "600");
+
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
         System.setProperty("solr.skip.warmup", "true");
@@ -121,6 +125,10 @@ public class SolrManager {
     }
     
     private static SolrConnection doSetupForHttpConnection(String solrUrl) {
+        System.setProperty("place.api.useCache", "true");
+        System.setProperty("interp.cache.maxcount", "1000");
+        System.setProperty("interp.cache.timeout", "600");
+
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
         System.setProperty("solr.skip.warmup", "true");
@@ -135,6 +143,10 @@ public class SolrManager {
     }
 
     private static SolrService doSetupForService(String solrHome, String solrMaster) {
+        System.setProperty("place.api.useCache", "true");
+        System.setProperty("interp.cache.maxcount", "1000");
+        System.setProperty("interp.cache.timeout", "600");
+
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
         System.setProperty("solr.skip.warmup", "true");

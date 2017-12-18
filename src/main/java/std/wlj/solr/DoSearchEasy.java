@@ -1,4 +1,4 @@
-package std.wlj.analysis.service;
+package std.wlj.solr;
 
 import java.util.Arrays;
 
@@ -22,6 +22,7 @@ public class DoSearchEasy {
         "Provo, Utah, Utah, US",
         "アルゼンチン Argentink",
     };
+
     public static void main(String... args) throws Exception {
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
@@ -41,6 +42,8 @@ public class DoSearchEasy {
             System.out.println("REP.repId: " + placeRep.getId());
             System.out.println("    fname: " + placeRep.getFullDisplayName(StdLocale.ENGLISH).get());
             System.out.println("    chain: " + Arrays.toString(placeRep.getJurisdictionChainIds()));
+            System.out.println("    scRAW: " + placeRep.getMetadata().getScoring().getRawScore());
+            System.out.println("    scREL: " + placeRep.getMetadata().getScoring().getRelevanceScore());
         }
 
         solrService.shutdown();
