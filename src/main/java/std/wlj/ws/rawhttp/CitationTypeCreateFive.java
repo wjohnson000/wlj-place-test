@@ -42,7 +42,7 @@ public class CitationTypeCreateFive {
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
         typeModel.setCode("WLJ-CIT-X9");
-        typeModel.setIsPublished(true);
+        typeModel.setPublished(true);
         typeModel.setName(names);
         
         RootModel prModel = new RootModel();

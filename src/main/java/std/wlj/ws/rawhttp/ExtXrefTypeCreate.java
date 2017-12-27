@@ -30,7 +30,7 @@ public class ExtXrefTypeCreate {
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
         typeModel.setCode("NGA_US_UFI");
-        typeModel.setIsPublished(true);
+        typeModel.setPublished(true);
         typeModel.setName(names);
         
         RootModel prModel = new RootModel();

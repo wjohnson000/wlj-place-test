@@ -64,7 +64,7 @@ public class AttributeTypeStuff {
 
         TypeModel theType = new TypeModel();
         theType.setCode("WLJ_ZZZ");
-        theType.setIsPublished(true);
+        theType.setPublished(true);
         theType.setName(nameAndDescList);
 
         RootModel inModel = new RootModel();

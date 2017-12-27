@@ -161,7 +161,7 @@ public class GetPutPostDelete {
         TypeModel typeModel = new TypeModel();
         typeModel.setId(0);
         typeModel.setCode("WLJ-ATTR-" + System.currentTimeMillis());
-        typeModel.setIsPublished(false);
+        typeModel.setPublished(false);
         typeModel.setName(names);
         
         RootModel prModel = new RootModel();

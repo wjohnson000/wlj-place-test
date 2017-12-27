@@ -65,7 +65,7 @@ public class NameTypeGETandUPDATE {
 
         TypeModel theType = new TypeModel();
         theType.setCode("WLJ-NAME-BBB");
-        theType.setIsPublished(true);
+        theType.setPublished(true);
         theType.setName(nameAndDescList);
 
         RootModel inModel = new RootModel();
@@ -87,7 +87,7 @@ public class NameTypeGETandUPDATE {
 //        nameModel.getLocalizedName().add(nameAndDesc);
 
         RootModel inModel = new RootModel();
-        nameModel.setIsPublished(false);
+        nameModel.setPublished(false);
         inModel.setType(nameModel);
 
         System.out.println("UPDATE: " + inModel.toJSON());

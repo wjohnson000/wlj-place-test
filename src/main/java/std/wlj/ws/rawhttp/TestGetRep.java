@@ -19,6 +19,8 @@ public class TestGetRep {
      */
     public static void main(String[] args) throws Exception {
     	HttpHelper.overrideHTTPS = true;
+//    	HttpHelper.acceptType = "application/xml";
+    	HttpHelper.acceptType = "application/standards-places-v2+xml";
 
         getRep(10734614);
 //        getRep(1);
@@ -27,6 +29,11 @@ public class TestGetRep {
     private static void getRep(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId);
         RootModel model = HttpHelper.doGET(url);
-        System.out.println("RM: " + model);
+        System.out.println("RO)T: " + model);
+        if (model != null) {
+            System.out.println(" REP: " + model.getPlaceRepresentation());
+            System.out.println(" TYP: " + model.getPlaceRepresentation().getType());
+            System.out.println(" PUB: " + model.getPlaceRepresentation().getType().isPublished());
+        }
     }
 }

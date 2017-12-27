@@ -523,7 +523,7 @@ public class BaseTest {
 
         model.setCode("code");
         model.setId(11);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setSelfLink(this.getLinkModel());
         model.setName(nameAndDesc);
 
