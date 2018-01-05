@@ -16,15 +16,17 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-        SolrQuery query = new SolrQuery("repId:(1234 2345 3456)");
+        SolrQuery query = new SolrQuery("repId:388799\r\n" + 
+                "");
+//        SolrQuery query = new SolrQuery("repId:(325 388756 388757 388758)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:unitedstates");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
-//        SolrQuery query = new SolrQuery("parentId:325");
+//        SolrQuery query = new SolrQuery("parentId:10340680");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");

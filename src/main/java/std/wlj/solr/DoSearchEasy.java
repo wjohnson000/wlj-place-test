@@ -20,7 +20,8 @@ public class DoSearchEasy {
     private static String[] textes = {
         "Turtle Creek, Allegheny, Pennsylvania, United States",
         "Provo, Utah, Utah, US",
-        "アルゼンチン Argentink",
+        "Washington, Vermont",
+        "Angu, Scotland",
     };
 
     public static void main(String... args) throws Exception {
@@ -28,22 +29,26 @@ public class DoSearchEasy {
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
-        PlaceRequestBuilder builder = placeService.createRequestBuilder(textes[1], StdLocale.ENGLISH);
-        builder.setShouldCollectMetrics(true);
-        builder.setFilterResults(false);
-        
-        PlaceRequest request = builder.getRequest();
-        PlaceResults results = placeService.requestPlaces(request);
-        System.out.println("RES.found: " + results.getFoundCount());
-        System.out.println("    retnd: " + results.getReturnedCount());
-
-        PlaceRepresentation[] placeReps = results.getPlaceRepresentations();
-        for (PlaceRepresentation placeRep : placeReps) {
-            System.out.println("REP.repId: " + placeRep.getId());
-            System.out.println("    fname: " + placeRep.getFullDisplayName(StdLocale.ENGLISH).get());
-            System.out.println("    chain: " + Arrays.toString(placeRep.getJurisdictionChainIds()));
-            System.out.println("    scRAW: " + placeRep.getMetadata().getScoring().getRawScore());
-            System.out.println("    scREL: " + placeRep.getMetadata().getScoring().getRelevanceScore());
+        for (String text : textes) {
+            System.out.println("===================================================================\n\n");
+            System.out.println("Text: " + text);
+            PlaceRequestBuilder builder = placeService.createRequestBuilder(text, StdLocale.ENGLISH);
+            builder.setShouldCollectMetrics(true);
+            builder.setFilterResults(false);
+            
+            PlaceRequest request = builder.getRequest();
+            PlaceResults results = placeService.requestPlaces(request);
+            System.out.println("RES.found: " + results.getFoundCount());
+            System.out.println("    retnd: " + results.getReturnedCount());
+            
+            PlaceRepresentation[] placeReps = results.getPlaceRepresentations();
+            for (PlaceRepresentation placeRep : placeReps) {
+                System.out.println("REP.repId: " + placeRep.getId());
+                System.out.println("    fname: " + placeRep.getFullDisplayName(StdLocale.ENGLISH).get());
+                System.out.println("    chain: " + Arrays.toString(placeRep.getJurisdictionChainIds()));
+                System.out.println("    scRAW: " + placeRep.getMetadata().getScoring().getRawScore());
+                System.out.println("    scREL: " + placeRep.getMetadata().getScoring().getRelevanceScore());
+            }
         }
 
         solrService.shutdown();

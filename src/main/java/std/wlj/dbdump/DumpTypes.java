@@ -24,17 +24,17 @@ public class DumpTypes {
     public static void main(String... args) throws IOException {
         Map<String, String> placeTypes = loadPlaceTypes();
         placeTypes.entrySet().forEach(System.out::println);
-   }
+    }
 
-    static Map<String, String> loadPlaceTypes() {
+    public static Map<String, String> loadPlaceTypes() {
         Map<String, String> placeTypes = new HashMap<>();
 
         String query =
-            "SELECT ty.type_id, ty.code, tt.text " + 
-            "  FROM type AS ty " + 
-            "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
-            " WHERE ty.type_cat = 'PLACE' " + 
-            "   AND tt.locale = 'en'";
+                "SELECT ty.type_id, ty.code, tt.text " + 
+                "  FROM type AS ty " + 
+                "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
+                " WHERE ty.type_cat = 'PLACE' " + 
+                "   AND tt.locale = 'en'";
 
         try(Connection conn = DbConnectionManager.getConnectionAws();
                 Statement stmt = conn.createStatement();
