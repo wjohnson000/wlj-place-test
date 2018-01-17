@@ -23,7 +23,7 @@ public class TestCreateSource {
         sourceModel.setId(0);
         sourceModel.setTitle("wlj-title");
         sourceModel.setDescription("wlj-description");
-        sourceModel.setIsPublished(true);
+        sourceModel.setPublished(true);
         
         RootModel prModel = new RootModel();
         prModel.setSource(sourceModel);

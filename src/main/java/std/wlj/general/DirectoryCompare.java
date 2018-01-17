@@ -254,8 +254,9 @@ public class DirectoryCompare {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-place/place-webservice";
-        String fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55/place-webservice-55";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place";
+//        String fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55/place-webservice-55";
+        String fileTwo = "C:/temp/std-ws-place";
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;
         dcEngine.ignoreWhiteSpace = true;

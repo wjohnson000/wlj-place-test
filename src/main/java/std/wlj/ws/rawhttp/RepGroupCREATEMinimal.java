@@ -103,14 +103,14 @@ public class RepGroupCREATEMinimal {
             child.setRepSummaries(null);
             child.setSelfLink(null);
             child.setSubGroups(null);
-            child.setIsPublished(null);
+            child.setPublished(null);
             subGroups.add(child);
         }
 
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setSubGroups(subGroups);
 
@@ -135,7 +135,7 @@ public class RepGroupCREATEMinimal {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
 
@@ -156,7 +156,7 @@ public class RepGroupCREATEMinimal {
             child.setRepSummaries(null);
             child.setSelfLink(null);
             child.setSubGroups(null);
-            child.setIsPublished(null);
+            child.setPublished(null);
             subGroups.add(child);
         }
 
@@ -170,7 +170,7 @@ public class RepGroupCREATEMinimal {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
         model.setSubGroups(subGroups);
@@ -196,7 +196,7 @@ public class RepGroupCREATEMinimal {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
 

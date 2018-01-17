@@ -53,7 +53,7 @@ public class SourceStuff {
         SourceModel theSource = new SourceModel();
         theSource.setTitle("WLJ Title ...");
         theSource.setDescription("WLJ description and nothing else  ...");
-        theSource.setIsPublished(true);
+        theSource.setPublished(true);
 
         RootModel inModel = new RootModel();
         inModel.setSource(theSource);

@@ -89,7 +89,7 @@ System.out.println("In Model:\n" + inModel.toJSON());
 
         PlaceTypeGroupModel model = new PlaceTypeGroupModel();
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
 
         URL url = new URL(baseUrl);

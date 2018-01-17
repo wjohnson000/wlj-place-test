@@ -101,7 +101,7 @@ public class TypeGroupCREATE {
         PlaceTypeGroupModel model = new PlaceTypeGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setSubGroups(Arrays.asList(children));
 
@@ -119,7 +119,7 @@ public class TypeGroupCREATE {
         PlaceTypeGroupModel model = new PlaceTypeGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         // TODO fix the following ...
 //        model.setRepIds(Arrays.asList(327, 328, 329, 373, 375));
@@ -138,7 +138,7 @@ public class TypeGroupCREATE {
         PlaceTypeGroupModel model = new PlaceTypeGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         // TODO fix the following
 //        model.setRepIds(Arrays.asList(329, 342, 344));
@@ -158,7 +158,7 @@ public class TypeGroupCREATE {
         PlaceTypeGroupModel model = new PlaceTypeGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         // TODO fix the following
 //        model.setRepIds(Arrays.asList(326, 334, 336));

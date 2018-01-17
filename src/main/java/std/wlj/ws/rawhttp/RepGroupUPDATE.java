@@ -57,7 +57,7 @@ public class RepGroupUPDATE {
 
         PlaceRepGroupModel model = new PlaceRepGroupModel();
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(new ArrayList<PlaceRepSummaryModel>());
         model.setSubGroups(new ArrayList<PlaceRepGroupModel>());
@@ -114,7 +114,7 @@ public class RepGroupUPDATE {
 
         PlaceRepGroupModel model = new PlaceRepGroupModel();
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
 
         URL url = new URL(baseUrl);

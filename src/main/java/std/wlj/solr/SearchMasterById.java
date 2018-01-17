@@ -16,11 +16,11 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-        SolrQuery query = new SolrQuery("repId:388799\r\n" + 
-                "");
+        SolrQuery query = new SolrQuery("*:*");
+//        SolrQuery query = new SolrQuery("repId:388799");
 //        SolrQuery query = new SolrQuery("repId:(325 388756 388757 388758)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
@@ -39,8 +39,9 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(500);
-        query.setSort("repId", SolrQuery.ORDER.desc);
+        query.setRows(77);
+//        query.setSort("repId", SolrQuery.ORDER.desc);
+        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
         List<PlaceRepDoc> docs = solrConn.search(query);

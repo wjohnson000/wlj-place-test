@@ -163,7 +163,7 @@ public class BaseTest {
         model.setId(11);
         model.setTitle("a-title");
         model.setDescription("a-description");
-        model.setIsPublished(true);
+        model.setPublished(true);
 
         return model;
     }

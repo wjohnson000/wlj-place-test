@@ -100,7 +100,7 @@ public class RepGroupCREATE {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setSubGroups(Arrays.asList(children));
 
@@ -125,7 +125,7 @@ public class RepGroupCREATE {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
 
@@ -150,7 +150,7 @@ public class RepGroupCREATE {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
         model.setSubGroups(Arrays.asList(children));
@@ -176,7 +176,7 @@ public class RepGroupCREATE {
         PlaceRepGroupModel model = new PlaceRepGroupModel();
 
         model.setId(0);
-        model.setIsPublished(true);
+        model.setPublished(true);
         model.setName(theNameDesc);
         model.setRepSummaries(summaries);
 
