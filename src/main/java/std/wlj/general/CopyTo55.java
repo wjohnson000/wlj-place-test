@@ -15,6 +15,7 @@ import java.util.TreeSet;
 /**
  * Copy source files from the "{regular} to the "{regular}-55" directories.  Affected projects are:
  * <ul>
+ *   <li><strong>std-lib-place-55</strong>, from std-lib-place</li>
  *   <li><strong>std-ws-dbload-55</strong>, from std-ws-place-db</li>
  *   <li><strong>std-ws-place-55</strong>, from std-ws-place</li>
  *   <li><strong>std-ws-solr-55</strong>, from std-ws-solr</li>
@@ -29,6 +30,7 @@ public class CopyTo55 {
 
     private static Map<String,String> projectMap = new TreeMap<>();
     static {
+        projectMap.put("std-lib-place", "std-lib-place-55");
         projectMap.put("std-ws-place", "std-ws-place-55");
         projectMap.put("std-ws-solr", "std-ws-solr-55");
         projectMap.put("std-ws-solr-repeater", "std-ws-solr-repeater-55");
@@ -43,7 +45,11 @@ public class CopyTo55 {
     }
 
     public static void main(String...args) {
-        processProject("std-ws-place");
+//        processProject("std-lib-place");
+//        processProject("std-ws-place");
+        processProject("std-ws-solr");
+//        processProject("std-ws-solr-repeater");
+//        processProject("std-ws-place-db");
     }
 
     static void processProject(String project) {
@@ -102,6 +108,9 @@ public class CopyTo55 {
                 } else if (! fromFile.isDirectory()  &&  ! toFile.isDirectory()) {
                     if (fromFile.getAbsolutePath().contains("pom.xml")) {
                         System.out.println("Ignoring the 'POM' file ...");
+                        continue;
+                    } else if (fromFile.getAbsolutePath().contains("app.properties")) {
+                        System.out.println("Ignoring the 'app.properties' file ...");
                         continue;
                     }
 
@@ -165,7 +174,7 @@ public class CopyTo55 {
 
     static String getContents(String fileName) {
         try {
-            return new String(Files.readAllBytes(Paths.get(fileName)));
+            return new String(Files.readAllBytes(Paths.get(fileName))).replace("\r\n", "\n").replace("\r", "\n");
         } catch (IOException ex) {
             System.out.println("  >>> Can't read file '" + fileName + "' -- ex=" + ex.getMessage());
             return "";

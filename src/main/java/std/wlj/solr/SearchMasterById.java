@@ -16,11 +16,11 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:388799");
+//        SolrQuery query = new SolrQuery("*:*");
+//        SolrQuery query = new SolrQuery("repId:3779964");
 //        SolrQuery query = new SolrQuery("repId:(325 388756 388757 388758)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
@@ -35,13 +35,14 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
+        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
         query.setRows(77);
-//        query.setSort("repId", SolrQuery.ORDER.desc);
-        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
+        query.setSort("repId", SolrQuery.ORDER.desc);
+//        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
         List<PlaceRepDoc> docs = solrConn.search(query);
