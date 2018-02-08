@@ -26,6 +26,31 @@ public class DumpTypes {
         placeTypes.entrySet().forEach(System.out::println);
     }
 
+    public static Map<String, String> loadAllTypes() {
+        Map<String, String> placeTypes = new HashMap<>();
+
+        String query =
+                "SELECT ty.type_id, ty.code, tt.text " + 
+                "  FROM type AS ty " + 
+                "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
+                " WHERE tt.locale = 'en'";
+
+        try(Connection conn = DbConnectionManager.getConnectionAws();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery(query)) {
+            while (rset.next()) {
+                String id   = rset.getString("type_id");
+                String code = rset.getString("code");
+                String text = rset.getString("text");
+                placeTypes.put(id, code + " (" + text + ")");
+            }
+        } catch(SQLException ex) {
+            System.out.println("Unable to do something ... " + ex.getMessage());
+        }
+
+        return placeTypes;
+    }
+
     public static Map<String, String> loadPlaceTypes() {
         Map<String, String> placeTypes = new HashMap<>();
 
@@ -34,6 +59,58 @@ public class DumpTypes {
                 "  FROM type AS ty " + 
                 "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
                 " WHERE ty.type_cat = 'PLACE' " + 
+                "   AND tt.locale = 'en'";
+
+        try(Connection conn = DbConnectionManager.getConnectionAws();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery(query)) {
+            while (rset.next()) {
+                String id   = rset.getString("type_id");
+                String code = rset.getString("code");
+                String text = rset.getString("text");
+                placeTypes.put(id, code + " (" + text + ")");
+            }
+        } catch(SQLException ex) {
+            System.out.println("Unable to do something ... " + ex.getMessage());
+        }
+
+        return placeTypes;
+    }
+
+    public static Map<String, String> loadNameTypes() {
+        Map<String, String> placeTypes = new HashMap<>();
+
+        String query =
+                "SELECT ty.type_id, ty.code, tt.text " + 
+                "  FROM type AS ty " + 
+                "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
+                " WHERE ty.type_cat = 'NAME' " + 
+                "   AND tt.locale = 'en'";
+
+        try(Connection conn = DbConnectionManager.getConnectionAws();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery(query)) {
+            while (rset.next()) {
+                String id   = rset.getString("type_id");
+                String code = rset.getString("code");
+                String text = rset.getString("text");
+                placeTypes.put(id, code + " (" + text + ")");
+            }
+        } catch(SQLException ex) {
+            System.out.println("Unable to do something ... " + ex.getMessage());
+        }
+
+        return placeTypes;
+    }
+
+    public static Map<String, String> loadCitationTypes() {
+        Map<String, String> placeTypes = new HashMap<>();
+
+        String query =
+                "SELECT ty.type_id, ty.code, tt.text " + 
+                "  FROM type AS ty " + 
+                "  JOIN type_term AS tt ON tt.type_id = ty.type_id " + 
+                " WHERE ty.type_cat = 'CITATION' " + 
                 "   AND tt.locale = 'en'";
 
         try(Connection conn = DbConnectionManager.getConnectionAws();

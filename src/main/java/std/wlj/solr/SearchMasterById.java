@@ -16,16 +16,17 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(false);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:3779964");
+        SolrQuery query = new SolrQuery("repId:1629908");
+//        SolrQuery query = new SolrQuery("ownerId:1670803");
 //        SolrQuery query = new SolrQuery("repId:(325 388756 388757 388758)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:unitedstates");
-//        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
+//        SolrQuery query = new SolrQuery("id:SOURCE");
 //        SolrQuery query = new SolrQuery("parentId:10340680");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
@@ -35,13 +36,13 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
-        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
+//        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(77);
-        query.setSort("repId", SolrQuery.ORDER.desc);
+        query.setRows(777);
+//        query.setSort("repId", SolrQuery.ORDER.desc);
 //        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
@@ -72,7 +73,30 @@ public class SearchMasterById {
             doc.getAltJurisdictions().stream().limit(MAX_ROWS).forEach(altJuris -> System.out.println("    AltJ: " + altJuris));
             doc.getExtXrefs().stream().limit(MAX_ROWS).forEach(xref -> System.out.println("    Xref: " + xref));
             doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
+//            System.out.println("\n\n");
+//            doc.getAppData().stream().filter(appd -> appd.endsWith("true")).forEach(appData -> System.out.println("    AppD: " + appData));
         }
+        
+//        for (PlaceRepDoc doc : docs) {
+//            String dispName = doc.getDisplayName("en");
+//            if (dispName == null) dispName = doc.getDisplayName(doc.getPrefLocale());
+//
+//            StringBuilder buff = new StringBuilder();
+//            buff.append(doc.getRepId());
+//            buff.append("|").append(doc.getPlaceId());
+//            buff.append("|").append(doc.getPlaceDeleteId());
+//            buff.append("|").append(Arrays.toString(doc.getJurisdictionIdentifiers()));
+//            buff.append("|").append(doc.getRevision());
+//            buff.append("|").append(doc.getType());
+//            buff.append("|").append(doc.getPrefLocale());
+//            buff.append("|").append(doc.getCentroid());
+//            buff.append("|").append(doc.isPublished());
+//            buff.append("|").append(doc.isValidated());
+//            buff.append("|").append(doc.getLastUpdateDate());
+//            buff.append("|").append(dispName);
+//
+//            System.out.println(buff.toString());
+//        }
 
         System.exit(0);
     }

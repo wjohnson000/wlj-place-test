@@ -1,0 +1,94 @@
+Place -- latest version
+-----------------------
+  00 - placeId (*)
+  01 - tranId
+  02 - fromYear
+  03 - toYear
+  04 - deleteId
+
+
+VariantName -- latest version
+-----------------------------
+  00 - placeId (*)
+  01 - deleteId [place]
+  02 - locale
+  03 - text
+  04 - nameId (**)
+  05 - tranId (***)
+  06 - deleteFlag
+
+
+PlaceRep -- latest version
+--------------------------
+  00 - repId (*)
+  01 - tranId
+  02 - parentId
+  03 - ownerId
+  04 - longitude
+  05 - latitude
+  06 - placeTypeId
+  07 - parentFromYear
+  08 - parentToYear
+  09 - deleteId
+  10 - prefLocale
+  11 - pubFlag
+  12 - valFlag
+  13 - uuid
+  14 - groupId
+  14 - prefBoundaryId
+
+
+Attribute -- every version
+--------------------------
+  00 - repId (*)
+  01 - attrId (**)
+  02 - tranId (***)
+  03 - attrTypeId
+  04 - year
+  05 - locale
+  06 - attrValue
+  07 - deleteFlag
+
+
+Citation -- every version
+-------------------------
+  00 - repId (*)
+  01 - citnId (**)
+  02 - tranId (***)
+  03 - sourceId
+  04 - typeId
+  05 - date
+  06 - description
+  07 - sourceRef
+  08 - deleteFlag
+
+
+AltJurisdiction -- latest version
+---------------------------------
+  00 - rep_id (*)
+  01 - altJurisdictionId (**)
+  02 - tranId (***)
+  03 - relatedRepId
+  04 - relTypeId
+  05 - deleteFlag
+
+
+DisplayName -- latest version
+-----------------------------
+  00 - repId (*)
+  01 - deleteId [rep]
+  02 - locale (**)
+  03 - text
+  04 - tranId
+  05 - deleteFlag
+
+
+ExternalXref
+------------
+  00 - xrefId (*)
+  01 - repId
+  02 - typeId
+  03 - externalKey
+  04 - pubFlag
+
+  
