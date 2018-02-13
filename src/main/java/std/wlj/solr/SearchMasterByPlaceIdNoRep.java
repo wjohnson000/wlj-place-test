@@ -35,7 +35,7 @@ public class SearchMasterByPlaceIdNoRep {
                 System.out.println("  Par-Id: " + doc.getParentId());
                 System.out.println("  D-Name: " + doc.getDisplayNameMap());
                 System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
-                System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
+                System.out.println("  FromTo: " + doc.getStartYear() + " - " + doc.getEndYear());
                 System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
                 for (String appData : doc.getVariantNames()) {
                     System.out.println("  " + appData);

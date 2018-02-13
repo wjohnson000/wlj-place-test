@@ -164,8 +164,8 @@ public class Analyze02_SolrUSAHierarchy {
                 rep.parentId = doc.getParentId();
                 rep.typeId = doc.getType();
                 rep.deleteId = (doc.getDeleteId() == null) ? 0 : doc.getDeleteId();
-                rep.fromYear = (doc.getFromYear() == Integer.MIN_VALUE) ? 0 : doc.getFromYear();
-                rep.toYear = (doc.getToYear() == Integer.MAX_VALUE) ? 0 : doc.getToYear();
+                rep.fromYear = (doc.getStartYear() == Integer.MIN_VALUE) ? 0 : doc.getStartYear();
+                rep.toYear = (doc.getEndYear() == Integer.MAX_VALUE) ? 0 : doc.getEndYear();
                 rep.centerLattd = (doc.getLatitude() == null) ? 0.0 : doc.getLatitude();
                 rep.centerLong = (doc.getLongitude() == null) ? 0.0 : doc.getLongitude();
                 rep.name = doc.getDisplayName("en");

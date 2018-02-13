@@ -20,9 +20,9 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-        SolrQuery query = new SolrQuery("repId:1629908");
-//        SolrQuery query = new SolrQuery("ownerId:1670803");
-//        SolrQuery query = new SolrQuery("repId:(325 388756 388757 388758)");
+//        SolrQuery query = new SolrQuery("repId:1629908");
+//        SolrQuery query = new SolrQuery("ownerId:2546");
+        SolrQuery query = new SolrQuery("repId:(395481 395482)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:unitedstates");
@@ -41,7 +41,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(777);
+        query.setRows(55);
 //        query.setSort("repId", SolrQuery.ORDER.desc);
 //        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
@@ -56,7 +56,7 @@ public class SearchMasterById {
             System.out.println("  Typ-Id: " + doc.getType());
             System.out.println("  Locale: " + doc.getPrefLocale());
             System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
-            System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
+            System.out.println("  FromTo: " + doc.getStartYear() + " - " + doc.getEndYear());
             System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
             System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + "," + doc.getLongitude());
             System.out.println("  Publsh: " + doc.isPublished());

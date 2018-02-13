@@ -28,7 +28,7 @@ public class RunPlaceRepDocCreator {
         System.out.println("  Typ-Id: " + doc.getType());
         System.out.println("  Locale: " + doc.getPrefLocale());
         System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
-        System.out.println("  FromTo: " + doc.getFromYear() + " - " + doc.getToYear());
+        System.out.println("  FromTo: " + doc.getStartYear() + " - " + doc.getEndYear());
         System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
         System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + "," + doc.getLongitude());
         System.out.println("  Publsh: " + doc.isPublished());
