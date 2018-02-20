@@ -16,13 +16,13 @@ public class SearchMasterById {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(false);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:1629908");
+//        SolrQuery query = new SolrQuery("repId:3779606");
 //        SolrQuery query = new SolrQuery("ownerId:2546");
-        SolrQuery query = new SolrQuery("repId:(395481 395482)");
+//        SolrQuery query = new SolrQuery("repId:(10301415 10729281)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
 //        SolrQuery query = new SolrQuery("names:unitedstates");
@@ -37,11 +37,12 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
 //        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
+        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
 
-        query.setRows(55);
+        query.setRows(150_000);
 //        query.setSort("repId", SolrQuery.ORDER.desc);
 //        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
@@ -76,6 +77,7 @@ public class SearchMasterById {
 //            System.out.println("\n\n");
 //            doc.getAppData().stream().filter(appd -> appd.endsWith("true")).forEach(appData -> System.out.println("    AppD: " + appData));
         }
+        System.out.println("CNT: " + docs.size());
         
 //        for (PlaceRepDoc doc : docs) {
 //            String dispName = doc.getDisplayName("en");

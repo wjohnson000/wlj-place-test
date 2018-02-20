@@ -18,11 +18,11 @@ public class SearchLocal {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.localEmbeddedConnection("D:/solr/stand-alone-6.5.0");
-//        SolrConnection solrConn = SolrManager.localEmbeddedConnection("D:/solr/stand-alone-6.1.0");
+        SolrConnection solrConn = SolrManager.localEmbeddedConnection("C:/D-drive/solr/standalone-7.1.0");
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("xref:[* TO *]");
+        SolrQuery query = new SolrQuery("repId:3779606");
+//        SolrQuery query = new SolrQuery("xref:[* TO *]");
 //        SolrQuery query = new SolrQuery("appData: *");
 //        query.addField("lastUpdateDate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY]");  // &NOW=" + System.currentTimeMillis());
 //        SolrQuery query = new SolrQuery("lastUpdateDate:[NOW-7DAY TO NOW]");

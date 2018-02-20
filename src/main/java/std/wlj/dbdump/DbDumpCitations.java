@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.familysearch.standards.loader.helper.DbHelper;
 import std.wlj.datasource.DbConnectionManager;
 
-public class DbHelperDumpCitations {
+public class DbDumpCitations {
 
     static final String fileBase = "C:/temp/db-dump";
     static final String fileName = "citation-all.txt";
