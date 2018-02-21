@@ -20,7 +20,7 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:3779606");
+        SolrQuery query = new SolrQuery("repId:3779606");
 //        SolrQuery query = new SolrQuery("ownerId:2546");
 //        SolrQuery query = new SolrQuery("repId:(10301415 10729281)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
@@ -37,7 +37,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
 //        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
-        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
+//        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[* TO *]");
