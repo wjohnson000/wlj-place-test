@@ -1,7 +1,5 @@
 package std.wlj.access;
 
-import java.util.List;
-
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.AttributeBridge;
 import org.familysearch.standards.place.data.PlaceRepBridge;
@@ -20,10 +18,10 @@ public class AttributeTest {
         SolrService solrService = null;
 
         try {
-            int repId = 145;
+            int repId = 3698530;
 
-            dbServices = DbConnectionManager.getDbServicesWLJ();
-            solrService = SolrManager.awsIntService(true);
+            dbServices = DbConnectionManager.getDbServicesSams();
+            solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
             dataService = new PlaceDataServiceImpl(solrService, dbServices.readService, dbServices.writeService);
 
             PlaceRepBridge placeRepB01 = dbServices.readService.getRep(repId);
@@ -32,47 +30,47 @@ public class AttributeTest {
                 return;
             }
 
-            List<AttributeBridge> attrBs = placeRepB01.getAllAttributes();
-            System.out.println("\nALL..............................................\n");
-            System.out.println("PLACE-REP: " + placeRepB01.getRepId() + "." + placeRepB01.getRevision());
-            for (AttributeBridge attrB : attrBs) {
-                System.out.println("ATTR: " + attrB.getAttributeId() + "." + attrB.getPlaceRep().getRepId() + " :: " + attrB.getLocale() + " :: " + attrB.getValue());
-            }
+            System.out.println("\nALL ..........................................................................");
+            System.out.println("REP: " + placeRepB01.getRepId() + "." + placeRepB01.getRevision());
+            placeRepB01.getAllAttributes().forEach(attrB -> print(attrB));
 
-            System.out.println("\nNEW..............................................\n");
-            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 2020, "fr", "attr-value-fr", "wjohnson000", null);
-            System.out.println("ATTR: " + attrB01.getAttributeId() + "." + attrB01.getPlaceRep().getRepId() + " :: " + attrB01.getLocale() + " :: " + attrB01.getValue());
+            System.out.println("\nNEW ........................................................................\n");
+            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 1900, 2000, "fr", "attr-value-fr", "copyright", null, "wjohnson000", null);
+            print(attrB01);
 
-            System.out.println("\nUPD..............................................\n");
-            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 2030, "fr", "attr-value-fr-new", "wjohnson000", null);
-            System.out.println("ATTR: " + attrB02.getAttributeId() + "." + attrB02.getPlaceRep().getRepId() + " :: " + attrB02.getLocale() + " :: " + attrB02.getValue());
+            System.out.println("\nUPD ........................................................................\n");
+            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 1900, 2020, "fr", "attr-value-fr-new", "copyright", "http://copyright.com", "wjohnson000", null);
+            print(attrB02);
 
-            System.out.println("\nALL..............................................\n");
+            System.out.println("\nALL ..........................................................................");
             PlaceRepBridge placeRepB02 = dbServices.readService.getRep(repId);
-            System.out.println("PLACE-REP: " + placeRepB02.getRepId() + "." + placeRepB02.getRevision());
-            attrBs = placeRepB02.getAllAttributes();
-            for (AttributeBridge attrB : attrBs) {
-                System.out.println("ATTR: " + attrB.getAttributeId() + "." + attrB.getPlaceRep().getRepId() + " :: " + attrB.getLocale() + " :: " + attrB.getValue());
-            }
+            System.out.println("REP: " + placeRepB02.getRepId() + "." + placeRepB02.getRevision());
+            placeRepB02.getAllAttributes().forEach(attrB -> print(attrB));
 
-            System.out.println("\nALL (after delete)...............................\n");
-            dataService.deleteAttribute(attrB01.getAttributeId(), repId, "wjohnson000", null);
-
-            PlaceRepBridge placeRepB03 = dbServices.readService.getRep(repId);
-            attrBs = placeRepB03.getAllAttributes();
-            System.out.println("PLACE-REP: " + placeRepB03.getRepId() + "." + placeRepB03.getRevision());
-            for (AttributeBridge attrB : attrBs) {
-                System.out.println("ATTR: " + attrB.getAttributeId() + "." + attrB.getPlaceRep().getRepId() + " :: " + attrB.getLocale() + " :: " + attrB.getValue());
-            }
         } catch(Exception ex) {
-            System.out.println("Ex: " + ex.getMessage());
+            System.out.println("\nEx: " + ex.getMessage());
         } finally {
-            System.out.println("Shutting down ...");
+            System.out.println("\nShutting down ...");
             if (dataService != null) dataService.shutdown();
             if (dbServices != null) dbServices.shutdown();
             if (solrService != null) solrService.shutdown();
         }
 
         System.exit(0);
+    }
+
+    static void print(AttributeBridge attrB) {
+        StringBuilder buff = new StringBuilder();
+        buff.append("  ATTR");
+        buff.append("|").append(attrB.getAttributeId());
+        buff.append("|rev=").append(attrB.getRevision());
+        buff.append("|rep=").append(attrB.getPlaceRep().getRepId());
+        buff.append("|typ=").append(attrB.getType().getTypeId());
+        buff.append("|loc=").append(attrB.getLocale());
+        buff.append("|val=").append(attrB.getValue());
+        buff.append("|rng=").append(attrB.getFromYear()).append("-").append(attrB.getToYear());
+        buff.append("|cpy=").append(attrB.getCopyrightNotice());
+        buff.append("|url=").append(attrB.getCopyrightUrl());
+        System.out.println(buff.toString());
     }
 }

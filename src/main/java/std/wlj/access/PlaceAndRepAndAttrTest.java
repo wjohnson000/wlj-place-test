@@ -38,19 +38,19 @@ public class PlaceAndRepAndAttrTest {
             PlaceRepBridge placeRepB01 = createQuilly(dataService);
             int repId = placeRepB01.getRepId();
 
-            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 2001, "fr", "attr-value-01", fakeUser, null);
-            AttributeBridge attrB02 = dataService.createAttribute(repId, 433, 2002, "fr", "attr-value-02", fakeUser, null);
-            AttributeBridge attrB03 = dataService.createAttribute(repId, 433, 2003, "fr", "attr-value-03", fakeUser, null);
+            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 2001, null, "fr", "attr-value-01", null, null, fakeUser, null);
+            AttributeBridge attrB02 = dataService.createAttribute(repId, 433, 2002, null, "fr", "attr-value-02", null, null, fakeUser, null);
+            AttributeBridge attrB03 = dataService.createAttribute(repId, 433, 2003, null, "fr", "attr-value-03", null, null, fakeUser, null);
 
             dataService.deleteAttribute(attrB02.getAttributeId(), repId, fakeUser, null);
 
-            AttributeBridge attrB04 = dataService.createAttribute(repId, 433, 2004, "fr", "attr-value-04", fakeUser, null);
+            AttributeBridge attrB04 = dataService.createAttribute(repId, 433, 2004, null, "fr", "attr-value-04", null, null, fakeUser, null);
 
             dataService.deleteAttribute(attrB03.getAttributeId(), repId, fakeUser, null);
 
-            AttributeBridge attrB05 = dataService.createAttribute(repId, 433, 2005, "fr", "attr-value-05", fakeUser, null);
-            AttributeBridge attrB06 = dataService.createAttribute(repId, 433, 2006, "fr", "attr-value-06", fakeUser, null);
-            AttributeBridge attrB07 = dataService.createAttribute(repId, 433, 2007, "fr", "attr-value-07", fakeUser, null);
+            AttributeBridge attrB05 = dataService.createAttribute(repId, 433, 2005, null, "fr", "attr-value-05", null, null, fakeUser, null);
+            AttributeBridge attrB06 = dataService.createAttribute(repId, 433, 2006, null, "fr", "attr-value-06", null, null, fakeUser, null);
+            AttributeBridge attrB07 = dataService.createAttribute(repId, 433, 2007, null, "fr", "attr-value-07", null, null, fakeUser, null);
 
             dataService.deleteAttribute(attrB06.getAttributeId(), repId, fakeUser, null);
             dataService.deleteAttribute(attrB01.getAttributeId(), repId, fakeUser, null);

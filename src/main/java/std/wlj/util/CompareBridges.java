@@ -18,7 +18,7 @@ public final class CompareBridges {
         compare("    *ID:", attrB01.getAttributeId(), attrB02.getAttributeId());
         compare("    *Locale:", attrB01.getLocale(), attrB02.getLocale());
         compare("    *Value:", attrB01.getValue(), attrB02.getValue());
-        compare("    *Year:", attrB01.getYear(), attrB02.getYear());
+        compare("    *Year:", attrB01.getFromYear(), attrB02.getFromYear());
         compare("    *Revn:", attrB01.getRevision(), attrB02.getRevision());
         compare("    *Rep.Id:", attrB01.getPlaceRep().getRepId(), attrB02.getPlaceRep().getRepId());
         compare("    *Type.Id:", attrB01.getType().getTypeId(), attrB02.getType().getTypeId());
