@@ -99,7 +99,8 @@ public class RepCREATEwithATTRandCITN {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 433");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
+        attrModel.setToYear(2030);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -107,7 +108,8 @@ public class RepCREATEwithATTRandCITN {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 418");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
+        attrModel.setToYear(2030);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -161,7 +163,8 @@ public class RepCREATEwithATTRandCITN {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 424");
-        attrModel.setYear(1940);
+        attrModel.setFromYear(1940);
+        attrModel.setToYear(2040);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -169,7 +172,8 @@ public class RepCREATEwithATTRandCITN {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 425");
-        attrModel.setYear(1950);
+        attrModel.setFromYear(1950);
+        attrModel.setToYear(2050);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -177,7 +181,8 @@ public class RepCREATEwithATTRandCITN {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 426");
-        attrModel.setYear(1960);
+        attrModel.setFromYear(1960);
+        attrModel.setToYear(2060);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 

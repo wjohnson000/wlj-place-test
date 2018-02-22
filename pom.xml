@@ -11,7 +11,7 @@
 		<java.compiler.version>1.8</java.compiler.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    	<std.lib.core.version>3.3.0-SNAPSHOT</std.lib.core.version>
+    	<std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
 		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
         <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>

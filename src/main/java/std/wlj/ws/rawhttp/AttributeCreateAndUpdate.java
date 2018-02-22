@@ -23,14 +23,14 @@ public class AttributeCreateAndUpdate {
 
         readAttributes(repId);
         AttributeModel attrModel = addAttribute(repId);
-        System.out.println("Attr: " + attrModel.getId() + " . " + attrModel.getYear() + " . " + attrModel.getValue());
+        System.out.println("Attr: " + attrModel.getId() + " . " + attrModel.getFromYear() + " . " + attrModel.getToYear() + " . " + attrModel.getValue());
     }
 
     private static void readAttributes(int repId) throws Exception {
         URL url = new URL(baseUrl + "/reps/" + repId + "/attributes/");
         RootModel model = HttpHelper.doGET(url);
         for (AttributeModel aModel : model.getAttributes()) {
-            System.out.println("ATT: " + aModel.getId() + "|" + aModel.getYear() + "|" + aModel.getLocale() + "|" + aModel.getValue());
+            System.out.println("ATT: " + aModel.getId() + "|" + aModel.getFromYear() + "|" + aModel.getToYear() + "|" + aModel.getLocale() + "|" + aModel.getValue());
         }
     }
 
@@ -45,7 +45,8 @@ public class AttributeCreateAndUpdate {
         attrModel.setRepId(repId);
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - NEWEST");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
+        attrModel.setToYear(2030);
         attrModel.setLocale("en");
 
         RootModel model = new RootModel();

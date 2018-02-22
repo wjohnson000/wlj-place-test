@@ -182,8 +182,11 @@ public class BaseTest {
         model.setId(11);
         model.setRepId(22);
         model.setType(this.getTypeModel());
-        model.setYear(2020);
+        model.setFromYear(1920);
+        model.setToYear(2020);
         model.setValue("a-value");
+        model.setCopyrightNotice("copyright-notice");
+        model.setCopyrightUrl("http://copyright.com");
         model.setLinks(links);
 
         return model;

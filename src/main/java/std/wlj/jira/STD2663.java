@@ -354,7 +354,8 @@ public class STD2663 {
         attrModel.setType(attrType);
         attrModel.setLocale("en");
         attrModel.setValue("test - abc - " + attrTypeId);
-        attrModel.setYear(1901);
+        attrModel.setFromYear(1901);
+        attrModel.setToYear(2000);
 
         RootModel model = new RootModel();
         model.setAttribute(attrModel);

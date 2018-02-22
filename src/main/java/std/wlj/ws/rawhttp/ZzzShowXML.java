@@ -30,7 +30,8 @@ public class ZzzShowXML {
         AttributeModel qaTestingAttribute= new AttributeModel();
         qaTestingAttribute.setLocale("es");
         qaTestingAttribute.setValue("1001001");
-        qaTestingAttribute.setYear(2015);
+        qaTestingAttribute.setFromYear(2015);
+        qaTestingAttribute.setToYear(2025);
         qaTestingAttribute.setRepId(393437);
 
         TypeModel typeModel = new TypeModel();
@@ -130,7 +131,7 @@ public class ZzzShowXML {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 433");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -138,7 +139,7 @@ public class ZzzShowXML {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 418");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -223,7 +224,8 @@ public class ZzzShowXML {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 433");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
+        attrModel.setToYear(2030);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -231,7 +233,8 @@ public class ZzzShowXML {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 418");
-        attrModel.setYear(1930);
+        attrModel.setFromYear(1930);
+        attrModel.setToYear(2030);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -281,7 +284,8 @@ public class ZzzShowXML {
         AttributeModel attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 424");
-        attrModel.setYear(1940);
+        attrModel.setFromYear(1940);
+        attrModel.setToYear(2040);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -289,7 +293,8 @@ public class ZzzShowXML {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 425");
-        attrModel.setYear(1950);
+        attrModel.setFromYear(1950);
+        attrModel.setToYear(2040);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
@@ -297,7 +302,8 @@ public class ZzzShowXML {
         attrModel = new AttributeModel();
         attrModel.setType(attrType);
         attrModel.setValue("WLJ - TEST - 426");
-        attrModel.setYear(1960);
+        attrModel.setFromYear(1960);
+        attrModel.setToYear(2060);
         attrModel.setLocale("en");
         attrs.add(attrModel);
 
