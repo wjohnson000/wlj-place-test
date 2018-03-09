@@ -11,7 +11,7 @@ public class DbDumpAttributes {
     static final String fileName = "attribute-all.txt";
 
     static final String query =
-        "SELECT rep_id, attr_id, tran_id, attr_type_id, year, locale, attr_value, delete_flag " +
+        "SELECT rep_id, attr_id, tran_id, attr_type_id, year, to_year, locale, attr_value, copyright_notice, copyright_url, delete_flag " +
         "  FROM rep_attr " +
         " ORDER BY rep_id, attr_id, tran_id";
 

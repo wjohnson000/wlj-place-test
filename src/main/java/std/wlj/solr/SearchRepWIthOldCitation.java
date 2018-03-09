@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
@@ -24,6 +25,7 @@ public class SearchRepWIthOldCitation {
 
         SolrQuery query = new SolrQuery("citSourceId:[1 TO 1473]");
         query.setRows(150_000);
+        query.addSort("repId", ORDER.asc);
         System.out.println("QRY: " + query);
 
         List<PlaceRepDoc> docs = solrConn.search(query);

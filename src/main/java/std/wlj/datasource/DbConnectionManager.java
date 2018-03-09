@@ -63,6 +63,13 @@ public class DbConnectionManager {
         return sams;
     }
 
+    public static DataSource getDataSourceSams(int connCount) {
+        if (sams == null) {
+            sams = setupDataSource("sams", connCount);
+        }
+        return sams;
+    }
+
     public static DbServices getDbServicesSams() {
         DataSource ds = getDataSourceSams();
         return new DbServices(new DbReadableService(ds), new DbWritableService(ds));
@@ -199,15 +206,19 @@ public class DbConnectionManager {
      *  Helper methods
      *  ============================================================================= */
     static BasicDataSource setupDataSource(String key) {
+        return setupDataSource(key, 2);
+    }
+
+    static BasicDataSource setupDataSource(String key, int connCount) {
         BasicDataSource dataSource = new BasicDataSource();
 
         dataSource.setDriverClassName(jdbcProps.getProperty(key + ".jdbc.driver"));
         dataSource.setUsername(jdbcProps.getProperty(key + ".jdbc.username"));
         dataSource.setPassword(jdbcProps.getProperty(key + ".jdbc.password"));
         dataSource.setUrl(jdbcProps.getProperty(key + ".jdbc.url"));
-        dataSource.setMaxActive(2);
+        dataSource.setMaxActive(connCount);
         dataSource.setMaxIdle(2);
-        dataSource.setInitialSize(2);
+        dataSource.setInitialSize(Math.max(2, connCount / 2));
         dataSource.setValidationQuery("SELECT 1");
 
         return dataSource;

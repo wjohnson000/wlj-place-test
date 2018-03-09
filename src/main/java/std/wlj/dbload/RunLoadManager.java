@@ -8,10 +8,22 @@ import std.wlj.datasource.DbConnectionManager;
 public class RunLoadManager {
     public static void main(String... args) {
         System.setProperty("solr.load.count", "1000");
-        System.setProperty("solr.load.tempdir", "D:/tmp/flat-files/load-test");
+        System.setProperty("solr.load.tempdir", "C:/temp/flat-file");
 
         String solrURL = "http://localhost:8080/solr/places";
-        LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceWLJ());
+        LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceSams(8));
         LoadManager.getInstance().acceptLoader(new FullLoader("some-user"));
+
+        while (! LoadManager.getInstance().isActive()) {
+            try { Thread.sleep(10_000L); } catch(Exception ex) { }
+        }
+
+        while (LoadManager.getInstance().isActive()) {
+            try { Thread.sleep(60_000L); } catch(Exception ex) { }
+            System.out.println("Loader is active ... " + LoadManager.getInstance().getActiveLoaderDetails());
+        }
+
+        LoadManager.getInstance().shutdown();
+        System.exit(0);
    }
 }
