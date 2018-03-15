@@ -8,9 +8,10 @@ import java.util.Map;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.core.CoreContainer;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
 /**
@@ -19,20 +20,21 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
  * @author wjohnson000
  *
  */
-public class STD_106433 {
+public class STD_106434_Embedded {
 
-    private static final int SOLR_ROWS = 2500;
-    private static final String AWS_URL_SOLR = "http://www.familysearch.org/int-solr/places";
+    private static final int    SOLR_ROWS = 2500;
+    private static final String SOLR_PATH = "C:/D-drive/solr/standalone-dbload-7.1.0";
 
     public static void main(String... args) throws Exception {
-        HttpSolrClient client = new HttpSolrClient.Builder(AWS_URL_SOLR).build();
+        CoreContainer container = new CoreContainer(SOLR_PATH);
+        EmbeddedSolrServer solrServer = new EmbeddedSolrServer(container, "places");
 
         Map<String,Object> deleteIdModifier = new HashMap<>(1);
         deleteIdModifier.put("set", 0);
 
         // Do a look-up by documents ...
         int total = 0;
-        List<PlaceRepDoc> docs = getNonDeletedDocs(client);
+        List<PlaceRepDoc> docs = getNonDeletedDocs(solrServer);
         while (! docs.isEmpty()) {
             total += docs.size();
             System.out.println("Another set of documents ... " + docs.size() + " --> " + total);
@@ -45,16 +47,16 @@ public class STD_106433 {
                 solrDocs.add(solrDoc);
             }
 
-            client.add(solrDocs);
-            client.commit();
-            docs = getNonDeletedDocs(client);
+            solrServer.add(solrDocs);
+            solrServer.commit();
+            docs = getNonDeletedDocs(solrServer);
         }
 
-        client.close();
+        solrServer.close();
         System.exit(0);
     }
 
-    static List<PlaceRepDoc> getNonDeletedDocs(HttpSolrClient client) throws SolrServerException, IOException {
+    static List<PlaceRepDoc> getNonDeletedDocs(EmbeddedSolrServer client) throws SolrServerException, IOException {
         SolrQuery query = new SolrQuery("-deleteId:[* TO *]");
         query.setRows(SOLR_ROWS);
         QueryResponse response = client.query(query);

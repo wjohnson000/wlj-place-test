@@ -30,6 +30,9 @@ public class Test01_Simple {
             String wikiChunk = getWikiChunk(stupidURL);
             System.out.println(stupidURL + " --> " + wikiChunk);
         }
+
+        client.shutdown();
+        System.exit(0);
     }
 
     static String getWikiChunk(String url) {
@@ -40,7 +43,7 @@ public class Test01_Simple {
                 chunk = "This is the data for URL=" + url;
                 Thread.sleep(1000L);
             } catch(Exception ex) { }
-            wikiChunks.put("key1", chunk, 1, TimeUnit.MINUTES);
+            wikiChunks.put(url, chunk, 3, TimeUnit.MINUTES);
         }
         return chunk;
     }

@@ -15,25 +15,17 @@ import std.wlj.util.SolrManager;
 public class FixSolr1470205 {
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(false);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(false);
 
         PlaceRepDoc xDoc = lookupDocument(solrConn, "1470205");
-//        lookupDocument(solrConn, "5950075");
-//        lookupDocument(solrConn, "8160631");
-//        lookupDocument(solrConn, "8160632");
-//        lookupDocument(solrConn, "8160634");
-//        lookupDocument(solrConn, "8160739");
-//        lookupDocument(solrConn, "8160740");
-//        lookupDocument(solrConn, "8160741");
-//        lookupDocument(solrConn, "8160743");
-//        lookupDocument(solrConn, "8160744");
-//        lookupDocument(solrConn, "8160745");
-//        lookupDocument(solrConn, "8160746");
+        PlaceRepDoc xDoc1 = lookupDocument(solrConn, "1470206");
+        PlaceRepDoc xDoc2 = lookupDocument(solrConn, "1470207");
+        PlaceRepDoc xDoc3 = lookupDocument(solrConn, "1470208");
 
         // Modify the document ...
         if (xDoc != null) {
 //            System.out.println("\n\nUpdating the document ...");
-//            xDoc.setDeleteId(null);
+//            xDoc.setCentroid("13.873111,100.596778");
 //            solrConn.add(xDoc);
 //            solrConn.commit();
         }
@@ -42,7 +34,7 @@ public class FixSolr1470205 {
 
     private static PlaceRepDoc lookupDocument(SolrConnection solrConn, String repId) throws PlaceDataException {
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("id:" + repId + "-*");
+        SolrQuery query = new SolrQuery("id:" + repId);
         query.setRows(1000);
         query.setSort("revision", ORDER.asc);
         List<PlaceRepDoc> docs = solrConn.search(query);
@@ -53,7 +45,8 @@ public class FixSolr1470205 {
         for (PlaceRepDoc doc : docs) {
             xDoc = doc;
             System.out.println("ID: " + doc.getId() + " --> " + doc.getRevision() + " --> " + doc.getType() + " --> " + doc.getDeleteId() + " --> " + doc.getPlaceDeleteId() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()));
-            System.out.println("  DEL: " + doc.getDeleteId() + " :: " + doc.getPlaceId());
+            System.out.println("  DEL: " + doc.getDeleteId() + " :: " + doc.getPlaceDeleteId());
+            System.out.println("  LAT: " + doc.getCentroid() + " --> " + doc.getLatitude() + " :: " + doc.getLongitude());
             for (String varn : doc.getVariantNames()) {
                 System.out.println("  VAR: " + varn);
             }

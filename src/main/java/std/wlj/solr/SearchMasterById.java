@@ -1,6 +1,10 @@
 package std.wlj.solr;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
@@ -13,14 +17,15 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    private static final int MAX_ROWS = 20;
+    static final int MAX_ROWS = 50;
+    static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(false);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-//        SolrQuery query = new SolrQuery("*:*");
-        SolrQuery query = new SolrQuery("repId:10313350");
+        SolrQuery query = new SolrQuery("*:*");
+//        SolrQuery query = new SolrQuery("repId:136120");
 //        SolrQuery query = new SolrQuery("ownerId:2546");
 //        SolrQuery query = new SolrQuery("repId:(10301415 10729281)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
@@ -39,10 +44,16 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 
-//        SolrQuery query = new SolrQuery("type:81");
-//        query.addFilterQuery("-deleteId:[* TO *]");
+//        Calendar cnow = Calendar.getInstance();
+//        cnow.add(Calendar.HOUR_OF_DAY, -1);
+//        Date dnow = new Date(cnow.getTimeInMillis());
+//        SolrQuery query = new SolrQuery("lastUpdateDate: [" + SOLR_DATE_FORMAT.format(dnow) + " TO *]");
 
-        query.setRows(25);
+//        SolrQuery query = new SolrQuery("type:81");
+        query.addFilterQuery("-deleteId:[0 TO *]");
+//        query.addFilterQuery("deleteId:0");
+
+        query.setRows(MAX_ROWS);
 //        query.setSort("repId", SolrQuery.ORDER.desc);
 //        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
