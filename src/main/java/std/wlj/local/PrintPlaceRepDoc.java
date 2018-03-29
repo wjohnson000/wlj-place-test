@@ -22,8 +22,8 @@ public class PrintPlaceRepDoc {
         PlaceRepDoc prDoc = new PlaceRepDoc();
 
         prDoc.setId(id);
-        prDoc.addAttribute(11, 21, 1900, null, "attr-fidgeting", "en", null, null);
-        prDoc.addAttribute(12, 22, 1901, null, "attr-fighting", "en", null, null);
+        prDoc.addAttribute(11, 21, 1900, null, "attr-fidgeting", "en", null, null, null, null);
+        prDoc.addAttribute(12, 22, 1901, null, "attr-fighting", "en", null, null, null, null);
         prDoc.setCentroid("44.44, -55.55");
         prDoc.addCitation(111, 51, 101, new Date(System.currentTimeMillis()), "Gazeteer", "page 55");
         prDoc.addCitation(112, 52, 102, new Date(System.currentTimeMillis()), "Google", "http://maps.google.com/112");

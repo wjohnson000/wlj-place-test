@@ -223,7 +223,7 @@ public class ThreadedDbServiceTest {
                 null,
                 "en",
                 "value." + attrTypeId,
-                null, null, username, null);
+                null, null, null, null, username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to create attribute: " + e.getMessage());
             return null;
@@ -243,7 +243,7 @@ public class ThreadedDbServiceTest {
                 null,
                 aBridge.getLocale(),
                 aBridge.getValue(),
-                null, null, username, null);
+                null, null, null, null, username, null);
         } catch (PlaceDataException e) {
             System.out.println("Unable to update attribute -- " + aBridge.getAttributeId() + ": " + e.getMessage());
             return null;

@@ -20,6 +20,7 @@ public class DoSearchEasy {
     private static String[] textes = {
         "Turtle Creek, Allegheny, Pennsylvania, United States",
         "Provo, Utah, Utah, US",
+        "Altona, Ottensen, Hamburg-Altona, Hamburg, Germany",
         "Washington, Vermont",
         "Angu, Scotland",
     };

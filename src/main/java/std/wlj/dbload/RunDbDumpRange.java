@@ -13,15 +13,15 @@ import std.wlj.datasource.DbConnectionManager;
 
 public class RunDbDumpRange {
 
-    static final File baseDir = new File("D:/tmp/flat-files/");
+    static final File baseDir = new File("C:/temp/flat-file/");
     static ExecutorService execService = Executors.newFixedThreadPool(4);
     
     public static void main(String... args) throws InterruptedException {
         DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceSams());
 
-        long startRepId = 1;
-        long endRepId   = 10000;
-        File dataDirectory = new File(baseDir, "ten-thou");
+        long startRepId = 10626025;
+        long endRepId   = 10626030;
+        File dataDirectory = new File(baseDir, "yyy");
         dataDirectory.mkdirs();
 
         System.out.println("Range: " + startRepId + " --> " + endRepId);
