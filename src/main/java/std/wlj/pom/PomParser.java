@@ -18,6 +18,7 @@ public class PomParser {
 	private static final String GROUP_ID_TAG = "groupId";
 	private static final String ARTIFACT_ID_TAG = "artifactId";
 	private static final String VERSION_TAG = "version";
+    private static final String SCOPE_TAG = "scope";
 	private static final String PLUGIN_TAG = "plugin";
 	private static final String PLUGIN_MGT_TAG = "pluginManagement";
 	private static final String DEPENDENCY_TAG = "dependency";
@@ -67,7 +68,7 @@ public class PomParser {
 
 			TagAndValue tagValue = getTagAndValue(line);
 			if (! inProperties  &&  isProperty(tagValue.value)) {
-				pomFile.propertyUsage.add(tagValue.value);
+				pomFile.propertyUsage.add(getPropertyValue(tagValue.value));
 			}
 
 			if (isParent(tagValue)) {
@@ -118,8 +119,8 @@ public class PomParser {
                 inExclusions = true;
             } else if (isExclusionsEnd(tagValue)) {
                 inExclusions = false;
-			} else {
-				if (inProperties  &&  ! inPlugin  &&  ! inPluginMgt  &&  ! inConfiguration  &&  ! inExclusions) {
+			} else if (! inExclusions) {
+				if (inProperties  &&  ! inPlugin  &&  ! inPluginMgt  &&  ! inConfiguration) {
 					if (tagValue != null  &&  tagValue.tag != null  &&  tagValue.value != null) {
 						pomFile.properties.put(tagValue.tag, tagValue.value);
 					}
@@ -157,6 +158,12 @@ public class PomParser {
 					} else {
 						pomFile.version = tagValue.value;
 					}
+				} else if (isScope(tagValue)) {
+                    if (inParent) {
+                        parent.scope = tagValue.value;
+                    } else if (inDependency) {
+                        dependency.scope = tagValue.value;
+                    }
 				}
 			}
 		}
@@ -166,6 +173,10 @@ public class PomParser {
 	
 	private static boolean isProperty(String value) {
 	    return (value != null  &&  value.startsWith("${"));
+	}
+
+	private static String getPropertyValue(String value) {
+	    return value.substring(2, value.length()-1);
 	}
 
 	private static String removeFullComment(String line) {
@@ -211,6 +222,10 @@ public class PomParser {
 	private static boolean isVersion(TagAndValue tagValue) {
 		return (VERSION_TAG.equals(tagValue.tag));
 	}
+
+    private static boolean isScope(TagAndValue tagValue) {
+        return (SCOPE_TAG.equals(tagValue.tag));
+    }
 
 	private static boolean isParent(TagAndValue tagValue) {
 		return (PARENT_TAG.equals(tagValue.tag));

@@ -42,7 +42,7 @@ public class GenAttrUrlSQL {
         "END $$;"    
     };
 
-    private static final String updateSQL = "  UPDATE rep_attr SET attr_title ='%s' WHERE attr_id = %d AND tran_id = %d;";
+    private static final String updateSQL = "  UPDATE rep_attr SET url_title ='%s' WHERE attr_id = %d AND tran_id = %d;";
 
     private static Set<String> badTitles = new HashSet<>();
     static {
@@ -72,7 +72,11 @@ public class GenAttrUrlSQL {
                     boolean isGood = badTitles.stream()
                         .noneMatch(chunk -> title.toLowerCase().contains(chunk));
                     if (isGood) {
-                        sqlUpdate.add(String.format(updateSQL, title, attrId, tranId));
+                        String gTitle = title;
+                        if (gTitle.length() > 256) {
+                            gTitle = gTitle.substring(0, 251) + " ...";
+                        }
+                        sqlUpdate.add(String.format(updateSQL, gTitle, attrId, tranId));
                     }
                 }
 

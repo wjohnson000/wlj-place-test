@@ -13,11 +13,13 @@
 
     	<std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
 		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
-        <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
+        <std.lib.date.version>1.8.1-SNAPSHOT</std.lib.date.version>
+        <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
 		<std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
 		<std.ws.place.version>2.1.0-SNAPSHOT</std.ws.place.version>
+		<std.ws.date.version>2.3.0-SNAPSHOT</std.ws.date.version>
 
 		<binding.register.client.version>1.0.b20</binding.register.client.version>
 		<com.amazonaws.version>1.11.160</com.amazonaws.version>
@@ -134,15 +136,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-        <dependency>
+		<dependency>
             <groupId>org.familysearch.standards</groupId>
-            <artifactId>std-lib-core-lang</artifactId>
+            <artifactId>std-lib-core-parse</artifactId>
             <version>${std.lib.core.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
-            <artifactId>std-lib-core-parse</artifactId>
+            <artifactId>std-lib-core-lang</artifactId>
             <version>${std.lib.core.version}</version>
             <type>jar</type>
         </dependency>
@@ -157,6 +158,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+		     <groupId>org.familysearch.standards</groupId>
+		     <artifactId>std-ws-date-api</artifactId>
+		     <version>${std.ws.date.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-date</artifactId>
+            <!-- <version>${std.lib.date.version}</version> -->
+            <version>1.8.1.b42</version>
+        </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-ws-analysis-dal</artifactId>
@@ -398,6 +410,11 @@
             <groupId>net.htmlparser.jericho</groupId>
             <artifactId>jericho-html</artifactId>
             <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>61.1</version>
         </dependency>
    	</dependencies>
 

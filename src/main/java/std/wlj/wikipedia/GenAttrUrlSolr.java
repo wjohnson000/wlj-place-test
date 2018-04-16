@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.loader.sql.FileResultSet;
-import org.familysearch.standards.place.data.AttributeBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
@@ -114,6 +113,10 @@ public class GenAttrUrlSolr {
                                 .noneMatch(chunk -> datum.title.toLowerCase().contains(chunk));
                         if (! isGood) {
                             datum.title = null;
+                        } else {
+                            if (datum.title.length() > 256) {
+                                datum.title = datum.title.substring(0, 251) + " ...";
+                            }
                         }
                     }
 
@@ -141,7 +144,6 @@ public class GenAttrUrlSolr {
         return chunkData;
     }
 
-    static boolean ppp = true;
     protected static void updateSolr(SolrConnection solrConn, Map<Integer, List<AttrDatums>> attrChunk) {
         String queryStr = attrChunk.keySet().stream()
             .map(key -> String.valueOf(key))
@@ -153,13 +155,10 @@ public class GenAttrUrlSolr {
             query.setRows(500);
             List<PlaceRepDoc> docs = solrConn.search(query);
             for (PlaceRepDoc doc : docs) {
-                ppp = (doc.getRepId() > 350  &&  doc.getRepId() < 375);
-                if (ppp) dumpAttributes(doc);
                 updateAttribute(doc, attrChunk);
-                if (ppp) dumpAttributes(doc);
             }
-//            solrConn.add(docs);
-//            solrConn.commit();
+            solrConn.add(docs);
+            solrConn.commit();
         } catch (PlaceDataException ex) {
             System.out.println("OOPS: " + ex.getMessage());
         }
