@@ -21,17 +21,17 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsIntConnection(true);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:339");
+//        SolrQuery query = new SolrQuery("repId:10626021");
 //        SolrQuery query = new SolrQuery("ownerId:2546");
 //        SolrQuery query = new SolrQuery("repId:(10301415 10729281)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
-//        SolrQuery query = new SolrQuery("ownerId:205596 OR ownerId:62374");
-//        SolrQuery query = new SolrQuery("names:unitedstates");
-//        SolrQuery query = new SolrQuery("id:SOURCE");
+//        SolrQuery query = new SolrQuery("ownerId:1");
+//        SolrQuery query = new SolrQuery("usa");
+        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("parentId:10340680");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
@@ -44,7 +44,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
-        SolrQuery query = new SolrQuery("attrValue:Specifically*");
+//        SolrQuery query = new SolrQuery("attrValue:Specifically*");
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
 //        Date dnow = new Date(cnow.getTimeInMillis());

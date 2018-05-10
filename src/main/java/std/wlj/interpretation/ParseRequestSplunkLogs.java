@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class ParseRequestSplunkLogs {
 
     static final String baseDir = "C:/D-drive/request-splunk";
-    static final String outFile = "splunk-request-all.txt";
+    static final String outFile = "place-search-text.txt";
 
     public static void main(String... args) throws IOException {
         List<String> allResults = new ArrayList<>(2_000_000);
@@ -43,19 +43,11 @@ public class ParseRequestSplunkLogs {
                 String line =  scan.nextLine();
                 String text   = getValueForKey(line, "text");
                 if (! text.isEmpty()) {
-                    String time   = getValueForKey(line, "time");
-                    String pPath  = getValueForKey(line, "parsePath");
-                    String annot  = getValueForKey(line, "annotations");
-                    String filter = getValueForKey(line, "filter");
-                    
-                    if ("none".equals(annot)) annot = "";
+                    String reqLang = getValueForKey(line, "requested-lang");
                     
                     StringBuilder buff = new StringBuilder();
                     buff.append(text.replace('+', ' '));
-                    buff.append("|").append(time);
-                    buff.append("|").append(getTypeFromParse(pPath));
-                    buff.append("|").append(annot);
-                    buff.append("|").append(filter);
+                    buff.append("|").append(reqLang);
                     results.add(buff.toString());
                 }
             }

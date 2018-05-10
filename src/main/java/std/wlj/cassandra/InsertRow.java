@@ -27,7 +27,7 @@ public class InsertRow {
             "  { 'type': '11', 'parent': 'Utah' }, " + 
             "  [ 'one', 'two', 'three' ],  " +
             " '2017-01-10', " + 
-            "  [ { rep_id: 111, raw_score: 90, rel_score: 85 }, { rep_id: 222, raw_score: 80, rel_score: 75 }, { rep_id: 333, raw_score: 70, rel_score: 65 } ], " + 
+            "  [ { 'rep_id': 111, 'raw_score': 90, 'rel_score': 85 }, { 'rep_id': 222, 'raw_score': 80, 'rel_score': 75 }, { 'rep_id': 333, 'raw_score': 70, 'rel_score': 65 } ], " + 
             "  [ 111, 222, 333 ], " +
             "  [ 90, 80, 70 ], " +
             "  [ 85, 75, 65 ] )";
