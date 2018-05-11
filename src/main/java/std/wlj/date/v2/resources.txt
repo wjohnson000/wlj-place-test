@@ -1,0 +1,36 @@
+https://github.com/isee15/Lunar-Solar-Calendar-Converter/tree/master/Javascript
+https://www.asia-home.com/china/lunarsol.php?lang=en
+http://www.math.harvard.edu/computing/javascript/Calendar/
+
+http://sinocal.sinica.edu.tw/ (Calendar converter ... in Chinese)
+
+www.familysearch.org/int-std-ws-date/dates/interp?text=順帝三年七月七日
+  -- +0128-08-20 (use WesternCalendar)
+  -- +1335-07-27 (use WesternCalendar)
+OR
+  -- +0128-08-19 (use GregorianCalendar)
+  -- +1335-08-04 (use GregorianCalendar)
+
+
+From Chuck Liu
+==============
+Based on an earlier copy of the Chinese eras file and an authentic tool that I use (http://sinocal.sinica.edu.tw/),
+I get the following Gregorian dates in Chinese with 順帝三年七月七日:
+
+In Han (Eastern Han or Dong Han)
+<emperor eraID="1226" year="144" name="順帝" dynasty="漢" reign="建康"/>  (out of limit)
+<emperor eraID="1227" year="142" name="順帝" dynasty="漢" reign="漢安"/>  (out of limit)
+<emperor eraID="1228" year="136" name="順帝" dynasty="漢" reign="永和"/>  西元138年8月29日
+<emperor eraID="1229" year="132" name="順帝" dynasty="漢" reign="陽嘉"/>  西元134年8月14日
+<emperor eraID="1230" year="126" name="順帝" dynasty="漢" reign="永建"/>  西元128年8月20日
+
+In Yuan  
+<emperor eraID="402" year="1341" name="順帝" dynasty="元" reign="至正"/>  西元1343年7月28日 
+<emperor eraID="403" year="1335" name="順帝" dynasty="元" reign="至元"/>  西元1337年8月3日 
+<emperor eraID="404" year="1333" name="順帝" dynasty="元" reign="元統"/>  西元1335年7月27日
+
+If the tool is accurate, and I believe so, Standards should return the six possible dates in green as shown
+above of which you had two, right on.
+
+Again, in usual and more practical cases, the names of the reign (as shown in blue above) would much more likely to
+be used with or without the names of the emperors, usually without.

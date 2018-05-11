@@ -33,7 +33,7 @@ public class CJKCalendarTable {
     private static final Logger LOGGER = new Logger(CJKCalendarTable.class);
     private static final CJKCalendarTable CJKCT = new CJKCalendarTable();
 
-    private static final String CJK_CALENDAR_FILENAME = "/std/wlj/date/v1/cjkCalendarTable.xml";
+    private static final String CJK_CALENDAR_FILENAME = "/std/wlj/date/v2/cjkCalendarTable.xml";
 
     // a known winter solstice -- 22 Dec 1990 03:08 UT
     private static final double SOLSTICE_0U = 2448247.63056;
@@ -62,22 +62,25 @@ public class CJKCalendarTable {
 
         // y is out of the range of the table
         //  calculate the jday of the vernal equinox, then calculate a LunarYearDescription
-        return getLunarYear(GregorianCalendar.getInstance().dayFromDayMonthYear(21, 3, y));
+        return getLunarYear(CalendarUtil.vernalEquinox(y));
     }
 
     public LunarYearDescription getLunarYear(AstroDay astro) {
         final int jday = astro.value();
         if (jday >= FIRST_JDAY && jday <= LAST_JDAY) {
-            int y = GregorianCalendar.getInstance().getYear(astro);
-            // since lunar calendar years and Gregorian years don't begin on the same day,
-            // if the jday as at the end of the lunar year, y may be the next Gregorian year (1 too high)
-            int x = y - FIRST_YEAR;
-
-            // lunarTable[x][0] contains the first day of the lunar year
-            if (lunarTable[x][0] > jday) {// if we have gone too far, back up a year
-                x--;// back up one lunar year
+            int xx = -1;
+            for (int ndx=0;  ndx<lunarTable.length-1 && xx == -1;  ndx++) {
+                if (jday >= lunarTable[ndx][0]  &&  jday < lunarTable[ndx+1][0]) {
+                    xx = ndx;
+                }
             }
-            return new LunarYearDescription(lunarTable[x][0], lunarTable[x][1], lunarTable[x][2]);
+            if (xx == -1  &&  jday >= lunarTable[lunarTable.length-1][0]) {
+                xx = lunarTable.length-1;
+            }
+
+            if (xx >= 0) {
+                return new LunarYearDescription(lunarTable[xx][0], lunarTable[xx][1], lunarTable[xx][2]);
+            }
         }
 
         // ======== calculate the solstice before and after the date ========

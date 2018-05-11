@@ -7,58 +7,23 @@ package std.wlj.date.v2;
  * @author Pete Blake
  * @author Wayne Johnson, May, 2018 (reworked)
  */
-public abstract class CJKCalendar implements Calendar {
-
-    public boolean isLunar() {
-        return true;
-    }
-
-    public int getYear(AstroDay day) {
-        return dmyFromDay(day).getYear();
-    }
-
-    public int getMonth(AstroDay day) {
-        return dmyFromDay(day).getMonth();
-    }
-
-    public int getDay(AstroDay day) {
-        return dmyFromDay(day).getDay();
-    }
-
-    /**
-     * Calculate a new jday from a jday and a number of years, accounting for leap years as per
-     * Western calendar rules.  For example, to calculate a jday for age 8, give the jday for the
-     * birthday and 8 years. The result will be the jday for the 8th birthday. The calculation
-     * accounts for leap years.
-     *
-     * @param years (either + or -) from jday
-     * @return a new jday 'years' years after 'jday'
-     */
-    public AstroDay addYears(AstroDay day, int years) {
-        if (day.value() < 1000) {
-            return AstroDay.INVALID;
-        }
-
-        DMY dmy = dmyFromDay(day);
-        dmy.setYear(dmy.getYear() + years);
-        return dayFromDMY(dmy, 0);
-    }
+public abstract class CJKCalendar {
 
     /**
      * Determine of the year is a leap year, i.e. a year containing a leap month
      *
      * @return true if the year contains a leap month, else false
      */
-    public boolean isLeapYear(int y) {
+    public static boolean isLeapYear(int y) {
         AstroDay astro = dayFromDayMonthYear(1, 1, y);
         return CJKCalendarTable.getInstance().getLunarYear(astro).getLeapMoon() > 0;
     }
 
-    public boolean isValidYear(int y) {
+    public static boolean isValidYear(int y) {
         return y >= -4000  &&  y < 3000;
     }
 
-    public boolean isValidMonth(int m, int y) {
+    public static boolean isValidMonth(int m, int y) {
         // in the cjk calendar, the year is irrelevant
         return m >= 1  &&  m <= 12;
     }
@@ -68,7 +33,7 @@ public abstract class CJKCalendar implements Calendar {
      *
      * @return true if d is a valid day in month m and year y, else false
      */
-    public boolean isValidDay(int d, int m, int y) {
+    public static boolean isValidDay(int d, int m, int y) {
         if (!isValidMonth(m, y)) {
             return false;
         } else if (d < 1  ||  d > 30) {
@@ -87,11 +52,7 @@ public abstract class CJKCalendar implements Calendar {
         return 1 == bit; // bit will be 1 if month m has 30 days
     }
 
-    public AstroDay dayFromDMY(DMY dmy, int n) {
-        return dayFromDayMonthYear(dmy.getDay(), dmy.getMonth(), dmy.getYear(), n);
-    }
-
-    public AstroDay dayFromDayMonthYear(int d, int m, int y) {
+    public static AstroDay dayFromDayMonthYear(int d, int m, int y) {
         return dayFromDayMonthYear(d, m, y, 0);
     }
 
@@ -104,7 +65,7 @@ public abstract class CJKCalendar implements Calendar {
      * @param i - month number of the intercalary month, or 0 (0-12)
      * @return the Astronomical (Julian) Day number from CJK day, month, year, intercalary month
      */
-    public AstroDay dayFromDayMonthYear(int day, int month, int year, int i) {
+    public static AstroDay dayFromDayMonthYear(int day, int month, int year, int i) {
         if (year == 0) {
             throw new IllegalArgumentException("Invalid year " + year);
         } else if (month < 0  ||  month > 12) {
@@ -176,66 +137,7 @@ public abstract class CJKCalendar implements Calendar {
         return AstroDay.getInstance(jday);
     }
 
-    /**
-     * Calculate Chinese, Japanese, Korean d, m, y from a julian day number
-     *
-     * @return a DMY object
-     */
-
-    public DMY dmyFromDay(AstroDay aday) {
-
-        // if the day is later than the table, revert to Gregorian
-        if (aday.value() > CJKCalendarTable.LAST_JDAY) {
-            return GregorianCalendar.getInstance().dmyFromDay(aday);
-        }
-
-        LunarYearDescription lyd = CJKCalendarTable.getInstance().getLunarYear(aday);
-        // calculate the moon (convert moon to month# below) and add days to the item jday until we
-        // equal the parameter
-        int m, d;
-        int jday = aday.value();// the target date
-
-        // beginning with the first day of the lunar year add days in each month until we reach the target
-        int jd = lyd.getJDay(); // the first day of the lunar year
-        int bits = lyd.getMoonBits();
-        for (m = 1;  m <= 13;  m++) {
-            d = 29 + (bits & 1); // days in month m
-            bits >>= 1; // shift the next month into place
-            if ((jd + d) > jday) {
-                break;
-            }
-            jd += d; // add the days in the current month
-        }
-        d = jday - jd + 1;
-
-        // === Convert moon to month#, adjust for the intercalary month ===
-        // Suppose the intercalary month is 7.  That means that moon == month thru the 7th moon, and
-        // the 8th moon is called intercalary month 7.  So when m is 8 or higher, we return 7. Then
-        // m is decremented for any moon greater than 7 so the correct date string is generated. The
-        // date for the normal 7th month is EEnnY7MnnD whereas the intercalary 7th month (8th moon)
-        // is EEnnYI7MnnD, where I is the intercalary character U+958f.  Return the intercalary value
-        // to show that m is the intercalary month.
-        int n = lyd.getLeapMoon(); // the intercalary month or 0
-        int r = (m - 1) == n ? n : 0; // the intercalary month, or 0
-
-        // If there is an intercalary month and the moon is greater that the intercalary month, then
-        // the month number is one less than the moon number.
-        if (n > 0  &&  m > n) {
-            m--; // decr m if it is past the leap month
-        }
-
-        // get the Christian year, then add month and day
-        Calendar calendar = jday >= firstGregorian()
-                ? GregorianCalendar.getInstance()
-                : JulianCalendar.getInstance();
-        DMY dmy = calendar.dmyFromDay(aday); // yields d, m, y on the western calendar
-        dmy.setMonth(m); // lunar month
-        dmy.setDay(d); // lunar day
-        dmy.setIntercalary(r > 0); // intercalary ?
-        return dmy;
-    }
-
-    public int lastMonth() {
+    public static int lastMonth() {
         return 12;
     }
 

@@ -185,7 +185,6 @@ public abstract class CJKCalendar implements Calendar {
    */
 
   public DMY dmyFromDay(AstroDay aday) {
-System.out.println("CJKCalendar.dmyFromAstroDay");
     // if the day is later than the table, revert to Gregorian
     if (aday.value() > CJKCalendarTable.LAST_JDAY) {
       return GregorianCalendar.getInstance().dmyFromDay(aday);
