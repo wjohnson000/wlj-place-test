@@ -15,7 +15,8 @@ import org.familysearch.standards.date.v1.DateV1Shim;
  */
 public class ZzzTestV1Shim {
 
-    static String text = "順帝三年七月七日";
+//    static String text = "順帝三年七月七日";
+    static String text = "順帝丙寅叄年七月七日";
 
     public static void main(String... args) {
         try {
