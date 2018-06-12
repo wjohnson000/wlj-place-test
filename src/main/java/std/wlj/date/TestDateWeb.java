@@ -142,11 +142,12 @@ public class TestDateWeb {
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Accept", accept);
-
+System.out.println(url);
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
             String results = IOUtils.toString(ios, Charset.forName("UTF-8"));
             EntityUtils.consumeQuietly(response.getEntity());
+System.out.println(results);
             return results;
         } catch (Exception ex) {
             System.out.println("Url failed [" + url + "] --> " + ex.getMessage());

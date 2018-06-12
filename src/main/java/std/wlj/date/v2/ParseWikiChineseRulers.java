@@ -5,12 +5,14 @@ package std.wlj.date.v2;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
+
 
 /**
  * @author wjohnson000
@@ -62,16 +64,20 @@ public class ParseWikiChineseRulers {
 
     static final String filePath = "C:/temp/chinese-monarchs.html";
 
+    static boolean     newDynasty = true;
     static DynastyMini dynasty = null;
 
     static THead  reignNdx = null;
     static THead  eraNameNdx = null;
+    static THead  otherNameNdx = null;
     static THead  commonNameNdx = null;
     static THead  regnalNameNdx = null;
     static THead  templeNameNdx = null;
     static THead  courtesyNameNdx = null;
     static THead  personalNameNdx = null;
     static THead  posthumousNameNdx = null;
+
+    static List<String> results = new ArrayList<>();
 
 
     public static void main(String...args) {
@@ -87,7 +93,12 @@ public class ParseWikiChineseRulers {
             System.out.println("OOPS!! " + ex);
         }
 
-        System.out.println("Done ...");
+        System.out.println("\n");
+        results.forEach(System.out::println);
+
+        ParseWikiChineseRulersXML.createXML(results);
+
+        System.exit(0);
     }
 
     static void handleGeneric(Element element) {
@@ -105,6 +116,9 @@ public class ParseWikiChineseRulers {
 
         reignNdx = null;
         eraNameNdx = null;
+        otherNameNdx = null;
+        commonNameNdx = null;
+        regnalNameNdx = null;
         templeNameNdx = null;
         courtesyNameNdx = null;
         personalNameNdx = null;
@@ -117,6 +131,7 @@ public class ParseWikiChineseRulers {
             .findFirst().orElse(null);
 
         if (headline != null) {
+            newDynasty = true;
             dynasty = parseDynasty(headline.text());
         }
     }
@@ -188,7 +203,6 @@ public class ParseWikiChineseRulers {
 
     static void handleTable(Element tableElement) {
         if (dynasty != null) {
-            System.out.println("\n");
             int numCol = setHeaderNdx(tableElement);
             if (numCol > 0) {
                 setEmperorDetails(tableElement, numCol);
@@ -227,6 +241,8 @@ public class ParseWikiChineseRulers {
                 templeNameNdx = new THead(ndx, colspan);
             } else if (head.startsWith("courtesy name")) {
                 courtesyNameNdx = new THead(ndx, colspan);
+            } else if (head.startsWith("other name")) {
+                otherNameNdx = new THead(ndx, colspan);
             } else if (head.startsWith("era names")) {
                 eraNameNdx = new THead(ndx, colspan);
             } else if (head.startsWith("reign")) {
@@ -253,49 +269,90 @@ public class ParseWikiChineseRulers {
             return;
         }
 
-        buff.append(dynasty.name);
-        buff.append("|").append(dynasty.description);
-        buff.append("|").append(dynasty.altName == null ? "" : dynasty.altName);
-        buff.append("|").append(dynasty.altDescription == null ? "" : dynasty.altDescription);
-        buff.append("|").append(dynasty.startYr == null ? "" : dynasty.startYr);
+        if (newDynasty) {
+            newDynasty = false;
+            buff.append(dynasty.name);
+            buff.append("|").append(dynasty.description);
+            buff.append("|").append(dynasty.altName == null ? "" : dynasty.altName);
+            buff.append("|").append(dynasty.altDescription == null ? "" : dynasty.altDescription);
+            buff.append("|").append(dynasty.startYr == null ? "" : dynasty.startYr);
+        } else {
+            buff.append("||||");
+        }
+        
+        if (commonNameNdx == null  ||  commonNameNdx.ndx >= row.length) {
+            buff.append("|");
+        } else {
+            buff.append("|").append(row[commonNameNdx.ndx].value);
+        }
 
         if (posthumousNameNdx == null  ||  posthumousNameNdx.ndx+1 >= row.length) {
             buff.append("|");
+        } else if (posthumousNameNdx.span == 1) {
+            buff.append("|").append(row[posthumousNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[posthumousNameNdx.ndx+1].value);
-        }
-
-        if (commonNameNdx == null  ||  commonNameNdx.ndx+1 >= row.length) {
-            buff.append("|");
-        } else {
-            buff.append("|").append(row[commonNameNdx.ndx+1].value);
         }
         
         if (regnalNameNdx == null  ||  regnalNameNdx.ndx+1 >= row.length) {
             buff.append("|");
+        } else if (regnalNameNdx.span == 1) {
+            buff.append("|").append(row[regnalNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[regnalNameNdx.ndx+1].value);
         }
         
         if (templeNameNdx == null  ||  templeNameNdx.ndx+1 >= row.length) {
             buff.append("|");
+        } else if (templeNameNdx.span == 1) {
+            buff.append("|").append(row[templeNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[templeNameNdx.ndx+1].value);
         }
 
         if (courtesyNameNdx == null  ||  courtesyNameNdx.ndx+1 >= row.length) {
             buff.append("|");
+        } else if (courtesyNameNdx.span == 1) {
+            buff.append("|").append(row[courtesyNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[courtesyNameNdx.ndx+1].value);
         }
 
+        if (otherNameNdx == null  ||  otherNameNdx.ndx+1 >= row.length) {
+            buff.append("|");
+        } else if (otherNameNdx.span == 1) {
+            buff.append("|").append(row[otherNameNdx.ndx].value);
+        } else {
+            buff.append("|").append(row[otherNameNdx.ndx+1].value);
+        }
+
         if (personalNameNdx == null  ||  personalNameNdx.ndx+1 >= row.length) {
             buff.append("|");
+        } else if (personalNameNdx.span == 1) {
+            buff.append("|").append(row[personalNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[personalNameNdx.ndx+1].value);
         }
 
-        System.out.println(buff.toString());
+        if (reignNdx == null) {
+            buff.append("|");
+        } else {
+            buff.append("|").append(row[reignNdx.ndx].value);
+        }
+
+        if (eraNameNdx == null) {
+            buff.append("||||");
+        } else {
+            for (int i=0;  i<4;  i++) {
+                if (i >= eraNameNdx.span) {
+                    buff.append("|");
+                } else {
+                    buff.append("|").append(row[eraNameNdx.ndx+i].value);
+                }
+            }
+        }
+
+        results.add(buff.toString());
     }
 
     static TDetail[] getRow(Element tr, TDetail[] row) {
@@ -310,7 +367,7 @@ public class ParseWikiChineseRulers {
         for (int i=0;  i<tds.size();  i++) {
             Element td = tds.get(i);
             String value = td.text();
-            if (value.equals("-")) {
+            if (value.equals("-")  ||  value.equals("–")) {
                 value = "";
             }
 
@@ -352,5 +409,4 @@ public class ParseWikiChineseRulers {
 
         return newRow;
     }
-
 }

@@ -51,7 +51,8 @@ public class ZzzDoInterp {
         "魏道武帝皇始三年七月七日", 
     };
 
-    static String baseUrl = "http://localhost:8080/std-ws-date/dates/interp?text=%s&langHint=zh";
+//    static String baseUrl = "http://localhost:8080/std-ws-date/dates/interp?text=%s&langHint=zh";
+    static String baseUrl = "http://ws.date.std.cmn.beta.us-east-1.test.fslocal.org/dates/interp?text=%s&langHint=zh";
     static String addExp  = "&experiments=use.v2.cjk";
 
     static PoolingHttpClientConnectionManager httpConnManager = new PoolingHttpClientConnectionManager();

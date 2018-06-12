@@ -20,11 +20,11 @@ public class SolrManager {
 
 //    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.std.cmn.beta.us-east-1.test.fslocal.org/places";
 //    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.std.cmn.beta.us-east-1.test.fslocal.org/places";
-    private static final String AWS_URL_BETA_MASTER    = "https://beta.familysearch.org/int-solr/places";
-    private static final String AWS_URL_BETA_REPEATER  = "https://beta.familysearch.org/int-solr-repeater/places";
+    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.std.cmn.beta.us-east-1.test.fslocal.org/places";
+    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.std.cmn.beta.us-east-1.test.fslocal.org/placess";
 
-    private static final String AWS_URL_PROD_MASTER    = "https://www.familysearch.org/int-solr/places";
-    private static final String AWS_URL_PROD_REPEATER  = "https://www.familysearch.org/int-solr-repeater/places";
+    private static final String AWS_URL_PROD_MASTER    = "http://ws.solr.std.cmn.prod.us-east-1.prod.fslocal.org/places";
+    private static final String AWS_URL_PROD_REPEATER  = "http://ws.solr-repeater.std.cmn.prod.us-east-1.prod.fslocal.org/places";
 
     // ============================================================================================
     // Methods to return a 'SolrConnection' instance

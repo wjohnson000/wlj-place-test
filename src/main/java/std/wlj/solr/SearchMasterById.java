@@ -17,11 +17,11 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    static final int MAX_ROWS = 25000;
+    static final int MAX_ROWS = 50;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsDevConnection(false);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
@@ -32,7 +32,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("usa");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
-        SolrQuery query = new SolrQuery("parentId:6085");
+//        SolrQuery query = new SolrQuery("parentId:6085");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
@@ -45,10 +45,10 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-//        Calendar cnow = Calendar.getInstance();
-//        cnow.add(Calendar.HOUR_OF_DAY, -1);
-//        Date dnow = new Date(cnow.getTimeInMillis());
-//        SolrQuery query = new SolrQuery("lastUpdateDate: [" + SOLR_DATE_FORMAT.format(dnow) + " TO *]");
+        Calendar cnow = Calendar.getInstance();
+        cnow.add(Calendar.HOUR_OF_DAY, -1);
+        Date dnow = new Date(cnow.getTimeInMillis());
+        SolrQuery query = new SolrQuery("lastUpdateDate: [" + SOLR_DATE_FORMAT.format(dnow) + " TO *]");
 
 //        SolrQuery query = new SolrQuery("type:81");
 //        query.addFilterQuery("-deleteId:[0 TO *]");
@@ -62,35 +62,35 @@ public class SearchMasterById {
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());
 
-//        for (PlaceRepDoc doc : docs) {
-//            System.out.println("\nID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
-//            System.out.println("  Place:  " + doc.getPlaceId());
-//            System.out.println("  Par-Id: " + doc.getParentId());
-//            System.out.println("  Typ-Id: " + doc.getType());
-//            System.out.println("  Locale: " + doc.getPrefLocale());
-//            System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
-//            System.out.println("  FromTo: " + doc.getStartYear() + " - " + doc.getEndYear());
-//            System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
-//            System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + "," + doc.getLongitude());
-//            System.out.println("  Publsh: " + doc.isPublished());
-//            System.out.println("  Validd: " + doc.isValidated());
-//            System.out.println("  PrefBd: " + doc.getPreferredBoundaryId());
-//            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
-//            System.out.println("  TGroup: " + doc.getTypeGroup());
-//
-//            doc.getDisplayNames().stream().limit(MAX_ROWS).forEach(dispName -> System.out.println("  D-Name: " + dispName));
-//            doc.getVariantNames().stream().limit(MAX_ROWS).forEach(varName -> System.out.println("  V-Name: " + varName));
-//            doc.getNames().stream().limit(MAX_ROWS).forEach(nName -> System.out.println("  N-Name: " + nName));
-//            doc.getAttributes().stream().limit(MAX_ROWS).forEach(attr -> System.out.println("    Attr: " + attr));
-//            doc.getCitations().stream().limit(MAX_ROWS).forEach(citn -> System.out.println("    Citn: " + citn));
-//            doc.getAltJurisdictions().stream().limit(MAX_ROWS).forEach(altJuris -> System.out.println("    AltJ: " + altJuris));
-//            doc.getExtXrefs().stream().limit(MAX_ROWS).forEach(xref -> System.out.println("    Xref: " + xref));
-//            doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
-//
-//            for (AttributeBridge ab : doc.getAllAttributes()) {
-//                System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle());
-//            }
-//        }
+        for (PlaceRepDoc doc : docs) {
+            System.out.println("\nID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
+            System.out.println("  Place:  " + doc.getPlaceId());
+            System.out.println("  Par-Id: " + doc.getParentId());
+            System.out.println("  Typ-Id: " + doc.getType());
+            System.out.println("  Locale: " + doc.getPrefLocale());
+            System.out.println("  P-Rang: " + doc.getOwnerStartYear() + " - " + doc.getOwnerEndYear());
+            System.out.println("  FromTo: " + doc.getStartYear() + " - " + doc.getEndYear());
+            System.out.println("  Del-Id: " + doc.getDeleteId() + " . " + doc.getPlaceDeleteId());
+            System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + "," + doc.getLongitude());
+            System.out.println("  Publsh: " + doc.isPublished());
+            System.out.println("  Validd: " + doc.isValidated());
+            System.out.println("  PrefBd: " + doc.getPreferredBoundaryId());
+            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            System.out.println("  TGroup: " + doc.getTypeGroup());
+
+            doc.getDisplayNames().stream().limit(MAX_ROWS).forEach(dispName -> System.out.println("  D-Name: " + dispName));
+            doc.getVariantNames().stream().limit(MAX_ROWS).forEach(varName -> System.out.println("  V-Name: " + varName));
+            doc.getNames().stream().limit(MAX_ROWS).forEach(nName -> System.out.println("  N-Name: " + nName));
+            doc.getAttributes().stream().limit(MAX_ROWS).forEach(attr -> System.out.println("    Attr: " + attr));
+            doc.getCitations().stream().limit(MAX_ROWS).forEach(citn -> System.out.println("    Citn: " + citn));
+            doc.getAltJurisdictions().stream().limit(MAX_ROWS).forEach(altJuris -> System.out.println("    AltJ: " + altJuris));
+            doc.getExtXrefs().stream().limit(MAX_ROWS).forEach(xref -> System.out.println("    Xref: " + xref));
+            doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
+
+            for (AttributeBridge ab : doc.getAllAttributes()) {
+                System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle());
+            }
+        }
         
 //        for (PlaceRepDoc doc : docs) {
 //            String dispName = doc.getDisplayName("en");
