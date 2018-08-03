@@ -51,7 +51,6 @@ public class PomParser {
 
 		PomFile pomFile = new PomFile();
 		Plugin plugin = null;
-		Dependency parent = null;
 		Dependency dependency = null;
 
 		for (String line : lines) {
@@ -73,10 +72,9 @@ public class PomParser {
 
 			if (isParent(tagValue)) {
 				inParent = true;
-				parent = new Dependency();
+				pomFile.parent = new Dependency();
 			} else if (isParentEnd(tagValue)) {
 				inParent = false;
-				parent = null;
 			} else if (isProperties(tagValue)) {
 				inProperties = true;
 			} else if (isPropertiesEnd(tagValue)) {
@@ -130,7 +128,7 @@ public class PomParser {
 					}
 				} else if (isGroupId(tagValue)) {
 					if (inParent) {
-						parent.groupId = tagValue.value;
+					    pomFile.parent.groupId = tagValue.value;
 					} else if (inPlugin) {
 						plugin.groupId = tagValue.value;
 					} else if (inDependency) {
@@ -140,7 +138,7 @@ public class PomParser {
 					}
 				} else if (isArtifactId(tagValue)) {
 					if (inParent) {
-						parent.artifactId = tagValue.value;
+					    pomFile.parent.artifactId = tagValue.value;
 					} else if (inPlugin) {
 						plugin.artifactId = tagValue.value;
 					} else if (inDependency) {
@@ -150,7 +148,7 @@ public class PomParser {
 					}
 				} else if (isVersion(tagValue)) {
 					if (inParent) {
-						parent.version = tagValue.value;
+					    pomFile.parent.version = tagValue.value;
 					} else if (inPlugin) {
 						plugin.version = tagValue.value;
 					} else if (inDependency) {
@@ -160,7 +158,7 @@ public class PomParser {
 					}
 				} else if (isScope(tagValue)) {
                     if (inParent) {
-                        parent.scope = tagValue.value;
+                        pomFile.parent.scope = tagValue.value;
                     } else if (inDependency) {
                         dependency.scope = tagValue.value;
                     }

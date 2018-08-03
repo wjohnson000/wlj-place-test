@@ -4,6 +4,7 @@
 package std.wlj.date;
 
 import org.familysearch.standards.date.cjk.CJKCalendarUtil;
+import org.familysearch.standards.date.cjk.CalendarUtil;
 import org.familysearch.standards.date.cjk.DMY;
 
 /**
@@ -18,10 +19,10 @@ public class CalcJulianDay {
         int jday = CJKCalendarUtil.dayFromDayMonthYear(5, 5, 1162);
         System.out.println("JDAY: " + jday);
 
-        DMY dmyJ = CJKCalendarUtil.dmyJulian(jday);
+        DMY dmyJ = CalendarUtil.dmyJulian(jday);
         System.out.println("DMY: " + dmyJ.getYear() + " . " + dmyJ.getMonth() + " . " + dmyJ.getDay() + " . " + dmyJ.isIntercalary());
 
-        DMY dmyG = CJKCalendarUtil.dmyGregorian(jday);
+        DMY dmyG = CalendarUtil.dmyGregorian(jday);
         System.out.println("DMY: " + dmyG.getYear() + " . " + dmyG.getMonth() + " . " + dmyG.getDay() + " . " + dmyG.isIntercalary());
     }
 }

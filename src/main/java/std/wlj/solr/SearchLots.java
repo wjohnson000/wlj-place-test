@@ -19,7 +19,7 @@ public class SearchLots {
 
         long total = 0L;
         for (int cnt=0;  cnt<5555;  cnt++) {
-            int repId = random.nextInt(111111);
+            int repId = random.nextInt(11_111_111);
             SolrQuery query = new SolrQuery("repId:" + repId);
             query.setRows(2);
             query.setSort("repId", SolrQuery.ORDER.desc);

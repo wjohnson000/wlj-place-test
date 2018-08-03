@@ -37,10 +37,10 @@ public class ZzzToSimplifiedTwo {
     }
 
     private static String[] ZH_FILES = {
-        "/org/familysearch/standards/date/shared/imperial_zh.xml",
+//        "/org/familysearch/standards/date/shared/imperial_zh.xml",
 //        "/org/familysearch/standards/date/shared/modifier-dict.xml",
 //        "/org/familysearch/standards/date/shared/month-dict.xml",
-//        "/org/familysearch/standards/date/shared/numbers.xml",
+        "/org/familysearch/standards/date/shared/numbers.xml",
     };
 
     private static TraditionalToSimplifiedChineseMapper mapper;
@@ -64,6 +64,7 @@ public class ZzzToSimplifiedTwo {
             Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(zhFile), Charset.forName("UTF-8"));
             parser = factory.createXMLStreamReader(reader);
 
+            List<What> all = new ArrayList<>(1000);
             List<What> hani2hani = new ArrayList<>(1000);
             List<What> hant2hant = new ArrayList<>(1000);
             List<What> hans2hans = new ArrayList<>(1000);
@@ -103,6 +104,7 @@ public class ZzzToSimplifiedTwo {
                         what.meta = meta;
                         what.type = type;
 
+                        all.add(what);
                         if ("Hani".equals(what.script) && "Hani".equals(what.sScript)) {
                             hani2hani.add(what);
                         } else if ("Hant".equals(what.script) && "Hant".equals(what.sScript)) {
@@ -153,6 +155,39 @@ public class ZzzToSimplifiedTwo {
             System.out.println("HAN? to HAN? ...");
             System.out.println("---------------------------------------------------------------");
             other.forEach(System.out::println);
+
+            System.out.println();
+            System.out.println();
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("TRADITIONAL and SIMPLIFIED ...");
+            System.out.println("---------------------------------------------------------------");
+            for (What what : all) {
+                if (what.lang.startsWith("zh")) {
+                    if (! what.text.equals(what.sText)) {
+                        What match = all.stream()
+                            .filter(ww -> ww.text.equals(what.sText))
+                            .findFirst().orElse(null);
+                        if (match != null) {
+                            System.out.println(">>> " + what);
+                            System.out.println("  ? " + match);
+                        }
+                    }
+                }
+            }
+            System.out.println();
+            for (What what : all) {
+                if (what.lang.startsWith("zh")) {
+                    if (! what.text.equals(what.sText)) {
+                        What match = all.stream()
+                            .filter(ww -> ww.text.equals(what.sText))
+                            .findFirst().orElse(null);
+                        if (match == null) { 
+                            System.out.println(">>> " + what);
+                            System.out.println("  ? " + match);
+                        }
+                    }
+                }
+            }
         }
     }
 }

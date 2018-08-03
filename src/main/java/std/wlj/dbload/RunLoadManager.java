@@ -12,7 +12,7 @@ public class RunLoadManager {
 
         String solrURL = "http://localhost:8080/solr/places";
         LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceSams(8));
-        LoadManager.getInstance().acceptLoader(new FullLoader("some-user"));
+        LoadManager.getInstance().acceptLoader(new FullLoader("some-user", true, 4));
 
         while (! LoadManager.getInstance().isActive()) {
             try { Thread.sleep(10_000L); } catch(Exception ex) { }

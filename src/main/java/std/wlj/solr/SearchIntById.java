@@ -16,12 +16,12 @@ import std.wlj.util.SolrManager;
 public class SearchIntById {
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.localEmbeddedConnection("D:/solr/repeater-6.5.0");
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
 
         // Do a look-up by documents ...
         Map<Integer,PlaceRepDoc> uniqueDocs = new TreeMap<>();
 //        SolrQuery query = new SolrQuery("-createDate:[* TO *]");
-        SolrQuery query = new SolrQuery("repId:144");
+        SolrQuery query = new SolrQuery("repId:10905197");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("ownerId:3491780");
         query.setSort("repId", SolrQuery.ORDER.asc);

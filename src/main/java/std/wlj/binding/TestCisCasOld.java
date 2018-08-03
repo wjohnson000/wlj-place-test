@@ -11,15 +11,16 @@ import org.familysearch.identity.api.ThreadLocalIdentityContext;
 import org.familysearch.identity.api.impl.IdentityContextImpl;
 import org.familysearch.identity.api.impl.IdentityServiceImpl;
 import org.familysearch.identity.api.impl.IdentityTimerImpl;
-import org.familysearch.paas.binding.register.Environment;
-import org.familysearch.paas.binding.register.Region;
-import org.familysearch.paas.binding.register.ServiceLocator;
-import org.familysearch.paas.binding.register.ServiceLocatorConfig;
-import org.familysearch.paas.binding.register.Site;
+import org.familysearch.paas.binding.register.api.Environment;
+import org.familysearch.paas.binding.register.api.LocationResult;
+import org.familysearch.paas.binding.register.api.Region;
+import org.familysearch.paas.binding.register.api.ServiceLocator;
+import org.familysearch.paas.binding.register.api.ServiceLocatorConfig;
+import org.familysearch.paas.binding.register.api.Site;
 import org.familysearch.ws.identity.v4.schema.BaseUser;
 import org.familysearch.ws.identity.v4.schema.Identity;
 
-public class TestCisCas {
+public class TestCisCasOld {
 
     static String cisUrl = "http://cis.app.prod.id.fsglobal.net/cis-public-api";
     static String casUrl = "http://cas.app.prod.id.fsglobal.net/cas-public-api";
@@ -51,14 +52,14 @@ public class TestCisCas {
     }
 
     static String getCisUri() {
-        String locResult = locator.locateServiceUrl("cis-public-api.cis.ident.service");
-        System.out.println("CIS: " + locResult);
-        return locResult;
+        LocationResult locResult = locator.locateService("cis-public-api.cis.ident.service");
+        System.out.println("CIS: " + (locResult == null ? cisUrl : locResult.getUrl()));
+        return (locResult == null) ? cisUrl : locResult.getUrl();
     }
 
     static String getCasUri() {
-        String locResult = locator.locateServiceUrl("cas-public-api.cas.ident.service");
-        System.out.println("CAS: " + locResult);
-        return locResult;
+        LocationResult locResult = locator.locateService("cas-public-api.cas.ident.service");
+        System.out.println("CAS: " + (locResult == null ? casUrl : locResult.getUrl()));
+        return (locResult == null) ? casUrl : locResult.getUrl();
     }
 }
