@@ -21,7 +21,7 @@ import org.familysearch.standards.date.v1.DateV1Shim;
  * @author wjohnson000
  *
  */
-public class TestV1ShimAndV2 {
+public class TestDateLots {
 
 //    static String[] textes = {
 //        "順帝三年七月七日",
@@ -65,47 +65,23 @@ public class TestV1ShimAndV2 {
 //        textes.add("07 Frimaire AN08");
 //        textes.add("16 Illisible AN02");
 //        textes.add("00 Nivose AN12 ");
-//        textes.add("民國乙未（四十四）年五月五日");
-//        textes.add("民國乙未（四十四）五月五日");
-//        textes.add("民國乙未（四十四年）五月五日");
-
-//        textes.add("/");
-//        textes.add("\\");
-//        textes.add("31y");
-//        textes.add("p31y");
-//        textes.add("32y");
-//        textes.add("p32y");
-
-//        textes.add("1 Dec 1910 / 12 Jan 1911");
-//        textes.add("02/185");
-//        textes.add("14 Oct 1831 (age 71)");
-//        textes.add("4. jan 2000");
-
-        textes.add("02.01.2005-2007");
-        textes.add(". Född 1859-03-17");
-        textes.add("*Abt 1846");
-        textes.add("-20-1951");
-        textes.add("00-00-1875");
-        textes.add("03 maio y 1861");
+        textes.add("民國乙未（四十四）年五月五日");
+        textes.add("民國乙未（四十四）五月五日");
+        textes.add("民國乙未（四十四年）五月五日");
 
         for (String text : textes) {
             List<GenDateInterpResult> dates01 = new ArrayList<>();
             List<GenDateInterpResult> dates02 = new ArrayList<>();
 
-            System.out.println("\n" + text);
-
             try {
                 dates01 = DateV1Shim.interpDate(text);
-            } catch (Exception e) {
-                System.out.println("  V1.ext: " + e.getMessage());
-            }
+            } catch (GenDateParseException e) { }
 
             try {
                 dates02 = DateUtil.interpDate(text, StdLocale.CHINESE);
-            } catch (Exception e) {
-                System.out.println("  V2.ext: " + e.getMessage());
-            }
+            } catch (GenDateException e) { }
 
+            System.out.println("\n" + text);
             for (GenDateInterpResult date : dates01) {
                 System.out.println("  gx01: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
             }

@@ -16,7 +16,7 @@ import org.familysearch.standards.date.shared.SharedUtil;
  * @author wjohnson000
  *
  */
-public class TestDateV2 {
+public class TestRangeHandler {
     public static void main(String...arg) throws Exception {
         GenDateParser parser = new GenDateParser();
 
@@ -55,16 +55,18 @@ public class TestDateV2 {
 //        testDate(parser, "靈帝熹平三年", StdLocale.CHINESE);            // YES + YES*
 //        testDate(parser, "辛丑十一月十九日", StdLocale.CHINESE);        // YES (lots) + NO
 //        testDate(parser, "27 Jun 1913 (aged 69) Kell, Marion County, Illinois, USA", StdLocale.ENGLISH);
+        testDate(parser, "1800-1894", StdLocale.ENGLISH);
+        testDate(parser, "Between 1845 1850", StdLocale.ENGLISH);
+        testDate(parser, "after 1900", StdLocale.ENGLISH);
+        testDate(parser, "3 May 1903 to 12 may 1904", StdLocale.ENGLISH);
+        testDate(parser, "7/23/2001 to 8/14/2001", StdLocale.ENGLISH);
+        testDate(parser, "1957 1 23 to 1975 11 6", StdLocale.ENGLISH);
         testDate(parser, "Sept 3/14 1752", StdLocale.ENGLISH);
         testDate(parser, "Sept 3/14, 1752", StdLocale.ENGLISH);
         testDate(parser, "10-20 Mar 2020", StdLocale.ENGLISH);
         testDate(parser, "10-20 Mar, 2020", StdLocale.ENGLISH);
-        testDate(parser, "12/25 Mar 2020", StdLocale.ENGLISH);
-        testDate(parser, "12/25 Mar, 2020", StdLocale.ENGLISH);
         testDate(parser, "12-25 Mar 2020", StdLocale.ENGLISH);
         testDate(parser, "12-25 Mar, 2020", StdLocale.ENGLISH);
-        testDate(parser, "8/28 Mar 2020", StdLocale.ENGLISH);
-        testDate(parser, "8/28 Mar, 2020", StdLocale.ENGLISH);
     }
 
     static void testDate(GenDateParser parser, String text, StdLocale locale) {

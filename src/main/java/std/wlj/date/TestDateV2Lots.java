@@ -6,19 +6,19 @@ package std.wlj.date;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.parser.GenDateParser;
-import org.familysearch.standards.date.parser.handler.CJKImperialHandler;
 import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.shared.ThreadLocalExperiment;
-import org.familysearch.standards.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
@@ -26,112 +26,41 @@ import org.familysearch.standards.date.v1.DateV1Shim;
  */
 public class TestDateV2Lots {
 
-    static final Set<String> experiments = new HashSet<>();
-    static {
-        experiments.add(CJKImperialHandler.EXPERIMENT_ENABLE_V2);
-    }
+    private static final int NUM_THREADS = 1; // 24;
+    private static final ExecutorService exSvc = Executors.newFixedThreadPool(NUM_THREADS+1);
+    private static final List<String> results = new ArrayList<>(200_000);
 
     public static void main(String...arg) throws Exception {
-        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/zh-dates.txt"), Charset.forName("UTF-8"));
-        GenDateParser parser = new GenDateParser();
+        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/date-interp.txt"), Charset.forName("UTF-8"));
 
-        GenDateInterpResult resultWithExp = null;
-        GenDateInterpResult resultNoneExp = null;
-        GenDateInterpResult resultV1Shim  = null;
-        List<GenDateInterpResult> parseResult;
-
-        int matchCount = 0;
-        String prettyPrint;
-        List<String> okResults  = new ArrayList<>(datesToParse.size());
-        List<String> badResults = new ArrayList<>(datesToParse.size());
-
-        for (String dateToParse : datesToParse) {
-            resultNoneExp = null;
-            resultV1Shim = null;
-
-            try {
-                ThreadLocalExperiment.set(experiments);
-                parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.CHINESE));
-                resultWithExp = parseResult.get(0);
-
-                ThreadLocalExperiment.clear();
-                parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.CHINESE));
-                resultNoneExp = parseResult.get(0);
-                
-                parseResult = DateV1Shim.interpDate(dateToParse);
-                resultV1Shim = parseResult.get(0);
-
-                if (resultWithExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)  &&  resultNoneExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)) {
-                     prettyPrint = format(dateToParse, "", null, null, resultV1Shim);
-                } else if (resultWithExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)  &&  ! resultNoneExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)) {
-                    boolean match = resultNoneExp.getDate().toGEDCOMX().equals(resultV1Shim.getDate().toGEDCOMX());
-                    if (match) matchCount++;
-                    String message = (match) ? ">> MATCH <<" : "";
-                    prettyPrint = format(dateToParse, message, null, resultNoneExp, resultV1Shim);
-                } else if (! resultWithExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)  &&  resultNoneExp.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)) {
-                    boolean match = resultWithExp.getDate().toGEDCOMX().equals(resultV1Shim.getDate().toGEDCOMX());
-                    if (match) matchCount++;
-                    String message = (match) ? ">> MATCH <<" : "";
-                    prettyPrint = format(dateToParse, message, resultWithExp, null, resultV1Shim);
-                } else {
-                    String matchWith = resultWithExp.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE);
-                    String matchNone = resultNoneExp.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE);
-                    if (matchWith != null  &&  matchWith.equals(matchNone)) {
-                        boolean match = resultNoneExp.getDate().toGEDCOMX().equals(resultV1Shim.getDate().toGEDCOMX());
-                        if (match) matchCount++;
-                        String message = (match) ? ">> MATCH <<" : "";
-                        prettyPrint = format(dateToParse, message, null, resultNoneExp, resultV1Shim);
-                    } else {
-                        prettyPrint = format(dateToParse, ">> UNKNOWN <<", resultWithExp, resultNoneExp, resultV1Shim);
-                    }
-                }
-
-                okResults.add(prettyPrint);
-            } catch(Exception ex) {
-                prettyPrint = format(dateToParse, ex.getMessage(), resultWithExp, resultNoneExp, resultV1Shim);
-                badResults.add(prettyPrint);
-            }
+        long time0 = System.nanoTime();
+        for (int i=0;  i<NUM_THREADS;  i++) {
+            final int blah = i;
+            exSvc.submit(() -> runLots(datesToParse, 2+blah/5));
         }
 
-        System.out.println();
-        System.out.println();
-        okResults.forEach(System.out::println);
+        exSvc.shutdown();
+        exSvc.awaitTermination(20, TimeUnit.MINUTES);
+        long time1 = System.nanoTime();
 
-        System.out.println();
-        System.out.println();
-        badResults.forEach(System.out::println);
-
-        System.out.println("\n\nMatch-count=" + matchCount);
+        System.out.println("Total Time: " + (time1 - time0) / 1_000_000.0);
+        Files.write(Paths.get("C:/temp/date-new-new.txt"), results, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    static String format(String text, String message, GenDateInterpResult withExp, GenDateInterpResult noExp, GenDateInterpResult v1Shim) {
-        StringBuilder buff = new StringBuilder(128);
+    static void runLots(List<String> datesToParse, int skip) {
+        GenDateParser parser = new GenDateParser();
 
-        buff.append(text);
-
-        if (withExp == null) {
-            buff.append("||");
-        } else {
-            buff.append("|").append(withExp.getDate().toGEDCOMX());
-            buff.append("|").append(withExp.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+        List<GenDateInterpResult> parseResult;
+        for (int ndx=0;  ndx<datesToParse.size();  ndx+=skip) {
+            try {
+                String dateToParse = datesToParse.get(ndx);
+                parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH));
+                Boolean isV1 = (parseResult.isEmpty()) ? null : parseResult.get(0).getAttrAsBoolean(SharedUtil.ATTR_USED_V1);
+                String genDates = parseResult.stream()
+                        .map(res -> res.getDate().toGEDCOMX())
+                        .collect(Collectors.joining(", ", "  [", "]"));
+                results.add(dateToParse + "|" + isV1 + "|" + genDates);
+            } catch(Exception ex) { }
         }
-
-        if (noExp == null) {
-            buff.append("||");
-        } else {
-            buff.append("|").append(noExp.getDate().toGEDCOMX());
-            buff.append("|").append(noExp.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-        }
-
-        if (v1Shim == null) {
-            buff.append("||");
-        } else {
-            buff.append("|").append(v1Shim.getDate().toGEDCOMX());
-            buff.append("|").append(v1Shim.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-        }
-
-        buff.append("|").append(message);
-
-        return buff.toString();
     }
 }

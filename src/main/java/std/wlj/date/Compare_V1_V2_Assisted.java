@@ -15,38 +15,17 @@ import java.util.TreeMap;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.GenDateException;
 import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.GenDateParsingException;
+import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.shared.SharedUtil;
 import org.familysearch.standards.date.v1.DateV1Shim;
+import org.familysearch.standards.place.util.PlaceHelper;
 
 /**
  * @author wjohnson000
  *
  */
-public class Compare_V1_V2 {
-
-//    static String[] textes = {
-//        "順帝三年七月七日",
-//        "順帝丙寅叄年七月七日",
-//        "金世宗大定2年5月5日",
-//        "安政5年6月8日",
-//        "清世祖順治元年1月1日",
-//        "清世祖順治1年1月1日",
-//        "陳文帝天嘉年1月1日",
-//        "吳大帝嘉禾年1月1日",
-//        "民國10年10月10日",
-//        "安政5年6月8",
-//        "西元1921年11月9日",
-//        "宣統三年十二月三十日",
-//        "宣統三年十二月三十一日",
-//        "光緖丁酉年十一月二十九日",
-//        "朝鮮太祖洪武壬申年七月十七日", 
-//        "乾隆丙午年二月廿三日未時",
-//        "大正五年一月六號",
-//        "清世祖順治元年1月1日", 
-//    };
+public class Compare_V1_V2_Assisted {
 
     private static Map<String, List<GenDateInterpResult>> v1Results = new TreeMap<>();
     private static Map<String, List<GenDateInterpResult>> v2Results = new TreeMap<>();
@@ -57,12 +36,21 @@ public class Compare_V1_V2 {
     private static List<String> emptyRes = new ArrayList<>();
 
     public static void main(String... args) throws Exception {
-        List<String> textes = Files.readAllLines(Paths.get("C:/temp/zh-dates.txt"), Charset.forName("UTF-8"));
+        List<String> textes = Files.readAllLines(Paths.get("C:/temp/date-assisted.txt"), Charset.forName("UTF-8"));
         for (String text : textes) {
-            String tText = text.trim();
+            String[] chunks = PlaceHelper.split(text, '|');
+            String tText = chunks[0].trim();
+            String locale = chunks[1];
+            if (locale.isEmpty()) {
+                locale = chunks[2];
+            }
+            if (locale.isEmpty()) {
+                locale = "en";
+            }
+
             if (! tText.isEmpty()) {
                 v1Results.put(tText, getV1(tText));
-                v2Results.put(tText, getV2(tText));
+                v2Results.put(tText, getV2(tText, locale));
             }
         }
 
@@ -83,23 +71,24 @@ public class Compare_V1_V2 {
             }
         }
 
-        Files.write(Paths.get("C:/temp/cjk-match.txt"), matchRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Files.write(Paths.get("C:/temp/cjk-empty.txt"), emptyRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Files.write(Paths.get("C:/temp/cjk-oldV1.txt"), oldV1Res, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        Files.write(Paths.get("C:/temp/cjk-other.txt"), otherRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/fuzzy-match.txt"), matchRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/fuzzy-empty.txt"), emptyRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/fuzzy-oldV1.txt"), oldV1Res, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/fuzzy-other.txt"), otherRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static List<GenDateInterpResult> getV1(String text) {
         try {
             return DateV1Shim.interpDate(text);
-        } catch (GenDateParsingException e) {
+        } catch (GenDateException e) {
             return Collections.emptyList();
         }
     }
 
-    static List<GenDateInterpResult> getV2(String text) {
+    static List<GenDateInterpResult> getV2(String text, String locale) {
+        
         try {
-            return DateUtil.interpDate(text, StdLocale.CHINESE);
+            return DateUtil.interpDate(text, new StdLocale(locale));
         } catch (GenDateException e) {
             return Collections.emptyList();
         }
@@ -148,11 +137,24 @@ public class Compare_V1_V2 {
 
     static int getYear(GenDateInterpResult dateRes) {
         String gedcomx = dateRes.getDate().toGEDCOMX();
-        int ndx01 = gedcomx.indexOf('-');
-        if (ndx01 == 0) {
-            ndx01 = gedcomx.indexOf('-', 1);
+
+        if (gedcomx.startsWith("A")) {
+            gedcomx = gedcomx.substring(1);
         }
+        if (gedcomx.startsWith("/")) {
+            gedcomx = gedcomx.substring(1);
+        }
+        if (gedcomx.startsWith("A")) {
+            gedcomx = gedcomx.substring(1);
+        }
+
+        int ndx01 = gedcomx.indexOf('-', 1);
         String year = (ndx01 < 0) ? gedcomx : gedcomx.substring(0, ndx01);
+
+        int ndx02 = year.indexOf("/");
+        if (ndx02 > 0) {
+            year = year.substring(0, ndx02);
+        }
 
         try {
             return Integer.parseInt(year);

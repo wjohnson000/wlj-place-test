@@ -15,7 +15,8 @@ public class ParseWiki {
         "https://fr.wikipedia.org/wiki/13e_arrondissement_de_Paris",
         "https://en.wikipedia.org/wiki/Rexburg,_Idaho",
         "https://en.wikipedia.org/wiki/Yugoslavia",
-        "https://books.google.com/books?id=-84_kkgMf2QC&hl=en"
+        "https://books.google.com/books?id=-84_kkgMf2QC&hl=en",
+        "https://en.wikipedia.org/wiki/Canada"
     };
     
     private static PoolingHttpClientConnectionManager httpConnManager = new PoolingHttpClientConnectionManager();
