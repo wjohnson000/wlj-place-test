@@ -49,6 +49,7 @@ public class TestV1ShimAndV2 {
     }
 
     static void runTests() throws Exception {
+        List<String> results = new ArrayList<>();
 //        List<String> textes = Files.readAllLines(Paths.get("C:/temp/zh-dates-more.txt"), Charset.forName("UTF-8"));
         List<String> textes = new ArrayList<>();
         textes.clear();
@@ -69,24 +70,51 @@ public class TestV1ShimAndV2 {
 //        textes.add("民國乙未（四十四）五月五日");
 //        textes.add("民國乙未（四十四年）五月五日");
 
-//        textes.add("/");
-//        textes.add("\\");
-//        textes.add("31y");
-//        textes.add("p31y");
-//        textes.add("32y");
-//        textes.add("p32y");
-
 //        textes.add("1 Dec 1910 / 12 Jan 1911");
 //        textes.add("02/185");
 //        textes.add("14 Oct 1831 (age 71)");
 //        textes.add("4. jan 2000");
 
-        textes.add("02.01.2005-2007");
-        textes.add(". Född 1859-03-17");
-        textes.add("*Abt 1846");
-        textes.add("-20-1951");
-        textes.add("00-00-1875");
-        textes.add("03 maio y 1861");
+//        textes.add("02.01.2005-2007");
+//        textes.add(". Född 1859-03-17");
+//        textes.add("*Abt 1846");
+//        textes.add("-20-1951");
+//        textes.add("00-00-1875");
+//        textes.add("03 maio y 1861");
+
+//        textes.add("between 14 and 16 Sep 1920");
+//        textes.add("15 y 16 Feb 1926");
+//        textes.add("B1590 C1591 C1598");
+//        textes.add("19 and 20 Jul 1910");
+//        textes.add("zw 25 und 28 Jul 1743");
+
+//        textes.add("31y");
+//        textes.add("31Y");
+//        textes.add("p31y");
+//        textes.add("P31Y");
+//
+//        textes.add("31yr");
+//        textes.add("31YR");
+//        textes.add("p31yr");
+//        textes.add("P31YR");
+//
+//        textes.add("31yrs");
+//        textes.add("31YRS");
+//        textes.add("p31yrs");
+//        textes.add("P31YRS");
+//
+//        textes.add("33y");
+//        textes.add("33Y");
+//        textes.add("p33y");
+//        textes.add("P33Y");
+//
+//        textes.add("private");
+//        textes.add("Private");
+
+        textes.add("\\");
+        textes.add("/");
+        textes.add("//1913");
+        textes.add("-+-/-+-/1913");
 
         for (String text : textes) {
             List<GenDateInterpResult> dates01 = new ArrayList<>();
@@ -106,12 +134,18 @@ public class TestV1ShimAndV2 {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
 
+            results.add("");
+            results.add(text);
             for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
+                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
+                results.add("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
             }
             for (GenDateInterpResult date : dates02) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
+                results.add("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
             }
         }
+
+        results.forEach(System.out::println);
     }
 }

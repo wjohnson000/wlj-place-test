@@ -41,23 +41,48 @@ public class FindDupsAndDiacritic {
 
         for (String dictName : DICT_NAMES) {
             List<String> lines = getDictionaryResource(dictName);
-            Set<String> entries = new TreeSet<>();
-            
+            Set<String> allEntries = new TreeSet<>();
+            Set<String> dispEntries = new TreeSet<>();
+
+            int linenum = 0;
             String wgType = "";
             for (String line : lines) {
+                linenum++;
                 if (line.trim().startsWith("<word-group ")) {
                     wgType = getAttr(line, "type");
+//                    System.out.println(line);
                 } else if (line.trim().startsWith("<word ")) {
                     String lang = getAttr(line, "lang");
                     String type = getAttr(line, "type");
                     String meta = getAttr(line, "meta");
                     String valu = getValue(line);
-                    
-                    String entry = dictName + "|" + wgType + "|" + lang + "|" + type + "|" + meta + "|" + valu;
-                    if (entries.contains(entry)) {
-                        System.out.println(entry);
+
+                    if ("display".equalsIgnoreCase(meta)) {
+                        String entry = dictName + "|" + wgType + "|" + lang + "|" + type + "|" + meta + "|" + valu;
+                        dispEntries.add(entry.toLowerCase());
                     }
-                    entries.add(entry);
+
+                    boolean addIt = true;
+                    if ("variant".equalsIgnoreCase(meta)) {
+                        String entry = dictName + "|" + wgType + "|" + lang + "|" + type + "|" + "display" + "|" + valu;
+                        if (dispEntries.contains(entry.toLowerCase())) {
+                            addIt = false;
+                            entry = dictName + "|" + wgType + "|" + lang + "|" + type + "|" + meta + "|" + valu;
+                            System.out.println(entry + "|" + linenum + "|display");
+                        }
+                    }
+
+                    String entry = dictName + "|" + wgType + "|" + lang + "|" + type + "|" + meta + "|" + valu;
+                    if (allEntries.contains(entry)) {
+                        addIt = false;
+                        System.out.println(entry + "|" + linenum + "|duplicate");
+                    }
+                    if (addIt) {
+//                        System.out.println(line);
+                    }
+                    allEntries.add(entry);
+                } else {
+//                    System.out.println(line);
                 }
             }
         }
