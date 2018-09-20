@@ -25,9 +25,9 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:10909651");
+        SolrQuery query = new SolrQuery("repId:2974552");
 //        SolrQuery query = new SolrQuery("ownerId:2546");
-        SolrQuery query = new SolrQuery("repId:(10909652 10909651 7218720)");
+//        SolrQuery query = new SolrQuery("repId:(10909652 10909651 7218720)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("usa");

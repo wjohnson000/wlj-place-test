@@ -16,7 +16,7 @@ import java.util.List;
 public class ParseV1AssistedLog {
 
     static final String QQ   = "\"\"";
-    static final String path = "C:/temp/date-assisted.csv";
+    static final String path = "C:/temp/date-assisted-02.csv";
 
     public static void main(String...args) throws IOException {
         List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
@@ -28,7 +28,9 @@ public class ParseV1AssistedLog {
         String hint = getValue(line, "langHint");
         String lang = getValue(line, "accept-language");
         String gedx = getValue(line, "gedcomx");
-        System.out.println(text + "|" + hint + "|" + lang + "|" + gedx);
+        if (! text.isEmpty()) {
+            System.out.println(text + "|" + hint + "|" + lang + "|" + gedx);
+        }
     }
 
     static String getValue(String line, String key) {

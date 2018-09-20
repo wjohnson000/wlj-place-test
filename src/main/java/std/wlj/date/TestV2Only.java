@@ -15,13 +15,12 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
  *
  */
-public class TestV1ShimAndV2 {
+public class TestV2Only {
     public static void main(String... args) throws Exception {
         List<String> results = new ArrayList<>();
 
@@ -32,16 +31,9 @@ public class TestV1ShimAndV2 {
 //                    .mapToObj(ll -> Long.toHexString(ll))
 //                    .collect(Collectors.joining(" ", "[", "]"));
 //            System.out.println(text + " --> " + hex);
-            List<GenDateInterpResult> dates01 = new ArrayList<>();
             List<GenDateInterpResult> dates02 = new ArrayList<>();
 
             System.out.println("\n" + text);
-
-            try {
-                dates01 = DateV1Shim.interpDate(text);
-            } catch (Exception e) {
-                System.out.println("  V1.ext: " + e.getMessage());
-            }
 
             try {
                 dates02 = DateUtil.interpDate(text, StdLocale.CHINESE);
@@ -50,10 +42,6 @@ public class TestV1ShimAndV2 {
             }
 
             results.add("");
-            for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
-                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
-            }
             for (GenDateInterpResult date : dates02) {
                 System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
                 results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));

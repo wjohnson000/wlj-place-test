@@ -30,6 +30,7 @@ public class Compare_V1_V2_Assisted {
     private static Map<String, List<GenDateInterpResult>> v1Results = new TreeMap<>();
     private static Map<String, List<GenDateInterpResult>> v2Results = new TreeMap<>();
 
+    private static List<String> exactRes = new ArrayList<>();
     private static List<String> matchRes = new ArrayList<>();
     private static List<String> oldV1Res = new ArrayList<>();
     private static List<String> otherRes = new ArrayList<>();
@@ -59,6 +60,9 @@ public class Compare_V1_V2_Assisted {
             if (results.stream().allMatch(txt -> txt.contains("v1-only"))) {
                 oldV1Res.add("");
                 oldV1Res.addAll(results);
+            } else if (results.stream().allMatch(txt -> txt.contains("exact"))) {
+                exactRes.add("");
+                exactRes.addAll(results);
             } else if (results.stream().allMatch(txt -> txt.contains("match"))) {
                 matchRes.add("");
                 matchRes.addAll(results);
@@ -71,6 +75,7 @@ public class Compare_V1_V2_Assisted {
             }
         }
 
+        Files.write(Paths.get("C:/temp/fuzzy-exact.txt"), exactRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         Files.write(Paths.get("C:/temp/fuzzy-match.txt"), matchRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         Files.write(Paths.get("C:/temp/fuzzy-empty.txt"), emptyRes, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         Files.write(Paths.get("C:/temp/fuzzy-oldV1.txt"), oldV1Res, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -179,6 +184,8 @@ public class Compare_V1_V2_Assisted {
         } else if (v2Date == null) {
         } else if (v2Date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1)) {
             comment = "v1-only";
+        } else if (v1Date.getDate().toGEDCOMX().equalsIgnoreCase(v2Date.getDate().toGEDCOMX())) {
+            comment = "exact";
         } else {
             comment = "match";
         }

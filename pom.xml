@@ -166,7 +166,6 @@
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-lib-date</artifactId>
-            <!-- <version>${std.lib.date.version}</version> -->
             <version>1.8.1.b42</version>
         </dependency>
         <dependency>
@@ -420,6 +419,11 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.10.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bitplan</groupId>
+            <artifactId>mediawiki-japi</artifactId>
+            <version>0.1.02</version>
         </dependency>
    	</dependencies>
 
