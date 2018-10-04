@@ -261,15 +261,49 @@ public class TestV1ShimAndV2 {
 
 //        textes.add("順帝三年七月七日 - 天保 8");
 
-        textes.add("1921年11月9日");
-        textes.add("西元1921年11月9日");
-        textes.add("1921年11月9日 - 1941年03月19日");
-        textes.add("西元1921年11月9日 - 西元1941年03月19日");
-        textes.add("千九百二十一年十一月九日");
-        textes.add("西元千九百二十一年十一月九日");
-        textes.add("千九百二十一年十一月九 - 千九百四十一年三月十九日");
-        textes.add("西元千九百二十一年十一月九 - 西元千九百四十一年三月十九日");
+//        textes.add("1921年11月9日");
+//        textes.add("西元1921年11月9日");
+//        textes.add("1921年11月9日 - 1941年03月19日");
+//        textes.add("西元1921年11月9日 - 西元1941年03月19日");
+//        textes.add("千九百二十一年十一月九日");
+//        textes.add("西元千九百二十一年十一月九日");
+//        textes.add("千九百二十一年十一月九 - 千九百四十一年三月十九日");
+//        textes.add("西元千九百二十一年十一月九 - 西元千九百四十一年三月十九日");
 
+//        textes.add("[191_]-1974");
+//        textes.add("[191?]-1974");
+//        textes.add("[1910's]-1974");
+//        textes.add("[191-]-1974");
+//        textes.add("[19__]-1974");
+//        textes.add("[19??]-1974");
+//        textes.add("[1900s]-1974");
+//        textes.add("[19--]-1974");
+//
+//        textes.add("[1970]-1974");
+//        textes.add("[191_-1974]");
+//        textes.add("[191?-1974]");
+//        textes.add("[1910's-1974]");
+//        textes.add("[191--1974]");
+//        textes.add("[19__-1974]");
+//        textes.add("[19??-1974]");
+//        textes.add("[1900s-1974]");
+//        textes.add("[19---1974]");
+
+//        textes.add("21.3.02");
+//        textes.add("11.3.00");
+//        textes.add("11.3");
+
+//        textes.add("1901?");
+//        textes.add("24 Apr 1901?");
+//        textes.add("24 Apr 190?");
+
+//        textes.add("1900-2000,1833-1878");
+//        textes.add("1900-2000 ; 1833-1878");
+//        textes.add("1900-2000,1945"); 
+//        textes.add("1900-2000 ; Abt. 1945"); 
+//        textes.add("1888, 1890-1900 ");
+//        textes.add("1888 ; 1890-1900 ");
+//        textes.add("188? ; 1890-1900 , 1990's ");
 
         return textes;
     }

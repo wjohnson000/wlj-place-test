@@ -35,11 +35,11 @@ public class AttributeTest {
             placeRepB01.getAllAttributes().forEach(attrB -> print(attrB));
 
             System.out.println("\nNEW ........................................................................\n");
-            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 1900, 2000, "fr", "attr-value-fr", "http://my-whatever.com", "", "copyright", null, "wjohnson000", null);
+            AttributeBridge attrB01 = dataService.createAttribute(repId, 433, 1900, 2000, "fr", "attr-value-fr", null, "http://my-whatever.com", "", "copyright", null, "wjohnson000", null);
             print(attrB01);
 
             System.out.println("\nUPD ........................................................................\n");
-            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 1900, 2020, "fr", "attr-value-fr-new", "http://my-whatever.org", "my-whatever", "copyright", "http://copyright.com", "wjohnson000", null);
+            AttributeBridge attrB02 = dataService.updateAttribute(attrB01.getAttributeId(), repId, 433, 1900, 2020, "fr", "attr-value-fr-new", null, "http://my-whatever.org", "my-whatever", "copyright", "http://copyright.com", "wjohnson000", null);
             print(attrB02);
 
             System.out.println("\nALL ..........................................................................");

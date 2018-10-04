@@ -24,11 +24,11 @@ public class AttributeDbServiceTest {
             }
 
             System.out.println("\nNEW..............................................\n");
-            AttributeBridge attrB01 = dbServices.writeService.createAttribute(2, 433, 2020, null, "fr", "attr-value-fr", null, null, null, null, "wjohnson000", null);
+            AttributeBridge attrB01 = dbServices.writeService.createAttribute(2, 433, 2020, null, "fr", "attr-value-fr", null, null, null, null, null, "wjohnson000", null);
             System.out.println("ATTR: " + attrB01.getAttributeId() + "." + attrB01.getPlaceRep().getRepId() + " :: " + attrB01.getLocale() + " :: " + attrB01.getValue());
 
             System.out.println("\nUPD..............................................\n");
-            AttributeBridge attrB02 = dbServices.writeService.updateAttribute(attrB01.getAttributeId(), 2, 433, 2030, null, "fr", "attr-value-fr-new", null, null, null, null, "wjohnson000", null);
+            AttributeBridge attrB02 = dbServices.writeService.updateAttribute(attrB01.getAttributeId(), 2, 433, 2030, null, "fr", "attr-value-fr-new", null, null, null, null, null, "wjohnson000", null);
             System.out.println("ATTR: " + attrB02.getAttributeId() + "." + attrB02.getPlaceRep().getRepId() + " :: " + attrB02.getLocale() + " :: " + attrB02.getValue());
 
             System.out.println("\nALL..............................................\n");

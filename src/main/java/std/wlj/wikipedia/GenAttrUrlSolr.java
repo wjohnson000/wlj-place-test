@@ -196,7 +196,7 @@ public class GenAttrUrlSolr {
                     title = match.title;
                 }
             }
-            doc.addAttribute(attrId, typeId, fromYr, toYr, value, locale, url, title, cpyNte, cpyUrl);
+            doc.addAttribute(attrId, typeId, fromYr, toYr, value, null, locale, url, title, cpyNte, cpyUrl);
         }
     }
 
