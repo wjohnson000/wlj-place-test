@@ -101,8 +101,9 @@ public class TestV1ShimAndV2 {
 //        textes.add("二零零三年二月三");
 //        textes.add("二零零三年二月三日");
 //        textes.add("30 Floréal AN11");
+//        textes.add("2 complémentaire 3");
 //        textes.add("28 Brumaire AN04");
-//        textes.add("11 Vendémiaire AN04");
+//        textes.add("11 de Vendémiaire 04");
 //        textes.add("07 Frimaire AN08");
 //        textes.add("16 Illisible AN02");
 //        textes.add("00 Nivose AN12 ");
@@ -110,6 +111,10 @@ public class TestV1ShimAndV2 {
 //        textes.add("民國乙未（四十四）五月五日");
 //        textes.add("民國乙未（四十四年）五月五日");
 //
+//        textes.add("22 Feb/5 Mar 1752/3");
+//        textes.add("Sept 3/14, 1752");
+//        textes.add("10/21 Feb 1759/60");
+//        textes.add("1 Mar 1759/60");
 //        textes.add("1 Dec 1910 / 12 Jan 1911");
 //        textes.add("02/185");
 //        textes.add("14 Oct 1831 (age 71)");
@@ -304,6 +309,30 @@ public class TestV1ShimAndV2 {
 //        textes.add("1888, 1890-1900 ");
 //        textes.add("1888 ; 1890-1900 ");
 //        textes.add("188? ; 1890-1900 , 1990's ");
+
+//        textes.add("10-10-10");
+//        textes.add("10-10-32");
+//        textes.add("2018 - jun-0");
+//        textes.add("17 Fev 1863 (vue 183)");
+
+        textes.add("028 BC");
+        textes.add("28 BC");
+        textes.add("048 BC");
+        textes.add("09.05.1817");
+        textes.add("09.05.1817?");
+        textes.add("09-05-1817?");
+        textes.add("09/05/1817?");
+        textes.add("09/05/1817 ?");
+        textes.add("182-04-15");
+//        textes.add("1859sep5");
+//        textes.add("1998septiembre  07");
+//        textes.add("About 1825?");
+//        textes.add("abt 1700's");
+        textes.add("from 1960s to 1980s");
+        textes.add("late 1930s or possibly very early 1940s");
+        textes.add("October 3rd 191*");
+
+        textes.add("Sept. 5 1940?");
 
         return textes;
     }

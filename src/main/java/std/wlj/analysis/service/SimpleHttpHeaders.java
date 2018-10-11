@@ -1,5 +1,6 @@
 package std.wlj.analysis.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,6 +49,21 @@ public class SimpleHttpHeaders implements HttpHeaders {
     @Override
     public Map<String, Cookie> getCookies() {
         return null;
+    }
+
+    @Override
+    public String getHeaderString(String name) {
+        return null;
+    }
+
+    @Override
+    public Date getDate() {
+        return new Date();
+    }
+
+    @Override
+    public int getLength() {
+        return 0;
     }
 
 }

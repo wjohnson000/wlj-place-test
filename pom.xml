@@ -164,6 +164,11 @@
 		     <version>${std.ws.date.version}</version>
 		</dependency>
         <dependency>
+             <groupId>org.familysearch.standards</groupId>
+             <artifactId>std-ws-date-webservice</artifactId>
+             <version>${std.ws.date.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-lib-date</artifactId>
             <version>1.8.1.b42</version>

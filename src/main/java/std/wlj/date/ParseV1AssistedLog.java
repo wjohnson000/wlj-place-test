@@ -18,14 +18,14 @@ import java.util.List;
 public class ParseV1AssistedLog {
 
     static final String QQ   = "\"\"";
-    static final String path = "C:/temp/date-gedcomx.csv";
+    static final String path = "C:/temp/date-assisted-new.csv";
     static final List<String> details = new ArrayList<>();
 
     public static void main(String...args) throws IOException {
         List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
         results.forEach(ParseV1AssistedLog::getInterestingStuff);
 
-        Files.write(Paths.get("C:/temp/date-gedcomx.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/date-assisted-new.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static void getInterestingStuff(String line) {
