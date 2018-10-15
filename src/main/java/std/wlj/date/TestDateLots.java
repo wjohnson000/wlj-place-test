@@ -13,9 +13,6 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.exception.GenDateParseException;
-import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
@@ -70,23 +67,15 @@ public class TestDateLots {
         textes.add("民國乙未（四十四年）五月五日");
 
         for (String text : textes) {
-            List<GenDateInterpResult> dates01 = new ArrayList<>();
-            List<GenDateInterpResult> dates02 = new ArrayList<>();
+            List<GenDateInterpResult> dates = new ArrayList<>();
 
             try {
-                dates01 = DateV1Shim.interpDate(text);
-            } catch (GenDateParseException e) { }
-
-            try {
-                dates02 = DateUtil.interpDate(text, StdLocale.CHINESE);
+                dates = DateUtil.interpDate(text, StdLocale.CHINESE);
             } catch (GenDateException e) { }
 
             System.out.println("\n" + text);
-            for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
-            }
-            for (GenDateInterpResult date : dates02) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
+            for (GenDateInterpResult date : dates) {
+                System.out.println("  gx02: " + date.getDate().toGEDCOMX());
             }
         }
     }

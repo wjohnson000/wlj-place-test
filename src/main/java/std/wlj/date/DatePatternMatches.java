@@ -12,7 +12,6 @@ import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.parser.handler.FrenchRepublicanHandler;
-import org.familysearch.standards.date.shared.SharedUtil;
 import org.familysearch.standards.date.shared.ThreadLocalExperiment;
 
 /**
@@ -116,7 +115,7 @@ public class DatePatternMatches {
                 System.out.println("\n============================================================\n" + text);
                 List<GenDateInterpResult> dates = DateUtil.interpDate(text, StdLocale.ENGLISH);
                 for (GenDateInterpResult date : dates) {
-                    System.out.println("  date: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
+                    System.out.println("  date: " + date.getDate().toGEDCOMX());
                 }
             } catch (GenDateException e) { }
         }

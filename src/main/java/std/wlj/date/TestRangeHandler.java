@@ -10,7 +10,6 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.parser.GenDateParser;
-import org.familysearch.standards.date.shared.SharedUtil;
 
 /**
  * @author wjohnson000
@@ -79,7 +78,6 @@ public class TestRangeHandler {
                 StringBuilder buff = new StringBuilder(64);
                 buff.append(text);
                 buff.append("|").append(dateResult.get(len).getDate().toGEDCOMX());
-                buff.append("|").append(dateResult.get(len).getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
                 System.out.println(buff.toString());
             }
         } catch (GenDateException ex) {

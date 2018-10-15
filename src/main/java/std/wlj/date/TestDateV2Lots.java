@@ -18,7 +18,6 @@ import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.parser.GenDateParser;
-import org.familysearch.standards.date.shared.SharedUtil;
 
 /**
  * @author wjohnson000
@@ -55,11 +54,10 @@ public class TestDateV2Lots {
             try {
                 String dateToParse = datesToParse.get(ndx);
                 parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH));
-                Boolean isV1 = (parseResult.isEmpty()) ? null : parseResult.get(0).getAttrAsBoolean(SharedUtil.ATTR_USED_V1);
                 String genDates = parseResult.stream()
                         .map(res -> res.getDate().toGEDCOMX())
                         .collect(Collectors.joining(", ", "  [", "]"));
-                results.add(dateToParse + "|" + isV1 + "|" + genDates);
+                results.add(dateToParse + "|false|" + genDates);
             } catch(Exception ex) { }
         }
     }

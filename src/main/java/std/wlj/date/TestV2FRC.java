@@ -12,17 +12,12 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.exception.GenDateParseException;
-import org.familysearch.standards.date.parser.handler.FrenchRepublicanHandler;
-import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.shared.ThreadLocalExperiment;
-import org.familysearch.standards.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
  *
  */
-public class TestV1ShimAndV2FRC {
+public class TestV2FRC {
 
     static String[] textes = {
         "13 Pluviôse VI",
@@ -69,23 +64,15 @@ public class TestV1ShimAndV2FRC {
 
     static void runTests() throws Exception {
         for (String text : textes) {
-            List<GenDateInterpResult> dates01 = new ArrayList<>();
-            List<GenDateInterpResult> dates02 = new ArrayList<>();
+            List<GenDateInterpResult> dates = new ArrayList<>();
 
             System.out.println("\n" + text);
             try {
-                dates01 = DateV1Shim.interpDate(text);
-            } catch (GenDateParseException e) { }
-
-            try {
-                dates02 = DateUtil.interpDate(text, StdLocale.FRENCH);
+                dates = DateUtil.interpDate(text, StdLocale.FRENCH);
             } catch (GenDateException e) { }
 
-            for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
-            }
-            for (GenDateInterpResult date : dates02) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX() + "  [" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1) + "]");
+            for (GenDateInterpResult date : dates) {
+                System.out.println("  gx02: " + date.getDate().toGEDCOMX());
             }
         }
     }

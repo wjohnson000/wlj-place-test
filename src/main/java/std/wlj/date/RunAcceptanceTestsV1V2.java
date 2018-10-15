@@ -15,9 +15,6 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.exception.GenDateParseException;
-import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
@@ -31,7 +28,6 @@ public class RunAcceptanceTestsV1V2 {
 
     static void runTests() throws Exception {
         StringBuilder buff = new StringBuilder(100_000);
-        List<GenDateInterpResult> dates01 = new ArrayList<>();
         List<GenDateInterpResult> dates02 = new ArrayList<>();
 
         List<String> textes = loadTestDates("Interp_Entries");
@@ -48,25 +44,15 @@ public class RunAcceptanceTestsV1V2 {
 
                 if (! "gedcomx".equals(expected)) {
                     try {
-                        dates01 = DateV1Shim.interpDate(interp);
-                    } catch (GenDateParseException e) { }
-                    
-                    try {
                         dates02 = DateUtil.interpDate(interp, new StdLocale(locale));
                     } catch (GenDateException e) { }
 
-                    String date01Res = dates01.stream()
-                        .map(date -> date.getDate().toGEDCOMX())
-                        .collect(Collectors.joining("|", "\n|v1|", ""));
-
                     String date02Res = dates02.stream()
-                        .filter(date -> ! date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1))
                         .map(date -> date.getDate().toGEDCOMX())
                         .collect(Collectors.joining("|", "\n|v2|", ""));
 
                     buff.append("\n").append("\n");
                     buff.append(interp).append("|").append(expected).append("|").append(date02Res.contains(expected));
-                    buff.append(date01Res);
                     buff.append(date02Res);
                 }
             }

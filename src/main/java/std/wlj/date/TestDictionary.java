@@ -49,6 +49,7 @@ public class TestDictionary {
         Dictionary dict = MonthDictionary.getMonthDictionary();
 
         // Seed the silly thing ...
+        @SuppressWarnings("unused")
         List<Word> feb = dict.findWords(null, "02", "en");
 
         for (String name : moNams) {

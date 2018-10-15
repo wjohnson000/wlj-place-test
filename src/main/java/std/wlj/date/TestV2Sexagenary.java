@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.jira;
+package std.wlj.date;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,16 @@ import org.familysearch.standards.date.GenDateInterpResult;
  * @author wjohnson000
  *
  */
-public class STD_89937 {
+public class TestV2Sexagenary {
 
     static String[] textes = {
-        "22 Feb/5 Mar 1752/3",
-        "Sept 3/14, 1752",
-        "10/21 Feb 1759/60", 
+//        "乙巳",
+//        "乙巳年",
+//        "乙巳年五",
+//        "乙巳年五月",
+//        "乙巳年五月十",
+//        "乙巳年五月十日",
+        "六十甲子",
     };
 
     public static void main(String... args) throws Exception {
@@ -28,18 +32,15 @@ public class STD_89937 {
     }
 
     static void runTests() throws Exception {
+        List<GenDateInterpResult> dates = new ArrayList<>();
+
         for (String text : textes) {
-            List<GenDateInterpResult> dates02 = new ArrayList<>();
-
-            System.out.println("\n================================================================================");
-            System.out.println(text);
-            System.out.println("================================================================================");
-
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                dates = DateUtil.interpDate(text, StdLocale.CHINESE);
             } catch (GenDateException e) { }
 
-            for (GenDateInterpResult date : dates02) {
+            System.out.println("\n=============================================================\n" + text);
+            for (GenDateInterpResult date : dates) {
                 System.out.println("  gx02: " + date.getDate().toGEDCOMX());
             }
         }

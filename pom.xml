@@ -170,11 +170,6 @@
         </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
-            <artifactId>std-lib-date</artifactId>
-            <version>1.8.1.b42</version>
-        </dependency>
-        <dependency>
-            <groupId>org.familysearch.standards</groupId>
             <artifactId>std-ws-analysis-dal</artifactId>
             <version>${std.ws.analysis.version}</version>
             <exclusions>

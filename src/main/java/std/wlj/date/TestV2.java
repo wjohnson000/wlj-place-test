@@ -9,19 +9,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
-import org.familysearch.standards.date.v1.DateV1Shim;
+
+import std.wlj.date.v1.DateV1Shim;
 
 /**
  * @author wjohnson000
  *
  */
-public class TestV1ShimAndV2 {
+public class TestV2 {
     public static void main(String... args) throws Exception {
         List<String> results = new ArrayList<>();
 
@@ -40,7 +39,7 @@ public class TestV1ShimAndV2 {
             try {
                 dates01 = DateV1Shim.interpDate(text);
             } catch (Exception e) {
-                System.out.println("  V1.ext: " + e.getMessage());
+                System.out.println("  V2.ext: " + e.getMessage());
             }
 
             try {
@@ -51,12 +50,12 @@ public class TestV1ShimAndV2 {
 
             results.add("");
             for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
-                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
+                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX());
+                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX());
             }
             for (GenDateInterpResult date : dates02) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
-                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsBoolean(SharedUtil.ATTR_USED_V1));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX());
+                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX());
             }
         }
 
@@ -324,10 +323,10 @@ public class TestV1ShimAndV2 {
         textes.add("09/05/1817?");
         textes.add("09/05/1817 ?");
         textes.add("182-04-15");
-//        textes.add("1859sep5");
-//        textes.add("1998septiembre  07");
-//        textes.add("About 1825?");
-//        textes.add("abt 1700's");
+        textes.add("1859sep5");
+        textes.add("1998septiembre  07");
+        textes.add("About 1825?");
+        textes.add("abt 1700's");
         textes.add("from 1960s to 1980s");
         textes.add("late 1930s or possibly very early 1940s");
         textes.add("October 3rd 191*");
