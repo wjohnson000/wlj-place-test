@@ -3,8 +3,8 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.date.GenSimpleDate;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.GenSimpleDate;
 
 /**
  * @author wjohnson000

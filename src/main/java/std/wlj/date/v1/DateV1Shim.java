@@ -13,10 +13,10 @@ import org.familysearch.standards.date.DateDetail;
 import org.familysearch.standards.date.DateInterpretation;
 import org.familysearch.standards.date.DateRange;
 import org.familysearch.standards.date.DisjunctiveDate;
-import org.familysearch.standards.date.GenDate;
-import org.familysearch.standards.date.GenDateInterpResult;
-import org.familysearch.standards.date.GenRangeDate;
-import org.familysearch.standards.date.GenSimpleDate;
+import org.familysearch.standards.date.model.GenDate;
+import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.model.GenRangeDate;
+import org.familysearch.standards.date.model.GenSimpleDate;
 import org.familysearch.standards.date.GenealogicalDateImpl;
 import org.familysearch.standards.date.SimpleDate;
 import org.familysearch.standards.date.exception.GenDateException;
@@ -63,8 +63,8 @@ public class DateV1Shim {
     }
 
 
-    public static List<GenDateInterpResult> interpDate(String originalText) throws GenDateException {
-        List<GenDateInterpResult>   interps = new ArrayList<>();
+    public static List<org.familysearch.standards.date.model.GenDateInterpResult> interpDate(String originalText) throws GenDateException {
+        List<org.familysearch.standards.date.model.GenDateInterpResult>   interps = new ArrayList<>();
         List<GenDate>               dates = new ArrayList<>();
 
         GenealogicalDate gd = GenealogicalDate.getInstance(originalText);

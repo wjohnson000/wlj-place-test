@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.GenDate;
+import org.familysearch.standards.date.model.GenDate;
 
 /**
  * @author wjohnson000

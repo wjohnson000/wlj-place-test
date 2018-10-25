@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.GenDateInterpResult;
+import org.familysearch.standards.date.model.GenDateInterpResult;
 import org.familysearch.standards.date.parser.GenDateParser;
 
 /**

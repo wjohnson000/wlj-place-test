@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.GenDateInterpResult;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.GenDateInterpResult;
 import org.familysearch.standards.date.parser.GenDateParser;
 
 /**

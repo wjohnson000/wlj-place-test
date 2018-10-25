@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.GenDateInterpResult;
+import org.familysearch.standards.date.model.GenDateInterpResult;
 
 import std.wlj.date.v1.DateV1Shim;
 
@@ -314,24 +314,37 @@ public class TestV2 {
 //        textes.add("2018 - jun-0");
 //        textes.add("17 Fev 1863 (vue 183)");
 
-        textes.add("028 BC");
-        textes.add("28 BC");
-        textes.add("048 BC");
-        textes.add("09.05.1817");
-        textes.add("09.05.1817?");
-        textes.add("09-05-1817?");
-        textes.add("09/05/1817?");
-        textes.add("09/05/1817 ?");
-        textes.add("182-04-15");
-        textes.add("1859sep5");
-        textes.add("1998septiembre  07");
-        textes.add("About 1825?");
-        textes.add("abt 1700's");
-        textes.add("from 1960s to 1980s");
-        textes.add("late 1930s or possibly very early 1940s");
-        textes.add("October 3rd 191*");
+//        textes.add("028 BC");
+//        textes.add("28 BC");
+//        textes.add("048 BC");
+//        textes.add("09.05.1817");
+//        textes.add("09.05.1817?");
+//        textes.add("09-05-1817?");
+//        textes.add("09/05/1817?");
+//        textes.add("09/05/1817 ?");
+//        textes.add("182-04-15");
+//        textes.add("1859sep5");
+//        textes.add("1998septiembre  07");
+//        textes.add("About 1825?");
+//        textes.add("abt 1700's");
+//        textes.add("from 1960s to 1980s");
+//        textes.add("late 1930s or possibly very early 1940s");
+//        textes.add("October 3rd 191*");
 
-        textes.add("Sept. 5 1940?");
+//        textes.add("Sept. 5 1940?");
+
+//        textes.add("대략 10");
+//        textes.add("추정18");
+//        textes.add("約10年");
+//        textes.add("대략 1910");
+//        textes.add("추정1918");
+//        textes.add("約1910年");
+
+//        textes.add("8/17/18 12:31 am");
+//        textes.add("10/15/18 7:00 pm");
+//        textes.add("6/8/22");
+
+        textes.add("19-25 March 1803");
 
         return textes;
     }

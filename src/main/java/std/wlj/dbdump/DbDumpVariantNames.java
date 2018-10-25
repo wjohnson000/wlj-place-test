@@ -11,7 +11,7 @@ public class DbDumpVariantNames {
     static final String fileName = "variant-name-all.txt";
 
     static final String query =
-            "SELECT plc.place_id, plc.delete_id, var.locale, var.text, var.name_id, var.tran_id, var.delete_flag " +
+            "SELECT plc.place_id, plc.delete_id, var.locale, var.text, var.name_id, var.type_id, var.tran_id, var.delete_flag " +
             "  FROM place AS plc " +
             "  JOIN place_name AS var ON var.place_id = plc.place_id " +
             " WHERE plc.tran_id = (SELECT MAX(tran_id) FROM place AS plcx WHERE plc.place_id = plcx.place_id) " +

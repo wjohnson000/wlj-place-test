@@ -3,8 +3,8 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.date.GenPeriod;
 import org.familysearch.standards.date.gedcomx.GedcomXGenPeriod;
+import org.familysearch.standards.date.model.GenPeriod;
 
 /**
  * @author wjohnson000

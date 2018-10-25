@@ -61,6 +61,11 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.6.0.RELEASE</version>
+        </dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -167,6 +172,7 @@
              <groupId>org.familysearch.standards</groupId>
              <artifactId>std-ws-date-webservice</artifactId>
              <version>${std.ws.date.version}</version>
+             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
