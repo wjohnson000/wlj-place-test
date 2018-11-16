@@ -6,8 +6,6 @@ package std.wlj.date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.calcite.rel.core.Match;
-
 /**
  * @author wjohnson000
  *

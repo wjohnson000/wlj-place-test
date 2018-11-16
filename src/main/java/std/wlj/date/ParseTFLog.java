@@ -7,35 +7,35 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wjohnson000
  *
  */
-public class ParseV1AssistedLog {
+public class ParseTFLog {
 
     static final String QQ   = "\"\"";
-    static final String path = "C:/temp/date-interp.csv";
-    static final List<String> details = new ArrayList<>();
+    static final String path = "C:/temp/date-tf-lots.csv";
+    static final Map<String, Integer> monCount = new HashMap<>();
 
     public static void main(String...args) throws IOException {
         List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
-        results.forEach(ParseV1AssistedLog::getInterestingStuff);
-
-        Files.write(Paths.get("C:/temp/date-interp.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        results.forEach(ParseTFLog::getInterestingStuff);
+        monCount.entrySet().forEach(ee -> System.out.println(ee.getKey() + "|" + ee.getValue()));
     }
 
     static void getInterestingStuff(String line) {
         String text = getValue(line, "text");
-        String hint = getValue(line, "langHint");
-        String lang = getValue(line, "accept-language");
-        String gedx = getValue(line, "gedcomx");
-        if (! gedx.isEmpty()) {
-            System.out.println(text + "|" + hint + "|" + lang + "|" + gedx);
-            details.add(text + "|" + hint + "|" + lang + "|" + gedx);
+        int ndx0 = text.indexOf('+');
+        int ndx1 = text.indexOf('+', ndx0+1);
+        int ndx2 = text.indexOf('+', ndx1+1);
+        if (ndx0 > 0  &&  ndx1 > ndx0  &&  ndx2 == -1) {
+            String month = text.substring(ndx0+1, ndx1);
+            Integer count = monCount.getOrDefault(month, Integer.valueOf(0));
+            monCount.put(month, count+1);
         }
     }
 

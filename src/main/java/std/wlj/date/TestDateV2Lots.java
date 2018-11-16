@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.parser.GenDateParser;
 
 /**
@@ -49,12 +49,11 @@ public class TestDateV2Lots {
     static void runLots(List<String> datesToParse, int skip) {
         GenDateParser parser = new GenDateParser();
 
-        List<GenDateInterpResult> parseResult;
         for (int ndx=0;  ndx<datesToParse.size();  ndx+=skip) {
             try {
                 String dateToParse = datesToParse.get(ndx);
-                parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH));
-                String genDates = parseResult.stream()
+                DateResult parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH));
+                String genDates = parseResult.getDates().stream()
                         .map(res -> res.getDate().toGEDCOMX())
                         .collect(Collectors.joining(", ", "  [", "]"));
                 results.add(dateToParse + "|false|" + genDates);

@@ -5,11 +5,11 @@ package std.wlj.date;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
 import org.familysearch.standards.date.parser.handler.FrenchRepublicanHandler;
 import org.familysearch.standards.date.shared.ThreadLocalExperiment;
@@ -113,8 +113,8 @@ public class DatePatternMatches {
         for (String text : textes) {
             try {
                 System.out.println("\n============================================================\n" + text);
-                List<GenDateInterpResult> dates = DateUtil.interpDate(text, StdLocale.ENGLISH);
-                for (GenDateInterpResult date : dates) {
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  date: " + date.getDate().toGEDCOMX());
                 }
             } catch (GenDateException e) { }

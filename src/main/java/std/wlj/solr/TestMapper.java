@@ -3,67 +3,41 @@ package std.wlj.solr;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
+import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.data.AttributeBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.ws.model.AttributeModel;
 
+import std.wlj.mapper.AttributeMapper;
 import std.wlj.util.SolrManager;
 
-public class SearchMasterById {
+public class TestMapper {
 
     static final int MAX_ROWS = 50;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
         SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrService    solrSvc  = SolrManager.awsBetaService(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
-//        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:5337344");
-        SolrQuery query = new SolrQuery("ownerId:6484118");
-//        SolrQuery query = new SolrQuery("repId:(10909652 10909651 7218720)");
-//        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
-//        SolrQuery query = new SolrQuery("ownerId:1");
-//        SolrQuery query = new SolrQuery("lke fork");
-//        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
-//        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
-//        SolrQuery query = new SolrQuery("parentId:6085");
-//        SolrQuery query = new SolrQuery("repIdChain:7099871");
-//        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
-//        SolrQuery query = new SolrQuery("_root_:[* TO *]");
-//        SolrQuery query = new SolrQuery("type:81");
-//        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
-//        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
-//        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
-//        SolrQuery query = new SolrQuery("prefLocale:grk-Latn-x-nga");
-//        SolrQuery query = new SolrQuery("!deleteId:[* TO *] AND placeDeleteId:[* TO *]");
-//        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
-//        SolrQuery query = new SolrQuery("attributes:1328427*");
-//        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-//        Calendar cnow = Calendar.getInstance();
-//        cnow.add(Calendar.HOUR_OF_DAY, -1);
-//        Date dnow = new Date(cnow.getTimeInMillis());
-//        SolrQuery query = new SolrQuery("lastUpdateDate: [" + SOLR_DATE_FORMAT.format(dnow) + " TO *]");
-
-//        SolrQuery query = new SolrQuery("type:81");
-//        query.addFilterQuery("-deleteId:[0 TO *]");
-//        query.addFilterQuery("deleteId:0");
+        AttributeMapper mapper = new AttributeMapper(solrSvc);
+        SolrQuery query = new SolrQuery("repId:5337344");
 
         query.setRows(MAX_ROWS);
-//        query.setSort("repId", SolrQuery.ORDER.desc);
-//        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
         List<PlaceRepDoc> docs = solrConn.search(query);
         System.out.println("CNT: " + docs.size());
 
         for (PlaceRepDoc doc : docs) {
+            doc.setDataService(solrSvc);
             System.out.println("\nID: " + doc.getId() + " --> " + doc.getType() + " --> " + Arrays.toString(doc.getJurisdictionIdentifiers()) + " --> " + doc.getRevision());
             System.out.println("  Place:  " + doc.getPlaceId());
             System.out.println("  Par-Id: " + doc.getParentId());
@@ -89,31 +63,12 @@ public class SearchMasterById {
             doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
 
             for (AttributeBridge ab : doc.getAllAttributes()) {
+                AttributeModel attrModel = mapper.createModelFromBridge(ab, StdLocale.ENGLISH, "http://localhost:8080/meef");
                 System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle());
+                System.out.println("    " + attrModel.toString());
             }
         }
         
-//        for (PlaceRepDoc doc : docs) {
-//            String dispName = doc.getDisplayName("en");
-//            if (dispName == null) dispName = doc.getDisplayName(doc.getPrefLocale());
-//
-//            StringBuilder buff = new StringBuilder();
-//            buff.append(doc.getRepId());
-//            buff.append("|").append(doc.getPlaceId());
-//            buff.append("|").append(doc.getPlaceDeleteId());
-//            buff.append("|").append(Arrays.toString(doc.getJurisdictionIdentifiers()));
-//            buff.append("|").append(doc.getRevision());
-//            buff.append("|").append(doc.getType());
-//            buff.append("|").append(doc.getPrefLocale());
-//            buff.append("|").append(doc.getCentroid());
-//            buff.append("|").append(doc.isPublished());
-//            buff.append("|").append(doc.isValidated());
-//            buff.append("|").append(doc.getLastUpdateDate());
-//            buff.append("|").append(dispName);
-//
-//            System.out.println(buff.toString());
-//        }
-
         System.exit(0);
     }
 }

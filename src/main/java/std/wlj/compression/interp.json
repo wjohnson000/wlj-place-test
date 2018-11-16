@@ -1,0 +1,747 @@
+{
+    "interp": {
+        "annotations": [
+            {
+                "code": 1014,
+                "name": "Relevance lowered due to ambiguity (too many results)."
+            }
+        ],
+        "topResults": [
+            {
+                "rep": {
+                    "id": 5314385,
+                    "jurisdiction": {
+                        "id": 393437,
+                        "uuid": "c6ebde5c-59f1-4728-b9e8-0ce62d8dc0ac",
+                        "type": {
+                            "id": 209,
+                            "code": "COUNTY",
+                            "published": true,
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209",
+                                "rel": "self"
+                            },
+                            "localizedName": [
+                                {
+                                    "locale": "en",
+                                    "name": "County",
+                                    "desc": "A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc."
+                                }
+                            ]
+                        },
+                        "name": "Utah",
+                        "locale": "en",
+                        "jurisdiction": {
+                            "id": 342,
+                            "uuid": "cb8d0670-a560-4334-bad3-92745e2b63fc",
+                            "type": {
+                                "id": 362,
+                                "code": "STATE",
+                                "published": true,
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/362",
+                                    "rel": "self"
+                                },
+                                "localizedName": [
+                                    {
+                                        "locale": "en",
+                                        "name": "State",
+                                        "desc": "A high level administrative designation, an organized community living under one government. States may be sovereign or federated (members of a federal union)."
+                                    }
+                                ]
+                            },
+                            "name": "Utah",
+                            "locale": "en",
+                            "jurisdiction": {
+                                "id": 1,
+                                "uuid": "708c52c3-154b-41fa-a3d6-0e97e7c36297",
+                                "type": {
+                                    "id": 343,
+                                    "code": "REPUBLIC",
+                                    "published": true,
+                                    "link": {
+                                        "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343",
+                                        "rel": "self"
+                                    },
+                                    "localizedName": [
+                                        {
+                                            "locale": "en",
+                                            "name": "Republic",
+                                            "desc": "A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation."
+                                        }
+                                    ]
+                                },
+                                "name": "United States",
+                                "locale": "en",
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1",
+                                    "rel": "parent"
+                                },
+                                "place": 1
+                            },
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/342",
+                                "rel": "parent"
+                            },
+                            "place": 27
+                        },
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393437",
+                            "rel": "parent"
+                        },
+                        "place": 1012
+                    },
+                    "type": {
+                        "id": 186,
+                        "code": "CITY",
+                        "published": true,
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/186",
+                            "rel": "self"
+                        },
+                        "localizedName": [
+                            {
+                                "locale": "en",
+                                "name": "City",
+                                "desc": "A relatively large and permanent human settlement with complex systems of land-use, housing, and transportation and government organization."
+                            }
+                        ]
+                    },
+                    "place": 1337578,
+                    "fromYear": 1896,
+                    "preferredLocale": "en",
+                    "published": true,
+                    "validated": true,
+                    "location": {
+                        "centroid": {
+                            "latitude": 40.244446,
+                            "longitude": -111.660835
+                        }
+                    },
+                    "uuid": "721e0d34-bc7b-41ad-81cb-9a29e7ef57f3",
+                    "revision": 11308033,
+                    "createDate": "2014-06-27T11:40:20.517-0600",
+                    "lastUpdateDate": "2018-04-27T14:49:04.214-0600",
+                    "zoomLevel": 13,
+                    "typeCategory": "city",
+                    "link": [
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314385",
+                            "rel": "self",
+                            "title": "Provo, Utah, Utah, United States"
+                        },
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578",
+                            "rel": "related"
+                        }
+                    ],
+                    "displayOptions": {
+                        "separator": ", ",
+                        "order": "bigend"
+                    },
+                    "display": {
+                        "name": "Provo",
+                        "locale": "en"
+                    },
+                    "fullDisplay": {
+                        "name": "Provo, Utah, Utah, United States",
+                        "locale": "en"
+                    }
+                },
+                "rawScore": 1082,
+                "relevanceScore": 92,
+                "tokenMatches": [
+                    {
+                        "token": "Provo",
+                        "tokenDebug": "Provo (provo)",
+                        "name": {
+                            "name": "provo",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 5314385
+                    },
+                    {
+                        "token": "Utah",
+                        "tokenDebug": "Utah (utah)",
+                        "name": {
+                            "name": "Utah",
+                            "locale": "en",
+                            "type": "SHORT"
+                        },
+                        "id": 393437
+                    },
+                    {
+                        "token": "USA",
+                        "tokenDebug": "USA (usa)",
+                        "name": {
+                            "name": "usa",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 1
+                    }
+                ]
+            }
+        ],
+        "altReps": [
+            {
+                "rep": {
+                    "id": 5314384,
+                    "jurisdiction": {
+                        "id": 393436,
+                        "uuid": "5af24c04-fb2c-44d2-af8b-34048940cdc1",
+                        "type": {
+                            "id": 209,
+                            "code": "COUNTY",
+                            "published": true,
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209",
+                                "rel": "self"
+                            },
+                            "localizedName": [
+                                {
+                                    "locale": "en",
+                                    "name": "County",
+                                    "desc": "A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc."
+                                }
+                            ]
+                        },
+                        "name": "Utah",
+                        "locale": "en",
+                        "jurisdiction": {
+                            "id": 10705032,
+                            "uuid": "25ab6b8d-655e-4dec-bcd8-ff10dc036551",
+                            "type": {
+                                "id": 375,
+                                "code": "TERRITORY",
+                                "published": true,
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/375",
+                                    "rel": "self"
+                                },
+                                "localizedName": [
+                                    {
+                                        "locale": "en",
+                                        "name": "Territory",
+                                        "desc": "A mid- or high level administrative designation for current or historical areas subject to or incorporated into a number of countries throughout the world including the United States, France, Australia, Canada, Japan, etc."
+                                    }
+                                ]
+                            },
+                            "name": "Utah Territory",
+                            "locale": "en",
+                            "jurisdiction": {
+                                "id": 1,
+                                "uuid": "708c52c3-154b-41fa-a3d6-0e97e7c36297",
+                                "type": {
+                                    "id": 343,
+                                    "code": "REPUBLIC",
+                                    "published": true,
+                                    "link": {
+                                        "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343",
+                                        "rel": "self"
+                                    },
+                                    "localizedName": [
+                                        {
+                                            "locale": "en",
+                                            "name": "Republic",
+                                            "desc": "A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation."
+                                        }
+                                    ]
+                                },
+                                "name": "United States",
+                                "locale": "en",
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1",
+                                    "rel": "parent"
+                                },
+                                "place": 1
+                            },
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/10705032",
+                                "rel": "parent"
+                            },
+                            "place": 27
+                        },
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393436",
+                            "rel": "parent"
+                        },
+                        "place": 1012
+                    },
+                    "type": {
+                        "id": 376,
+                        "code": "TOWN",
+                        "published": true,
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/376",
+                            "rel": "self"
+                        },
+                        "localizedName": [
+                            {
+                                "locale": "en",
+                                "name": "Town",
+                                "desc": "A local division of human settlement often incorporated administratively, larger than a village but smaller than a city. An official designation for township in several of the United States including New England and parts of the midwest."
+                            }
+                        ]
+                    },
+                    "place": 1337578,
+                    "fromYear": 1850,
+                    "toYear": 1896,
+                    "preferredLocale": "en",
+                    "published": true,
+                    "validated": false,
+                    "location": {
+                        "centroid": {
+                            "latitude": 40.244446,
+                            "longitude": -111.660835
+                        }
+                    },
+                    "uuid": "16239a0e-a585-4a1b-ac0d-25b2176cd0b9",
+                    "revision": 11336492,
+                    "createDate": "2014-06-27T11:40:20.517-0600",
+                    "lastUpdateDate": "2016-09-12T12:32:44.658-0600",
+                    "zoomLevel": 13,
+                    "typeCategory": "town",
+                    "link": [
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314384",
+                            "rel": "self",
+                            "title": "Provo, Utah, Utah Territory, United States"
+                        },
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578",
+                            "rel": "related"
+                        }
+                    ],
+                    "displayOptions": {
+                        "separator": ", ",
+                        "order": "bigend"
+                    },
+                    "display": {
+                        "name": "Provo",
+                        "locale": "en"
+                    },
+                    "fullDisplay": {
+                        "name": "Provo, Utah, Utah Territory, United States",
+                        "locale": "en"
+                    }
+                },
+                "rawScore": 1042,
+                "relevanceScore": 88,
+                "tokenMatches": [
+                    {
+                        "token": "Provo",
+                        "tokenDebug": "Provo (provo)",
+                        "name": {
+                            "name": "provo",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 5314384
+                    },
+                    {
+                        "token": "Utah",
+                        "tokenDebug": "Utah (utah)",
+                        "name": {
+                            "name": "Utah",
+                            "locale": "en",
+                            "type": "SHORT"
+                        },
+                        "id": 393436
+                    },
+                    {
+                        "token": "USA",
+                        "tokenDebug": "USA (usa)",
+                        "name": {
+                            "name": "usa",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 1
+                    }
+                ]
+            },
+            {
+                "rep": {
+                    "id": 5314383,
+                    "jurisdiction": {
+                        "id": 393436,
+                        "uuid": "5af24c04-fb2c-44d2-af8b-34048940cdc1",
+                        "type": {
+                            "id": 209,
+                            "code": "COUNTY",
+                            "published": true,
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209",
+                                "rel": "self"
+                            },
+                            "localizedName": [
+                                {
+                                    "locale": "en",
+                                    "name": "County",
+                                    "desc": "A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc."
+                                }
+                            ]
+                        },
+                        "name": "Utah",
+                        "locale": "en",
+                        "jurisdiction": {
+                            "id": 10705032,
+                            "uuid": "25ab6b8d-655e-4dec-bcd8-ff10dc036551",
+                            "type": {
+                                "id": 375,
+                                "code": "TERRITORY",
+                                "published": true,
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/375",
+                                    "rel": "self"
+                                },
+                                "localizedName": [
+                                    {
+                                        "locale": "en",
+                                        "name": "Territory",
+                                        "desc": "A mid- or high level administrative designation for current or historical areas subject to or incorporated into a number of countries throughout the world including the United States, France, Australia, Canada, Japan, etc."
+                                    }
+                                ]
+                            },
+                            "name": "Utah Territory",
+                            "locale": "en",
+                            "jurisdiction": {
+                                "id": 1,
+                                "uuid": "708c52c3-154b-41fa-a3d6-0e97e7c36297",
+                                "type": {
+                                    "id": 343,
+                                    "code": "REPUBLIC",
+                                    "published": true,
+                                    "link": {
+                                        "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343",
+                                        "rel": "self"
+                                    },
+                                    "localizedName": [
+                                        {
+                                            "locale": "en",
+                                            "name": "Republic",
+                                            "desc": "A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation."
+                                        }
+                                    ]
+                                },
+                                "name": "United States",
+                                "locale": "en",
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1",
+                                    "rel": "parent"
+                                },
+                                "place": 1
+                            },
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/10705032",
+                                "rel": "parent"
+                            },
+                            "place": 27
+                        },
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393436",
+                            "rel": "parent"
+                        },
+                        "place": 1012
+                    },
+                    "type": {
+                        "id": 376,
+                        "code": "TOWN",
+                        "published": true,
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/376",
+                            "rel": "self"
+                        },
+                        "localizedName": [
+                            {
+                                "locale": "en",
+                                "name": "Town",
+                                "desc": "A local division of human settlement often incorporated administratively, larger than a village but smaller than a city. An official designation for township in several of the United States including New England and parts of the midwest."
+                            }
+                        ]
+                    },
+                    "place": 1337578,
+                    "fromYear": 1849,
+                    "toYear": 1850,
+                    "preferredLocale": "en",
+                    "published": true,
+                    "validated": false,
+                    "location": {
+                        "centroid": {
+                            "latitude": 40.244446,
+                            "longitude": -111.660835
+                        }
+                    },
+                    "uuid": "80b30fa9-ab4b-408f-a64a-b9651130d5af",
+                    "revision": 11336493,
+                    "createDate": "2014-06-27T11:40:20.517-0600",
+                    "lastUpdateDate": "2016-09-12T12:32:45.495-0600",
+                    "zoomLevel": 13,
+                    "typeCategory": "town",
+                    "link": [
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314383",
+                            "rel": "self",
+                            "title": "Fort Utah, Utah, Utah Territory, United States"
+                        },
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578",
+                            "rel": "related"
+                        }
+                    ],
+                    "displayOptions": {
+                        "separator": ", ",
+                        "order": "bigend"
+                    },
+                    "display": {
+                        "name": "Fort Utah",
+                        "locale": "en"
+                    },
+                    "fullDisplay": {
+                        "name": "Fort Utah, Utah, Utah Territory, United States",
+                        "locale": "en"
+                    }
+                },
+                "rawScore": 1012,
+                "relevanceScore": 86,
+                "tokenMatches": [
+                    {
+                        "token": "Provo",
+                        "tokenDebug": "Provo (provo)",
+                        "name": {
+                            "name": "provo",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 5314383
+                    },
+                    {
+                        "token": "Utah",
+                        "tokenDebug": "Utah (utah)",
+                        "name": {
+                            "name": "Utah",
+                            "locale": "en",
+                            "type": "SHORT"
+                        },
+                        "id": 393436
+                    },
+                    {
+                        "token": "USA",
+                        "tokenDebug": "USA (usa)",
+                        "name": {
+                            "name": "usa",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 1
+                    }
+                ]
+            },
+            {
+                "rep": {
+                    "id": 8599931,
+                    "jurisdiction": {
+                        "id": 5314385,
+                        "uuid": "721e0d34-bc7b-41ad-81cb-9a29e7ef57f3",
+                        "type": {
+                            "id": 186,
+                            "code": "CITY",
+                            "published": true,
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/186",
+                                "rel": "self"
+                            },
+                            "localizedName": [
+                                {
+                                    "locale": "en",
+                                    "name": "City",
+                                    "desc": "A relatively large and permanent human settlement with complex systems of land-use, housing, and transportation and government organization."
+                                }
+                            ]
+                        },
+                        "name": "Provo",
+                        "locale": "en",
+                        "jurisdiction": {
+                            "id": 393437,
+                            "uuid": "c6ebde5c-59f1-4728-b9e8-0ce62d8dc0ac",
+                            "type": {
+                                "id": 209,
+                                "code": "COUNTY",
+                                "published": true,
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209",
+                                    "rel": "self"
+                                },
+                                "localizedName": [
+                                    {
+                                        "locale": "en",
+                                        "name": "County",
+                                        "desc": "A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc."
+                                    }
+                                ]
+                            },
+                            "name": "Utah",
+                            "locale": "en",
+                            "jurisdiction": {
+                                "id": 342,
+                                "uuid": "cb8d0670-a560-4334-bad3-92745e2b63fc",
+                                "type": {
+                                    "id": 362,
+                                    "code": "STATE",
+                                    "published": true,
+                                    "link": {
+                                        "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/362",
+                                        "rel": "self"
+                                    },
+                                    "localizedName": [
+                                        {
+                                            "locale": "en",
+                                            "name": "State",
+                                            "desc": "A high level administrative designation, an organized community living under one government. States may be sovereign or federated (members of a federal union)."
+                                        }
+                                    ]
+                                },
+                                "name": "Utah",
+                                "locale": "en",
+                                "jurisdiction": {
+                                    "id": 1,
+                                    "uuid": "708c52c3-154b-41fa-a3d6-0e97e7c36297",
+                                    "type": {
+                                        "id": 343,
+                                        "code": "REPUBLIC",
+                                        "published": true,
+                                        "link": {
+                                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343",
+                                            "rel": "self"
+                                        },
+                                        "localizedName": [
+                                            {
+                                                "locale": "en",
+                                                "name": "Republic",
+                                                "desc": "A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation."
+                                            }
+                                        ]
+                                    },
+                                    "name": "United States",
+                                    "locale": "en",
+                                    "link": {
+                                        "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1",
+                                        "rel": "parent"
+                                    },
+                                    "place": 1
+                                },
+                                "link": {
+                                    "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/342",
+                                    "rel": "parent"
+                                },
+                                "place": 27
+                            },
+                            "link": {
+                                "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393437",
+                                "rel": "parent"
+                            },
+                            "place": 1012
+                        },
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314385",
+                            "rel": "parent"
+                        },
+                        "place": 1337578
+                    },
+                    "type": {
+                        "id": 61,
+                        "code": "LDS_TEMPLE",
+                        "published": true,
+                        "link": {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/61",
+                            "rel": "self"
+                        },
+                        "localizedName": [
+                            {
+                                "locale": "en",
+                                "name": "LDS Temple",
+                                "desc": "Temple edifice dedicated to religious worship and sacred ordinances for the Church of Jesus Christ of Latter-day Saints."
+                            }
+                        ]
+                    },
+                    "place": 1343202,
+                    "fromYear": 1972,
+                    "preferredLocale": "en",
+                    "published": true,
+                    "validated": false,
+                    "location": {
+                        "centroid": {
+                            "latitude": 40.26359,
+                            "longitude": -111.64004
+                        }
+                    },
+                    "uuid": "a167e2fd-d08a-401f-b668-0d1789df8ba1",
+                    "revision": 11336495,
+                    "createDate": "2014-06-27T11:40:20.517-0600",
+                    "lastUpdateDate": "2016-12-05T11:12:40.730-0700",
+                    "zoomLevel": 8,
+                    "typeCategory": "temple",
+                    "link": [
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/8599931",
+                            "rel": "self",
+                            "title": "Provo Utah Temple, Provo, Utah, Utah, United States"
+                        },
+                        {
+                            "href": "http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1343202",
+                            "rel": "related"
+                        }
+                    ],
+                    "displayOptions": {
+                        "separator": ", ",
+                        "order": "bigend"
+                    },
+                    "display": {
+                        "name": "Provo Utah Temple",
+                        "locale": "en"
+                    },
+                    "fullDisplay": {
+                        "name": "Provo Utah Temple, Provo, Utah, Utah, United States",
+                        "locale": "en"
+                    }
+                },
+                "rawScore": 938,
+                "relevanceScore": 79,
+                "tokenMatches": [
+                    {
+                        "token": "Provo",
+                        "tokenDebug": "Provo (provo)",
+                        "name": {
+                            "name": "PROVO",
+                            "locale": "en",
+                            "type": "LDS_5LTMPL"
+                        },
+                        "id": 8599931
+                    },
+                    {
+                        "token": "Utah",
+                        "tokenDebug": "Utah (utah)",
+                        "name": {
+                            "name": "Utah",
+                            "locale": "en",
+                            "type": "SHORT"
+                        },
+                        "id": 393437
+                    },
+                    {
+                        "token": "USA",
+                        "tokenDebug": "USA (usa)",
+                        "name": {
+                            "name": "usa",
+                            "locale": "en",
+                            "type": "COMMON"
+                        },
+                        "id": 1
+                    }
+                ]
+            }
+        ]
+    }
+}

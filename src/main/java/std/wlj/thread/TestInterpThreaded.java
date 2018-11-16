@@ -22,7 +22,7 @@ public class TestInterpThreaded {
 
     private static Random random = new Random();
     private static Charset UTF_8 = Charset.forName("UTF-8");
-    private static List<String> interpName;
+    private static List<String> bunchOfNames;
 
     private static long interpCnt = 0;
     private static long interpTime = 0;
@@ -31,33 +31,49 @@ public class TestInterpThreaded {
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
-        interpName = getSearchValues("C:/temp/important/places-interp-name.txt");
-        System.out.println("Name.count: " + interpName.size());
-        interpName.addAll(getSearchValues("C:/temp/important/places-search-text.txt"));
-        System.out.println("Name.count: " + interpName.size());
+        bunchOfNames = getSearchValues("C:/temp/important/places-interp-name.txt");
+        System.out.println("Name.count: " + bunchOfNames.size());
+        bunchOfNames.addAll(getSearchValues("C:/temp/important/places-search-text.txt"));
+        System.out.println("Name.count: " + bunchOfNames.size());
 
         HttpHelper.overrideHTTPS = true;
         HttpHelper.doVerbose = false;
 
-        long sss = System.nanoTime();
-        startInterp(16, 4000);
-        execService.shutdown();
-        execService.awaitTermination(60, TimeUnit.MINUTES);
-        long eee = System.nanoTime();
-
-        System.out.println("\n=======================================================================================");
-        System.out.println("Time: " + (eee-sss) / 1_000_000.0);
-        System.out.println("Interp : " + interpCnt + " --> " + (interpTime/1_000_000.0));
+        justAFew();
+//        long sss = System.nanoTime();
+//        startInterp(10, 16000);
+//        startRequest(10, 16000);
+//        execService.shutdown();
+//        execService.awaitTermination(60, TimeUnit.MINUTES);
+//        long eee = System.nanoTime();
+//
+//        System.out.println("\n=======================================================================================");
+//        System.out.println("Time: " + (eee-sss) / 1_000_000.0);
+//        System.out.println("Interp : " + interpCnt + " --> " + (interpTime/1_000_000.0));
     }
 
-    private static void startInterp(int thrCount, int times) {
+    protected static void justAFew() throws Exception {
+        for (int i=1;  i<=3;  i++) {
+            int ndx1 = random.nextInt(bunchOfNames.size());
+            int ndx2 = random.nextInt(bunchOfNames.size());
+
+            doRequest(bunchOfNames.get(ndx1));
+            doInterp(bunchOfNames.get(ndx2));
+
+            try { Thread.sleep(100L); } catch(Exception ex) { }
+            doRequest(bunchOfNames.get(ndx1));
+            doInterp(bunchOfNames.get(ndx2));
+        }
+    }
+
+    protected static void startInterp(int thrCount, int times) {
         for (int i=0;  i<thrCount;  i++) {
             execService.submit(
                 () -> {
                     for (int cnt=0;  cnt<times;  cnt++) {
                         try {
-                            int ndx = random.nextInt(interpName.size());
-                            doInterp(interpName.get(ndx));
+                            int ndx = random.nextInt(bunchOfNames.size());
+                            doInterp(bunchOfNames.get(ndx));
                             Thread.sleep(8L);
                         } catch (Exception e) { }
                     }
@@ -65,7 +81,38 @@ public class TestInterpThreaded {
         }
     }
 
-    private static void doInterp(String text) throws Exception {
+    protected static void startRequest(int thrCount, int times) {
+        for (int i=0;  i<thrCount;  i++) {
+            execService.submit(
+                () -> {
+                    for (int cnt=0;  cnt<times;  cnt++) {
+                        try {
+                            int ndx = random.nextInt(bunchOfNames.size());
+                            doRequest(bunchOfNames.get(ndx));
+                            Thread.sleep(8L);
+                        } catch (Exception e) { }
+                    }
+                });
+        }
+    }
+
+    protected static void doRequest(String text) throws Exception {
+        interpCnt++;
+
+        URL url = new URL(baseUrl + "/request");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("TEST-INTERP: " + text);
+
+        long then = System.nanoTime();
+        HttpHelper.doGET(url, "text", text, "metrics", "false");
+        long nnow = System.nanoTime();
+        System.out.println("TIME: " + (nnow-then)/1000000.0);
+
+        interpTime += nnow - then;
+    }
+
+    protected static void doInterp(String text) throws Exception {
         interpCnt++;
 
         URL url = new URL(baseUrl + "/interp");
@@ -81,7 +128,7 @@ public class TestInterpThreaded {
         interpTime += nnow - then;
     }
 
-    private static List<String> getSearchValues(String filePath) throws IOException {
+    protected static List<String> getSearchValues(String filePath) throws IOException {
         return Files.readAllLines(Paths.get(filePath), UTF_8)
                 .stream()
                 .map(val -> val.replace('"', ' ').trim())

@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
 
 import std.wlj.date.v1.DateV1Shim;
@@ -32,7 +33,7 @@ public class TestV2 {
 //                    .collect(Collectors.joining(" ", "[", "]"));
 //            System.out.println(text + " --> " + hex);
             List<GenDateInterpResult> dates01 = new ArrayList<>();
-            List<GenDateInterpResult> dates02 = new ArrayList<>();
+            DateResult                dates02 = new DateResult();
 
             System.out.println("\n" + text);
 
@@ -43,7 +44,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.CHINESE);
+                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -53,7 +54,7 @@ public class TestV2 {
                 System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX());
                 results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX());
             }
-            for (GenDateInterpResult date : dates02) {
+            for (GenDateInterpResult date : dates02.getDates()) {
                 System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX());
                 results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX());
             }
@@ -73,7 +74,7 @@ public class TestV2 {
     static List<String> textesFromRaw() {
         List<String> textes = new ArrayList<>();
 
-//        textes.add("順帝三年七月七日");
+//        textes.add("順帝三年七月七日 stuff deceased");
 //        textes.add("順帝丙寅叄年七月七日");
 //        textes.add("金世宗大定2年5月5日");
 //        textes.add("安政5年6月8日");
@@ -157,7 +158,7 @@ public class TestV2 {
 //
 //        textes.add("\\");
 //        textes.add("/");
-//        textes.add("//1913");
+//        textes.add("1913");
 //        textes.add("-+-/-+-/1913");
 //
 //        textes.add("1769-1858");
@@ -168,7 +169,7 @@ public class TestV2 {
 //
 //        textes.add("２４FEB１９２２"); 
 //        textes.add("ＡＢＴ１６９０"); 
-
+//
 //        textes.add("from 06-06 2000 to 06.07/2020");
 //        textes.add("from 06-06-2000 to 06-07-2020");
 //        textes.add("from 06 06 2000 to 06 07 2020");
@@ -177,18 +178,18 @@ public class TestV2 {
 //        textes.add("from 06/16/2000 - 06/17/2020");
 //        textes.add("from 16/06/2000 - 17/06/2020");
 //        textes.add("from 16/06/2020 - 17/06/2000");
-//        textes.add("[], 1915");  // OK ??
+//        textes.add("[], 1915");
 //        textes.add("Birth & Registration, 1915");
 //        textes.add("Birth # Registration, 1915");
 //        textes.add("Birth \\ Registration, 1915");
 //        textes.add("Birth | Registration, 1915");
 //        textes.add("Birth / Registration, 1915");
 //        textes.add("from 05 1916 to 01 1985");
-//        textes.add("-1500");    // Thrown back to Juan
-//        textes.add("- 1500");   // Thrown back to Juan
-//        textes.add("-5/-2/");   // Thrown back to Dan
-//        textes.add("--/-/--");  // Thrown back to Dan
-
+//        textes.add("-1500");
+//        textes.add("- 1500");
+//        textes.add("-5/-2/");
+//        textes.add("--/-/--");
+//
 //        textes.add("1900 & 1950");
 //        textes.add("1900 AND 1950");
 //        textes.add("1900 TO 1950");
@@ -208,7 +209,7 @@ public class TestV2 {
 //        textes.add("1900-2000,1833-1878");
 //        textes.add("1900-2000,1945");
 //        textes.add("1888, 1890-1900");
-
+//
 //        textes.add("19??");
 //        textes.add("198-");
 //        textes.add("1900's");
@@ -222,34 +223,34 @@ public class TestV2 {
 //        textes.add("1833 to 1840s");
 //        textes.add("1820's - 1840s");
 //        textes.add("1820's to 1840s");
-
+//
 //        textes.add("24 05 1668");
 //        textes.add("24 May 1668");
 //        textes.add("Before 24 05 1668");
 //        textes.add("Before 24 May 1668");
-
+//
 //        textes.add("from 25 05 1885 to 1911");
 //        textes.add("from 05 25 1885 to 1911");
 //        textes.add("from 05 1885 to 1911");
 //        textes.add("from 05 25 1885 to 06 25 1911");
-
+//
 //        textes.add("07 Frimaire AN08");
 //        textes.add("16 Pluviôse AN02");
 //        textes.add("07 FR AN08");
 //        textes.add("16 PL AN02");
-
+//
 //        textes.add("1999's");
 //        textes.add("AN05 Ventôse 08");
 //        textes.add("AN05 VT 08");
-
+//
 //        textes.add("199?");
 //        textes.add("1999?");
-
+//
 //        textes.add("-1500");
 //        textes.add(" -1500");
 //        textes.add("- 1500");
 //        textes.add(" - 1500");
-
+//
 //        textes.add("享保 17");
 //        textes.add("天保 8");
 //        textes.add("文政 7");
@@ -262,9 +263,9 @@ public class TestV2 {
 //        textes.add("享保 6 [ 1721 ]");
 //        textes.add("享保 17 - 天保 8 [ 1732 - 1837 ]");
 //        textes.add("文政 7 - 天保 12 [ 1824 - 1841 ]");
-
+//
 //        textes.add("順帝三年七月七日 - 天保 8");
-
+//
 //        textes.add("1921年11月9日");
 //        textes.add("西元1921年11月9日");
 //        textes.add("1921年11月9日 - 1941年03月19日");
@@ -273,7 +274,7 @@ public class TestV2 {
 //        textes.add("西元千九百二十一年十一月九日");
 //        textes.add("千九百二十一年十一月九 - 千九百四十一年三月十九日");
 //        textes.add("西元千九百二十一年十一月九 - 西元千九百四十一年三月十九日");
-
+//
 //        textes.add("[191_]-1974");
 //        textes.add("[191?]-1974");
 //        textes.add("[1910's]-1974");
@@ -292,15 +293,15 @@ public class TestV2 {
 //        textes.add("[19??-1974]");
 //        textes.add("[1900s-1974]");
 //        textes.add("[19---1974]");
-
+//
 //        textes.add("21.3.02");
 //        textes.add("11.3.00");
 //        textes.add("11.3");
-
+//
 //        textes.add("1901?");
 //        textes.add("24 Apr 1901?");
 //        textes.add("24 Apr 190?");
-
+//
 //        textes.add("1900-2000,1833-1878");
 //        textes.add("1900-2000 ; 1833-1878");
 //        textes.add("1900-2000,1945"); 
@@ -308,12 +309,12 @@ public class TestV2 {
 //        textes.add("1888, 1890-1900 ");
 //        textes.add("1888 ; 1890-1900 ");
 //        textes.add("188? ; 1890-1900 , 1990's ");
-
+//
 //        textes.add("10-10-10");
 //        textes.add("10-10-32");
 //        textes.add("2018 - jun-0");
 //        textes.add("17 Fev 1863 (vue 183)");
-
+//
 //        textes.add("028 BC");
 //        textes.add("28 BC");
 //        textes.add("048 BC");
@@ -330,21 +331,117 @@ public class TestV2 {
 //        textes.add("from 1960s to 1980s");
 //        textes.add("late 1930s or possibly very early 1940s");
 //        textes.add("October 3rd 191*");
-
+//
 //        textes.add("Sept. 5 1940?");
-
+//
 //        textes.add("대략 10");
 //        textes.add("추정18");
 //        textes.add("約10年");
 //        textes.add("대략 1910");
 //        textes.add("추정1918");
 //        textes.add("約1910年");
-
+//
 //        textes.add("8/17/18 12:31 am");
 //        textes.add("10/15/18 7:00 pm");
 //        textes.add("6/8/22");
+//
+//        textes.add("19-25 March 1803");
+//
+//        textes.add("光厳1年1月1日 ");
+//        textes.add("応永1年1月1日");
+//        textes.add("元和1年1月1日");
+//        textes.add("嘉永1年1月1日");
+//
+//        textes.add("1509년");
+//        textes.add("1509년?");
+//        textes.add("1509년?(");
+//        textes.add("1509년?(1");
+//        textes.add("1509년?(15");
+//        textes.add("1509년?(152");
+//        textes.add("1509년?(1529");
+//        textes.add("1509년?(1529년");
+//
+//        textes.add("10-20 Mar 2020");
+//        textes.add("June to July 2000");
+//        textes.add("June 2000 to July 2000");
+//        textes.add("20 June to 22 July 2000");
+//        textes.add("June 20 to July 22 2000");
+//        textes.add("from June to July 2000");
+//        textes.add("from June 2000 to July 2000");
+//        textes.add("from 20 June to 22 July 2000");
+//        textes.add("from June 20 to July 22 2000");
+//
+//        textes.add("단기");
+//        textes.add("檀紀");
+//        textes.add("천보");
+//        textes.add("天保");
+//        textes.add("홍화");
+//        textes.add("弘化");
+//        textes.add("가영");
+//        textes.add("嘉永");
+//        textes.add("안정");
+//        textes.add("安政");
+//        textes.add("만연");
+//        textes.add("萬延");
+//        textes.add("문구");
+//        textes.add("文久");
+//        textes.add("원치");
+//        textes.add("元治");
+//        textes.add("경응");
+//        textes.add("慶應");
+//        textes.add("명치");
+//        textes.add("明治");
+//        textes.add("대정");
+//        textes.add("大正");
+//        textes.add("소화");
+//        textes.add("昭和");
+//
+//        textes.add("金世宗大定2年5月5日");
+//        textes.add("西元1921年11月9日");
+//        textes.add("1957 1 23 to 1975 11 6");
+//        textes.add("22 Feb/5 Mar 1752/3");
+//        textes.add("-+-/-+-/1913");
+//        textes.add("20 Jan 1999 AND 21 Jan 2001");
+//        textes.add("20 Jan 1999 AND 21 Jan 2001 AND 23 Jan 2003");
+//        textes.add("24 Apr 190?");
+//        textes.add("2018 - jun-0");
+//
+//        textes.add("14+July+1559");
+//        textes.add("14+July+1559");
+//        textes.add("6+July+1559");
+//        textes.add("6 July 1559");
+//
+//        textes.add("세종2년");
+//        textes.add("성종2년");
+//        textes.add("철종2년");
+//        textes.add("개국");
+//
+//        textes.add("2 NOV 598 B C");
+//        textes.add("2 NOV 598 BC");
+//        textes.add("19JUN1541-44");
+//        textes.add("1426年3月24日");
+//        textes.add("+1942?+1949?");
+//
+//        textes.add("? - abc 2000");
+//        textes.add("? - 2000");
+//        textes.add("- abc 2000");
+//        textes.add("? abc 2000");
+//        textes.add("4 juillet 1776");
 
-        textes.add("19-25 March 1803");
+        textes.add("about between April 13, 1825 and November 26,1825");
+        textes.add("about between 1752 CE and 1823 CE");
+        textes.add("about before May, 1887 CE");
+        textes.add("about after July 11, 1976 CE");
+        textes.add("about before 1288 BCE");
+
+        textes.add("檀紀1");
+        textes.add("檀紀111");
+        textes.add("檀紀2333");
+        textes.add("檀紀2334");
+        textes.add("檀紀2335");
+        textes.add("檀紀2434");
+        textes.add("檀紀4288");
+        textes.add("檀紀4351");
 
         return textes;
     }

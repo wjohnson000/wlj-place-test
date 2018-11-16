@@ -3,12 +3,10 @@
  */
 package std.wlj.date;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
 import org.familysearch.standards.place.util.PlaceHelper;
 
@@ -101,18 +99,15 @@ public class TestV2KO {
     static void runTests() throws Exception {
 
         for (String text : textesOK) {
-            List<GenDateInterpResult> dates = new ArrayList<>();
-
             String[] chunks = PlaceHelper.split(text, '|');
-
             try {
-                dates = DateUtil.interpDate(chunks[0], StdLocale.KOREAN);
+                DateResult dateResult = DateUtil.interpDate(chunks[0], StdLocale.KOREAN);
+                
+                System.out.println("\n" + chunks[0] + " [" + chunks[1] + "]");
+                for (GenDateInterpResult date : dateResult.getDates()) {
+                    System.out.println("  gx02: " + date.getDate().toGEDCOMX());
+                }
             } catch (GenDateException e) { }
-
-            System.out.println("\n" + chunks[0] + " [" + chunks[1] + "]");
-            for (GenDateInterpResult date : dates) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX());
-            }
         }
     }
 }

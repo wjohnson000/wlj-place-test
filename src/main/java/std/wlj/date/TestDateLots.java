@@ -12,6 +12,7 @@ import java.util.List;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
 
 /**
@@ -67,16 +68,16 @@ public class TestDateLots {
         textes.add("民國乙未（四十四年）五月五日");
 
         for (String text : textes) {
-            List<GenDateInterpResult> dates = new ArrayList<>();
 
             try {
-                dates = DateUtil.interpDate(text, StdLocale.CHINESE);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE);
+
+                System.out.println("\n" + text);
+                for (GenDateInterpResult date : dateResult.getDates()) {
+                    System.out.println("  gx02: " + date.getDate().toGEDCOMX());
+                }
             } catch (GenDateException e) { }
 
-            System.out.println("\n" + text);
-            for (GenDateInterpResult date : dates) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX());
-            }
         }
     }
 }

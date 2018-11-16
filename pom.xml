@@ -170,9 +170,15 @@
 		</dependency>
         <dependency>
              <groupId>org.familysearch.standards</groupId>
+             <artifactId>std-ws-date-model</artifactId>
+             <version>${std.ws.date.version}</version>
+        </dependency>
+        <dependency>
+             <groupId>org.familysearch.standards</groupId>
              <artifactId>std-ws-date-webservice</artifactId>
              <version>${std.ws.date.version}</version>
-             <scope>compile</scope>
+             <classifier>${webClassifier}</classifier>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>

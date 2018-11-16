@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:places xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:ns2="http://www.w3.org/2005/Atom" xmlns:ns4="http://familysearch.org/standards/places/2.0">
+    <ns4:interp>
+        <ns4:annotations>
+            <ns4:annotation code="1014">Relevance lowered due to ambiguity (too many results).</ns4:annotation>
+        </ns4:annotations>
+        <ns4:top-results>
+            <ns4:result>
+                <ns4:rep id="5314385" place="1337578">
+                    <ns4:uuid>721e0d34-bc7b-41ad-81cb-9a29e7ef57f3</ns4:uuid>
+                    <ns4:revision>11308033</ns4:revision>
+                    <ns4:display locale="en">Provo</ns4:display>
+                    <ns4:full-display locale="en">Provo, Utah, Utah, United States</ns4:full-display>
+                    <ns4:jurisdiction id="393437" locale="en" name="Utah" place="1012" uuid="c6ebde5c-59f1-4728-b9e8-0ce62d8dc0ac">
+                        <ns4:type code="COUNTY" id="209" published="true">
+                            <ns4:localized-names>
+                                <ns4:localized-name locale="en">
+                                    <ns4:name>County</ns4:name>
+                                    <ns4:desc>A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc.</ns4:desc>
+                                </ns4:localized-name>
+                            </ns4:localized-names>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209" rel="self"/>
+                        </ns4:type>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393437" rel="parent"/>
+                        <ns4:jurisdiction id="342" locale="en" name="Utah" place="27" uuid="cb8d0670-a560-4334-bad3-92745e2b63fc">
+                            <ns4:type code="STATE" id="362" published="true">
+                                <ns4:localized-names>
+                                    <ns4:localized-name locale="en">
+                                        <ns4:name>State</ns4:name>
+                                        <ns4:desc>A high level administrative designation, an organized community living under one government. States may be sovereign or federated (members of a federal union).</ns4:desc>
+                                    </ns4:localized-name>
+                                </ns4:localized-names>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/362" rel="self"/>
+                            </ns4:type>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/342" rel="parent"/>
+                            <ns4:jurisdiction id="1" locale="en" name="United States" place="1" uuid="708c52c3-154b-41fa-a3d6-0e97e7c36297">
+                                <ns4:type code="REPUBLIC" id="343" published="true">
+                                    <ns4:localized-names>
+                                        <ns4:localized-name locale="en">
+                                            <ns4:name>Republic</ns4:name>
+                                            <ns4:desc>A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation.</ns4:desc>
+                                        </ns4:localized-name>
+                                    </ns4:localized-names>
+                                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343" rel="self"/>
+                                </ns4:type>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1" rel="parent"/>
+                            </ns4:jurisdiction>
+                        </ns4:jurisdiction>
+                    </ns4:jurisdiction>
+                    <ns4:type code="CITY" id="186" published="true">
+                        <ns4:localized-names>
+                            <ns4:localized-name locale="en">
+                                <ns4:name>City</ns4:name>
+                                <ns4:desc>A relatively large and permanent human settlement with complex systems of land-use, housing, and transportation and government organization.</ns4:desc>
+                            </ns4:localized-name>
+                        </ns4:localized-names>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/186" rel="self"/>
+                    </ns4:type>
+                    <ns4:preferred-locale>en</ns4:preferred-locale>
+                    <ns4:from-year>1896</ns4:from-year>
+                    <ns4:location>
+                        <ns4:centroid>
+                            <ns4:latitude>40.244446</ns4:latitude>
+                            <ns4:longitude>-111.660835</ns4:longitude>
+                        </ns4:centroid>
+                    </ns4:location>
+                    <ns4:published>true</ns4:published>
+                    <ns4:validated>true</ns4:validated>
+                    <ns4:zoom-level>13</ns4:zoom-level>
+                    <ns4:type-category>city</ns4:type-category>
+                    <ns4:create-date>2014-06-27T17:40:20.517Z</ns4:create-date>
+                    <ns4:last-update-date>2018-04-27T20:49:04.214Z</ns4:last-update-date>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314385" rel="self" title="Provo, Utah, Utah, United States"/>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578" rel="related"/>
+                    <ns4:display-options>
+                        <ns4:order>bigend</ns4:order>
+                        <ns4:separator>, </ns4:separator>
+                    </ns4:display-options>
+                </ns4:rep>
+                <ns4:raw-score>1082</ns4:raw-score>
+                <ns4:relevance-score>92</ns4:relevance-score>
+                <ns4:token-matches>
+                    <ns4:match id="5314385">
+                        <ns4:token>Provo</ns4:token>
+                        <ns4:token-debug>Provo (provo)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">provo</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="393437">
+                        <ns4:token>Utah</ns4:token>
+                        <ns4:token-debug>Utah (utah)</ns4:token-debug>
+                        <ns4:name locale="en" type="SHORT">Utah</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="1">
+                        <ns4:token>USA</ns4:token>
+                        <ns4:token-debug>USA (usa)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">usa</ns4:name>
+                    </ns4:match>
+                </ns4:token-matches>
+            </ns4:result>
+        </ns4:top-results>
+        <ns4:alt-reps>
+            <ns4:result>
+                <ns4:rep id="5314384" place="1337578">
+                    <ns4:uuid>16239a0e-a585-4a1b-ac0d-25b2176cd0b9</ns4:uuid>
+                    <ns4:revision>11336492</ns4:revision>
+                    <ns4:display locale="en">Provo</ns4:display>
+                    <ns4:full-display locale="en">Provo, Utah, Utah Territory, United States</ns4:full-display>
+                    <ns4:jurisdiction id="393436" locale="en" name="Utah" place="1012" uuid="5af24c04-fb2c-44d2-af8b-34048940cdc1">
+                        <ns4:type code="COUNTY" id="209" published="true">
+                            <ns4:localized-names>
+                                <ns4:localized-name locale="en">
+                                    <ns4:name>County</ns4:name>
+                                    <ns4:desc>A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc.</ns4:desc>
+                                </ns4:localized-name>
+                            </ns4:localized-names>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209" rel="self"/>
+                        </ns4:type>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393436" rel="parent"/>
+                        <ns4:jurisdiction id="10705032" locale="en" name="Utah Territory" place="27" uuid="25ab6b8d-655e-4dec-bcd8-ff10dc036551">
+                            <ns4:type code="TERRITORY" id="375" published="true">
+                                <ns4:localized-names>
+                                    <ns4:localized-name locale="en">
+                                        <ns4:name>Territory</ns4:name>
+                                        <ns4:desc>A mid- or high level administrative designation for current or historical areas subject to or incorporated into a number of countries throughout the world including the United States, France, Australia, Canada, Japan, etc.</ns4:desc>
+                                    </ns4:localized-name>
+                                </ns4:localized-names>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/375" rel="self"/>
+                            </ns4:type>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/10705032" rel="parent"/>
+                            <ns4:jurisdiction id="1" locale="en" name="United States" place="1" uuid="708c52c3-154b-41fa-a3d6-0e97e7c36297">
+                                <ns4:type code="REPUBLIC" id="343" published="true">
+                                    <ns4:localized-names>
+                                        <ns4:localized-name locale="en">
+                                            <ns4:name>Republic</ns4:name>
+                                            <ns4:desc>A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation.</ns4:desc>
+                                        </ns4:localized-name>
+                                    </ns4:localized-names>
+                                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343" rel="self"/>
+                                </ns4:type>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1" rel="parent"/>
+                            </ns4:jurisdiction>
+                        </ns4:jurisdiction>
+                    </ns4:jurisdiction>
+                    <ns4:type code="TOWN" id="376" published="true">
+                        <ns4:localized-names>
+                            <ns4:localized-name locale="en">
+                                <ns4:name>Town</ns4:name>
+                                <ns4:desc>A local division of human settlement often incorporated administratively, larger than a village but smaller than a city. An official designation for township in several of the United States including New England and parts of the midwest.</ns4:desc>
+                            </ns4:localized-name>
+                        </ns4:localized-names>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/376" rel="self"/>
+                    </ns4:type>
+                    <ns4:preferred-locale>en</ns4:preferred-locale>
+                    <ns4:from-year>1850</ns4:from-year>
+                    <ns4:to-year>1896</ns4:to-year>
+                    <ns4:location>
+                        <ns4:centroid>
+                            <ns4:latitude>40.244446</ns4:latitude>
+                            <ns4:longitude>-111.660835</ns4:longitude>
+                        </ns4:centroid>
+                    </ns4:location>
+                    <ns4:published>true</ns4:published>
+                    <ns4:validated>false</ns4:validated>
+                    <ns4:zoom-level>13</ns4:zoom-level>
+                    <ns4:type-category>town</ns4:type-category>
+                    <ns4:create-date>2014-06-27T17:40:20.517Z</ns4:create-date>
+                    <ns4:last-update-date>2016-09-12T18:32:44.658Z</ns4:last-update-date>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314384" rel="self" title="Provo, Utah, Utah Territory, United States"/>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578" rel="related"/>
+                    <ns4:display-options>
+                        <ns4:order>bigend</ns4:order>
+                        <ns4:separator>, </ns4:separator>
+                    </ns4:display-options>
+                </ns4:rep>
+                <ns4:raw-score>1042</ns4:raw-score>
+                <ns4:relevance-score>88</ns4:relevance-score>
+                <ns4:token-matches>
+                    <ns4:match id="5314384">
+                        <ns4:token>Provo</ns4:token>
+                        <ns4:token-debug>Provo (provo)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">provo</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="393436">
+                        <ns4:token>Utah</ns4:token>
+                        <ns4:token-debug>Utah (utah)</ns4:token-debug>
+                        <ns4:name locale="en" type="SHORT">Utah</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="1">
+                        <ns4:token>USA</ns4:token>
+                        <ns4:token-debug>USA (usa)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">usa</ns4:name>
+                    </ns4:match>
+                </ns4:token-matches>
+            </ns4:result>
+            <ns4:result>
+                <ns4:rep id="5314383" place="1337578">
+                    <ns4:uuid>80b30fa9-ab4b-408f-a64a-b9651130d5af</ns4:uuid>
+                    <ns4:revision>11336493</ns4:revision>
+                    <ns4:display locale="en">Fort Utah</ns4:display>
+                    <ns4:full-display locale="en">Fort Utah, Utah, Utah Territory, United States</ns4:full-display>
+                    <ns4:jurisdiction id="393436" locale="en" name="Utah" place="1012" uuid="5af24c04-fb2c-44d2-af8b-34048940cdc1">
+                        <ns4:type code="COUNTY" id="209" published="true">
+                            <ns4:localized-names>
+                                <ns4:localized-name locale="en">
+                                    <ns4:name>County</ns4:name>
+                                    <ns4:desc>A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc.</ns4:desc>
+                                </ns4:localized-name>
+                            </ns4:localized-names>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209" rel="self"/>
+                        </ns4:type>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393436" rel="parent"/>
+                        <ns4:jurisdiction id="10705032" locale="en" name="Utah Territory" place="27" uuid="25ab6b8d-655e-4dec-bcd8-ff10dc036551">
+                            <ns4:type code="TERRITORY" id="375" published="true">
+                                <ns4:localized-names>
+                                    <ns4:localized-name locale="en">
+                                        <ns4:name>Territory</ns4:name>
+                                        <ns4:desc>A mid- or high level administrative designation for current or historical areas subject to or incorporated into a number of countries throughout the world including the United States, France, Australia, Canada, Japan, etc.</ns4:desc>
+                                    </ns4:localized-name>
+                                </ns4:localized-names>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/375" rel="self"/>
+                            </ns4:type>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/10705032" rel="parent"/>
+                            <ns4:jurisdiction id="1" locale="en" name="United States" place="1" uuid="708c52c3-154b-41fa-a3d6-0e97e7c36297">
+                                <ns4:type code="REPUBLIC" id="343" published="true">
+                                    <ns4:localized-names>
+                                        <ns4:localized-name locale="en">
+                                            <ns4:name>Republic</ns4:name>
+                                            <ns4:desc>A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation.</ns4:desc>
+                                        </ns4:localized-name>
+                                    </ns4:localized-names>
+                                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343" rel="self"/>
+                                </ns4:type>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1" rel="parent"/>
+                            </ns4:jurisdiction>
+                        </ns4:jurisdiction>
+                    </ns4:jurisdiction>
+                    <ns4:type code="TOWN" id="376" published="true">
+                        <ns4:localized-names>
+                            <ns4:localized-name locale="en">
+                                <ns4:name>Town</ns4:name>
+                                <ns4:desc>A local division of human settlement often incorporated administratively, larger than a village but smaller than a city. An official designation for township in several of the United States including New England and parts of the midwest.</ns4:desc>
+                            </ns4:localized-name>
+                        </ns4:localized-names>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/376" rel="self"/>
+                    </ns4:type>
+                    <ns4:preferred-locale>en</ns4:preferred-locale>
+                    <ns4:from-year>1849</ns4:from-year>
+                    <ns4:to-year>1850</ns4:to-year>
+                    <ns4:location>
+                        <ns4:centroid>
+                            <ns4:latitude>40.244446</ns4:latitude>
+                            <ns4:longitude>-111.660835</ns4:longitude>
+                        </ns4:centroid>
+                    </ns4:location>
+                    <ns4:published>true</ns4:published>
+                    <ns4:validated>false</ns4:validated>
+                    <ns4:zoom-level>13</ns4:zoom-level>
+                    <ns4:type-category>town</ns4:type-category>
+                    <ns4:create-date>2014-06-27T17:40:20.517Z</ns4:create-date>
+                    <ns4:last-update-date>2016-09-12T18:32:45.495Z</ns4:last-update-date>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314383" rel="self" title="Fort Utah, Utah, Utah Territory, United States"/>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1337578" rel="related"/>
+                    <ns4:display-options>
+                        <ns4:order>bigend</ns4:order>
+                        <ns4:separator>, </ns4:separator>
+                    </ns4:display-options>
+                </ns4:rep>
+                <ns4:raw-score>1012</ns4:raw-score>
+                <ns4:relevance-score>86</ns4:relevance-score>
+                <ns4:token-matches>
+                    <ns4:match id="5314383">
+                        <ns4:token>Provo</ns4:token>
+                        <ns4:token-debug>Provo (provo)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">provo</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="393436">
+                        <ns4:token>Utah</ns4:token>
+                        <ns4:token-debug>Utah (utah)</ns4:token-debug>
+                        <ns4:name locale="en" type="SHORT">Utah</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="1">
+                        <ns4:token>USA</ns4:token>
+                        <ns4:token-debug>USA (usa)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">usa</ns4:name>
+                    </ns4:match>
+                </ns4:token-matches>
+            </ns4:result>
+            <ns4:result>
+                <ns4:rep id="8599931" place="1343202">
+                    <ns4:uuid>a167e2fd-d08a-401f-b668-0d1789df8ba1</ns4:uuid>
+                    <ns4:revision>11336495</ns4:revision>
+                    <ns4:display locale="en">Provo Utah Temple</ns4:display>
+                    <ns4:full-display locale="en">Provo Utah Temple, Provo, Utah, Utah, United States</ns4:full-display>
+                    <ns4:jurisdiction id="5314385" locale="en" name="Provo" place="1337578" uuid="721e0d34-bc7b-41ad-81cb-9a29e7ef57f3">
+                        <ns4:type code="CITY" id="186" published="true">
+                            <ns4:localized-names>
+                                <ns4:localized-name locale="en">
+                                    <ns4:name>City</ns4:name>
+                                    <ns4:desc>A relatively large and permanent human settlement with complex systems of land-use, housing, and transportation and government organization.</ns4:desc>
+                                </ns4:localized-name>
+                            </ns4:localized-names>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/186" rel="self"/>
+                        </ns4:type>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/5314385" rel="parent"/>
+                        <ns4:jurisdiction id="393437" locale="en" name="Utah" place="1012" uuid="c6ebde5c-59f1-4728-b9e8-0ce62d8dc0ac">
+                            <ns4:type code="COUNTY" id="209" published="true">
+                                <ns4:localized-names>
+                                    <ns4:localized-name locale="en">
+                                        <ns4:name>County</ns4:name>
+                                        <ns4:desc>A mid-level administrative jurisdiction earlier under a count or earl, now a subdivision of a state or country. Called administrative, ancient, ceremonial, geographical, historical, county-proper or shire. Subdivided by cities, townships, etc.</ns4:desc>
+                                    </ns4:localized-name>
+                                </ns4:localized-names>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/209" rel="self"/>
+                            </ns4:type>
+                            <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/393437" rel="parent"/>
+                            <ns4:jurisdiction id="342" locale="en" name="Utah" place="27" uuid="cb8d0670-a560-4334-bad3-92745e2b63fc">
+                                <ns4:type code="STATE" id="362" published="true">
+                                    <ns4:localized-names>
+                                        <ns4:localized-name locale="en">
+                                            <ns4:name>State</ns4:name>
+                                            <ns4:desc>A high level administrative designation, an organized community living under one government. States may be sovereign or federated (members of a federal union).</ns4:desc>
+                                        </ns4:localized-name>
+                                    </ns4:localized-names>
+                                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/362" rel="self"/>
+                                </ns4:type>
+                                <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/342" rel="parent"/>
+                                <ns4:jurisdiction id="1" locale="en" name="United States" place="1" uuid="708c52c3-154b-41fa-a3d6-0e97e7c36297">
+                                    <ns4:type code="REPUBLIC" id="343" published="true">
+                                        <ns4:localized-names>
+                                            <ns4:localized-name locale="en">
+                                                <ns4:name>Republic</ns4:name>
+                                                <ns4:desc>A country whose government is a representative democracy in which the people's elected deputies (representatives), not the people themselves, vote on legislation.</ns4:desc>
+                                            </ns4:localized-name>
+                                        </ns4:localized-names>
+                                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/343" rel="self"/>
+                                    </ns4:type>
+                                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/1" rel="parent"/>
+                                </ns4:jurisdiction>
+                            </ns4:jurisdiction>
+                        </ns4:jurisdiction>
+                    </ns4:jurisdiction>
+                    <ns4:type code="LDS_TEMPLE" id="61" published="true">
+                        <ns4:localized-names>
+                            <ns4:localized-name locale="en">
+                                <ns4:name>LDS Temple</ns4:name>
+                                <ns4:desc>Temple edifice dedicated to religious worship and sacred ordinances for the Church of Jesus Christ of Latter-day Saints.</ns4:desc>
+                            </ns4:localized-name>
+                        </ns4:localized-names>
+                        <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/place-types/61" rel="self"/>
+                    </ns4:type>
+                    <ns4:preferred-locale>en</ns4:preferred-locale>
+                    <ns4:from-year>1972</ns4:from-year>
+                    <ns4:location>
+                        <ns4:centroid>
+                            <ns4:latitude>40.26359</ns4:latitude>
+                            <ns4:longitude>-111.64004</ns4:longitude>
+                        </ns4:centroid>
+                    </ns4:location>
+                    <ns4:published>true</ns4:published>
+                    <ns4:validated>false</ns4:validated>
+                    <ns4:zoom-level>8</ns4:zoom-level>
+                    <ns4:type-category>temple</ns4:type-category>
+                    <ns4:create-date>2014-06-27T17:40:20.517Z</ns4:create-date>
+                    <ns4:last-update-date>2016-12-05T18:12:40.730Z</ns4:last-update-date>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/reps/8599931" rel="self" title="Provo Utah Temple, Provo, Utah, Utah, United States"/>
+                    <ns2:link href="http://ws.place.std.cmn.prod.us-east-1.prod.fslocal.org/places/1343202" rel="related"/>
+                    <ns4:display-options>
+                        <ns4:order>bigend</ns4:order>
+                        <ns4:separator>, </ns4:separator>
+                    </ns4:display-options>
+                </ns4:rep>
+                <ns4:raw-score>938</ns4:raw-score>
+                <ns4:relevance-score>79</ns4:relevance-score>
+                <ns4:token-matches>
+                    <ns4:match id="8599931">
+                        <ns4:token>Provo</ns4:token>
+                        <ns4:token-debug>Provo (provo)</ns4:token-debug>
+                        <ns4:name locale="en" type="LDS_5LTMPL">PROVO</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="393437">
+                        <ns4:token>Utah</ns4:token>
+                        <ns4:token-debug>Utah (utah)</ns4:token-debug>
+                        <ns4:name locale="en" type="SHORT">Utah</ns4:name>
+                    </ns4:match>
+                    <ns4:match id="1">
+                        <ns4:token>USA</ns4:token>
+                        <ns4:token-debug>USA (usa)</ns4:token-debug>
+                        <ns4:name locale="en" type="COMMON">usa</ns4:name>
+                    </ns4:match>
+                </ns4:token-matches>
+            </ns4:result>
+        </ns4:alt-reps>
+    </ns4:interp>
+</ns4:places>

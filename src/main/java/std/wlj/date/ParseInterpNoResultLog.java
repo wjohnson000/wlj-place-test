@@ -20,7 +20,7 @@ import java.util.TreeMap;
 public class ParseInterpNoResultLog {
 
     static final String QQ   = "\"\"";
-    static final String path = "C:/temp/date-interp-no-results.csv";
+    static final String path = "C:/temp/date-no-results.csv";
     static final List<String> details = new ArrayList<>();
     static final Map<String, Integer> noResCount = new TreeMap<>();
 
@@ -28,7 +28,7 @@ public class ParseInterpNoResultLog {
         List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
         results.forEach(ParseInterpNoResultLog::getInterestingStuff);
 
-        Files.write(Paths.get("C:/temp/date-interp-no-results.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/date-interp-no-results-more.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         noResCount.entrySet().forEach(entry -> System.out.println(entry.getKey() + "|" + entry.getValue()));
 

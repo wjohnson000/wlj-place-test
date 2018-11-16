@@ -3,14 +3,10 @@
  */
 package std.wlj.date;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
+import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
 
 /**
@@ -64,16 +60,13 @@ public class TestV2FRC {
 
     static void runTests() throws Exception {
         for (String text : textes) {
-            List<GenDateInterpResult> dates = new ArrayList<>();
-
             System.out.println("\n" + text);
             try {
-                dates = DateUtil.interpDate(text, StdLocale.FRENCH);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.FRENCH);
+                for (GenDateInterpResult date : dateResult.getDates()) {
+                    System.out.println("  gx02: " + date.getDate().toGEDCOMX());
+                }
             } catch (GenDateException e) { }
-
-            for (GenDateInterpResult date : dates) {
-                System.out.println("  gx02: " + date.getDate().toGEDCOMX());
-            }
         }
     }
 }
