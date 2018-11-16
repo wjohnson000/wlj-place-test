@@ -5,7 +5,6 @@ package std.wlj.date;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.core.parse.ParseContext;
