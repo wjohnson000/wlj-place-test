@@ -9,11 +9,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+//import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.model.DateResult;
 import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.shared.SharedUtil;
 
 import std.wlj.date.v1.DateV1Shim;
 
@@ -22,10 +24,12 @@ import std.wlj.date.v1.DateV1Shim;
  *
  */
 public class TestV2 {
+
     public static void main(String... args) throws Exception {
         List<String> results = new ArrayList<>();
 
         List<String> textes = textesFromRaw();
+long time0 = System.nanoTime();
         for (String text : textes) {
 //            String hex = text.chars()
 //                    .mapToLong(ch -> (long)ch)
@@ -40,31 +44,37 @@ public class TestV2 {
             try {
                 dates01 = DateV1Shim.interpDate(text);
             } catch (Exception e) {
-                System.out.println("  V2.ext: " + e.getMessage());
+                System.out.println("  V1.ext: " + e.getMessage());
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
 
             results.add("");
             for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX());
-                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX());
+                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
             }
             for (GenDateInterpResult date : dates02.getDates()) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX());
-                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX());
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+            }
+            if (dates02.getDates().isEmpty()) {
+                System.out.println("  gx02: " + text + "|<none>|<none>");
+                results.add(text + "|Date 2.0|<none>|<none>");
             }
         }
+long time1 = System.nanoTime();
 
         System.out.println();
         System.out.println("========================================================================================================================");
         System.out.println("========================================================================================================================");
         System.out.println();
         results.forEach(System.out::println);
+        System.out.println("\n\nTTT: " + (time1 - time0) / 1_000_000.0);
     }
 
     static List<String> textesFromFile(String filename) throws IOException {
@@ -427,21 +437,105 @@ public class TestV2 {
 //        textes.add("- abc 2000");
 //        textes.add("? abc 2000");
 //        textes.add("4 juillet 1776");
+//
+//        textes.add("about between April 13, 1825 and November 26,1825");
+//        textes.add("about between 1752 CE and 1823 CE");
+//        textes.add("about before May, 1887 CE");
+//        textes.add("about after July 11, 1976 CE");
+//        textes.add("about before 1288 BCE");
+//
+//        textes.add("檀紀1");
+//        textes.add("檀紀111");
+//        textes.add("檀紀2333");
+//        textes.add("檀紀2334");
+//        textes.add("檀紀2335");
+//        textes.add("檀紀2434");
+//        textes.add("檀紀4288");
+//        textes.add("檀紀4351");
+//
+//        textes.add("15.+toukokuuta+2018");
+//        textes.add("24.+toukokuuta+2014");
+//
+//        textes.add("June+13+2011");
+//        textes.add("19.+Dezember+1865");
+//        textes.add("24.+Februar+2015");
+//        textes.add("1.+Januar+2018");
+//        textes.add("19.+Dezember+1865");
+//        textes.add("20.+November+2015");
+//        textes.add("23.+Mai+2017");
+//        textes.add("20.+Juni+1836");
+//        textes.add("18.+Februar+1857");
+//        textes.add("1.+September+1594");
+//        textes.add("4.+Juli+1852");
+//        textes.add("20.+Dezember+2015");
+//        textes.add("5.+februar+2016");
+//        textes.add("29.+marts+2016");
+//        textes.add("3.+März+1829");
+//        textes.add("1.+April+2016");
+//        textes.add("23.+Dezember+1914");
+//        textes.add("10.+Februar+1892");
+//        textes.add("17.+Juli+1962");
+//        textes.add("22.+August+1901");
+//        textes.add("3.+Januar+1873");
+//        textes.add("18.+Oktober+1878");
+//        textes.add("17.+Juli+1962");
+//        textes.add("25.+Februar+1850");
+//
+//        textes.add("April+1914");
+//        textes.add("+April+1914");
+//
+//        textes.add("between+estimated+493+BC+and+435+BC");
+//        textes.add("大正12年8月31日");
+//        textes.add("30 Sept 1980");
+//        textes.add("30 Sept. 1980");
+//
+//        textes.add("1985–1990");
+//        textes.add("1985-1990");
+//
+//        textes.add("民國");
+//        textes.add("民國1年");
+//        textes.add("民國前1年");
+//        textes.add("民國34年");
+//        textes.add("民國前34年");
 
-        textes.add("about between April 13, 1825 and November 26,1825");
-        textes.add("about between 1752 CE and 1823 CE");
-        textes.add("about before May, 1887 CE");
-        textes.add("about after July 11, 1976 CE");
-        textes.add("about before 1288 BCE");
+//        textes.add("after 1980");
+//        textes.add("despues 1980");
+//        textes.add("despues de 1980");
+//        textes.add("despues del 1980");
+//        textes.add("después 1980");
+//        textes.add("después de 1980");
+//        textes.add("después del 1980");
+//        textes.add("before 1980");
+//        textes.add("antes 1980");
+//        textes.add("antes de 1980");
+//        textes.add("antes del 1980");
+//
+//        textes.add("25th September 1928");
+//        textes.add("25rd September 1928");
+//        textes.add("25 th September 1928");
+//        textes.add("17th April 23 Henry VI");
+//        textes.add("12 germinal 1806");
+//        textes.add("24 floreal 1797");
+//
+//        textes.add("25 de Agost 1999");
+//        textes.add("25 d'Agost 1999");
+//        textes.add("25 d' Agost 1999");
+//
+//        textes.add("Saturday Jan. 14, 1989");
+//        textes.add("Saturday (Jan. 14, 1989)");
+//        textes.add("Saturday [Jan. 14, 1989]");
+//        textes.add("Saturday {Jan. 14, 1989}");
+//        textes.add("Saturday <Jan. 14, 1989>");
+//        textes.add("(Jan. 14, 1989)");
+//        textes.add("[Jan. 14, 1989]");
+//        textes.add("{Jan. 14, 1989}");
+//        textes.add("<Jan. 14, 1989>");
+//
+//        textes.add("ABOUT 1st day of October in the year of our Lord One Thousand eight hundred and twenty-two"); 
+//        textes.add("26th day of February Anno Domini 1870"); 
+//        textes.add("Twenty sixth day of February in the year of our Lord one thousand eight hundred and seventy");
 
-        textes.add("檀紀1");
-        textes.add("檀紀111");
-        textes.add("檀紀2333");
-        textes.add("檀紀2334");
-        textes.add("檀紀2335");
-        textes.add("檀紀2434");
-        textes.add("檀紀4288");
-        textes.add("檀紀4351");
+        textes.add("10-20-2015");
 
         return textes;
     }

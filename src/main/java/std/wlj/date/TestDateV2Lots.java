@@ -52,7 +52,7 @@ public class TestDateV2Lots {
         for (int ndx=0;  ndx<datesToParse.size();  ndx+=skip) {
             try {
                 String dateToParse = datesToParse.get(ndx);
-                DateResult parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH));
+                DateResult parseResult = parser.parse(new LocalizedData<>(dateToParse, StdLocale.ENGLISH), null, null, null);
                 String genDates = parseResult.getDates().stream()
                         .map(res -> res.getDate().toGEDCOMX())
                         .collect(Collectors.joining(", ", "  [", "]"));

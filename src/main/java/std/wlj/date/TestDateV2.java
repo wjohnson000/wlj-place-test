@@ -69,7 +69,7 @@ public class TestDateV2 {
         System.out.println("Input: " + text);
 
         try {
-            DateResult dateResult = parser.parse(new LocalizedData<>(text, locale));
+            DateResult dateResult = parser.parse(new LocalizedData<>(text, locale), null, null, null);
             for (int len=0;  len<dateResult.getDates().size();  len++) {
                 StringBuilder buff = new StringBuilder(64);
                 buff.append(text);

@@ -70,7 +70,7 @@ public class TestDateLots {
         for (String text : textes) {
 
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE, null, null, null);
 
                 System.out.println("\n" + text);
                 for (GenDateInterpResult date : dateResult.getDates()) {

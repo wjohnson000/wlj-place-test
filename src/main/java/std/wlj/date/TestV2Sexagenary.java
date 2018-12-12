@@ -32,7 +32,7 @@ public class TestV2Sexagenary {
     static void runTests() throws Exception {
         for (String text : textes) {
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE, null, null, null);
                 
                 System.out.println("\n=============================================================\n" + text);
                 for (GenDateInterpResult date : dateResult.getDates()) {

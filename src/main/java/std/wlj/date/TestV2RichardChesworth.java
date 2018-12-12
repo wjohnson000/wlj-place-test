@@ -211,7 +211,7 @@ public class TestV2RichardChesworth {
             }
 
             try {
-                DateResult dates02 = DateUtil.interpDate(text[0], StdLocale.UNDETERMINED);
+                DateResult dates02 = DateUtil.interpDate(text[0], StdLocale.UNDETERMINED, null, null, null);
                 for (GenDateInterpResult date : dates02.getDates()) {
                     System.out.println("  gx02: " + text[0] + "|" + date.getDate().toGEDCOMX() + "|" + text[1]);
                     results.add(text[0] + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + text[1] + "|" + date.getDate().toGEDCOMX().equalsIgnoreCase(text[1]));

@@ -101,7 +101,7 @@ public class TestV2KO {
         for (String text : textesOK) {
             String[] chunks = PlaceHelper.split(text, '|');
             try {
-                DateResult dateResult = DateUtil.interpDate(chunks[0], StdLocale.KOREAN);
+                DateResult dateResult = DateUtil.interpDate(chunks[0], StdLocale.KOREAN, null, null, null);
                 
                 System.out.println("\n" + chunks[0] + " [" + chunks[1] + "]");
                 for (GenDateInterpResult date : dateResult.getDates()) {

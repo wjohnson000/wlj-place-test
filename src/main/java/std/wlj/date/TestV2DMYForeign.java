@@ -54,7 +54,7 @@ public class TestV2DMYForeign {
         long time0 = System.nanoTime();
         for (String text : textes) {
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
 
                 results.add("");
                 for (GenDateInterpResult date : dateResult.getDates()) {

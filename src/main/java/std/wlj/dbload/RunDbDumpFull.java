@@ -13,11 +13,11 @@ import std.wlj.datasource.DbConnectionManager;
 
 public class RunDbDumpFull {
 
-    static final File baseDir = new File("D:/tmp/flat-files/load-test");
+    static final File baseDir = new File("C:/temp/flat-file/load-test");
     static ExecutorService execService = Executors.newFixedThreadPool(2);
     
     public static void main(String... args) throws InterruptedException {
-        DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceSams());  // .getDataSourceDev55());
+        DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceAwsDev());  // .getDataSourceSams());  // .getDataSourceDev55());
 
         for (long repid=1;  repid<10_999_999;  repid+=1_000_000) {
             long startRepId = repid;

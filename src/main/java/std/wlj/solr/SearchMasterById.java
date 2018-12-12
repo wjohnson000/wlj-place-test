@@ -17,7 +17,7 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    static final int MAX_ROWS = 50;
+    static final int MAX_ROWS = 500;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
@@ -25,15 +25,15 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:5337344");
-        SolrQuery query = new SolrQuery("ownerId:6484118");
+//        SolrQuery query = new SolrQuery("repId:551080");
+//        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(10909652 10909651 7218720)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
-//        SolrQuery query = new SolrQuery("parentId:6085");
+//        SolrQuery query = new SolrQuery("parentId:3181");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
@@ -46,6 +46,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
+        SolrQuery query = new SolrQuery("names:world");
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
 //        Date dnow = new Date(cnow.getTimeInMillis());

@@ -113,7 +113,7 @@ public class DatePatternMatches {
         for (String text : textes) {
             try {
                 System.out.println("\n============================================================\n" + text);
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  date: " + date.getDate().toGEDCOMX());
                 }

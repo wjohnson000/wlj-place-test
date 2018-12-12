@@ -33,7 +33,7 @@ public class STD_89937 {
             System.out.println("================================================================================");
 
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  gx02: " + date.getDate().toGEDCOMX());
                 }

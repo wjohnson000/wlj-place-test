@@ -43,7 +43,7 @@ public class RunAcceptanceTestsV1V2 {
 
                 if (! "gedcomx".equals(expected)) {
                     try {
-                        dateResult = DateUtil.interpDate(interp, new StdLocale(locale));
+                        dateResult = DateUtil.interpDate(interp, new StdLocale(locale), null, null, null);
                         String date02Res = dateResult.getDates().stream()
                                 .map(date -> date.getDate().toGEDCOMX())
                                 .collect(Collectors.joining("|", "\n|v2|", ""));

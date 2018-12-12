@@ -62,7 +62,7 @@ public class TestV2FRC {
         for (String text : textes) {
             System.out.println("\n" + text);
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.FRENCH);
+                DateResult dateResult = DateUtil.interpDate(text, StdLocale.FRENCH, null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  gx02: " + date.getDate().toGEDCOMX());
                 }

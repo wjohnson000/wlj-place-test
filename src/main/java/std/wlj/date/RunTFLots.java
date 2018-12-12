@@ -52,7 +52,7 @@ public class RunTFLots {
 
     static List<GenDateInterpResult> interpDate(String text) {
         try {
-            return DateUtil.interpDate(text, StdLocale.UNDETERMINED).getDates();
+            return DateUtil.interpDate(text, StdLocale.UNDETERMINED, null, null, null).getDates();
         } catch (GenDateException e) {
             return Collections.emptyList();
         }

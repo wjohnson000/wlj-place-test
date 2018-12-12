@@ -3,9 +3,9 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.date.cjk.CJKCalendarUtil;
-import org.familysearch.standards.date.cjk.CalendarUtil;
-import org.familysearch.standards.date.cjk.DMY;
+import org.familysearch.standards.date.calendar.LunarCalendarUtil;
+import org.familysearch.standards.date.calendar.CalendarUtil;
+import org.familysearch.standards.date.calendar.DMY;
 
 /**
  * @author wjohnson000
@@ -16,7 +16,7 @@ public class CalcJulianDay {
     public static void main(String...args) {
         // Should be -- 2145641
         // Returns   -- 2145648
-        int jday = CJKCalendarUtil.dayFromDayMonthYear(5, 5, 1162);
+        int jday = LunarCalendarUtil.dayFromDayMonthYear(5, 5, 1162);
         System.out.println("JDAY: " + jday);
 
         DMY dmyJ = CalendarUtil.dmyJulian(jday);
