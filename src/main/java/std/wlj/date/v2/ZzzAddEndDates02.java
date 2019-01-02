@@ -5,7 +5,7 @@ package std.wlj.date.v2;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class ZzzAddEndDates02 {
 
     static void findRanges() throws Exception {
         URL url = ZzzAddEndDates02.class.getResource(IMPERIAL_ZH_FILE);
-        List<String> data = Files.readAllLines(Paths.get(url.toURI()), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get(url.toURI()), StandardCharsets.UTF_8);
 
         int lineno = 0;
         String  prevKey = null;
@@ -69,7 +69,7 @@ public class ZzzAddEndDates02 {
 
     static void fixRanges() throws Exception {
         URL url = ZzzAddEndDates02.class.getResource(IMPERIAL_ZH_FILE);
-        List<String> data = Files.readAllLines(Paths.get(url.toURI()), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get(url.toURI()), StandardCharsets.UTF_8);
 
         for (String datum : data) {
             String line = datum;

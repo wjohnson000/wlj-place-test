@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -38,6 +38,6 @@ public class TestV2FromFile {
     }
 
     static List<String> textesFromFile(String filename) throws IOException {
-        return Files.readAllLines(Paths.get(filename), Charset.forName("UTF-8"));
+        return Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
     }
 }

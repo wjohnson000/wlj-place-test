@@ -2,7 +2,7 @@ package std.wlj.ws.rawhttp;
 
 import java.io.IOException;
 import java.net.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -70,7 +70,7 @@ public class GetPutPostDelete {
         }
 
         Path logPath = Paths.get("C:", "temp", "place-2.0-get-put-post-delete-x.txt");
-        Files.write(logPath, logStuff, Charset.forName("UTF-8"));
+        Files.write(logPath, logStuff, StandardCharsets.UTF_8);
     }
 
     /**

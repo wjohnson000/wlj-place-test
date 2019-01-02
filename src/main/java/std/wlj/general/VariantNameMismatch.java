@@ -1,7 +1,7 @@
 package std.wlj.general;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
 public class VariantNameMismatch {
 
     public static void main(String...args) throws IOException {
-        List<String> variants = Files.readAllLines(Paths.get("C:/temp/place-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> variants = Files.readAllLines(Paths.get("C:/temp/place-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("CNT: " + variants.size());
 
         int badCnt = 0;

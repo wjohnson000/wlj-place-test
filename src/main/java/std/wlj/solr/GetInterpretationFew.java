@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class GetInterpretationFew {
     static Random random = new Random();
 
     public static void main(String... args) throws Exception {
-        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/important/places-search-text.txt"), Charset.forName("UTF-8"));
+        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/important/places-search-text.txt"), StandardCharsets.UTF_8);
         System.out.println("PlaceNames.count=" + placeNames.size());
 
         SolrService  solrService = SolrManager.localEmbeddedService("D:/solr/standalone-7.1.0");

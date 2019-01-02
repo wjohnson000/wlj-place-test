@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -971,7 +971,7 @@ public class AppDataManagerLocal {
      */
     protected List<String> getAppData(String fileId) {
         try {
-            return Files.readAllLines(Paths.get(baseDir, fileId + ".txt"), Charset.forName("UTF-8"));
+            return Files.readAllLines(Paths.get(baseDir, fileId + ".txt"), StandardCharsets.UTF_8);
         } catch(Exception ex) {
             return new ArrayList<>();
         }

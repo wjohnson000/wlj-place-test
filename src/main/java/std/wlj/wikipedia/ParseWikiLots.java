@@ -1,6 +1,6 @@
 package std.wlj.wikipedia;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ParseWikiLots {
         long timeC = 0L;
         long time0;
 
-        List<String> urls = Files.readAllLines(Paths.get("C:/temp/wiki-link.txt"), Charset.forName("UTF-8"));
+        List<String> urls = Files.readAllLines(Paths.get("C:/temp/wiki-link.txt"), StandardCharsets.UTF_8);
         for (int ndx=0;  ndx<urls.size();  ndx+=197) {
             String urlX = urls.get(ndx);
             String[] url = PlaceHelper.split(urlX, '\t');

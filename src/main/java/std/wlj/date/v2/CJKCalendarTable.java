@@ -9,7 +9,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -230,7 +230,7 @@ public class CJKCalendarTable {
         List<int[]> yearDetails = new ArrayList<>();
 
         try {
-            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), Charset.forName("UTF-8"));
+            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), StandardCharsets.UTF_8);
             parser = factory.createXMLStreamReader(reader);
 
             boolean stillReading = true;

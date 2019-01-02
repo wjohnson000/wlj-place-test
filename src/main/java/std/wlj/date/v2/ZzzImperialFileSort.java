@@ -4,7 +4,7 @@
 package std.wlj.date.v2;
 
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class ZzzImperialFileSort {
 
     void doIt() throws Exception {
         URL url = this.getClass().getResource(IMPERIAL_ZH_FILE);
-        List<String> data = Files.readAllLines(Paths.get(url.toURI()), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get(url.toURI()), StandardCharsets.UTF_8);
         WordGroupX currGroup = null;
         for (String datum : data) {
             WordGroupX group = createGroupFromLine(datum);

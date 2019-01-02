@@ -1,7 +1,7 @@
 package std.wlj.kml;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class MatchKMLToPlaceRep {
 
     public static Map<Integer,List<String>> createMatchFileMap() throws IOException {
         // Pull rep-id and name from silly file
-        List<String> repIdName = Files.readAllLines(Paths.get("D:/postgis/rep-to-id.txt"), Charset.forName("UTF-8"));
+        List<String> repIdName = Files.readAllLines(Paths.get("D:/postgis/rep-to-id.txt"), StandardCharsets.UTF_8);
 
         Map<Integer,RepData> repIdMap = repIdName.stream()
             .filter(entry -> entry.trim().length() > 3)

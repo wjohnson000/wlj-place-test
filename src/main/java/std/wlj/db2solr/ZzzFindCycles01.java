@@ -1,6 +1,6 @@
 package std.wlj.db2solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -54,7 +54,7 @@ public class ZzzFindCycles01 {
         for (Map.Entry<Integer,Integer> entry : childParMap.entrySet()) {
             data.add(entry.getKey() + "|" + entry.getValue());
         }
-        Files.write(Paths.get("C:/temp/zzz-rep-chain.txt"), data, Charset.forName("UTF-8"));
+        Files.write(Paths.get("C:/temp/zzz-rep-chain.txt"), data, StandardCharsets.UTF_8);
     }
 
     private static void saveDelRepIdMap(Connection conn) throws Exception {
@@ -81,14 +81,14 @@ public class ZzzFindCycles01 {
         for (Map.Entry<Integer,Integer> entry : delRepIdMap.entrySet()) {
             data.add(entry.getKey() + "|" + entry.getValue());
         }
-        Files.write(Paths.get("C:/temp/zzz-delete-id.txt"), data, Charset.forName("UTF-8"));
+        Files.write(Paths.get("C:/temp/zzz-delete-id.txt"), data, StandardCharsets.UTF_8);
     }
 
     private static void saveLatestChildParMap(Connection conn) throws Exception {
         // Save all child-parent associations, but only the latest revision#
         int prevRepId = 0;
         List<String> data = new ArrayList<>();
-        Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, Charset.forName("UTF-8"));
+        Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, StandardCharsets.UTF_8);
 
         String query =
             "SELECT rep_id, parent_id " +
@@ -106,12 +106,12 @@ public class ZzzFindCycles01 {
                 prevRepId = repId;
                 if (data.size() == 500000) {
                     System.out.println("Writing more lines ... ");
-                    Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+                    Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
                     data.clear();
                 }
             }
         }
 
-        Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+        Files.write(Paths.get("C:/temp/zzz-child-par.txt"), data, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
     }
 }

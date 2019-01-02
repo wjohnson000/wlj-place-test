@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ long time1 = System.nanoTime();
     }
 
     static List<String> textesFromFile(String filename) throws IOException {
-        return Files.readAllLines(Paths.get(filename), Charset.forName("UTF-8"));
+        return Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
     }
 
     static List<String> textesFromRaw() {
@@ -534,8 +534,63 @@ long time1 = System.nanoTime();
 //        textes.add("ABOUT 1st day of October in the year of our Lord One Thousand eight hundred and twenty-two"); 
 //        textes.add("26th day of February Anno Domini 1870"); 
 //        textes.add("Twenty sixth day of February in the year of our Lord one thousand eight hundred and seventy");
+//
+//        textes.add("10-20-2015");
+//
+//        textes.add("first day of May one thou-   sand eight hundred and forty four");
+//        textes.add("first day of April in the year of one Lord one thousand");
+//        textes.add("October third eighteen hundred and seventy two");
+//        textes.add("October third, eighteen hundred and seventy two");
 
-        textes.add("10-20-2015");
+//        textes.add("197?");
+//        textes.add("1970's");
+//        textes.add("about early 1970s");
+//        textes.add("early 1970s");
+//        textes.add("early 1970's");
+//        textes.add("early 197?");
+//        textes.add("mid 1970s");
+//        textes.add("mid 1970's");
+//        textes.add("mid 197?");
+//        textes.add("late 1970s");
+//        textes.add("late 1970's");
+//        textes.add("late 197?");
+//
+//        textes.add("middle of 1970s");
+//        textes.add("middle of 1970's");
+//        textes.add("middle of 197?");
+//        textes.add("end of 1970s");
+//        textes.add("end of 1970's");
+//        textes.add("end of 197?");
+//
+//        textes.add("middle 180?");
+//        textes.add("middle of 18??");
+//        textes.add("middle of 1000's");
+//
+//        textes.add("About 1825?");
+//        textes.add("1999's");
+//
+//        textes.add("30 BC");
+//        textes.add("about 30 BC");
+//        textes.add("BEFORE 30 BC");
+//        textes.add("after 30 BC");
+//
+//        textes.add("30 AD");
+//        textes.add("about 30 AD");
+//        textes.add("BEFORE 30 AD");
+//        textes.add("after 30 AD");
+//
+//        textes.add("early 1890's");
+//        textes.add("mid 1890's");
+//        textes.add("late 1890's");
+//        textes.add("early 1900's");
+//        textes.add("mid 1900's");
+//        textes.add("late 1900's");
+//        textes.add("early 1000's");
+//        textes.add("mid 1000's");
+//        textes.add("late 1000's");
+
+        textes.add("3/11/00");
+        textes.add("3/11/01");
 
         return textes;
     }

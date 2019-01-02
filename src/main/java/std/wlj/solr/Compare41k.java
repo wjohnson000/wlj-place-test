@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -16,8 +16,8 @@ public class Compare41k {
         Path path01 = currFS.getPath("C:", "temp", "search-new-ordered.txt");
         Path path02 = currFS.getPath("C:", "temp", "search-new-random.txt");
 
-        List<String> data01 = Files.readAllLines(path01, Charset.forName("UTF-8"));
-        List<String> data02 = Files.readAllLines(path02, Charset.forName("UTF-8"));
+        List<String> data01 = Files.readAllLines(path01, StandardCharsets.UTF_8);
+        List<String> data02 = Files.readAllLines(path02, StandardCharsets.UTF_8);
 
         System.out.println("Rows01: " + data01.size());
         System.out.println("Rows02: " + data02.size());
@@ -95,7 +95,7 @@ public class Compare41k {
         outData.add(" SCORE: " + totalSc01 + " vs. " + totalSc02);
 
         Path outPath = currFS.getPath("C:", "temp", "compare-new-metrics.txt");
-        Files.write(outPath, outData, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        Files.write(outPath, outData, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
         System.exit(0);
     }

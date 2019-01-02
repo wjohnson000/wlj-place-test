@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -41,7 +41,7 @@ public class S89688_06_SampleDeleteData {
             try {
                 String fileName = String.format(repFileName, fileCount++);
                 System.out.println("Processing file: " + fileName);
-                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
+                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), StandardCharsets.UTF_8);
                 sampleRepData(repDelete, allLines);
             } catch (IOException e) {
                 break;
@@ -74,7 +74,7 @@ public class S89688_06_SampleDeleteData {
             try {
                 String fileName = String.format(plcFileName, fileCount++);
                 System.out.println("Processing file: " + fileName);
-                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
+                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), StandardCharsets.UTF_8);
                 samplePlaceData(repDelete, allLines);
             } catch (IOException e) {
                 break;

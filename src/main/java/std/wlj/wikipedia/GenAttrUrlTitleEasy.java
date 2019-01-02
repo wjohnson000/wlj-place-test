@@ -6,7 +6,7 @@ package std.wlj.wikipedia;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -32,7 +32,6 @@ public class GenAttrUrlTitleEasy {
 
     private static final String ATTR_FILE    = "C:/temp/db-dump/attribute-all.txt";
     private static final String TITLE_FILE   = "C:/temp/attr-url-title-easy.txt";
-    private static final Charset UTF_8       = Charset.forName("UTF-8");
 
     public static void main(String... args) throws IOException {
         Map<String,String> urlTitle = new TreeMap<>();
@@ -64,7 +63,7 @@ public class GenAttrUrlTitleEasy {
             System.out.println("OOPS: " + ex.getMessage());
         }
 
-        Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         domainCount.entrySet().stream()
             .filter(entry -> entry.getValue() > 250)
             .forEach(System.out::println);

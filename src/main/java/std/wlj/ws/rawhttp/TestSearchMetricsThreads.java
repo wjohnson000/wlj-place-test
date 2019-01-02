@@ -2,7 +2,7 @@ package std.wlj.ws.rawhttp;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -69,7 +69,7 @@ public class TestSearchMetricsThreads {
         final int numInterp = nInterp;
         final Path temp = currFS.getPath(inPath);
         final PrintWriter pwOut = new PrintWriter(new FileWriter(new File(outPath)));
-        final List<String> textes = Files.readAllLines(temp, Charset.forName("UTF-8"));
+        final List<String> textes = Files.readAllLines(temp, StandardCharsets.UTF_8);
 
         Date startDate = new Date();
         Thread[] threads = new Thread[numThr];

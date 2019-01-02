@@ -3,6 +3,7 @@ package std.wlj.analysis.service;
 import java.io.IOException;
 import java.net.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -21,7 +22,7 @@ public class DoInterpretationLots {
     private static ExecutorService execService = Executors.newFixedThreadPool(20);
 
     private static Random random = new Random();
-    private static Charset UTF_8 = Charset.forName("UTF-8");
+    private static Charset UTF_8 = StandardCharsets.UTF_8;
     private static List<String> requestText;
     private static List<String> interpName;
 

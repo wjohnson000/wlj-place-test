@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class RunTFLots {
     static final String path = "C:/temp/date-tf-lots.csv";
 
     public static void main(String...args) throws IOException {
-        List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
+        List<String> results = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
 
         long time0 = System.nanoTime();
         results.forEach(line -> {

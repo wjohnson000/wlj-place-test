@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -25,7 +25,7 @@ public class GetInterpretationLotsThreads {
     static Random random = new Random();
 
     public static void main(String... args) throws Exception {
-        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
+        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), StandardCharsets.UTF_8);
         System.out.println("PlaceNames.count=" + placeNames.size());
 
         SolrService  solrService = SolrManager.localEmbeddedService("D:/solr/stand-alone-6.5.0");
@@ -53,7 +53,7 @@ public class GetInterpretationLotsThreads {
         long time01 = System.nanoTime();
         System.out.println("Clock time: " + ((time01 - time00) / 1_000_000.0));
 
-        Files.write(Paths.get("C:/temp/place-search-new.txt"), iSpyWaldo, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/place-search-new.txt"), iSpyWaldo, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         solrService.shutdown();
         System.exit(0);
     }

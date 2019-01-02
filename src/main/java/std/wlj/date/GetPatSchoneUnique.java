@@ -11,7 +11,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -41,7 +41,7 @@ public class GetPatSchoneUnique {
         System.out.println("\nLC: " + lineCnt);
         System.out.println("SZ: " + dates.size());
 
-        Files.write(Paths.get("C:/temp/long-hand-dates-unique.txt"), dates, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/long-hand-dates-unique.txt"), dates, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static String cleanInput(String input) {

@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class TestDateLots {
     }
 
     static void runTests() throws Exception {
-//        List<String> textes = Files.readAllLines(Paths.get("C:/temp/zh-dates-more.txt"), Charset.forName("UTF-8"));
+//        List<String> textes = Files.readAllLines(Paths.get("C:/temp/zh-dates-more.txt"), StandardCharsets.UTF_8);
         List<String> textes = new ArrayList<>();
         textes.clear();
 //        textes.add("11/6/1975");

@@ -2,7 +2,7 @@ package std.wlj.analysis.service;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -49,7 +49,7 @@ public class SaveInterpretationLots {
         svcUrl = new URL("https://place-ws-dev.dev.fsglobal.org/int-std-ws-analysis/interpretation");
         System.out.println("The URL: " + svcUrl);
 
-        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
+        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), StandardCharsets.UTF_8);
         System.out.println("PlaceNames.count=" + placeNames.size());
 
         SolrService  solrService = SolrManager.localEmbeddedService("D:/solr/stand-alone-6.5.0");

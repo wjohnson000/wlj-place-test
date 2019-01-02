@@ -1,7 +1,7 @@
 package std.wlj.wikipedia;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -78,7 +78,7 @@ public class ParseTitle {
 
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
-            String html = IOUtils.toString(ios, Charset.forName("UTF-8"));
+            String html = IOUtils.toString(ios, StandardCharsets.UTF_8);
             EntityUtils.consumeQuietly(response.getEntity());
             return html;
         } catch (Exception ex) {

@@ -1,7 +1,7 @@
 package std.wlj.xlit;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -96,7 +96,7 @@ public class KmRuleGenerate {
     public static void main(String...args) throws IOException {
         addHeaderAndNull();        
         kmToEnConsonants.entrySet().forEach(entry -> processKM(entry.getKey(), entry.getValue()));
-        Files.write(Paths.get(BASE_DIR, NEW_RULE_FILE), rules, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(BASE_DIR, NEW_RULE_FILE), rules, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static void addHeaderAndNull() {

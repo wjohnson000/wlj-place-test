@@ -1,7 +1,7 @@
 package std.wlj.loadtest;
 
 import java.net.URL;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,7 +22,6 @@ public class PlaceWS55Search {
     private static ExecutorService execService = Executors.newFixedThreadPool(10);
 
     private static Random random = new Random();
-    private static Charset UTF_8 = Charset.forName("UTF-8");
     private static List<String> requestText;
 
     private static long requestCnt = 0;
@@ -32,7 +31,7 @@ public class PlaceWS55Search {
         HttpHelper.overrideHTTPS = true;
         HttpHelper.doVerbose = false;
 
-        requestText =  Files.readAllLines(Paths.get("C:/temp/important/places-search-text.txt"), UTF_8)
+        requestText =  Files.readAllLines(Paths.get("C:/temp/important/places-search-text.txt"), StandardCharsets.UTF_8)
             .stream()
             .map(val -> val.replace('"', ' ').trim())
             .filter(val -> val.length() > 4)

@@ -6,7 +6,7 @@ package std.wlj.date.v2;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -38,7 +38,7 @@ public class ZzzFindDupsModifiers {
         XMLStreamReader parser;
 
         try {
-            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_MODIFIER_FILENAME), Charset.forName("UTF-8"));
+            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_MODIFIER_FILENAME), StandardCharsets.UTF_8);
             parser = factory.createXMLStreamReader(reader);
 
             String lang = "";

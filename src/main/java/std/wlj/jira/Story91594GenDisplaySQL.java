@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -30,7 +30,7 @@ public class Story91594GenDisplaySQL {
     static final String deleteNameSql = "UPDATE rep_display_name SET delete_flag = TRUE WHERE rep_id = %s AND locale = '%s' AND tran_id = %s;";
 
     public static void main(String...args) throws IOException {
-        List<String> nameFixData = Files.readAllLines(Paths.get(baseDir, "display-name-fixes-03.txt"), Charset.forName("UTF-8"));
+        List<String> nameFixData = Files.readAllLines(Paths.get(baseDir, "display-name-fixes-03.txt"), StandardCharsets.UTF_8);
         List<String> sqlCommands = new ArrayList<>();
 
         for (String fixData : nameFixData) {

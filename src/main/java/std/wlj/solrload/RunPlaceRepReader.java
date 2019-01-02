@@ -2,7 +2,7 @@ package std.wlj.solrload;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -73,7 +73,7 @@ public class RunPlaceRepReader {
 		addList(data, "citations", doc.getCitations());
 		addList(data, "xref", doc.getExtXrefs());
 
-		Files.write(Paths.get(outputDir, "rep-" + doc.getRepId() + ".txt"), data, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+		Files.write(Paths.get(outputDir, "rep-" + doc.getRepId() + ".txt"), data, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 	}
 
 	private static void addList(List<String> data, String title, List<String> values) {

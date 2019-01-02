@@ -6,7 +6,7 @@ package std.wlj.date.v2;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -76,9 +76,9 @@ public class JA_ZH_Compare {
         try {
             Reader reader;
             if (isChinese ) {
-                reader = new InputStreamReader(this.getClass().getResourceAsStream(IMPERIAL_ZH_FILE), Charset.forName("UTF-8"));
+                reader = new InputStreamReader(this.getClass().getResourceAsStream(IMPERIAL_ZH_FILE), StandardCharsets.UTF_8);
             } else {
-                reader = new InputStreamReader(this.getClass().getResourceAsStream(IMPERIAL_JA_FILE), Charset.forName("UTF-8"));
+                reader = new InputStreamReader(this.getClass().getResourceAsStream(IMPERIAL_JA_FILE), StandardCharsets.UTF_8);
             }
             parser = factory.createXMLStreamReader(reader);
 

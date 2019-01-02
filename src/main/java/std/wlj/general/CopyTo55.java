@@ -2,7 +2,7 @@ package std.wlj.general;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -156,7 +156,7 @@ public class CopyTo55 {
     static void createFileContents(File theFile, String theContents) {
         try {
             deleteFileOrDirectory(theFile);
-            Files.write(Paths.get(theFile.getAbsolutePath()), theContents.getBytes(Charset.forName("UTF-8")), StandardOpenOption.CREATE);
+            Files.write(Paths.get(theFile.getAbsolutePath()), theContents.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
         } catch (IOException ex) {
             System.out.println("  >>> unable to create file: " + theFile + ";  ex=" + ex.getMessage());
         }

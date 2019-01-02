@@ -2,7 +2,7 @@ package std.wlj.solr;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class SearchForSelectedDocuments {
 
             System.out.println("ID: " + doc.getId());
             String fileName = doc.getId() + ".txt";
-            Files.write(Paths.get(outputPath, fileName), details, Charset.forName("UTF-8"));
+            Files.write(Paths.get(outputPath, fileName), details, StandardCharsets.UTF_8);
         }
     }
 

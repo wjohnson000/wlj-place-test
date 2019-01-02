@@ -1,7 +1,7 @@
 package std.wlj.solr;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -27,7 +27,7 @@ public class SearchLocalLots {
         getCount(solrConn, "-deleteId:[* TO *]");
 
         // Do a bunch of look-ups
-        List<String> queries = Files.readAllLines(Paths.get("C:/temp/place-sample-queries.txt"), Charset.forName("UTF-8"));
+        List<String> queries = Files.readAllLines(Paths.get("C:/temp/place-sample-queries.txt"), StandardCharsets.UTF_8);
 
         int progress   = 0;
         int totalTotal = 0;

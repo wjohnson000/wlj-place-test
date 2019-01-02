@@ -3,7 +3,7 @@
  */
 package std.wlj.date.v2;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class JA_CreateDictionary {
 
     public static void main(String... args) throws Exception {
         // Read and process the DYNASTY --> EMPEROR file
-        List<String> dynEmpData = Files.readAllLines(Paths.get(JA_EMPEROR_FILE), Charset.forName("UTF-8"));
+        List<String> dynEmpData = Files.readAllLines(Paths.get(JA_EMPEROR_FILE), StandardCharsets.UTF_8);
 
         String[] dynasty = null;
         for (String datum :dynEmpData) {
@@ -62,7 +62,7 @@ public class JA_CreateDictionary {
 
         // Read and process the EMPEROR --> ERA/REIGN file
         String[] prevEra = null;
-        List<String> empEraData = Files.readAllLines(Paths.get(JA_REIGN_FILE), Charset.forName("UTF-8"));
+        List<String> empEraData = Files.readAllLines(Paths.get(JA_REIGN_FILE), StandardCharsets.UTF_8);
         for (String datum : empEraData) {
             String[] era = PlaceHelper.split(datum, '|');
             if (era.length > 3) {

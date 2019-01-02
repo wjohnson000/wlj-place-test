@@ -1,7 +1,7 @@
 package std.wlj.flatfile;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import java.util.List;
 public class AnalyzeStJudeLog {
     public static void main(String... args) throws IOException {
         Path path = Paths.get("C:/Users/wjohnson000/Downloads/st-jude.csv");
-        List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
         System.out.println("CNT: " + lines.size());
 
         for (String line : lines) {

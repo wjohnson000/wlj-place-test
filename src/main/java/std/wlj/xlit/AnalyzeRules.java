@@ -1,6 +1,6 @@
 package std.wlj.xlit;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -24,7 +24,7 @@ public class AnalyzeRules {
         Map<String, Set<String>> enManagedByKm = new TreeMap<>();
         Map<String, Set<String>> enPatternsXX  = new TreeMap<>();
 
-        List<String> lines = Files.readAllLines(Paths.get(baseDir, INPUT_FILE), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get(baseDir, INPUT_FILE), StandardCharsets.UTF_8);
         List<String[]> rules = collectRules(lines);
 
         int kmNdx = 1;

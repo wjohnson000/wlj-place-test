@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.familysearch.standards.date.shortcut.MDYGenSimpleDate;
 public class TestNewMDY {
 
     public static void main(String...args) throws Exception {
-        List<String> dates = Files.readAllLines(Paths.get("C:/temp/date-interp-mdy.txt"), Charset.forName("UTF-8"));
+        List<String> dates = Files.readAllLines(Paths.get("C:/temp/date-interp-mdy.txt"), StandardCharsets.UTF_8);
         for (String date : dates) {
             date = date.replace('"', ' ');
             int ndx = date.lastIndexOf(',');

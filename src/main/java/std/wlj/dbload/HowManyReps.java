@@ -1,7 +1,7 @@
 package std.wlj.dbload;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -26,7 +26,7 @@ public class HowManyReps {
     private static final String QUERY_GET_REV_DISP_NAME     = "SELECT DISTINCT(rep_id) FROM rep_display_name WHERE tran_id BETWEEN %d AND %d ";
     
     public static void main(String...args) throws IOException {
-        List<String> trxByDays = Files.readAllLines(Paths.get("C:/temp/transaction-by-day.txt"), Charset.forName("UTF-8"));
+        List<String> trxByDays = Files.readAllLines(Paths.get("C:/temp/transaction-by-day.txt"), StandardCharsets.UTF_8);
         System.out.println("Days: " + trxByDays.size());
 
         try(Connection conn = DbConnectionManager.getConnectionAws()) {

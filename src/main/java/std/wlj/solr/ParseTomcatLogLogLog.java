@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -17,7 +17,7 @@ public class ParseTomcatLogLogLog {
 
         Set<String> badOnes = new HashSet<>();
         Set<String> badTwos = new HashSet<>();
-        List<String> data = Files.readAllLines(path, Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(path, StandardCharsets.UTF_8);
         System.out.println("Rows01: " + data.size());
 
         double procTotal = 0;

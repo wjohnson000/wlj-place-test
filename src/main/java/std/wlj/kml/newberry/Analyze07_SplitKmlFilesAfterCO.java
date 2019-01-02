@@ -2,7 +2,7 @@ package std.wlj.kml.newberry;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -43,7 +43,7 @@ public class Analyze07_SplitKmlFilesAfterCO {
     }
 
     static void loadMapFile() throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(pathToIn), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(pathToIn), StandardCharsets.UTF_8);
         for (String line : allLines) {
             String[] fields = line.split("\\|");
             if (fields.length < 11) {

@@ -1,7 +1,7 @@
 package std.wlj.wikipedia;
 
 import java.io.ByteArrayInputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -33,7 +33,7 @@ public class TitleSaxHandler extends DefaultHandler {
 
     public String parseTitleFromHtml(String rawHtml) {
         try {
-            ByteArrayInputStream bais = new ByteArrayInputStream(rawHtml.getBytes(Charset.forName("UTF-8")));
+            ByteArrayInputStream bais = new ByteArrayInputStream(rawHtml.getBytes(StandardCharsets.UTF_8));
             SAXParser saxParser = factory.newSAXParser();
             saxParser.parse(bais, this);
             return title;

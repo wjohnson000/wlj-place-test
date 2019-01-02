@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -32,7 +32,7 @@ public class S89688_07_PlaceWithUndeletedReps {
                 String fileName = String.format(repFileName, fileCount++);
                 System.out.println("Processing file: " + fileName);
                 System.out.println("   P2R.size: " + placeToRep.size());
-                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
+                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), StandardCharsets.UTF_8);
                 populatePlaceToRep(placeToRep, allLines);
             } catch (IOException e) {
                 break;
@@ -69,7 +69,7 @@ public class S89688_07_PlaceWithUndeletedReps {
                 String fileName = String.format(plcFileName, fileCount++);
                 System.out.println("Processing file: " + fileName);
                 System.out.println("   P2R.size: " + placeToRep.size());
-                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
+                List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), StandardCharsets.UTF_8);
                 removeDeletedPlaces(placeToRep, allLines);
             } catch (IOException e) {
                 break;

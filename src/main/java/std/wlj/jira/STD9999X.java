@@ -1,6 +1,6 @@
 package std.wlj.jira;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,7 +33,7 @@ public class STD9999X {
 	public static void main(String... args) throws Exception {
 		// Read in the raw data file
 		Path inPath = Paths.get(inputPath);
-		List<String> rawData = Files.readAllLines(inPath, Charset.forName("UTF-8"));
+		List<String> rawData = Files.readAllLines(inPath, StandardCharsets.UTF_8);
 
 		// Create the two maps ...
 		Map<Integer,List<Integer>> newToDelMap = new TreeMap<>();
@@ -96,7 +96,7 @@ public class STD9999X {
 		}
 
 		Path outPath = Paths.get(outputPath);
-		Files.write(outPath, cmdAll, Charset.forName("UTF-8"));
+		Files.write(outPath, cmdAll, StandardCharsets.UTF_8);
 	}
 
 	/**

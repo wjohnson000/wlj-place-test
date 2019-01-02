@@ -2,7 +2,7 @@ package std.wlj.db2solr;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -84,7 +84,7 @@ public class RunReaderChunked {
             details.add("extXref: " + xx);
         }
 
-        Files.write(path, details, Charset.forName("UTF-8"));
+        Files.write(path, details, StandardCharsets.UTF_8);
     }
 
     private static List<String> sortData(List<String> data) {

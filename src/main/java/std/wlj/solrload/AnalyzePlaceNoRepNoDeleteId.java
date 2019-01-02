@@ -2,7 +2,7 @@ package std.wlj.solrload;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -86,7 +86,7 @@ public class AnalyzePlaceNoRepNoDeleteId {
         }
 
         Path outPath = Paths.get("C:/temp/place-no-rep-no-delete-analysis.txt");
-        Files.write(outPath, results, Charset.forName("UTF-8"));
+        Files.write(outPath, results, StandardCharsets.UTF_8);
 
         closeReaders();
         System.exit(0);

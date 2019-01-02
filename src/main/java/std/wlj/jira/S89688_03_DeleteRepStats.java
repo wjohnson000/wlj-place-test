@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ public class S89688_03_DeleteRepStats {
     static final String fileName  = "s89688-rep-data-all.txt";
 
     public static void main(String...args) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, fileName), StandardCharsets.UTF_8);
         System.out.println("Reps: " + allLines.size());
 
         Map<Integer, String> typeDetails = getTypeData();

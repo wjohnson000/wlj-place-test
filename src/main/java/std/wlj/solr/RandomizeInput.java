@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -15,7 +15,7 @@ public class RandomizeInput {
         FileSystem currFS = FileSystems.getDefault();
         Path path01 = currFS.getPath("C:/temp/local-all.txt");
 
-        List<String> data01 = Files.readAllLines(path01, Charset.forName("UTF-8"));
+        List<String> data01 = Files.readAllLines(path01, StandardCharsets.UTF_8);
 
         Collections.sort(data01, new Comparator<String>() {
             @Override
@@ -25,7 +25,7 @@ public class RandomizeInput {
         });
 
         Path outPath = currFS.getPath("C:/temp/local-all-random.txt");
-        Files.write(outPath, data01, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        Files.write(outPath, data01, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
         System.exit(0);
     }

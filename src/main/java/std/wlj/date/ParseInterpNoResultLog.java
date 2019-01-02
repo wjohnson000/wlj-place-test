@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -25,10 +25,10 @@ public class ParseInterpNoResultLog {
     static final Map<String, Integer> noResCount = new TreeMap<>();
 
     public static void main(String...args) throws IOException {
-        List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
+        List<String> results = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
         results.forEach(ParseInterpNoResultLog::getInterestingStuff);
 
-        Files.write(Paths.get("C:/temp/date-interp-no-results-more.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/date-interp-no-results-more.txt"), details, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         noResCount.entrySet().forEach(entry -> System.out.println(entry.getKey() + "|" + entry.getValue()));
 

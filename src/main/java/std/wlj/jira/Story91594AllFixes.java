@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -69,7 +69,7 @@ public class Story91594AllFixes {
     }
 
     static void setupCharMapping() throws IOException {
-        List<String> nameData = Files.readAllLines(Paths.get(baseDir, fixesFile), Charset.forName("UTF-8"));
+        List<String> nameData = Files.readAllLines(Paths.get(baseDir, fixesFile), StandardCharsets.UTF_8);
         for (String nameDatum : nameData) {
             String[] chunks  = nameDatum.split("\\t");
             String fromChars = "";
@@ -98,7 +98,7 @@ public class Story91594AllFixes {
 
     static void generatePlaceNameFixes() throws IOException {
         Map<Integer, TheNameData> nameMap = new HashMap<>();
-        List<String> nameData = Files.readAllLines(Paths.get(baseDir, placeNameAll), Charset.forName("UTF-8"));
+        List<String> nameData = Files.readAllLines(Paths.get(baseDir, placeNameAll), StandardCharsets.UTF_8);
         System.out.println("Number of variant names: " + nameData.size());
 
         for (String nameDatum : nameData) {
@@ -151,7 +151,7 @@ public class Story91594AllFixes {
 
     static void generateRepDisplayNameFixes() throws IOException {
         Map<String, TheNameData> nameMap = new HashMap<>();
-        List<String> nameData = Files.readAllLines(Paths.get(baseDir, "display-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> nameData = Files.readAllLines(Paths.get(baseDir, "display-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("Number of display names: " + nameData.size());
 
         for (String nameDatum : nameData) {

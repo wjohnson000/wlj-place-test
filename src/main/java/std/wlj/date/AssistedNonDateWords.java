@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -43,7 +43,7 @@ public class AssistedNonDateWords {
 
         List<String> notFound = new ArrayList<>();
 
-        List<String> textes = Files.readAllLines(Paths.get("C:/temp/date-assisted.txt"), Charset.forName("UTF-8"));
+        List<String> textes = Files.readAllLines(Paths.get("C:/temp/date-assisted.txt"), StandardCharsets.UTF_8);
         for (String text : textes) {
             String[] chunks = PlaceHelper.split(text, '|');
             String dateStr = chunks[0].chars()
@@ -68,7 +68,7 @@ public class AssistedNonDateWords {
             }
         }
 
-        Files.write(Paths.get("C:/temp/words-found-no.txt"), notFound, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/words-found-no.txt"), notFound, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static Dictionary getMasterDictionary() {

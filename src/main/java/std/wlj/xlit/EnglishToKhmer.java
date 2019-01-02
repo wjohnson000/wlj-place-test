@@ -2,7 +2,7 @@ package std.wlj.xlit;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -42,7 +42,7 @@ public class EnglishToKhmer {
 
     public static void main(String...args) throws IOException {
         List<String> xlits = new ArrayList<>();
-        List<String> names = Files.readAllLines(Paths.get(pathToFiles, inputFile), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get(pathToFiles, inputFile), StandardCharsets.UTF_8);
 
       JSONObject jsonOO = new JSONObject("{\"contents\":[[[\"រ៉ូបឺត\",\"Robert\",null,null,3],[null,null,\"rau beut\",\"ˈräbərt\"]],null,\"en\",null,null,null,0.84086442,null,[[\"en\"],null,[0.84086442],[\"en\"]]]}");
       System.out.println(Arrays.toString(extractXlit(jsonOO)));
@@ -63,7 +63,7 @@ public class EnglishToKhmer {
 //            }
 //        }
 //
-//        Files.write(Paths.get(pathToFiles, outputFile), xlits, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+//        Files.write(Paths.get(pathToFiles, outputFile), xlits, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
     }
 
     static JSONObject translate(String name) {
@@ -77,7 +77,7 @@ public class EnglishToKhmer {
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
 //            System.out.println("Name: " + name + " --> " + response.getStatusLine());
-            String json = IOUtils.toString(ios, Charset.forName("UTF-8"));
+            String json = IOUtils.toString(ios, StandardCharsets.UTF_8);
             EntityUtils.consumeQuietly(response.getEntity());
             return new JSONObject("{ \"contents\": " + json + "}");
         } catch (Exception ex) {

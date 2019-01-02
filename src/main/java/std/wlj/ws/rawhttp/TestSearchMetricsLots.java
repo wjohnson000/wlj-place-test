@@ -2,7 +2,7 @@ package std.wlj.ws.rawhttp;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -34,7 +34,7 @@ public class TestSearchMetricsLots {
         PrintWriter pwOut = new PrintWriter(new FileWriter(new File("C:/temp/results-search-41k.txt")));
         FileSystem currFS = FileSystems.getDefault();
         Path temp = currFS.getPath("C:", "temp", "local-all.txt");
-        List<String> textes = Files.readAllLines(temp, Charset.forName("UTF-8"));
+        List<String> textes = Files.readAllLines(temp, StandardCharsets.UTF_8);
 
         Date startDate = new Date();
 //        textes.clear();

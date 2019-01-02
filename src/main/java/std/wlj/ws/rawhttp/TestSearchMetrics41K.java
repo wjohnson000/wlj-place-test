@@ -2,7 +2,7 @@ package std.wlj.ws.rawhttp;
 
 import java.io.*;
 import java.net.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -52,7 +52,7 @@ public class TestSearchMetrics41K {
 
         FileSystem currFS = FileSystems.getDefault();
         Path temp = currFS.getPath(inFileName);
-        List<String> textes = Files.readAllLines(temp, Charset.forName("UTF-8"));
+        List<String> textes = Files.readAllLines(temp, StandardCharsets.UTF_8);
 
         PrintWriter pwOut = new PrintWriter(new FileWriter(new File(outFileName)));
 
@@ -93,7 +93,7 @@ public class TestSearchMetrics41K {
 
             if (jsonFileDir != null) {
                 Path json = currFS.getPath(jsonFileDir, cnt+".txt");
-                Files.write(json, model.toJSON().getBytes(Charset.forName("UTF-8")));
+                Files.write(json, model.toJSON().getBytes(StandardCharsets.UTF_8));
             }
             PlaceSearchResultsModel resultsModel = model.getSearchResults().get(0);
             MetricsModel metrics = resultsModel.getMetrics();

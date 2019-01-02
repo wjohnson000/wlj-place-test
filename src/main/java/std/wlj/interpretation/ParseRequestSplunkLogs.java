@@ -1,7 +1,7 @@
 package std.wlj.interpretation;
 
 import java.io.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -24,7 +24,7 @@ public class ParseRequestSplunkLogs {
         }
 
         Collections.sort(allResults);
-        Files.write(Paths.get(baseDir, outFile), allResults, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(baseDir, outFile), allResults, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.exit(0);
     }

@@ -1,7 +1,7 @@
 package std.wlj.xlit;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -38,13 +38,13 @@ public class XlitOutputCompareDetails {
     }
 
     static void createCompare() throws Exception {
-        List<String> nameAndOrig = Files.readAllLines(Paths.get(BASE_DIR, XLIT_FILE), Charset.forName("UTF-8"));
+        List<String> nameAndOrig = Files.readAllLines(Paths.get(BASE_DIR, XLIT_FILE), StandardCharsets.UTF_8);
         List<String[]> nameToOrig = nameAndOrig.stream()
             .map(line -> PlaceHelper.split(line, '\t'))
             .filter(row -> row.length == 3)
             .collect(Collectors.toList());
 
-        List<String> nameAndNew  = Files.readAllLines(Paths.get(BASE_DIR, XLIT_NAKED_FILE), Charset.forName("UTF-8"));
+        List<String> nameAndNew  = Files.readAllLines(Paths.get(BASE_DIR, XLIT_NAKED_FILE), StandardCharsets.UTF_8);
         Map<String,String> nameToNew = nameAndNew.stream()
             .map(line -> PlaceHelper.split(line, '\t'))
             .filter(row -> row.length == 2)
@@ -54,15 +54,15 @@ public class XlitOutputCompareDetails {
             .map(row -> row[0] + "\t" + row[1] + "\t" + nameToNew.getOrDefault(row[0], "UNKNOWN"))
             .collect(Collectors.toList());
 
-        Files.write(Paths.get(BASE_DIR, COMPARE_FILE), results, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(BASE_DIR, COMPARE_FILE), results, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static void createCompareDetails() throws Exception {
-        List<String> data = Files.readAllLines(Paths.get(BASE_DIR, COMPARE_FILE), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get(BASE_DIR, COMPARE_FILE), StandardCharsets.UTF_8);
         List<String> output = data.stream()
             .map(line -> getDetails(line))
             .collect(Collectors.toList());
-        Files.write(Paths.get(BASE_DIR, COMPARE_DETAILS_FILE), output, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(BASE_DIR, COMPARE_DETAILS_FILE), output, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.out.println("\nCount01: " + matchCount01);
         System.out.println("Count02: " + matchCount02);
@@ -111,7 +111,7 @@ public class XlitOutputCompareDetails {
     }
 
     static void loadKmPhonetics() throws IOException {
-        List<String> kmPhone = Files.readAllLines(Paths.get(BASE_DIR, KM_PHONETIC_FILE), Charset.forName("UTF-8"));
+        List<String> kmPhone = Files.readAllLines(Paths.get(BASE_DIR, KM_PHONETIC_FILE), StandardCharsets.UTF_8);
         kmPhone.stream()
             .map(km -> PlaceHelper.split(km, '\t'))
             .filter(kmp -> kmp.length > 1)
@@ -123,7 +123,7 @@ public class XlitOutputCompareDetails {
         List<String> kmPhoneOutput = km2Phonetic.entrySet().stream()
             .map(entry -> entry.getKey() + "\t" + entry.getValue())
             .collect(Collectors.toList());
-        Files.write(Paths.get(BASE_DIR, KM_PHONETIC_FILE), kmPhoneOutput, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        Files.write(Paths.get(BASE_DIR, KM_PHONETIC_FILE), kmPhoneOutput, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
     }
 
     static String getKmPhonetic(String kmText) {

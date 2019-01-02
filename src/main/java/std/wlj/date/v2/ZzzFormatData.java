@@ -6,7 +6,7 @@ package std.wlj.date.v2;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -62,7 +62,7 @@ public class ZzzFormatData {
     Map<Integer, MiniDyn> getDynasties() {
         Map<Integer, MiniDyn> dynasties = new TreeMap<>();
 
-        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), Charset.forName("UTF-8"))) {
+        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), StandardCharsets.UTF_8)) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(reader);
 
@@ -118,7 +118,7 @@ public class ZzzFormatData {
      * @param dynasties
      */
     void addEmperors(Map<Integer, MiniDyn> dynasties) {
-        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), Charset.forName("UTF-8"))) {
+        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), StandardCharsets.UTF_8)) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(reader);
 

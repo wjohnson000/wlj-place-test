@@ -1,7 +1,7 @@
 package std.wlj.interpretation;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -63,7 +63,7 @@ public class DifferentResultsWhenCachingSmall {
 
         System.setProperty("alt-rep.timeout.enforce", "false");
 
-        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), StandardCharsets.UTF_8);
 
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);

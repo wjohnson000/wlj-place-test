@@ -2,7 +2,7 @@ package std.wlj.kml.newberry;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -51,7 +51,7 @@ public class Analyze01_KmlAll {
 
         List<String> boundaryData = mergeGeomAndPoint();
         boundaryData.add(0, "");
-        Files.write(Paths.get(baseDir, outputFileName), boundaryData, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(baseDir, outputFileName), boundaryData, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static List<String> mergeGeomAndPoint() {

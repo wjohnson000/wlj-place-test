@@ -1,7 +1,7 @@
 package std.wlj.interpretation;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -93,7 +93,7 @@ public class TopDownInterp {
     }
     
     static void processRequestsFromSplunk(SolrConnection conn) throws IOException, PlaceDataException {
-        List<String> requests = Files.readAllLines(Paths.get(baseDir, reqFile), Charset.forName("UTF-8"));
+        List<String> requests = Files.readAllLines(Paths.get(baseDir, reqFile), StandardCharsets.UTF_8);
         System.out.println("Number of requests: " + requests.size());
 
         for (String request : requests) {

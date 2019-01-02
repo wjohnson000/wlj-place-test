@@ -5,7 +5,7 @@ import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,7 +49,7 @@ public class ProcessMostUsed {
 
     public static void main(String... args) throws IOException {
         // Read the data, throwing away the header lines ...
-        List<String> rawData = Files.readAllLines(Paths.get(inFile), Charset.forName("UTF-8"));
+        List<String> rawData = Files.readAllLines(Paths.get(inFile), StandardCharsets.UTF_8);
         rawData.remove(0);
         rawData.remove(0);
 
@@ -59,7 +59,7 @@ public class ProcessMostUsed {
             count++;
             System.out.println(count + " --> " + line);
             if (count % 200 == 0) {
-                Files.write(Paths.get(outFile + "-" + count + ".txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(Paths.get(outFile + "-" + count + ".txt"), details, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             }
             String[] chunks = PlaceHelper.split(line, '|');
             if (chunks.length > 1) {
@@ -69,7 +69,7 @@ public class ProcessMostUsed {
             }
         }
 
-        Files.write(Paths.get(outFile + "-" + count + ".txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(outFile + "-" + count + ".txt"), details, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static List<String> processRequest(int requestId, int usedCount) {

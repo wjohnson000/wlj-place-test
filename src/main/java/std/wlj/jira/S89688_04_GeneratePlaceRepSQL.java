@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -31,7 +31,7 @@ public class S89688_04_GeneratePlaceRepSQL {
     };
 
     public static void main(String...args) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inFileName), StandardCharsets.UTF_8);
         System.out.println("Reps: " + allLines.size());
 
         int fileCount = 1;
@@ -116,6 +116,6 @@ public class S89688_04_GeneratePlaceRepSQL {
     static void generateSqlFile(int fileCount, List<String> sqlStuff) throws IOException {
         String fileName = String.format(sqlFileName, fileCount);
         System.out.println("Saving file: " + fileName);
-        Files.write(Paths.get(fileBase, fileName), sqlStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(fileBase, fileName), sqlStuff, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

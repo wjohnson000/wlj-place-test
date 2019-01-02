@@ -1,7 +1,7 @@
 package std.wlj.db2solr;
 
 import java.io.BufferedReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ZzzFindCycles02 {
     }
 
     private static void loadRepChainMap() throws Exception {
-        List<String> data = Files.readAllLines(Paths.get("C:/temp/zzz-rep-chain.txt"), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get("C:/temp/zzz-rep-chain.txt"), StandardCharsets.UTF_8);
 
         for (String datum : data) {
             String[] tokens = datum.split("\\|");
@@ -47,7 +47,7 @@ public class ZzzFindCycles02 {
     }
 
     private static void loadDelRepIdMap() throws Exception {
-        List<String> data = Files.readAllLines(Paths.get("C:/temp/zzz-delete-id.txt"), Charset.forName("UTF-8"));
+        List<String> data = Files.readAllLines(Paths.get("C:/temp/zzz-delete-id.txt"), StandardCharsets.UTF_8);
 
         for (String datum : data) {
             String[] tokens = datum.split("\\|");
@@ -61,7 +61,7 @@ public class ZzzFindCycles02 {
 
     private static void checkAllChains() throws Exception {
         BufferedReader reader = 
-                Files.newBufferedReader(Paths.get("C:/temp/zzz-child-par.txt"), Charset.forName("UTF-8"));
+                Files.newBufferedReader(Paths.get("C:/temp/zzz-child-par.txt"), StandardCharsets.UTF_8);
         String line  = null;
         while ((line = reader.readLine()) != null) {
             String[] tokens = line.split("\\|");

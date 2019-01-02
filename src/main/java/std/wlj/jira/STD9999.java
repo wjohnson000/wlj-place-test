@@ -1,6 +1,6 @@
 package std.wlj.jira;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -73,7 +73,7 @@ public class STD9999 {
 		}
 
 		Path prDetails = Paths.get(outputPath);
-		Files.write(prDetails, output, Charset.forName("UTF-8"));
+		Files.write(prDetails, output, StandardCharsets.UTF_8);
 
 		conn.close();
 		System.exit(0);
@@ -89,7 +89,7 @@ public class STD9999 {
 		Map<Integer,List<Integer>> results = new TreeMap<>();
 
 		Path prDeleted = Paths.get(inputPath);
-		for (String row : Files.readAllLines(prDeleted, Charset.forName("UTF-8"))) {
+		for (String row : Files.readAllLines(prDeleted, StandardCharsets.UTF_8)) {
 			// Read past the first row
 			if (row.startsWith("RepID")) {
 				continue;

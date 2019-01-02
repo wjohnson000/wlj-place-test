@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -21,8 +21,8 @@ public class TestDMYPattern {
 
     public static void main(String... args) throws Exception {
         int hitCount = 0;
-//        List<String> lines = Files.readAllLines(Paths.get("C:/temp/date-interp-simple-dmy.txt"), Charset.forName("UTF-8"));
-        List<String> lines = Files.readAllLines(Paths.get("C:/temp/date-interp-lots.txt"), Charset.forName("UTF-8"));
+//        List<String> lines = Files.readAllLines(Paths.get("C:/temp/date-interp-simple-dmy.txt"), StandardCharsets.UTF_8);
+        List<String> lines = Files.readAllLines(Paths.get("C:/temp/date-interp-lots.txt"), StandardCharsets.UTF_8);
 
         long time0 = System.nanoTime();
         for (String line : lines) {

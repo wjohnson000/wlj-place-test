@@ -3,7 +3,7 @@ package std.wlj.dbdump;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -116,7 +116,7 @@ public class RepWithNoCitation {
             int repId = entry.getKey();
             details.add(repId + "|" + entry.getValue() + "|" + repToName.get(repId) + "|" + typeDetail.getOrDefault(repToType.get(repId), "Unknown") + "|" + parentIds.contains(repId));
         });
-        Files.write(Paths.get(baseDir, outFile), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(baseDir, outFile), details, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.exit(0);
     }

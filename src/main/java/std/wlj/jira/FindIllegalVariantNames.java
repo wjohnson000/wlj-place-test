@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -22,7 +22,7 @@ public class FindIllegalVariantNames {
         List<String> badNames = new ArrayList<>();
         NameValidator validator = new NameValidator(null, new MessageFactory());
 
-        List<String> allLines = Files.readAllLines(Paths.get("D:/important/place-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get("D:/important/place-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("Line-count: " + allLines.size());
 
         int count = 0;

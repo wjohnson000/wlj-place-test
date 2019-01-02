@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -21,7 +21,7 @@ public class StatsNew {
         for (String fileName : fileNames) {
             Path path = currFS.getPath("C:", "temp", fileName);
 
-            List<String> data = Files.readAllLines(path, Charset.forName("UTF-8"));
+            List<String> data = Files.readAllLines(path, StandardCharsets.UTF_8);
             int count = data.size();
 
             int badCount = 0;

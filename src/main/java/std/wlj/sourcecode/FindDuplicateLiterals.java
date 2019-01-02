@@ -1,7 +1,7 @@
 package std.wlj.sourcecode;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -73,7 +73,7 @@ public class FindDuplicateLiterals {
 
     private static void processFile(Path someFile) throws IOException {
         if (someFile.toString().endsWith(".java")) {
-            List<String> lines = Files.readAllLines(someFile, Charset.forName("UTF-8"));
+            List<String> lines = Files.readAllLines(someFile, StandardCharsets.UTF_8);
 
             int lineNum = 0;
             boolean inCmt = false;

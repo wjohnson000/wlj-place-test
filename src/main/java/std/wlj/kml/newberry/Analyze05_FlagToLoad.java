@@ -1,7 +1,7 @@
 package std.wlj.kml.newberry;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -37,7 +37,7 @@ public class Analyze05_FlagToLoad {
     public static void main(String...args) throws IOException {
         Set<String> boundaryToLoad = getBoundaryToLoad();
 
-        List<String> lines = Files.readAllLines(Paths.get(pathToIn), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get(pathToIn), StandardCharsets.UTF_8);
         List<String> newLines = lines.stream()
             .filter(line -> line.length() > 10)
             .map(line -> {
@@ -48,11 +48,11 @@ public class Analyze05_FlagToLoad {
             .collect(Collectors.toList());
 
         newLines.add(0, "");
-        Files.write(Paths.get(pathToOut), newLines, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(pathToOut), newLines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static Set<String> getBoundaryToLoad() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(pathToLoad), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get(pathToLoad), StandardCharsets.UTF_8);
 
         return lines.stream()
             .filter(line -> line.startsWith("true"))

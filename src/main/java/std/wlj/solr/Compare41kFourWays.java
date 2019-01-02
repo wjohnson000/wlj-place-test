@@ -1,6 +1,6 @@
 package std.wlj.solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -29,13 +29,13 @@ public class Compare41kFourWays {
         FileSystem currFS = FileSystems.getDefault();
 
         Path path = currFS.getPath("C:", "temp", "results-search-41k.txt");
-        List<String> data01 = Files.readAllLines(path, Charset.forName("UTF-8"));
+        List<String> data01 = Files.readAllLines(path, StandardCharsets.UTF_8);
         System.out.println("Rows01: " + data01.size());
 
         List<Map<String,List<String>>> map4x = new ArrayList<>();
         for (String fileName : fileNames) {
             path = currFS.getPath("C:", "temp", fileName);
-            List<String> data02 = Files.readAllLines(path, Charset.forName("UTF-8"));
+            List<String> data02 = Files.readAllLines(path, StandardCharsets.UTF_8);
             System.out.println("Rows02: " + data02.size());
 
             Map<String,List<String>> mapTemp = new HashMap<>();
@@ -119,7 +119,7 @@ public class Compare41kFourWays {
         }
 
         Path outPath = currFS.getPath("C:", "temp", "results-search-compare-4x.txt");
-        Files.write(outPath, outData, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        Files.write(outPath, outData, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
 
         System.exit(0);
     }

@@ -1,7 +1,7 @@
 package std.wlj.interpretation;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public class TestFullParsePathSearch {
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
-        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), StandardCharsets.UTF_8);
         System.out.println("Name-Count: " + names.size());
 
         for (int ndx=0;  ndx<names.size();  ndx+=SKIP_COUNT) {

@@ -1,7 +1,7 @@
 package std.wlj.kml.newberry;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -46,7 +46,7 @@ public class Analyze06_AlterTimeSpan {
     }
 
     static void loadMapFile() throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(pathToIn), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(pathToIn), StandardCharsets.UTF_8);
         boundaryMap = allLines.stream()
                 .map(line -> extractData(line))
                 .filter(bData -> bData.pmName != null)
@@ -73,7 +73,7 @@ public class Analyze06_AlterTimeSpan {
             .collect(Collectors.toList());
 
         newBdyData.add(0, "");
-        Files.write(Paths.get(pathToOut), newBdyData, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(pathToOut), newBdyData, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static BoundaryData06 extractData(String line) {

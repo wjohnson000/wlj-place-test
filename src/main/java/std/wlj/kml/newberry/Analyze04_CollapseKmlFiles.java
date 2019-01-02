@@ -1,7 +1,7 @@
 package std.wlj.kml.newberry;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -102,7 +102,7 @@ public class Analyze04_CollapseKmlFiles {
     }
 
     static void loadMap() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(pathToIn), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get(pathToIn), StandardCharsets.UTF_8);
         kmlMap.putAll(lines.stream()
                            .map(line -> new KmlToRepData04(line))
                            .collect(Collectors.groupingBy(kml -> kml.key)));
@@ -142,7 +142,7 @@ public class Analyze04_CollapseKmlFiles {
         }
 
         newKmlData.add(0, "");
-        Files.write(Paths.get(pathToOut), newKmlData, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(pathToOut), newKmlData, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         System.out.println("Discard ..." + discardCnt);
     }
 

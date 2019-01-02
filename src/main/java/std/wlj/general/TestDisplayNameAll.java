@@ -3,7 +3,7 @@
  */
 package std.wlj.general;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -23,7 +23,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
 public class TestDisplayNameAll {
 
     public static void main(String...args) throws Exception {
-        List<String> displayNames = Files.readAllLines(Paths.get("C:/temp/db-dump/display-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> displayNames = Files.readAllLines(Paths.get("C:/temp/db-dump/display-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("LINES: " + displayNames.size());
         List<String> errors = new ArrayList<>(100_000);
         Map<String, Integer> badChars = new TreeMap<>();
@@ -51,7 +51,7 @@ public class TestDisplayNameAll {
             }
         }
 
-        Files.write(Paths.get("C:/temp/db-dump/display-name-errors.txt"), errors, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/db-dump/display-name-errors.txt"), errors, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.out.println("\n\n");
         for (Map.Entry<String, Integer> entry : badChars.entrySet()) {

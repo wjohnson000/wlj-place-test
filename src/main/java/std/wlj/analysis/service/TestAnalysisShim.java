@@ -1,6 +1,6 @@
 package std.wlj.analysis.service;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -49,7 +49,7 @@ public class TestAnalysisShim {
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
         
-        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), Charset.forName("UTF-8"));
+        List<String> placeNames = Files.readAllLines(Paths.get("C:/temp/places-search-text.txt"), StandardCharsets.UTF_8);
         System.out.println("PlaceNames.count=" + placeNames.size());
         mainX(placeService, 1, placeNames);
         long time0 = System.nanoTime();

@@ -6,7 +6,7 @@ package std.wlj.dbdump;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -170,7 +170,7 @@ public class Delete_2018_11_VarNames {
     static void generateSqlFile(int fileCount, List<String> sqlStuff) throws IOException {
         String fileName = String.format(sqlFileName, fileCount);
         System.out.println("Saving file: " + fileName);
-        Files.write(Paths.get(baseDir, fileName), sqlStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(baseDir, fileName), sqlStuff, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
 }

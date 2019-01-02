@@ -4,7 +4,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -46,7 +46,7 @@ public class MultiThreadDifferentResultsDetails {
 
 
     public static void main(String...args) throws IOException {
-        List<String> placeNames = Files.readAllLines(Paths.get("C:/D-drive/request-splunk/place-search-text.txt"), Charset.forName("UTF-8"));
+        List<String> placeNames = Files.readAllLines(Paths.get("C:/D-drive/request-splunk/place-search-text.txt"), StandardCharsets.UTF_8);
         System.out.println("PlaceNames.count=" + placeNames.size());
 
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");

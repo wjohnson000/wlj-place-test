@@ -3,7 +3,7 @@ package std.wlj.jira;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -83,7 +83,7 @@ public class Epic15320_03_GenSQLForRepUnpublish {
         System.out.println();
         System.out.println("Un-pub size: " + unpubSQL.size());
 
-        Files.write(Paths.get(baseDir, repUnpubFile), unpubSQL, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(baseDir, repUnpubFile), unpubSQL, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     /**

@@ -1,7 +1,7 @@
 package std.wlj.xlit;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -65,7 +65,7 @@ public class ImproveTransliterations {
         List<String> results = new ArrayList<>();
         System.out.println("\n============================================================================");
 
-        List<String> lines = Files.readAllLines(Paths.get(BASE_DIR, filename), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get(BASE_DIR, filename), StandardCharsets.UTF_8);
         for (String line : lines) {
             String[] en2km = PlaceHelper.split(line, '\t');
             if (en2km.length == 2) {
@@ -77,7 +77,7 @@ public class ImproveTransliterations {
             }
         }
 
-        Files.write(Paths.get(BASE_DIR, newFilename), results, Charset.forName("UTF-8"), StandardOpenOption.CREATE);
+        Files.write(Paths.get(BASE_DIR, newFilename), results, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
     }
 
     static void showMappings() {

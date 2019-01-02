@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class ParseTFLog {
     static final Map<String, Integer> monCount = new HashMap<>();
 
     public static void main(String...args) throws IOException {
-        List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
+        List<String> results = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
         results.forEach(ParseTFLog::getInterestingStuff);
         monCount.entrySet().forEach(ee -> System.out.println(ee.getKey() + "|" + ee.getValue()));
     }

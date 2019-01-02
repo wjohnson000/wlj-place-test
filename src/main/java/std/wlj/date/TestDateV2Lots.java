@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -30,7 +30,7 @@ public class TestDateV2Lots {
     private static final List<String> results = new ArrayList<>(200_000);
 
     public static void main(String...arg) throws Exception {
-        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/date-interp.txt"), Charset.forName("UTF-8"));
+        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/date-interp.txt"), StandardCharsets.UTF_8);
 
         long time0 = System.nanoTime();
         for (int i=0;  i<NUM_THREADS;  i++) {
@@ -43,7 +43,7 @@ public class TestDateV2Lots {
         long time1 = System.nanoTime();
 
         System.out.println("Total Time: " + (time1 - time0) / 1_000_000.0);
-        Files.write(Paths.get("C:/temp/date-new-new.txt"), results, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/date-new-new.txt"), results, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static void runLots(List<String> datesToParse, int skip) {

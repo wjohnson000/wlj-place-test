@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -60,7 +60,7 @@ public class FindDuplicateWikiAttribute {
             System.out.println("EX: " + ex.getMessage());
         };
 
-        Files.write(Paths.get("C:/temp/rep-dup-474-attribute.txt"), allStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/rep-dup-474-attribute.txt"), allStuff, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         System.exit(0);
     }
 }

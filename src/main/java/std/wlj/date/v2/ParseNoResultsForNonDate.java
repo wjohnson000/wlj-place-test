@@ -3,7 +3,7 @@
  */
 package std.wlj.date.v2;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -23,7 +23,7 @@ public class ParseNoResultsForNonDate {
     public static void main(String... args) throws Exception {
         Set<String> allWords = new TreeSet<>();
 
-        List<String> results = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
+        List<String> results = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
         for (String line : results) {
             String[] chunk = PlaceHelper.split(line, '|');
             String[] words = PlaceHelper.split(chunk[0], ' ');

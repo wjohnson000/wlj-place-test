@@ -1,7 +1,7 @@
 package std.wlj.general;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class TestIsCharacterReal {
     static Map<int[], String> getUnicodeRanges() throws IOException {
         Map<int[], String> results = new HashMap<>();
 
-        List<String> ranges = Files.readAllLines(Paths.get("C:/temp/unicode-chart.txt"), Charset.forName("UTF-8"));
+        List<String> ranges = Files.readAllLines(Paths.get("C:/temp/unicode-chart.txt"), StandardCharsets.UTF_8);
         for (String range : ranges) {
             String[] chunks = PlaceHelper.split(range, '|');
             if (chunks.length == 3) {
@@ -81,7 +81,7 @@ public class TestIsCharacterReal {
     static Map<int[], String> getUnicodeRanges_OLD() throws IOException {
         Map<int[], String> results = new HashMap<>();
 
-        List<String> ranges = Files.readAllLines(Paths.get("C:/temp/unicode-chart.txt"), Charset.forName("UTF-8"));
+        List<String> ranges = Files.readAllLines(Paths.get("C:/temp/unicode-chart.txt"), StandardCharsets.UTF_8);
         for (String range : ranges) {
             int ndx0 = range.indexOf('(');
             int ndx1 = range.indexOf(')');

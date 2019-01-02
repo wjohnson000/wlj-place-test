@@ -1,7 +1,7 @@
 package std.wlj.kml;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -45,7 +45,7 @@ public class WS_BoundaryBorders {
             if (response.getEntity() != null) {
                 System.out.println("   T: " + response.getEntity().getContentType());
                 
-                System.out.println(IOUtils.readLines(response.getEntity().getContent(), Charset.forName("UTF-8")).stream()
+                System.out.println(IOUtils.readLines(response.getEntity().getContent(), StandardCharsets.UTF_8).stream()
                         .collect(Collectors.joining("\n", "\n", "")));
             }
         } catch (IOException ex) {

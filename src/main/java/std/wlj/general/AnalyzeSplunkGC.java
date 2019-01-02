@@ -1,7 +1,7 @@
 package std.wlj.general;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class AnalyzeSplunkGC {
 
 
     public static void main(String...args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("C:/temp/splunk-gc-results.txt"), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get("C:/temp/splunk-gc-results.txt"), StandardCharsets.UTF_8);
 
 //        Map<String,List<Map<String,String>>> allStats = new HashMap<>();
 //        for (String line : lines) {

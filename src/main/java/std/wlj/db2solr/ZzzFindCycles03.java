@@ -1,6 +1,6 @@
 package std.wlj.db2solr;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -33,7 +33,7 @@ public class ZzzFindCycles03 {
 
     public static void main(String... args) throws Exception {
         try (Connection conn = DbConnectionManager.getConnectionAws()) {
-            for (String line : Files.readAllLines(Paths.get("C:/temp/zzz-rep-replaced.txt"), Charset.forName("UTF-8"))) {
+            for (String line : Files.readAllLines(Paths.get("C:/temp/zzz-rep-replaced.txt"), StandardCharsets.UTF_8)) {
                 String[] tokens = line.split("\\|");
                 if (tokens.length > 2) {
                     int repId = Integer.parseInt(tokens[1]);

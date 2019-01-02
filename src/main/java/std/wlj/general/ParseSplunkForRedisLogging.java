@@ -1,7 +1,7 @@
 package std.wlj.general;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public class ParseSplunkForRedisLogging {
     static Map<String, Map<String, String>> logInterpRedis = new HashMap<>();
 
     public static void main(String...args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("C:/temp/blah.txt"), Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(Paths.get("C:/temp/blah.txt"), StandardCharsets.UTF_8);
 
         for (String line : lines) {
             if (! line.trim().isEmpty()) {

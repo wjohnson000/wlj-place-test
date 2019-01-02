@@ -1,7 +1,7 @@
 package std.wlj.interpretation;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class TestCaching {
 //        doIt(placeService, 0, "en", "Provo, UT");
 //        long timeBB = System.nanoTime();
 
-        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get(BASE_DIR, INTERP_FILE), StandardCharsets.UTF_8);
         System.out.println("Name-Count: " + names.size());
 
         long time00 = System.nanoTime();

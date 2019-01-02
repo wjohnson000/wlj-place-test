@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -17,7 +17,7 @@ public class FindDupExtXrefs {
         Set<String> foundKeys = new HashSet<>();
         List<String> dupLines = new ArrayList<>();
 
-        List<String> allLines = Files.readAllLines(Paths.get("D:/important/external-xref-all.txt"), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get("D:/important/external-xref-all.txt"), StandardCharsets.UTF_8);
         System.out.println("Line-count: " + allLines.size());
 
         for (String line : allLines) {

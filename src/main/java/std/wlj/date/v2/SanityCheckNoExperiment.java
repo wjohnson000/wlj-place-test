@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class SanityCheckNoExperiment {
         String url;
         String rawJson;
 
-        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/zh-dates.txt"), Charset.forName("UTF-8"));
+        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/zh-dates.txt"), StandardCharsets.UTF_8);
 //        datesToParse.clear();
 //        datesToParse.add("民國105年1月15日");
 //        datesToParse.add("順帝丙寅七月七日");
@@ -175,7 +175,7 @@ public class SanityCheckNoExperiment {
 
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
-            String results = IOUtils.toString(ios, Charset.forName("UTF-8"));
+            String results = IOUtils.toString(ios, StandardCharsets.UTF_8);
             EntityUtils.consumeQuietly(response.getEntity());
             return results;
         } catch (Exception ex) {

@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -86,7 +86,7 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     }
 
     static Map<Integer, List<RepDataTinyZZZ>> getPlaceToRep() throws IOException {
-      List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), Charset.forName("UTF-8"));
+      List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), StandardCharsets.UTF_8);
       System.out.println(">> getPlaceToRep <<  Line count: " + allLines.size());
 
       return allLines.stream()
@@ -102,7 +102,7 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     }
 
     static void removeDeletedPlaces(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), StandardCharsets.UTF_8);
         System.out.println(">> removeDeletedPlaces <<  Line count: " + allLines.size());
 
         allLines.stream()
@@ -114,7 +114,7 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     }
 
     static void markRepsToDelete(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepDataFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepDataFileName), StandardCharsets.UTF_8);
         System.out.println(">> markRepsToDelete <<  Line count: " + allLines.size());
 
         // Step '0' -- remove any place that is NOT associated with a rep to be deleted
@@ -159,7 +159,7 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     }
 
     static void setParentPlaceId(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inRepParentFileName), StandardCharsets.UTF_8);
         System.out.println(">> setParentPlaceId <<  Line count: " + allLines.size());
 
         Map<Integer, Integer> repOwner = allLines.stream()
@@ -189,7 +189,7 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     }
 
     static void generatePlaceUpdateSQL(Map<Integer, List<RepDataTinyZZZ>> placeToRep) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(fileBase, inPlaceFileName), StandardCharsets.UTF_8);
         System.out.println(">> generatePlaceUpdateSQL <<  Line count: " + allLines.size());
 
         int fileCount = 1;
@@ -272,6 +272,6 @@ public class S89688_05_ZZZ_GeneratePlaceSQL {
     static void generateSqlFile(int fileCount, List<String> sqlStuff) throws IOException {
         String fileName = String.format(sqlFileName, fileCount);
         System.out.println("Saving file: " + fileName);
-        Files.write(Paths.get(fileBase, fileName), sqlStuff, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(fileBase, fileName), sqlStuff, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 }

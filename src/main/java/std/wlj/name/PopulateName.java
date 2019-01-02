@@ -1,7 +1,7 @@
 package std.wlj.name;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -46,7 +46,7 @@ public class PopulateName {
     }
 
     static Set<String> getMaleNames() throws IOException {
-        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/male-all.txt"), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/male-all.txt"), StandardCharsets.UTF_8);
 
         return names.stream()
             .map(name -> name.trim())
@@ -61,7 +61,7 @@ public class PopulateName {
     }
 
     static Set<String> getFemaleNames() throws IOException {
-        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/female-all.txt"), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/female-all.txt"), StandardCharsets.UTF_8);
 
         return names.stream()
            .map(name -> name.trim())
@@ -76,7 +76,7 @@ public class PopulateName {
     }
 
     static Set<String> getLastNames() throws IOException {
-        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/full.txt"), Charset.forName("UTF-8"));
+        List<String> names = Files.readAllLines(Paths.get("C:/temp/names/full.txt"), StandardCharsets.UTF_8);
 
         return names.stream()
             .map(name -> PlaceHelper.split(name, ' '))

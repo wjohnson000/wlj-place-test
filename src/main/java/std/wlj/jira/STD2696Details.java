@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class STD2696Details {
     public static void main(String... args) throws PlaceDataException, IOException {
         SolrConnection solrConn = SolrManager.awsProdConnection(true);
 
-        List<String> entries = Files.readAllLines(Paths.get("C:/temp/deleted-reps.txt"), Charset.forName("UTF-8"));
+        List<String> entries = Files.readAllLines(Paths.get("C:/temp/deleted-reps.txt"), StandardCharsets.UTF_8);
         entries.clear();
         entries.add("1160755|10330742");  // Bad Entry
         entries.add("1442484|10335852");  // Bad Entry

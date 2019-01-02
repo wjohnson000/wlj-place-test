@@ -5,7 +5,7 @@ package std.wlj.date.v2;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class ZzzToSimplifiedTwo {
         String type = "";
 
         for (String zhFile : ZH_FILES) {
-            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(zhFile), Charset.forName("UTF-8"));
+            Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(zhFile), StandardCharsets.UTF_8);
             parser = factory.createXMLStreamReader(reader);
 
             List<What> all = new ArrayList<>(1000);

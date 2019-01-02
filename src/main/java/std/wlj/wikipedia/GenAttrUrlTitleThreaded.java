@@ -4,7 +4,7 @@
 package std.wlj.wikipedia;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -60,7 +60,6 @@ public class GenAttrUrlTitleThreaded {
 
     private static final String ATTR_FILE  = "C:/temp/db-dump/attribute-all.txt";
     private static final String TITLE_FILE = "C:/temp/attr-url-title-easy.txt";
-    private static final Charset UTF_8      = Charset.forName("UTF-8");
 
     private static final Set<String> badDomains = new HashSet<>();
     static {
@@ -163,14 +162,14 @@ public class GenAttrUrlTitleThreaded {
                 }
 
                 if (changed  &&  urlTitle.size() % 100 == 0) {
-                    Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                    Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 }
             }
         } catch (Exception ex) {
             System.out.println("OOPS: " + ex.getMessage());
         }
 
-        Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(TITLE_FILE), formatTitles(urlTitle), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     protected static boolean checkTitle(final String url) {
@@ -182,7 +181,7 @@ public class GenAttrUrlTitleThreaded {
     protected static Map<String, String> loadTitles() {
         List<String> titleData;
         try {
-            titleData = Files.readAllLines(Paths.get(TITLE_FILE), UTF_8);
+            titleData = Files.readAllLines(Paths.get(TITLE_FILE), StandardCharsets.UTF_8);
             return titleData.stream()
                     .map(line -> PlaceHelper.split(line, '|'))
                     .filter(arr -> arr.length > 1)

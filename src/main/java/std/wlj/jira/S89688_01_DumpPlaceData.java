@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -46,7 +46,7 @@ public class S89688_01_DumpPlaceData {
                 System.out.println("Unable to do get places ... " + ex.getMessage());
             }
 
-            Files.write(Paths.get(fileBase, fileName), data, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileBase, fileName), data, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             placeId += 1_000_000;
         }
     }

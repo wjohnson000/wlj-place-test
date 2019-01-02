@@ -1,7 +1,7 @@
 package std.wlj.jira;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -10,7 +10,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
 
 public class FindRepWithNoDisplayNames {
     public static void main(String... args) throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get("D:/important/display-name-all.txt"), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get("D:/important/display-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("Number of display-names: " + allLines.size());
 
         boolean prevIsOK  = true;

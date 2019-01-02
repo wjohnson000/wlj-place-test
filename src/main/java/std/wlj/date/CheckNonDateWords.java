@@ -3,7 +3,7 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -35,7 +35,7 @@ public class CheckNonDateWords {
 
     public static void main(String... args) throws Exception {
         Dictionary masterDictionary = getMasterDictionary();
-        List<String> textes = Files.readAllLines(Paths.get("C:/temp/words-non-date.txt"), Charset.forName("UTF-8"));
+        List<String> textes = Files.readAllLines(Paths.get("C:/temp/words-non-date.txt"), StandardCharsets.UTF_8);
         Set<String> candidates = textes.stream().map(wd -> wd.toLowerCase()).collect(Collectors.toSet());
         Set<String> words = new TreeSet<>(candidates);
         

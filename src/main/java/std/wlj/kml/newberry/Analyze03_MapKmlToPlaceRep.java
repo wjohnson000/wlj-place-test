@@ -1,7 +1,7 @@
 package std.wlj.kml.newberry;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -281,7 +281,7 @@ public class Analyze03_MapKmlToPlaceRep {
         System.out.println("PlaceRep matches: " + match);
 
         newKmlData.add(0, "");
-        Files.write(Paths.get(pathToOut), newKmlData, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(pathToOut), newKmlData, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     static void associateLocationsToReps() {
@@ -367,7 +367,7 @@ public class Analyze03_MapKmlToPlaceRep {
     }
 
     static void loadPlacemarks() throws IOException {
-        List<String> allLines = Files.readAllLines(Paths.get(pathToKML), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(pathToKML), StandardCharsets.UTF_8);
         for (String line : allLines) {
             String[] fields = line.split("\\|");
             if (fields.length < 8) {
@@ -405,7 +405,7 @@ public class Analyze03_MapKmlToPlaceRep {
         int level01Id = -1;
         String stateName = "";
 
-        List<String> allLines = Files.readAllLines(Paths.get(pathToRep), Charset.forName("UTF-8"));
+        List<String> allLines = Files.readAllLines(Paths.get(pathToRep), StandardCharsets.UTF_8);
         for (String line : allLines) {
             String[] fields = line.split("\\|");
             if (fields.length < 8) {

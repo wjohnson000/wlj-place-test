@@ -6,7 +6,7 @@ package std.wlj.date.v2;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +96,7 @@ public class ZzzFormatCJK {
     List<MiniDyn> getDynasties() {
         List<MiniDyn> dynasties = new ArrayList<>();
 
-        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), Charset.forName("UTF-8"))) {
+        try(Reader reader = new InputStreamReader(this.getClass().getResourceAsStream(CJK_CALENDAR_FILENAME), StandardCharsets.UTF_8)) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader parser = factory.createXMLStreamReader(reader);
 

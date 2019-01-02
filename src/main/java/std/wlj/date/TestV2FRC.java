@@ -51,6 +51,15 @@ public class TestV2FRC {
         "07 Frimaire AN 08",
         "16 Illisible AN 02",
         "00 Nivose AN 12 ",
+
+        "18 Nivose 11",
+        "18 Ni 11",
+        "18 Nivose 1821",
+
+        // These will be ignored by the FRC handler
+        "18 Ni 1911",
+        "29 th of December 1931",
+        "29 th of December 1931",
     };
 
     public static void main(String... args) throws Exception {

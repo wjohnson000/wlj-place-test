@@ -2,7 +2,7 @@ package std.wlj.search;
 
 import java.io.IOException;
 import java.net.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -21,7 +21,6 @@ public class DoSearchLots {
     private static ExecutorService execService = Executors.newFixedThreadPool(20);
 
     private static Random random = new Random();
-    private static Charset UTF_8 = Charset.forName("UTF-8");
     private static List<String> requestText;
 
     private static long requestCnt = 0;
@@ -79,7 +78,7 @@ public class DoSearchLots {
     }
 
     private static List<String> getSearchValues(String filePath) throws IOException {
-        return Files.readAllLines(Paths.get(filePath), UTF_8)
+        return Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8)
                 .stream()
                 .map(val -> val.replace('"', ' ').trim())
                 .filter(val -> val.length() > 4)

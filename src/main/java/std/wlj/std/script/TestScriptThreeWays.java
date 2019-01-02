@@ -1,7 +1,7 @@
 package std.wlj.std.script;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -14,7 +14,7 @@ public class TestScriptThreeWays {
     public static void main(String... args) throws IOException {
         FileSystem fs = FileSystems.getDefault();
         Path placesPath = fs.getPath("C:/Users/wjohnson000/git/std-lib-metrics/std-algorithm-delivery/testing-files/places.txt");
-        List<String> lines = Files.readAllLines(placesPath, Charset.forName("UTF-8"));
+        List<String> lines = Files.readAllLines(placesPath, StandardCharsets.UTF_8);
         System.out.println("N-lines: " + lines.size());
 
         long nnow = 0;

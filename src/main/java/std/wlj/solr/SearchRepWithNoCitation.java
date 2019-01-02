@@ -1,7 +1,7 @@
 package std.wlj.solr;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -165,7 +165,7 @@ public class SearchRepWithNoCitation {
 //        Set<Integer> parents = getParents(solrConn, repIds);
 //        parents.forEach(System.out::println);
 
-        Files.write(Paths.get("C:/temp/rep-no-citation-solr.txt"), details, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/rep-no-citation-solr.txt"), details, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.out.println("CNT: " + docs.size());
 

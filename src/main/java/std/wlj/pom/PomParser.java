@@ -1,7 +1,7 @@
 package std.wlj.pom;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -29,7 +29,7 @@ public class PomParser {
 
 	public static PomFile parseFrom(String path) {
 		try {
-			List<String> lines = Files.readAllLines(Paths.get(path), Charset.forName("UTF-8"));
+			List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
 			return parseFrom(lines);
 		} catch (IOException e) {
 			System.out.println("Ugly exception for '" + path + "': " + e.getMessage());

@@ -4,7 +4,7 @@
 package std.wlj.wikipedia;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -29,7 +29,6 @@ public class GenAttrUrlSQL {
     private static final String ATTR_FILE   = "C:/temp/db-dump/attribute-all.txt";
     private static final String TITLE_FILE  = "C:/temp/attr-url-title-easy.txt";
     private static final String SQL_FILE    = "C:/temp/update-attr-%04d.sql";
-    private static final Charset UTF_8      = Charset.forName("UTF-8");
 
     static final int    stmtLimit = 50_000;
     
@@ -100,13 +99,13 @@ public class GenAttrUrlSQL {
 
     protected static void saveSQL(List<String> sql, int fileCount) throws IOException {
         String fileName = String.format(SQL_FILE, fileCount);
-        Files.write(Paths.get(fileName), sql, Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get(fileName), sql, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     protected static Map<String, String> loadTitles() {
         List<String> titleData;
         try {
-            titleData = Files.readAllLines(Paths.get(TITLE_FILE), UTF_8);
+            titleData = Files.readAllLines(Paths.get(TITLE_FILE), StandardCharsets.UTF_8);
             return titleData.stream()
                 .map(line -> PlaceHelper.split(line, '|'))
                 .filter(arr -> arr.length > 1)
