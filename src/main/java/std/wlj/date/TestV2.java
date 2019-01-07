@@ -29,7 +29,8 @@ public class TestV2 {
         List<String> results = new ArrayList<>();
 
         List<String> textes = textesFromRaw();
-long time0 = System.nanoTime();
+
+        long time0 = System.nanoTime();
         for (String text : textes) {
 //            String hex = text.chars()
 //                    .mapToLong(ch -> (long)ch)
@@ -67,7 +68,7 @@ long time0 = System.nanoTime();
                 results.add(text + "|Date 2.0|<none>|<none>");
             }
         }
-long time1 = System.nanoTime();
+        long time1 = System.nanoTime();
 
         System.out.println();
         System.out.println("========================================================================================================================");
@@ -588,9 +589,42 @@ long time1 = System.nanoTime();
 //        textes.add("early 1000's");
 //        textes.add("mid 1000's");
 //        textes.add("late 1000's");
+//
+//        textes.add("3/11/00");
+//        textes.add("3/11/01");
+//
+//        textes.add("遼太祖一年一月九日");    // Chinese
+//        textes.add("元和一年一月九日");      // Japanese
+//        textes.add("朝鮮世宗一年一月九日");  // Korean
+//
+//        textes.add("13 January 1613/1614");
+//        textes.add("About 13 January 1613/1614");
+//        textes.add("Before 13 January 1613/1614");
+//        textes.add("After 13 January 1613/1614");
+//        textes.add("13 January 1613/14");
+//        textes.add("About 13 January 1613/14");
+//        textes.add("Before 13 January 1613/14");
+//        textes.add("After 13 January 1613/14");
+//
+//        textes.add("From 1 January 1914 to 31 December 1918");
+//        textes.add("From ( Enlisted ) 1 January 1914 to ( Discharged ) 31 December 1918");
+//        textes.add("From (Enlisted) 1 January 1914 to (Discharged) 31 December 1918");
+//        textes.add("From [Enlisted] 1 January 1914 to [Discharged] 31 December 1918");
+//        textes.add("From {Enlisted} 1 January 1914 to {Discharged} 31 December 1918");
+//        textes.add("From {Enlisted} 1 January 1914 to {Discharged} 31 December 1918 (");
+//
+//        textes.add("266666666666666666666666666666666666666");
+//        textes.add("23 24 12 49");
+//        textes.add("15[6] 15[6] 15[6]");
+//        textes.add("Between14 &20 10 86");
+//
+//        textes.add("I me 1");
+//        textes.add("I me I");
+//        textes.add("and I order my said son Isaack to pay all my just debts and to receive all my debts that are due unto me also I order my Indian Lydia to live with my son Isaac until he is one and twenty years of age,");
 
-        textes.add("3/11/00");
-        textes.add("3/11/01");
+        textes.add("세종2년");
+        textes.add("개국503");
+        textes.add("단기3753");
 
         return textes;
     }

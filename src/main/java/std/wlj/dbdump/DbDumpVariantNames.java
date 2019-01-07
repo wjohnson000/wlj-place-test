@@ -14,8 +14,8 @@ public class DbDumpVariantNames {
             "SELECT plc.place_id, plc.delete_id, var.locale, var.text, var.name_id, var.type_id, var.tran_id, var.delete_flag " +
             "  FROM place AS plc " +
             "  JOIN place_name AS var ON var.place_id = plc.place_id " +
-            " WHERE plc.tran_id = (SELECT MAX(tran_id) FROM place AS plcx WHERE plc.place_id = plcx.place_id) " +
-            "   AND var.tran_id = (SELECT MAX(tran_id) FROM place_name AS varx WHERE var.name_id = varx.name_id) " +
+            " WHERE plc.tran_id = (SELECT MAX(tran_id) FROM place AS plcx WHERE plcx.place_id = plc.place_id) " +
+            "   AND var.tran_id = (SELECT MAX(tran_id) FROM place_name AS varx WHERE varx.name_id = var.name_id  AND varx.place_id = plc.place_id) " +
             " ORDER BY place_id, name_id, tran_id";
 
     public static void main(String... args) {
