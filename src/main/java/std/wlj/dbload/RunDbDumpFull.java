@@ -19,7 +19,7 @@ public class RunDbDumpFull {
     public static void main(String... args) throws InterruptedException {
         DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceAwsDev());  // .getDataSourceSams());  // .getDataSourceDev55());
 
-        for (long repid=1;  repid<10_999_999;  repid+=1_000_000) {
+        for (long repid=4_000_001;  repid<11_999_999;  repid+=1_000_000) {
             long startRepId = repid;
             long endRepId   = repid + 999_999;
             File dataDirectory = new File(baseDir, "range-"+startRepId);

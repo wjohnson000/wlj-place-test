@@ -1,0 +1,587 @@
+#ENTRIES FORMAT:
+#text<>placeHolder<>placeHolder<>format(legacy,abbreviate,longfmt)<>lang(accepted)<>gedcomx<>sortingKeyLong<>SortingKeyShort<>calendar<>locDateValue<>locDateformat<>locDateLang<>locDateCalendar<>year<>month<>day<>astroday<>era<>yearOfEra<>...if range:  year<>month<>day<>astroday<>era<>yearOfEra
+
+##################################
+#Basic Formats (Single Dates)
+##################################
+
+#(Day Month Year)
+22 01 0038<>NA<>NA<>abbreviated<>fr<>+0038-01-22<>C00380122000000GC00380122999999P000000<>C00380122GC00380122<>gregorian<>22/01/0038<>abbreviated<>fr<>gregorian<>38<>1<>22<>1734961<>a.d.<>38
+
+#(Day MonthName Year)
+18 March 1911<>NA<>NA<>longfmt<>en<>+1911-03-18<>C19110318000000GC19110318999999P000000<>C19110318GC19110318<>gregorian<>18 March 1911<>longfmt<>en<>gregorian<>1911<>3<>18<>2419114<>AD<>1911
+
+#(Month Day Year)
+05 28 1148<>NA<>NA<>legacy<>en<>+1148-05-28<>C11480528000000GC11480528999999P000000<>C11480528GC11480528<>gregorian<>28 May 1148<>legacy<>en<>gregorian<>1148<>5<>28<>2140506<>AD<>1148
+
+#(MonthName Day Year)
+March 31 1325<>NA<>NA<>abbreviated<>es<>+1325-03-31<>C13250331000000GC13250331999999P000000<>C13250331GC13250331<>gregorian<>31-03-1325<>abbreviated<>es<>gregorian<>1325<>3<>31<>2205096<>AD<>1325
+
+#(Year Month Day)
+#0918 05 20<>NA<>NA<>longfmt<>en<>+0918-05-20<>C09180520000000GC09180520999999P000000<>C09180520GC09180520<>gregorian<>20 May 0918<>longfmt<>en<>gregorian<>918<>5<>20<>2056492<>AD<>918
+
+#(Year MonthName Day)
+#1743 October 09<>NA<>NA<>longfmt<>pt<>+1743-10-09<>C17431009000000GC17431009999999P000000<>C17431009GC17431009<>gregorian<>9 de outubro de 1743<>longfmt<>pt<>gregorian<>1743<>10<>9<>2357959<>AD<>1743
+
+#(Month Year)
+09 0095<>NA<>NA<>legacy<>es<>+0095-09<>C00950900000000GC00950999999999P000000<>C00950900GC00950999<>gregorian<>septiembre de 0095<>legacy<>es<>gregorian<>95<>9<>0<>1756002<>AD<>95
+
+#(MonthName Year)
+May 0933<>NA<>NA<>longfmt<>en<>+0933-05<>C09330500000000GC09330599999999P000000<>C09330500GC09330599<>gregorian<>May 0933<>longfmt<>en<>gregorian<>933<>5<>0<>2061952<>AD<>933
+
+#(Year Month)
+#1875 02<>NA<>NA<>abbreviated<>es<>+1875-02<>C18750200000000GC18750299999999P000000<>C18750200GC18750299<>gregorian<>02-1875<>abbreviated<>es<>gregorian<>1875<>2<>0<>2405921<>AD<>1875
+
+#(Year MonthName)
+0294 March<>NA<>NA<>abbreviated<>en<>+0294-03<>C02940300000000GC02940399999999P000000<>C02940300GC02940399<>gregorian<>3/0294<>abbreviated<>en<>gregorian<>294<>3<>0<>1828501<>AD<>294
+
+#(Year)
+1199<>NA<>NA<>abbreviated<>es<>+1199<>C11990000000000GC11999999999999P000000<>C11990000GC11999999<>gregorian<>1199<>abbreviated<>es<>gregorian<>1199<>0<>0<>2158986<>AD<>1199
+
+#(Year BC)
+#- 0537<>NA<>NA<>legacy<>es<>/+0537<>C05370000000000BC05370000000000P000000<>C05370000BC05370000<>gregorian<>antes de 0537<>legacy<>es<>gregorian<>537<>0<>0<>1917196<>AD<>537
+
+##################################
+#Basic Formats (Single Dates BEFORE)
+##################################
+
+#(Day Month Year)
+Before 24 08 0668<>NA<>NA<>legacy<>es<>/+0668-08-24<>C06680824000000BC06680824000000P000000<>C06680824BC06680824<>gregorian<>antes de 24 de agosto de 0668<>legacy<>es<>gregorian<>668<>8<>24<>1965278<>AD<>668
+
+#(Day MonthName Year)
+Antes	16 July 1678<>NA<>NA<>legacy<>pt<>/+1678-07-16<>C16780716000000BC16780716000000P000000<>C16780716BC16780716<>gregorian<>antes 16 de julho de 1678<>legacy<>pt<>gregorian<>1678<>7<>16<>2334134<>AD<>1678
+
+#(Month Day Year)
+avant 11 29 1971<>NA<>NA<>longfmt<>en<>/+1971-11-29<>C19711129000000BC19711129000000P000000<>C19711129BC19711129<>gregorian<>before 29 November 1971<>longfmt<>en<>gregorian<>1971<>11<>29<>2441285<>AD<>1971
+
+#(MonthName Day Year)
+#vor September 26 0428<>NA<>NA<>longfmt<>es<>+0428-09-26<>C04280926000000GC04280926999999P000000<>C04280926GC04280926<>gregorian<>26 de septiembre de 0428<>longfmt<>es<>gregorian<>428<>9<>26<>1877653<>AD<>428
+
+#(Year Month Day)
+#Before	1758 06 02<>NA<>NA<>longfmt<>es<>+1758-06-02<>C17580602000000GC17580602999999P000000<>C17580602GC17580602<>gregorian<>2 de junio de 1758<>longfmt<>es<>gregorian<>1758<>6<>2<>2363309<>AD<>1758
+
+#(Year MonthName Day)
+#Antes	0442 August 20<>NA<>NA<>longfmt<>en<>+0442-08-20<>C04420820000000GC04420820999999P000000<>C04420820GC04420820<>gregorian<>20 August 0442<>longfmt<>en<>gregorian<>442<>8<>20<>1882729<>AD<>442
+
+#(Month Year)
+avant	09 1318<>NA<>NA<>legacy<>en<>/+1318-09<>C13180900000000BC13180900000000P000000<>C13180900BC13180900<>gregorian<>before September 1318<>legacy<>en<>gregorian<>1318<>9<>0<>2202693<>AD<>1318
+
+#(MonthName Year)
+vor	February 0127<>NA<>NA<>legacy<>pt<>/+0127-02<>C01270200000000BC01270200000000P000000<>C01270200BC01270200<>gregorian<>antes fevereiro de 0127<>legacy<>pt<>gregorian<>127<>2<>0<>1767477<>AD<>127
+
+#(Year Month)
+#Before	1955 06<>NA<>NA<>legacy<>es<>+1955-06<>C19550600000000GC19550699999999P000000<>C19550600GC19550699<>gregorian<>junio de 1955<>legacy<>es<>gregorian<>1955<>6<>0<>2435260<>AD<>1955
+
+#(Year MonthName)
+#Antes	1689 December<>NA<>NA<>longfmt<>en<>+1689-12<>C16891200000000GC16891299999999P000000<>C16891200GC16891299<>gregorian<>December 1689<>longfmt<>en<>gregorian<>1689<>12<>0<>2338290<>AD<>1689
+
+#(Year)
+avant	1826<>NA<>NA<>longfmt<>es<>/+1826<>C18260000000000BC18260000000000P000000<>C18260000BC18260000<>gregorian<>antes de 1826<>longfmt<>es<>gregorian<>1826<>0<>0<>2387993<>AD<>1826
+
+#(Year BC)
+#vor	-1844<>NA<>NA<>abbreviated<>en<>+1844<>C18440000000000GC18449999999999P000000<>C18440000GC18449999<>gregorian<>1844<>abbreviated<>en<>gregorian<>1844<>0<>0<>2394567<>AD<>1844
+
+##################################
+#Basic Formats (Single Dates ABOUT)
+##################################
+
+#(Day Month Year)
+About	20 06 1660<>NA<>NA<>legacy<>en<>A+1660-06-20<>C16600620000000CC16600620999999P000000<>C16600620CC16600620<>gregorian<>about 20 June 1660<>legacy<>en<>gregorian<>1660<>6<>20<>2327534<>AD<>1660
+
+#(Day MonthName Year)
+Aproximadamente	05 May 0545<>NA<>NA<>abbreviated<>en<>A+0545-05-05<>C05450505000000CC05450505999999P000000<>C05450505CC05450505<>gregorian<>about 5/5/0545<>abbreviated<>en<>gregorian<>545<>5<>5<>1920242<>AD<>545
+
+#(Month Day Year)
+#Abt 07 01 1316<>NA<>NA<>abbreviated<>es<>A+1316-07-01<>C13160701000000CC13160701999999P000000<>C13160701CC13160701<>gregorian<>aproximadamente 01-07-1316<>abbreviated<>es<>gregorian<>1316<>7<>1<>2201901<>AD<>1316
+
+#(MonthName Day Year)
+Aprox February 12 0051<>NA<>NA<>legacy<>es<>A+0051-02-12<>C00510212000000CC00510212999999P000000<>C00510212CC00510212<>gregorian<>aproximadamente 12 de febrero de 0051<>legacy<>es<>gregorian<>51<>2<>12<>1739730<>AD<>51
+
+#(Year Month Day)
+#circa	0398 04 30<>NA<>NA<>abbreviated<>en<>A+0398-04-30<>C03980430000000CC03980430999999P000000<>C03980430CC03980430<>gregorian<>about 4/30/0398<>abbreviated<>en<>gregorian<>398<>4<>30<>1866546<>AD<>398
+
+#(Year MonthName Day)
+#around	0145 February 19<>NA<>NA<>longfmt<>es<>A+0145-02-19<>C01450219000000CC01450219999999P000000<>C01450219CC01450219<>gregorian<>aproximadamente 19 de febrero de 0145<>longfmt<>es<>gregorian<>145<>2<>19<>1774070<>AD<>145
+
+#(Month Year)
+approximately 02 1996<>NA<>NA<>longfmt<>en<>A+1996-02<>C19960200000000CC19960299999999P000000<>C19960200CC19960299<>gregorian<>about February 1996<>longfmt<>en<>gregorian<>1996<>2<>0<>2450115<>AD<>1996
+
+#(MonthName Year)
+Approx. October 1607<>NA<>NA<>longfmt<>es<>A+1607-10<>C16071000000000CC16071099999999P000000<>C16071000CC16071099<>gregorian<>aproximadamente octubre de 1607<>longfmt<>es<>gregorian<>1607<>10<>0<>2308278<>AD<>1607
+
+#(Year Month)
+#Abt. 0437 11<>NA<>NA<>longfmt<>en<>A+0437<>C04370000000000CC04379999999999P000000<>C04370000CC04379999<>gregorian<>about 0437<>longfmt<>en<>gregorian<>437<>0<>0<>1880672<>AD<>437
+
+#(Year MonthName)
+#ABT 0858 June<>NA<>NA<>longfmt<>es<>A+0858<>C08580000000000CC08589999999999P000000<>C08580000CC08589999<>gregorian<>aproximadamente 0858<>longfmt<>es<>gregorian<>858<>0<>0<>2034439<>AD<>858
+
+#(Year)
+ABOUT 0364<>NA<>NA<>longfmt<>es<>A+0364<>C03640000000000CC03649999999999P000000<>C03640000CC03649999<>gregorian<>aproximadamente 0364<>longfmt<>es<>gregorian<>364<>0<>0<>1854008<>AD<>364
+
+#(Year BC)
+#alrededor de	-0667<>NA<>NA<>abbreviated<>es<>A+0667<>C06670000000000CC06679999999999P000000<>C06670000CC06679999<>gregorian<>aproximadamente 0667<>abbreviated<>es<>gregorian<>667<>0<>0<>1964677<>AD<>667
+
+##################################
+#Basic Formats (Single Dates RANGE)
+#from to, between, etc
+##################################
+
+#(Day Month Year)(Day Month Year)
+#de	02 08 0541	a	01 07 0981<>NA<>NA<>longfmt<>es<>+0541-02-08/+0981-01-07<>C05410208000000IC09810107999999P000000<>C05410208IC09810107<>gregorian<>desde 8 de febrero de 0541 hasta 7 de enero de 0981<>longfmt<>es<>gregorian<>981<>1<>7<>2079370<>AD<>981
+
+#(Day Month Year)(Day MonthName Year)
+#from	17 05 1129	to	30 November 1146<>NA<>NA<>legacy<>en<>+1146-11-30<>C11461130000000GC11461130999999P000000<>C11461130GC11461130<>gregorian<>30 November 1146<>legacy<>en<>gregorian<>1146<>11<>30<>2139961<>AD<>1146
+
+#(Day Month Year)(Month Day Year)
+#desde	27 10 1506	hasta	05 29 1726<>NA<>NA<>longfmt<>es<>+1506-10-27<>C15061027000000GC15061027999999P000000<>C15061027GC15061027<>gregorian<>27 de octubre de 1506<>longfmt<>es<>gregorian<>1506<>10<>27<>2271414<>AD<>1506
+
+#(Day Month Year)(MonthName Day Year)
+#desde	23 05 1266	a	May 01 0621<>NA<>NA<>legacy<>es<>A+0621-05-01<>C06210501000000CC06210501999999P000000<>C06210501CC06210501<>gregorian<>aproximadamente 1 de mayo de 0621<>legacy<>es<>gregorian<>621<>5<>1<>1947996<>AD<>621
+
+#(Day Month Year)(Year Month Day)
+#desde 	29 05 1674	para	1858 09 30<>NA<>NA<>longfmt<>es<>+1674-05-29<>C16740529000000GC16740529999999P000000<>C16740529GC16740529<>gregorian<>29 de mayo de 1674<>longfmt<>es<>gregorian<>1674<>5<>29<>2332625<>AD<>1674
+
+#(Day Month Year)(Year MonthName Day)
+#16 02 1847	-	1761 April 03<>NA<>NA<>legacy<>en<>+1847-02-16<>C18470216000000GC18470216999999P000000<>C18470216GC18470216<>gregorian<>16 February 1847<>legacy<>en<>gregorian<>1847<>2<>16<>2395709<>AD<>1847
+
+#(Day Month Year)(Month Year)
+#between	25 11 1295	and	05 1801<>NA<>NA<>legacy<>en<>+1295-11-25<>C12951125000000GC12951125999999P000000<>C12951125GC12951125<>gregorian<>25 November 1295<>legacy<>en<>gregorian<>1295<>11<>25<>2194378<>AD<>1295
+
+#(Day Month Year)(Monthname Year)
+#BET.	28 03 0190	-	February 1879<>NA<>NA<>abbreviated<>en<>+0190-03-28<>C01900328000000GC01900328999999P000000<>C01900328GC01900328<>gregorian<>3/28/0190<>abbreviated<>en<>gregorian<>190<>3<>28<>1790543<>AD<>190
+
+#(Day Month Year)(Year Month)
+#FROM	18 06 1038	TO	1506 05<>NA<>NA<>legacy<>es<>+1038-06-18<>C10380618000000GC10380618999999P000000<>C10380618GC10380618<>gregorian<>18 de junio de 1038<>legacy<>es<>gregorian<>1038<>6<>18<>2100350<>AD<>1038
+
+#(Day Month Year)(Year)
+#de	25 06 0919	a 0162 December<>NA<>NA<>abbreviated<>es<>+0919-06-25<>C09190625000000GC09190625999999P000000<>C09190625GC09190625<>gregorian<>25-06-0919<>abbreviated<>es<>gregorian<>919<>6<>25<>2056893<>AD<>919
+
+#(Day Month Year)(Year BC)
+#desde	14 07 0838	hasta	-601<>NA<>NA<>abbreviated<>es<>+0838-07-14<>C08380714000000GC08380714999999P000000<>C08380714GC08380714<>gregorian<>14-07-0838<>abbreviated<>es<>gregorian<>838<>7<>14<>2027328<>AD<>838
+
+#(Day MonthName Year)(Day Month Year)
+#desde	06 June 0271	a	30 09 1834<>NA<>NA<>longfmt<>es<>A+1834-09-30<>C18340930000000CC18340930999999P000000<>C18340930CC18340930<>gregorian<>aproximadamente 30 de septiembre de 1834<>longfmt<>es<>gregorian<>1834<>9<>30<>2391187<>AD<>1834
+
+#(Day MonthName Year)(Day MonthName Year)
+#desde 24 August 0784	para	08 May 1304<>NA<>NA<>legacy<>es<>+0784-08-24/+1304-05-08<>C07840824000000IC13040508999999P000000<>C07840824IC13040508<>gregorian<>desde 24 de agosto de 0784 hasta 8 de mayo de 1304<>legacy<>es<>gregorian<>1304<>5<>8<>2197464<>AD<>1304
+
+#(Day MonthName Year)(Month Day Year)
+#27 May 0588 - 01 04 0670<>NA<>NA<>legacy<>es<>+0588-05-27<>C05880527000000GC05880527999999P000000<>C05880527GC05880527<>gregorian<>27 de mayo de 0588<>legacy<>es<>gregorian<>588<>5<>27<>1935970<>AD<>588
+
+#(Day MonthName Year)(MonthName Day Year)
+#between 08 July 0005 and July 18 1724<>NA<>NA<>legacy<>es<>+0005-07-08<>C00050708000000GC00050708999999P000000<>C00050708GC00050708<>gregorian<>8 de julio de 0005<>legacy<>es<>gregorian<>5<>7<>8<>1723075<>AD<>5
+
+#(Day MonthName Year)(Year Month Day)
+#BET. 17 April 0717	- 0588 11 17<>NA<>NA<>abbreviated<>en<>+0717-04-17<>C07170417000000GC07170417999999P000000<>C07170417GC07170417<>gregorian<>4/17/0717<>abbreviated<>en<>gregorian<>717<>4<>17<>1983045<>AD<>717
+
+#(Day MonthName Year)(Year MonthName Day)
+#FROM	02 February 0641	TO	1551 September 18<>NA<>NA<>abbreviated<>en<>+1551-09-18<>C15510918000000GC15510918999999P000000<>C15510918GC15510918<>gregorian<>9/18/1551<>abbreviated<>en<>gregorian<>1551<>9<>18<>2287811<>AD<>1551
+
+#(Day MonthName Year)(Month Year)
+#de	02 August 0929 a 08 1779<>NA<>NA<>longfmt<>en<>+0929-08-02/+1779-08<>C09290802000000IC17790899999999P000000<>C09290802IC17790899<>gregorian<>from 2 August 0929 to August 1779<>longfmt<>en<>gregorian<>1779<>8<>0<>2371039<>AD<>1779
+
+#(Day MonthName Year)(MonthName Year)
+#from	13 May 0735	to	June 0351<>NA<>NA<>abbreviated<>es<>+0351-06/+0735-05-13<>C03510600000000IC07350513999999P000000<>C03510600IC07350513<>gregorian<>desde 06-0351 hasta 13-05-0735<>abbreviated<>es<>gregorian<>735<>5<>13<>1989645<>AD<>735
+
+#(Day MonthName Year)(Year Month)
+#desde	17 September 0612	hasta	1522 03<>NA<>NA<>legacy<>pt<>+0612-09-17<>C06120917000000GC06120917999999P000000<>C06120917GC06120917<>gregorian<>17 de setembro de 0612<>legacy<>pt<>gregorian<>612<>9<>17<>1944848<>AD<>612
+
+#(Day MonthName Year)(Year MonthName)
+#desde	25 September 0093	a	0870 March<>NA<>NA<>legacy<>en<>+0093-09-25<>C00930925000000GC00930925999999P000000<>C00930925GC00930925<>gregorian<>25 September 0093<>legacy<>en<>gregorian<>93<>9<>25<>1755296<>AD<>93
+
+#(Day MonthName Year)(Year)
+#desde 	05 November 0397	para	1051<>NA<>NA<>longfmt<>es<>+0397-11-05/+1051<>C03971105000000IC10519999999999P000000<>C03971105IC10519999<>gregorian<>desde 5 de noviembre de 0397 hasta 1051<>longfmt<>es<>gregorian<>1051<>0<>0<>2104930<>AD<>1051
+
+#(Day MonthName Year)(Year BC)
+#04 July 0650 -	-297<>NA<>NA<>legacy<>es<>+0650-07-04<>C06500704000000GC06500704999999P000000<>C06500704GC06500704<>gregorian<>4 de julio de 0650<>legacy<>es<>gregorian<>650<>7<>4<>1958652<>AD<>650
+
+#(Month Day Year)(Day Month Year)
+#between 07 23 1086	and	19 01 0726<>NA<>NA<>legacy<>en<>+0726-01-19<>C07260119000000GC07260119999999P000000<>C07260119GC07260119<>gregorian<>19 January 0726<>legacy<>en<>gregorian<>726<>1<>19<>1986244<>AD<>726
+
+#(Month Day Year)(Day MonthName Year)
+#BET. 08 23 0827 - 27 November 1278<>NA<>NA<>abbreviated<>pt<>+1278-11-27<>C12781127000000GC12781127999999P000000<>C12781127GC12781127<>gregorian<>27/11/1278<>abbreviated<>pt<>gregorian<>1278<>11<>27<>2188171<>AD<>1278
+
+#(Month Day Year)(Month Day Year)
+#FROM 10 09 1708 TO	05 28 1683<>NA<>NA<>legacy<>fr<>+1683-05-28/+1708-10-09<>C16830528000000IC17081009999999P000000<>C16830528IC17081009<>gregorian<>du 28 mai 1683 au 9 octobre 1708<>legacy<>fr<>gregorian<>1708<>10<>9<>2345176<>a.d.<>1708
+
+#(Month Day Year)(MonthName Day Year)
+#de	03 14 0731 a November 19 1220<>NA<>NA<>longfmt<>en<>A+1220-11-19<>C12201119000000CC12201119999999P000000<>C12201119CC12201119<>gregorian<>about 19 November 1220<>longfmt<>en<>gregorian<>1220<>11<>19<>2166979<>AD<>1220
+
+#(Month Day Year)(Year Month Day)
+#from 06 25 0360 to	0060 10 22<>NA<>NA<>abbreviated<>en<>+0060-10-22<>C00601022000000GC00601022999999P000000<>C00601022GC00601022<>gregorian<>10/22/0060<>abbreviated<>en<>gregorian<>60<>10<>22<>1743270<>AD<>60
+
+#(Month Day Year)(Year MonthName Day)
+#desde	02 30 0339	hasta	1206 February 19<>NA<>NA<>legacy<>en<>+1206-02-19<>C12060219000000GC12060219999999P000000<>C12060219GC12060219<>gregorian<>19 February 1206<>legacy<>en<>gregorian<>1206<>2<>19<>2161592<>AD<>1206
+
+#(Month Day Year)(Month Year)
+#desde	04 15 0934	a 11 0973<>NA<>NA<>legacy<>en<>A+0973<>C09730000000000CC09739999999999P000000<>C09730000CC09739999<>gregorian<>about 0973<>legacy<>en<>gregorian<>973<>0<>0<>2076442<>AD<>973
+
+#(Month Day Year)(MonthName Year)
+#desde 	06 27 1544	para May 0999<>NA<>NA<>legacy<>en<>+0999-05<>C09990500000000GC09990599999999P000000<>C09990500GC09990599<>gregorian<>May 0999<>legacy<>en<>gregorian<>999<>5<>0<>2086058<>AD<>999
+
+#(Month Day Year)(Year Month)
+#03 15 0410	- 0951 05<>NA<>NA<>longfmt<>en<>+0951<>C09510000000000GC09519999999999P000000<>C09510000GC09519999<>gregorian<>0951<>longfmt<>en<>gregorian<>951<>0<>0<>2068406<>AD<>951
+
+#(Month Day Year)(Year MonthName)
+#between 02 14 1258	and	1644 December<>NA<>NA<>legacy<>en<>+0644-12<>C06441200000000GC06441299999999P000000<>C06441200GC06441299<>gregorian<>December 0644<>legacy<>en<>gregorian<>644<>12<>0<>1956611<>AD<>644
+
+#(Month Day Year)(Year)
+#BET. 06 18 0627 - 1419<>NA<>NA<>legacy<>en<>+1419-06-18<>C14190618000000GC14190618999999P000000<>C14190618GC14190618<>gregorian<>18 June 1419<>legacy<>en<>gregorian<>1419<>6<>18<>2239507<>AD<>1419
+
+#(Month Day Year)(Year BC)
+#FROM 05 31 0050 TO -161<>NA<>NA<>legacy<>es<>+0050-05-31/+0161<>C00500531000000IC01619999999999P000000<>C00500531IC01619999<>gregorian<>desde 31 de mayo de 0050 hasta 0161<>legacy<>es<>gregorian<>161<>0<>0<>1779865<>AD<>161
+
+#(MonthName Day Year)(Day Month Year)
+#de	May 31 1284	a	25 10 0476<>NA<>NA<>abbreviated<>en<>+1284-05-31<>C12840531000000GC12840531999999P000000<>C12840531GC12840531<>gregorian<>5/31/1284<>abbreviated<>en<>gregorian<>1284<>5<>31<>2190183<>AD<>1284
+
+#(MonthName Day Year)(Day MonthName Year)
+#from	August 19 1229	to	18 May 1291<>NA<>NA<>abbreviated<>en<>+1291-05-18<>C12910518000000GC12910518999999P000000<>C12910518GC12910518<>gregorian<>5/18/1291<>abbreviated<>en<>gregorian<>1291<>5<>18<>2192726<>AD<>1291
+
+#(MonthName Day Year)(Month Day Year)
+#desde	May 12 0108	hasta 03 06 1675<>NA<>NA<>legacy<>en<>+0108-05-12<>C01080512000000GC01080512999999P000000<>C01080512GC01080512<>gregorian<>12 May 0108<>legacy<>en<>gregorian<>108<>5<>12<>1760638<>AD<>108
+
+#(MonthName Day Year)(MonthName Day Year)
+#desde February 30 1633	a May 06 1812<>NA<>NA<>longfmt<>en<>+0412-05-06/+1633-02<>C04120506000000IC16330299999999P000000<>C04120506IC16330299<>gregorian<>from 6 May 0412 to February 1633<>longfmt<>en<>gregorian<>1633<>2<>0<>2317533<>AD<>1633
+
+#(MonthName Day Year)(Year Month Day)
+#desde 	March 01 0600	para	1732 07 06<>NA<>NA<>longfmt<>en<>+1732-07-06<>C17320706000000GC17320706999999P000000<>C17320706GC17320706<>gregorian<>6 July 1732<>longfmt<>en<>gregorian<>1732<>7<>6<>2353847<>AD<>1732
+
+#(MonthName Day Year)(Year MonthName Day)
+#desde 	March 01 0600	para	1732 07 06<>NA<>NA<>longfmt<>en<>+0600-03-01<>C06000301000000GC06000301999999P000000<>C06000301GC06000301<>gregorian<>1 March 0600<>longfmt<>en<>gregorian<>600<>3<>1<>1940265<>AD<>600
+
+#(MonthName Day Year)(Month Year)
+#December 26 1133 -	0472 March 16<>NA<>NA<>abbreviated<>en<>+1133-12-26<>C11331226000000GC11331226999999P000000<>C11331226GC11331226<>gregorian<>12/26/1133<>abbreviated<>en<>gregorian<>1133<>12<>26<>2135239<>AD<>1133
+
+#(MonthName Day Year)(MonthName Year)
+#BET. April 20 1820	- September 0392<>NA<>NA<>abbreviated<>en<>+0392-09/+1820-04-20<>C03920900000000IC18200420999999P000000<>C03920900IC18200420<>gregorian<>from 9/0392 to 4/20/1820<>abbreviated<>en<>gregorian<>1820<>4<>20<>2385911<>AD<>1820
+
+#(MonthName Day Year)(Year Month)
+#FROM	May 27 0161	TO	1440 01<>NA<>NA<>legacy<>en<>+0161-05-27<>C01610527000000GC01610527999999P000000<>C01610527GC01610527<>gregorian<>27 May 0161<>legacy<>en<>gregorian<>161<>5<>27<>1780011<>AD<>161
+
+#(MonthName Day Year)(Year MonthName)
+#de	July 19 0793	a	1035 November<>NA<>NA<>legacy<>en<>+0793-07-19<>C07930719000000GC07930719999999P000000<>C07930719GC07930719<>gregorian<>19 July 0793<>legacy<>en<>gregorian<>793<>7<>19<>2010897<>AD<>793
+
+#(MonthName Day Year)(Year)
+#from	May 10 0059	to	1735<>NA<>NA<>longfmt<>es<>+0059-05-10/+1735<>C00590510000000IC17359999999999P000000<>C00590510IC17359999<>gregorian<>desde 10 de mayo de 0059 hasta 1735<>longfmt<>es<>gregorian<>1735<>0<>0<>2354756<>AD<>1735
+
+#(MonthName Day Year)(Year BC)
+#desde	February 13 1972	hasta	-432<>NA<>NA<>legacy<>en<>+1972-02-13<>C19720213000000GC19720213999999P000000<>C19720213GC19720213<>gregorian<>13 February 1972<>legacy<>en<>gregorian<>1972<>2<>13<>2441361<>AD<>1972
+
+#(Year Month Day)(Day Month Year)
+#desde	0312 08 23	a	12 01 0542<>NA<>NA<>legacy<>en<>A+0542-12-01<>C05421201000000CC05421201999999P000000<>C05421201CC05421201<>gregorian<>about 1 December 0542<>legacy<>en<>gregorian<>542<>12<>1<>1919356<>AD<>542
+
+#(Year Month Day)(Day MonthName Year)
+#desde 1230 10 20 para 24 October 1038<>NA<>NA<>legacy<>en<>+1038-10-24<>C10381024000000GC10381024999999P000000<>C10381024GC10381024<>gregorian<>24 October 1038<>legacy<>en<>gregorian<>1038<>10<>24<>2100478<>AD<>1038
+
+#(Year Month Day)(Month Day Year)
+#1134 06 05	- 07 06 0293<>NA<>NA<>abbreviated<>fr<>+1134-06-05<>C11340605000000GC11340605999999P000000<>C11340605GC11340605<>gregorian<>05/06/1134<>abbreviated<>fr<>gregorian<>1134<>6<>5<>2135400<>a.d.<>1134
+
+#(Year Month Day)(MonthName Day Year)
+#between 0438 03 19	and	March 08 1066<>NA<>NA<>legacy<>en<>+0438-03-19<>C04380319000000GC04380319999999P000000<>C04380319GC04380319<>gregorian<>19 March 0438<>legacy<>en<>gregorian<>438<>3<>19<>1881114<>AD<>438
+
+#(Year Month Day)(Year Month Day)
+#BET. 0862 03 25 - 1126 11 22<>NA<>NA<>abbreviated<>en<>+0862-03-25/+1126-11-22<>C08620325000000IC11261122999999P000000<>C08620325IC11261122<>gregorian<>from 3/25/0862 to 11/22/1126<>abbreviated<>en<>gregorian<>1126<>11<>22<>2132648<>AD<>1126
+
+#(Year Month Day)(Year MonthName Day)
+#FROM	0631 09 18	TO	0041 November 19<>NA<>NA<>longfmt<>en<>+0631-09-18<>C06310918000000GC06310918999999P000000<>C06310918GC06310918<>gregorian<>18 September 0631<>longfmt<>en<>gregorian<>631<>9<>18<>1951788<>AD<>631
+
+#(Year Month Day)(Month Year)
+#de	1935 10 10 a 04 1705<>NA<>NA<>legacy<>en<>+1935-10-10<>C19351010000000GC19351010999999P000000<>C19351010GC19351010<>gregorian<>10 October 1935<>legacy<>en<>gregorian<>1935<>10<>10<>2428086<>AD<>1935
+
+#(Year Month Day)(MonthName Year)
+#from	0085 10 11	to	July 0084<>NA<>NA<>legacy<>es<>+0085-10-11<>C00851011000000GC00851011999999P000000<>C00851011GC00851011<>gregorian<>11 de octubre de 0085<>legacy<>es<>gregorian<>85<>10<>11<>1752390<>AD<>85
+
+#(Year Month Day)(Year Month)
+#desde	0556 09 15	hasta 0141 06<>NA<>NA<>legacy<>pt<>+0141-06/+0556-09-15<>C01410600000000IC05560915999999P000000<>C01410600IC05560915<>gregorian<>desde junho de 0141 para 15 de setembro de 0556<>legacy<>pt<>gregorian<>556<>9<>15<>1924393<>AD<>556
+
+#(Year Month Day)(Year MonthName)
+#desde 1693 09 21 a 0359 May<>NA<>NA<>legacy<>es<>+1693-09-21<>C16930921000000GC16930921999999P000000<>C16930921GC16930921<>gregorian<>21 de septiembre de 1693<>legacy<>es<>gregorian<>1693<>9<>21<>2339680<>AD<>1693
+
+#(Year Month Day)(Year)
+#desde 0328 09 23	para 1178<>NA<>NA<>abbreviated<>es<>+0328-09-23<>C03280923000000GC03280923999999P000000<>C03280923GC03280923<>gregorian<>23-09-0328<>abbreviated<>es<>gregorian<>328<>9<>23<>1841125<>AD<>328
+
+#(Year Month Day)(Year BC)
+#1495 04 05	- -1791<>NA<>NA<>longfmt<>es<>+1495-04-05<>C14950405000000GC14950405999999P000000<>C14950405GC14950405<>gregorian<>5 de abril de 1495<>longfmt<>es<>gregorian<>1495<>4<>5<>2267192<>AD<>1495
+
+#(Year MonthName Day)(Day Month Year)
+#between 1633 December 26 and 24 10 1845<>NA<>NA<>longfmt<>fr<>+1633-12-26<>C16331226000000GC16331226999999P000000<>C16331226GC16331226<>gregorian<>26 décembre 1633<>longfmt<>fr<>gregorian<>1633<>12<>26<>2317861<>a.d.<>1633
+
+#(Year MonthName Day)(Day MonthName Year)
+#BET. 1051 November 29 - 23 June 0204<>NA<>NA<>legacy<>en<>+1051-11-29<>C10511129000000GC10511129999999P000000<>C10511129GC10511129<>gregorian<>29 November 1051<>legacy<>en<>gregorian<>1051<>11<>29<>2105262<>AD<>1051
+
+#(Year MonthName Day)(Month Day Year)
+#FROM 0157 March 07	TO 09 08 0930<>NA<>NA<>abbreviated<>en<>+0157-03-07<>C01570307000000GC01570307999999P000000<>C01570307GC01570307<>gregorian<>3/7/0157<>abbreviated<>en<>gregorian<>157<>3<>7<>1778469<>AD<>157
+
+#(Year MonthName Day)(MonthName Day Year)
+#de	1551 May 06	a November 28 0161<>NA<>NA<>longfmt<>es<>A+0161-11-28<>C01611128000000CC01611128999999P000000<>C01611128CC01611128<>gregorian<>aproximadamente 28 de noviembre de 0161<>longfmt<>es<>gregorian<>161<>11<>28<>1780196<>AD<>161
+
+#(Year MonthName Day)(Year Month Day)
+#from 1919 March 05	to 1335 02 02<>NA<>NA<>legacy<>en<>+1335-02-02<>C13350202000000GC13350202999999P000000<>C13350202GC13350202<>gregorian<>2 February 1335<>legacy<>en<>gregorian<>1335<>2<>2<>2208691<>AD<>1335
+
+#(Year MonthName Day)(Year MonthName Day)
+#desde	1684 July 20 hasta 1564 April 15<>NA<>NA<>longfmt<>es<>+1564-04-15<>C15640415000000GC15640415999999P000000<>C15640415GC15640415<>gregorian<>15 de abril de 1564<>longfmt<>es<>gregorian<>1564<>4<>15<>2292404<>AD<>1564
+
+#(Year MonthName Day)(Month Year)
+#desde	0697 June 04 a 08 0829<>NA<>NA<>abbreviated<>es<>+0697-06-04<>C06970604000000GC06970604999999P000000<>C06970604GC06970604<>gregorian<>04-06-0697<>abbreviated<>es<>gregorian<>697<>6<>4<>1975789<>AD<>697
+
+#(Year MonthName Day)(MonthName Year)
+#desde 	1446 April 13 para June 0566<>NA<>NA<>legacy<>pt<>+1446-04-13<>C14460413000000GC14460413999999P000000<>C14460413GC14460413<>gregorian<>13 de abril de 1446<>legacy<>pt<>gregorian<>1446<>4<>13<>2249303<>AD<>1446
+
+#(Year MonthName Day)(Year Month)
+#1468 May 15 - 1293 01<>NA<>NA<>abbreviated<>en<>+1468-05-15<>C14680515000000GC14680515999999P000000<>C14680515GC14680515<>gregorian<>5/15/1468<>abbreviated<>en<>gregorian<>1468<>5<>15<>2257371<>AD<>1468
+
+#(Year MonthName Day)(Year MonthName)
+#between 0785 April 31 and	1818 May<>NA<>NA<>legacy<>es<>+0785-04<>C07850400000000GC07850499999999P000000<>C07850400GC07850499<>gregorian<>abril de 0785<>legacy<>es<>gregorian<>785<>4<>0<>2007866<>AD<>785
+
+#(Year MonthName Day)(Year)
+#BET. 1020 November 16 - 1878<>NA<>NA<>abbreviated<>en<>+1020-11-16<>C10201116000000GC10201116999999P000000<>C10201116GC10201116<>gregorian<>11/16/1020<>abbreviated<>en<>gregorian<>1020<>11<>16<>2093927<>AD<>1020
+
+#(Year MonthName Day)(Year BC)
+#FROM 0836 October 29 TO -403<>NA<>NA<>legacy<>es<>+0836-10-29<>C08361029000000GC08361029999999P000000<>C08361029GC08361029<>gregorian<>29 de octubre de 0836<>legacy<>es<>gregorian<>836<>10<>29<>2026705<>AD<>836
+
+#(Month Year)(Day Month Year)
+#de	04 0886	a 16 04 1688<>NA<>NA<>legacy<>en<>A+1688-04-16<>C16880416000000CC16880416999999P000000<>C16880416CC16880416<>gregorian<>about 16 April 1688<>legacy<>en<>gregorian<>1688<>4<>16<>2337696<>AD<>1688
+
+#(Month Year)(Day MonthName Year)
+#from	08 1362	to 06 August 0335<>NA<>NA<>abbreviated<>en<>+0335-08-06/+1362-08<>C03350806000000IC13620899999999P000000<>C03350806IC13620899<>gregorian<>from 8/6/0335 to 8/1362<>abbreviated<>en<>gregorian<>1362<>8<>0<>2218733<>AD<>1362
+
+#(Month Year)(Month Day Year)
+#desde	05 1998	hasta 09 25 0321<>NA<>NA<>legacy<>es<>+0321<>C03210000000000GC03219999999999P000000<>C03210000GC03219999<>gregorian<>0321<>legacy<>es<>gregorian<>321<>0<>0<>1838303<>AD<>321
+
+#(Month Year)(MonthName Day Year)
+#desde	07 1877	a	May 18 1275<>NA<>NA<>abbreviated<>pt<>+1275-05-18/+1877-07<>C12750518000000IC18770799999999P000000<>C12750518IC18770799<>gregorian<>desde 18/05/1275 para 07/1877<>abbreviated<>pt<>gregorian<>1877<>7<>0<>2406802<>AD<>1877
+
+#(Month Year)(Year Month Day)
+#desde 	04 1942	para	0190 03 19<>NA<>NA<>longfmt<>en<>+0190-03-19<>C01900319000000GC01900319999999P000000<>C01900319GC01900319<>gregorian<>19 March 0190<>longfmt<>en<>gregorian<>190<>3<>19<>1790534<>AD<>190
+
+#(Month Year)(Year MonthName Day)
+#05 1043 - 1973 August 11<>NA<>NA<>abbreviated<>en<>+1973-08-11<>C19730811000000GC19730811999999P000000<>C19730811GC19730811<>gregorian<>8/11/1973<>abbreviated<>en<>gregorian<>1973<>8<>11<>2441906<>AD<>1973
+
+#(Month Year)(Month Year)
+#between 07 0339 and	07 0503<>NA<>NA<>abbreviated<>es<>+0339-07/+0503-07<>C03390700000000IC05030799999999P000000<>C03390700IC05030799<>gregorian<>desde 07-0339 hasta 07-0503<>abbreviated<>es<>gregorian<>503<>7<>0<>1904958<>AD<>503
+
+#(Month Year)(MonthName Year)
+#BET. 04 0806 - December 0145<>NA<>NA<>longfmt<>en<>+0145-12/+0806-04<>C01451200000000IC08060499999999P000000<>C01451200IC08060499<>gregorian<>from December 0145 to April 0806<>longfmt<>en<>gregorian<>806<>4<>0<>2015536<>AD<>806
+
+#(Month Year)(Year Month)
+#FROM 05 1798 TO 0273 09<>NA<>NA<>abbreviated<>en<>+0273-09-05<>C02730905000000GC02730905999999P000000<>C02730905GC02730905<>gregorian<>9/5/0273<>abbreviated<>en<>gregorian<>273<>9<>5<>1821019<>AD<>273
+
+#(Month Year)(Year MonthName)
+#de	05 1075	a 1953 September<>NA<>NA<>abbreviated<>en<>A+1953<>C19530000000000CC19539999999999P000000<>C19530000CC19539999<>gregorian<>about 1953<>abbreviated<>en<>gregorian<>1953<>0<>0<>2434379<>AD<>1953
+
+#(Month Year)(Year)
+#from 06 1306 to 1925<>NA<>NA<>longfmt<>en<>+0925/+1306-06<>C09250000000000IC13060699999999P000000<>C09250000IC13060699<>gregorian<>from 0925 to June 1306<>longfmt<>en<>gregorian<>1306<>6<>0<>2198218<>AD<>1306
+
+#(Month Year)(Year BC)
+#desde	01 1432	hasta	-1674<>NA<>NA<>legacy<>en<>+1674-01<>C16740100000000GC16740199999999P000000<>C16740100GC16740199<>gregorian<>January 1674<>legacy<>en<>gregorian<>1674<>1<>0<>2332477<>AD<>1674
+
+#(MonthName Year)(Day Month Year)
+#desde	December 1487 a 18 03 1805<>NA<>NA<>longfmt<>es<>A+1805-03-18<>C18050318000000CC18050318999999P000000<>C18050318CC18050318<>gregorian<>aproximadamente 18 de marzo de 1805<>longfmt<>es<>gregorian<>1805<>3<>18<>2380399<>AD<>1805
+
+#(MonthName Year)(Day MonthName Year)
+#desde 	July 0793 para 14 May 1250<>NA<>NA<>legacy<>es<>+0250-05-14/+0793-07<>C02500514000000IC07930799999999P000000<>C02500514IC07930799<>gregorian<>desde 14 de mayo de 0250 hasta julio de 0793<>legacy<>es<>gregorian<>793<>7<>0<>2010879<>AD<>793
+
+#(MonthName Year)(Month Day Year)
+#February 1974 - 04 02 1182<>NA<>NA<>abbreviated<>en<>+1182-04-02<>C11820402000000GC11820402999999P000000<>C11820402GC11820402<>gregorian<>4/2/1182<>abbreviated<>en<>gregorian<>1182<>4<>2<>2152868<>AD<>1182
+
+#(MonthName Year)(MonthName Day Year)
+#between December 0744 and	February 27 0211<>NA<>NA<>longfmt<>es<>+0211-02-27/+0744-12<>C02110227000000IC07441299999999P000000<>C02110227IC07441299<>gregorian<>desde 27 de febrero de 0211 hasta diciembre de 0744<>longfmt<>es<>gregorian<>744<>12<>0<>1993135<>AD<>744
+
+#(MonthName Year)(Year Month Day)
+#BET. July 0536	- 1358 10 02<>NA<>NA<>legacy<>en<>+1358-10-02<>C13581002000000GC13581002999999P000000<>C13581002GC13581002<>gregorian<>2 October 1358<>legacy<>en<>gregorian<>1358<>10<>2<>2217334<>AD<>1358
+
+#(MonthName Year)(Year MonthName Day)
+#FROM June 0972	TO 1137 April 18<>NA<>NA<>abbreviated<>en<>+1137-04-18<>C11370418000000GC11370418999999P000000<>C11370418GC11370418<>gregorian<>4/18/1137<>abbreviated<>en<>gregorian<>1137<>4<>18<>2136448<>AD<>1137
+
+#(MonthName Year)(Month Year)
+#de	February 0068 a 04 0442<>NA<>NA<>longfmt<>es<>+0068-02/+0442-04<>C00680200000000IC04420499999999P000000<>C00680200IC04420499<>gregorian<>desde febrero de 0068 hasta abril de 0442<>longfmt<>es<>gregorian<>442<>4<>0<>1882588<>AD<>442
+
+#(MonthName Year)(MonthName Year)
+#from September 1393 to	July 1544<>NA<>NA<>legacy<>en<>+0154-07/+1393-09<>C01540700000000IC13930999999999P000000<>C01540700IC13930999<>gregorian<>from July 0154 to September 1393<>legacy<>en<>gregorian<>1393<>9<>0<>2230087<>AD<>1393
+
+#(MonthName Year)(Year Month)
+#desde	May 0552 hasta 0195 09<>NA<>NA<>abbreviated<>es<>+0552-05<>C05520500000000GC05520599999999P000000<>C05520500GC05520599<>gregorian<>05-0552<>abbreviated<>es<>gregorian<>552<>5<>0<>1922795<>AD<>552
+
+#(MonthName Year)(Year MonthName)
+#desde September 0513 a 0480 December<>NA<>NA<>abbreviated<>es<>A+0480<>C04800000000000CC04809999999999P000000<>C04800000CC04809999<>gregorian<>aproximadamente 0480<>abbreviated<>es<>gregorian<>480<>0<>0<>1896377<>AD<>480
+
+#(MonthName Year)(Year)
+#desde 	May 0243 para 166<>NA<>NA<>abbreviated<>en<>+0166/+0243-05<>C01660000000000IC02430599999999P000000<>C01660000IC02430599<>gregorian<>from 0166 to 5/0243<>abbreviated<>en<>gregorian<>243<>5<>0<>1809934<>AD<>243
+
+#(MonthName Year)Year BC)
+#February 0060 - -1330<>NA<>NA<>legacy<>es<>+0060-02<>C00600200000000GC00600299999999P000000<>C00600200GC00600299<>gregorian<>febrero de 0060<>legacy<>es<>gregorian<>60<>2<>0<>1743006<>AD<>60
+
+#(Year Month)(Day Month Year)
+#between	0398 10	and	13 05 0639<>NA<>NA<>legacy<>es<>+0639-05-13<>C06390513000000GC06390513999999P000000<>C06390513GC06390513<>gregorian<>13 de mayo de 0639<>legacy<>es<>gregorian<>639<>5<>13<>1954582<>AD<>639
+
+#(Year Month)(Day MonthName Year)
+#BET. 1579 09 - 17 August 0805<>NA<>NA<>legacy<>en<>+0805-08-17<>C08050817000000GC08050817999999P000000<>C08050817GC08050817<>gregorian<>17 August 0805<>legacy<>en<>gregorian<>805<>8<>17<>2015309<>AD<>805
+
+#(Year Month)(Month Day Year)
+#FROM	1334 03	TO	11 24 1822<>NA<>NA<>legacy<>fr<>+1822<>C18220000000000GC18229999999999P000000<>C18220000GC18229999<>gregorian<>1822<>legacy<>fr<>gregorian<>1822<>0<>0<>2386532<>a.d.<>1822
+
+#(Year Month)(MonthName Day Year)
+#de	1162 11	a June 03 0471<>NA<>NA<>abbreviated<>en<>A+0471-06-03<>C04710603000000CC04710603999999P000000<>C04710603CC04710603<>gregorian<>about 6/3/0471<>abbreviated<>en<>gregorian<>471<>6<>3<>1893243<>AD<>471
+
+#(Year Month)(Year Month Day)
+#from 0232 07 to 1746 03 21<>NA<>NA<>longfmt<>es<>+0232-07/+1746-03-21<>C02320700000000IC17460321999999P000000<>C02320700IC17460321<>gregorian<>desde julio de 0232 hasta 21 de marzo de 1746<>longfmt<>es<>gregorian<>1746<>3<>21<>2358853<>AD<>1746
+
+#(Year Month)(Year MonthName Day)
+#desde	1264 02	hasta 1164 July 22<>NA<>NA<>longfmt<>en<>+1164-07-22<>C11640722000000GC11640722999999P000000<>C11640722GC11640722<>gregorian<>22 July 1164<>longfmt<>en<>gregorian<>1164<>7<>22<>2146405<>AD<>1164
+
+#(Year Month)(Month Year)
+#desde	1209 04	a	03 1069<>NA<>NA<>legacy<>es<>A+1069-03-04<>C10690304000000CC10690304999999P000000<>C10690304CC10690304<>gregorian<>aproximadamente 4 de marzo de 1069<>legacy<>es<>gregorian<>1069<>3<>4<>2111567<>AD<>1069
+
+#(Year Month)(MonthName Year)
+#desde 	0863 04	para October 0153<>NA<>NA<>longfmt<>es<>+0153-10<>C01531000000000GC01531099999999P000000<>C01531000GC01531099<>gregorian<>octubre de 0153<>longfmt<>es<>gregorian<>153<>10<>0<>1777216<>AD<>153
+
+#(Year Month)(Year Month)
+#1865 11 - 1840 09<>NA<>NA<>abbreviated<>en<>+1840-09-11<>C18400911000000GC18400911999999P000000<>C18400911GC18400911<>gregorian<>9/11/1840<>abbreviated<>en<>gregorian<>1840<>9<>11<>2393360<>AD<>1840
+
+#(Year Month)(Year MonthName)
+#between 0177 06 and 1438 April<>NA<>NA<>longfmt<>pt<>+1438-04-06<>C14380406000000GC14380406999999P000000<>C14380406GC14380406<>gregorian<>6 de abril de 1438<>longfmt<>pt<>gregorian<>1438<>4<>6<>2246374<>AD<>1438
+
+#(Year Month)(Year)
+#BET. 1410 04 -	487<>NA<>NA<>abbreviated<>es<>+1410-04<>C14100400000000GC14100499999999P000000<>C14100400GC14100499<>gregorian<>04-1410<>abbreviated<>es<>gregorian<>1410<>4<>0<>2236142<>AD<>1410
+
+#(Year Month)(Year BC)
+#FROM 1560 09 TO -621<>NA<>NA<>longfmt<>es<>+1560-09<>C15600900000000GC15600999999999P000000<>C15600900GC15600999<>gregorian<>septiembre de 1560<>longfmt<>es<>gregorian<>1560<>9<>0<>2291082<>AD<>1560
+
+#(Year MonthName)(Day Month Year)
+#de	0636 November a 05 04 0522<>NA<>NA<>abbreviated<>es<>A+0522-05-04<>C05220504000000CC05220504999999P000000<>C05220504CC05220504<>gregorian<>aproximadamente 04-05-0522<>abbreviated<>es<>gregorian<>522<>5<>4<>1911840<>AD<>522
+
+#(Year MonthName)(Day MonthName Year)
+#from 1162 September to	14 June 1744<>NA<>NA<>legacy<>en<>+1744-06-14<>C17440614000000GC17440614999999P000000<>C17440614GC17440614<>gregorian<>14 June 1744<>legacy<>en<>gregorian<>1744<>6<>14<>2358208<>AD<>1744
+
+#(Year MonthName)(Month Day Year)
+#desde 0668 February hasta 11 23 1928<>NA<>NA<>legacy<>en<>+1928-02<>C19280200000000GC19280299999999P000000<>C19280200GC19280299<>gregorian<>February 1928<>legacy<>en<>gregorian<>1928<>2<>0<>2425278<>AD<>1928
+
+#(Year MonthName)(MonthName Day Year)
+#desde	0767 April a March 31 0199<>NA<>NA<>longfmt<>en<>A+0199-03-31<>C01990331000000CC01990331999999P000000<>C01990331CC01990331<>gregorian<>about 31 March 0199<>longfmt<>en<>gregorian<>199<>3<>31<>1793833<>AD<>199
+
+#(Year MonthName)(Year Month Day)
+#desde 	0313 April para 0029 08 30<>NA<>NA<>longfmt<>fr<>+0029-08-30<>C00290830000000GC00290830999999P000000<>C00290830GC00290830<>gregorian<>30 août 0029<>longfmt<>fr<>gregorian<>29<>8<>30<>1731894<>a.d.<>29
+
+#(Year MonthName)(Year MonthName Day)
+#1206 April	- 0050 February 09<>NA<>NA<>longfmt<>es<>+0050-02-09<>C00500209000000GC00500209999999P000000<>C00500209GC00500209<>gregorian<>9 de febrero de 0050<>longfmt<>es<>gregorian<>50<>2<>9<>1739362<>AD<>50
+
+#(Year MonthName)(Month Year)
+#between 0327 February	and	06 0443<>NA<>NA<>abbreviated<>es<>+0443-02-06<>C04430206000000GC04430206999999P000000<>C04430206GC04430206<>gregorian<>06-02-0443<>abbreviated<>es<>gregorian<>443<>2<>6<>1882899<>AD<>443
+
+#(Year MonthName)(MonthName Year)
+#BET.	0434 August	-	July 0006<>NA<>NA<>legacy<>en<>+0006-08<>C00060800000000GC00060899999999P000000<>C00060800GC00060899<>gregorian<>August 0006<>legacy<>en<>gregorian<>6<>8<>0<>1723464<>AD<>6
+
+#(Year MonthName)(Year Month)
+#FROM 1449 October TO 0519 08<>NA<>NA<>longfmt<>es<>+0519-10-08<>C05191008000000GC05191008999999P000000<>C05191008GC05191008<>gregorian<>8 de octubre de 0519<>longfmt<>es<>gregorian<>519<>10<>8<>1910901<>AD<>519
+
+#(Year MonthName)(Year MonthName)
+#de	1011 December a 0242 September<>NA<>NA<>abbreviated<>pt<>A+0242-12<>C02421200000000CC02421299999999P000000<>C02421200CC02421299<>gregorian<>aproximadamente 12/0242<>abbreviated<>pt<>gregorian<>242<>12<>0<>1809783<>AD<>242
+
+#(Year MonthName)(Year)
+#from 0121 June	to 1677<>NA<>NA<>abbreviated<>en<>+1677-06<>C16770600000000GC16770699999999P000000<>C16770600GC16770699<>gregorian<>6/1677<>abbreviated<>en<>gregorian<>1677<>6<>0<>2333724<>AD<>1677
+
+#(Year MonthName)(Year BC)
+#desde 1787 November hasta -1981<>NA<>NA<>legacy<>es<>+1787-11<>C17871100000000GC17871199999999P000000<>C17871100GC17871199<>gregorian<>noviembre de 1787<>legacy<>es<>gregorian<>1787<>11<>0<>2374053<>AD<>1787
+
+#(Year)(Day Month Year)
+#desde	0095 a 27 07 1987<>NA<>NA<>longfmt<>en<>A+1987-07-27<>C19870727000000CC19870727999999P000000<>C19870727CC19870727<>gregorian<>about 27 July 1987<>longfmt<>en<>gregorian<>1987<>7<>27<>2447004<>AD<>1987
+
+#(Year)(Day MonthName Year)
+#desde 	1039 para 11 November 1805<>NA<>NA<>legacy<>en<>+1039/+1805-11-11<>C10390000000000IC18051111999999P000000<>C10390000IC18051111<>gregorian<>from 1039 to 11 November 1805<>legacy<>en<>gregorian<>1805<>11<>11<>2380637<>AD<>1805
+
+#(Year)(Month Day Year)
+#0462 -	04 03 1197<>NA<>NA<>legacy<>en<>+1197-04-03<>C11970403000000GC11970403999999P000000<>C11970403GC11970403<>gregorian<>3 April 1197<>legacy<>en<>gregorian<>1197<>4<>3<>2158348<>AD<>1197
+
+#(Year)(MonthName Day Year)
+#between 1180 and August 10 1053<>NA<>NA<>longfmt<>en<>+1053-08-10/+1180<>C10530810000000IC11809999999999P000000<>C10530810IC11809999<>gregorian<>from 10 August 1053 to 1180<>longfmt<>en<>gregorian<>1180<>0<>0<>2152046<>AD<>1180
+
+#(Year)(Year Month Day)
+#BET. 1326 - 1989 04 01<>NA<>NA<>legacy<>es<>+1989-04-01<>C19890401000000GC19890401999999P000000<>C19890401GC19890401<>gregorian<>1 de abril de 1989<>legacy<>es<>gregorian<>1989<>4<>1<>2447618<>AD<>1989
+
+#(Year)(Year MonthName Day)
+#FROM 0968 TO 1710 October 27<>NA<>NA<>longfmt<>es<>+1710-10-27<>C17101027000000GC17101027999999P000000<>C17101027GC17101027<>gregorian<>27 de octubre de 1710<>longfmt<>es<>gregorian<>1710<>10<>27<>2345924<>AD<>1710
+
+#(Year)(Month Year)
+#de	1474 a 09 0008<>NA<>NA<>legacy<>en<>+0008-09/+1474<>C00080900000000IC14749999999999P000000<>C00080900IC14749999<>gregorian<>from September 0008 to 1474<>legacy<>en<>gregorian<>1474<>0<>0<>2259428<>AD<>1474
+
+#(Year)(MonthName Year)
+#from 1366 to September 1526<>NA<>NA<>longfmt<>es<>+1366/+1526-09<>C13660000000000IC15260999999999P000000<>C13660000IC15260999<>gregorian<>desde 1366 hasta septiembre de 1526<>longfmt<>es<>gregorian<>1526<>9<>0<>2278663<>AD<>1526
+
+#(Year)(Year Month)
+#desde	1704 hasta 0845 10<>NA<>NA<>longfmt<>en<>+0845-10<>C08451000000000GC08451099999999P000000<>C08451000GC08451099<>gregorian<>October 0845<>longfmt<>en<>gregorian<>845<>10<>0<>2029964<>AD<>845
+
+#(Year)(Year MonthName)
+#desde 0859 a 0765 August<>NA<>NA<>legacy<>es<>A+0765<>C07650000000000CC07659999999999P000000<>C07650000CC07659999<>gregorian<>aproximadamente 0765<>legacy<>es<>gregorian<>765<>0<>0<>2000471<>AD<>765
+
+#(Year)(Year)
+#desde 	0997 para 1510<>NA<>NA<>legacy<>en<>+0997/+1510<>C09970000000000IC15109999999999P000000<>C09970000IC15109999<>gregorian<>from 0997 to 1510<>legacy<>en<>gregorian<>1510<>0<>0<>2272576<>AD<>1510
+
+#(Year)(Year BC)
+#1888 -	-455<>NA<>NA<>abbreviated<>pt<>+1888<>C18880000000000GC18889999999999P000000<>C18880000GC18889999<>gregorian<>1888<>abbreviated<>pt<>gregorian<>1888<>0<>0<>2410638<>AD<>1888
+
+#(Year BC)(Day Month Year)
+#between -1487 and	22 11 0755<>NA<>NA<>legacy<>en<>+0755-11-22<>C07551122000000GC07551122999999P000000<>C07551122GC07551122<>gregorian<>22 November 0755<>legacy<>en<>gregorian<>755<>11<>22<>1997143<>AD<>755
+
+#(Year BC)(Day MonthName Year)
+#BET. -1081 - 19 September 0805<>NA<>NA<>legacy<>en<>+0805-09-19<>C08050919000000GC08050919999999P000000<>C08050919GC08050919<>gregorian<>19 September 0805<>legacy<>en<>gregorian<>805<>9<>19<>2015342<>AD<>805
+
+#(Year BC)(Month Day Year)
+#FROM -0210	TO 01 12 0837<>NA<>NA<>abbreviated<>en<>+0837-01-12<>C08370112000000GC08370112999999P000000<>C08370112GC08370112<>gregorian<>1/12/0837<>abbreviated<>en<>gregorian<>837<>1<>12<>2026780<>AD<>837
+
+#(Year BC)(MonthName Day Year)
+#de	-1698 a November 24 0529<>NA<>NA<>abbreviated<>es<>A+0529-11-24<>C05291124000000CC05291124999999P000000<>C05291124CC05291124<>gregorian<>aproximadamente 24-11-0529<>abbreviated<>es<>gregorian<>529<>11<>24<>1914601<>AD<>5290
+
+#(Year BC)(Year Month Day)
+#from -1726	to 1471 06 10<>NA<>NA<>legacy<>en<>+1471-06-10<>C14710610000000GC14710610999999P000000<>C14710610GC14710610<>gregorian<>10 June 1471<>legacy<>en<>gregorian<>1471<>6<>10<>2258492<>AD<>1471
+
+#(Year BC)(Year MonthName Day)
+#from -1726	to 1471 June 10<>NA<>NA<>legacy<>en<>+1471-06-10<>C14710610000000GC14710610999999P000000<>C14710610GC14710610<>gregorian<>10 June 1471<>legacy<>en<>gregorian<>1471<>6<>10<>2258492<>AD<>1471
+
+#(Year BC)(Month Year)
+#desde - 0668 a	11 1713<>NA<>NA<>abbreviated<>pt<>A+1713-11<>C17131100000000CC17131199999999P000000<>C17131100CC17131199<>gregorian<>aproximadamente 11/1713<>abbreviated<>pt<>gregorian<>1713<>11<>0<>2347025<>AD<>1713
+
+#(Year BC)(MonthName Year)
+#desde  -0211 para March 0309<>NA<>NA<>longfmt<>fr<>+0309-03<>C03090300000000GC03090399999999P000000<>C03090300GC03090399<>gregorian<>mars 0309<>longfmt<>fr<>gregorian<>309<>3<>0<>1833979<>a.d.<>309
+
+#(Year BC)(Year Month)
+#-0814	- 0644 04<>NA<>NA<>abbreviated<>es<>+0644-04<>C06440400000000GC06440499999999P000000<>C06440400GC06440499<>gregorian<>04-0644<>abbreviated<>es<>gregorian<>644<>4<>0<>1956367<>AD<>644
+
+#(Year BC)(Year MonthName)
+#between - 1253	and	0421 November<>NA<>NA<>longfmt<>fr<>+0421-11<>C04211100000000GC04211199999999P000000<>C04211100GC04211199<>gregorian<>novembre 0421<>longfmt<>fr<>gregorian<>421<>11<>0<>1875132<>a.d.<>421
+
+#(Year BC)(Year)
+#BET. -1341	- 896<>NA<>NA<>longfmt<>fr<>+1341<>C13410000000000GC13419999999999P000000<>C13410000GC13419999<>gregorian<>1341<>longfmt<>fr<>gregorian<>1341<>0<>0<>2210851<>a.d.<>1341
+
+#(Year BC)(Year BC)
+#FROM	- 1254	TO	-803<>NA<>NA<>abbreviated<>en<>+1254<>C12540000000000GC12549999999999P000000<>C12540000GC12549999<>gregorian<>1254<>abbreviated<>en<>gregorian<>1254<>0<>0<>2179075<>AD<>1254
+
+##################################
+#Basic Formats (Multiple Dates)
+##################################
+
+#(Day Month Year)(Day Month Year)
+#14 01 0007 , 22 01 0038<>NA<>NA<>longfmt<>fr<>+0007-01-14<>C00070114000000GC00070114999999P000000<>C00070114GC00070114<>gregorian<>14 janvier 0007<>longfmt<>fr<>gregorian<>7<>1<>14<>1723630<>a.d.<>7
+#(Day MonthName Year)(Day MonthName Year)
+#13 June 1135 , 18 March 11<>NA<>NA<>abbreviated<>en<>+1135-06-13<>C11350613000000GC11350613999999P000000<>C11350613GC11350613<>gregorian<>6/13/1135<>abbreviated<>en<>gregorian<>1135<>6<>13<>2135773<>AD<>1135
+#(Month Day Year)#(Month Day Year)
+#07 15 0839	, 05 28 1148<>NA<>NA<>longfmt<>es<>+0839-05-28<>C08390528000000GC08390528999999P000000<>C08390528GC08390528<>gregorian<>28 de mayo de 0839<>longfmt<>es<>gregorian<>839<>5<>28<>2027646<>AD<>839
+#(MonthName Day Year) #(MonthName Day Year)
+#February 18 1086 , March 31 1325<>NA<>NA<>longfmt<>fr<>+1325-03-31<>C13250331000000GC13250331999999P000000<>C13250331GC13250331<>gregorian<>31 mars 1325<>longfmt<>fr<>gregorian<>1325<>3<>31<>2205096<>a.d.<>1325
+#(Year Month Day) (Year Month Day)
+#0444 10 31 , 0918 05 20<>NA<>NA<>legacy<>es<>+0444-10-31<>C04441031000000GC04441031999999P000000<>C04441031GC04441031<>gregorian<>31 de octubre de 0444<>legacy<>es<>gregorian<>444<>10<>31<>1883532<>AD<>444
+#(Year MonthName Day)(Year MonthName Day)
+#0145 September 21 , 1743 October 09<>NA<>NA<>abbreviated<>pt<>+0145-09-21<>C01450921000000GC01450921999999P000000<>C01450921GC01450921<>gregorian<>21/09/0145<>abbreviated<>pt<>gregorian<>145<>9<>21<>1774284<>AD<>145
+#(MonthName Year)(MonthName Year)
+#March 0519	, May 0933<>NA<>NA<>abbreviated<>es<>+0519-03<>C05190300000000GC05190399999999P000000<>C05190300GC05190399<>gregorian<>03-0519<>abbreviated<>es<>gregorian<>519<>3<>0<>1910680<>AD<>519
+#(Year Month)(Year Month)
+#0690 10 , 1875 02<>NA<>NA<>legacy<>en<>+1875-02-10<>C18750210000000GC18750210999999P000000<>C18750210GC18750210<>gregorian<>10 February 1875<>legacy<>en<>gregorian<>1875<>2<>10<>2405930<>AD<>1875
+#(Year MonthName)(Year MonthName)
+#1953 November , 0294 March<>NA<>NA<>abbreviated<>en<>+0294-11<>C02941100000000GC02941199999999P000000<>C02941100GC02941199<>gregorian<>11/0294<>abbreviated<>en<>gregorian<>294<>11<>0<>1828746<>AD<>294
+#(Year)(Year)
+#1131 , 1199<>NA<>NA<>legacy<>pt<>+1131<>C11310000000000GC11319999999999P000000<>C11310000GC11319999<>gregorian<>1131<>legacy<>pt<>gregorian<>1131<>0<>0<>2134149<>AD<>1131
+#(Year BC)(YearBC)
+#-1530 , -537<>NA<>NA<>abbreviated<>en<>+1530<>C15300000000000GC15309999999999P000000<>C15300000GC15309999<>gregorian<>1530<>abbreviated<>en<>gregorian<>1530<>0<>0<>2279881<>AD<>1530
+
+#all in One
+#(Day Month Year)(Day MonthName Year)(Month Day Year)(MonthName Day Year)(Year Month Day)(Year MonthName Day)(MonthName Year)(Year Month)(Year MonthName)(Year)(Year BC)
+#14 01 0007, 13 June 1135, 07 15 0839, February 18 1086, 0444 10 31, 0145 September 21, March 0519, 0690 10, 1953 November, 1131, -1530

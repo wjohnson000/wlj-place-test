@@ -254,8 +254,14 @@ public class DirectoryCompare {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-date";
-        String fileTwo = "C:/temp/std-ws-date";
+//        compareRegular();
+        comparePlaceVs55();
+    }
+
+    static void compareRegular() {
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place";
+        String fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55";
+
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;
         dcEngine.ignoreWhiteSpace = true;
@@ -266,6 +272,36 @@ public class DirectoryCompare {
         for (String ext : IGNORE_EXT) {
             System.out.println("  " + ext);
         }
+
         System.exit(0);
+    }
+
+    static void comparePlaceVs55() {
+        String fileOne;
+        String fileTwo;
+
+        DirectoryCompare dcEngine = new DirectoryCompare();
+        dcEngine.doVerbose  = false;
+        dcEngine.ignoreWhiteSpace = true;
+
+        fileOne = "C:/Users/wjohnson000/git/std-ws-place/acceptance-ws";
+        fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55/acceptance-ws-55";
+        dcEngine.compareDirs(new File(fileTwo), new File(fileOne));
+
+        System.out.println("\n\n\n");
+        fileOne = "C:/Users/wjohnson000/git/std-ws-place/place-model";
+        fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55/place-model-55";
+        dcEngine.compareDirs(new File(fileTwo), new File(fileOne));
+
+        System.out.println("\n\n\n");
+        fileOne = "C:/Users/wjohnson000/git/std-ws-place/place-webservice";
+        fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55/place-webservice-55";
+        dcEngine.compareDirs(new File(fileTwo), new File(fileOne));
+
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Ignored Extensions ...");
+        for (String ext : IGNORE_EXT) {
+            System.out.println("  " + ext);
+        }
     }
 }

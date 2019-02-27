@@ -11,7 +11,20 @@ public class DbDumpAttributes {
     static final String fileName = "attribute-all.txt";
 
     static final String query =
-        "SELECT rep_id, attr_id, tran_id, attr_type_id, year, to_year, locale, attr_value, title, attr_url, url_title, copyright_notice, copyright_url, delete_flag " +
+        "SELECT rep_id, " +
+        "       attr_id, " +
+        "       tran_id, " +
+        "       attr_type_id, " +
+        "       year, " +
+        "       to_year, " +
+        "       locale, " + 
+        "       regexp_replace(attr_value, E'[\\n\\r\\|]+', ' ', 'g'), " + 
+        "       regexp_replace(title, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       regexp_replace(attr_url, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       regexp_replace(url_title, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       regexp_replace(copyright_notice, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       regexp_replace(copyright_url, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       delete_flag " +
         "  FROM rep_attr " +
         " ORDER BY rep_id, attr_id, tran_id";
 

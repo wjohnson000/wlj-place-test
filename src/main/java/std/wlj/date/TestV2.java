@@ -49,7 +49,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                dates02 = DateUtil.interpDate(text, StdLocale.KOREAN, null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -621,10 +621,61 @@ public class TestV2 {
 //        textes.add("I me 1");
 //        textes.add("I me I");
 //        textes.add("and I order my said son Isaack to pay all my just debts and to receive all my debts that are due unto me also I order my Indian Lydia to live with my son Isaac until he is one and twenty years of age,");
-
-        textes.add("세종2년");
-        textes.add("개국503");
-        textes.add("단기3753");
+//
+//        textes.add("세종2년");
+//        textes.add("개국503");
+//        textes.add("단기3753");
+//
+//        textes.add("+1918-06-26/+1904");
+//
+//        textes.add("19JUN1541-44");
+//        textes.add("22 Mar 1568-70");
+//        textes.add("22 Mar 1568 - 70");
+//        textes.add("Feb 18 1755 to 54");
+//
+//        textes.add("嘉永1年1月1日");  // STD-6638
+//
+//        textes.add("元延祐1年1月15日");
+//        textes.add("民國七十三甲子年");
+//        textes.add("民國七十七戊辰年七月初六日");
+//        textes.add("民國乙未（四十四）五月五日");
+//        textes.add("民國甲子");
+//        textes.add("哀帝建平四年夏");
+//
+//        textes.add("武成王");
+//
+//        textes.add("景帝孝");
+//        textes.add("朝鮮太祖洪武七年九月五日");
+//        textes.add("중천왕");
+//        textes.add("朝鮮定宗建文庚辰年十一月十三日");
+//
+//        textes.add("朝鮮太宗永樂戊戌年");
+//        textes.add("朝鮮世宗永樂己亥年");
+//        textes.add("朝鮮世宗永樂庚子年");
+//        textes.add("朝鮮世宗永樂辛丑年");
+//        textes.add("朝鮮世宗永樂壬寅年");
+//        textes.add("朝鮮世宗永樂癸卯年");
+//
+//        textes.add("After December 14, 1940");
+//        textes.add("After Dec 14, 1940");
+//        textes.add("After 14 December, 1940");
+//        textes.add("After 14 Dec, 1940");
+//
+//        textes.add("宣惠王");
+//        textes.add("康靖帝");
+//        textes.add("大明敬帝");
+//
+//        textes.add("광무");
+//
+        textes.add("12/20/01");
+        textes.add("12/20/00");
+        textes.add("12/20/01 BC");
+        textes.add("Feb 11 1 BC");
+        textes.add("Feb 11 0001 BC");
+        textes.add("Feb 11 2 BC");
+        textes.add("Feb 11 111 BC");
+        textes.add("3/11");
+        textes.add("04/08/00");
 
         return textes;
     }

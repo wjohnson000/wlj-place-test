@@ -12,8 +12,8 @@ public class DbDumpCitations {
 
     static final String query =
         "SELECT rep_id, citation_id, tran_id, source_id, type_id, citation_date, " +
-        "       regexp_replace(description, E'[\\\\n\\\\r]+', ' ', 'g') AS description," +
-        "       regexp_replace(source_ref, E'[\\\\n\\\\r]+', ' ', 'g') AS source_ref," +
+        "       regexp_replace(description, E'[\\n\\r\\|]+', ' ', 'g') AS description," +
+        "       regexp_replace(source_ref, E'[\\n\\r\\|]+', ' ', 'g') AS source_ref," +
         "       delete_flag " +
         "  FROM citation " +
         " ORDER BY rep_id, citation_id, tran_id";

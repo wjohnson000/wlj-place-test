@@ -17,23 +17,28 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    static final int MAX_ROWS = 500;
+    static final int MAX_ROWS = 15;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:2178307");
+//        SolrQuery query = new SolrQuery("repId:10917653");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
-        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
+//        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
+//        SolrQuery query = new SolrQuery("id:SOURCE");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
-//        SolrQuery query = new SolrQuery("parentId:3181");
+//        SolrQuery query = new SolrQuery("id:PLACE-TYPE");
+//        SolrQuery query = new SolrQuery("id:PLACE-889085");
+//        SolrQuery query = new SolrQuery("id:PLACE-*");
+//        SolrQuery query = new SolrQuery("!id:PLACE-* AND placeDeleteId:[1 TO *]");
+//        SolrQuery query = new SolrQuery("parentId:10336711 AND !deleteId:[1 TO *]");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
@@ -46,7 +51,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-//        SolrQuery query = new SolrQuery("names:world");
+        SolrQuery query = new SolrQuery("names:湖北省");
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
 //        Date dnow = new Date(cnow.getTimeInMillis());
@@ -57,7 +62,7 @@ public class SearchMasterById {
 //        query.addFilterQuery("deleteId:0");
 
         query.setRows(MAX_ROWS);
-//        query.setSort("repId", SolrQuery.ORDER.desc);
+        query.setSort("repId", SolrQuery.ORDER.desc);
 //        query.setSort("lastUpdateDate", SolrQuery.ORDER.desc);
         System.out.println("QRY: " + query);
 
@@ -90,7 +95,7 @@ public class SearchMasterById {
             doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
 
             for (AttributeBridge ab : doc.getAllAttributes()) {
-                System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle());
+                System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle() + " --> " + ab.getTitle());
             }
         }
         

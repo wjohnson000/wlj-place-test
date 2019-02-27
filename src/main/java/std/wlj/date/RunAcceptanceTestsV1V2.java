@@ -21,51 +21,144 @@ import org.familysearch.standards.date.model.DateResult;
  */
 public class RunAcceptanceTestsV1V2 {
 
-     public static void main(String... args) throws Exception {
+    static final String[] dateFiles = {
+        "Interp_Entries",
+        "CJK_Interp_Entries",
+        "CJK_Interp_Entries"
+    };
+
+    public static void main(String... args) throws Exception {
         runTests();
     }
 
     static void runTests() throws Exception {
-        StringBuilder buff = new StringBuilder(100_000);
-        DateResult dateResult;
+        StringBuilder buffMatch    = new StringBuilder(100_000);
+        StringBuilder buffNoMatch  = new StringBuilder(100_000);
+        StringBuilder buffCJKMatch = new StringBuilder(100_000);
 
-        List<String> textes = loadTestDates("Interp_Entries");
-//        List<String> textes = loadTestDates("CJK_Interp_Entries");
-        for (String text : textes) {
-            String[] chunks = text.split("<>");
-            if (chunks.length > 5) {
-                String interp = chunks[0];
-                if (interp.startsWith("#")) {
-                    interp = interp.substring(1);
-                }
-                String locale = chunks[4];
-                String expected = chunks[5];
+        for (String dateFile : dateFiles) {
+            List<String> textes = loadTestDates(dateFile);
 
-                if (! "gedcomx".equals(expected)) {
-                    try {
-                        dateResult = DateUtil.interpDate(interp, new StdLocale(locale), null, null, null);
-                        String date02Res = dateResult.getDates().stream()
-                                .map(date -> date.getDate().toGEDCOMX())
-                                .collect(Collectors.joining("|", "\n|v2|", ""));
-                        
-                        buff.append("\n").append("\n");
-                        buff.append(interp).append("|").append(expected).append("|").append(date02Res.contains(expected));
-                        buff.append(date02Res);
-                    } catch (GenDateException e) { }
+            int lineNo = 0;
+            for (String text : textes) {
+                lineNo++;
+                String[] chunks = text.split("<>");
+                if (chunks.length > 5) {
+                    String interp = chunks[0];
+                    if (interp.startsWith("#---> Review")) {
+                        interp = interp.substring(12);
+                    } else if (interp.startsWith("#--->Review")) {
+                        interp = interp.substring(11);
+                    } else if (interp.startsWith("#--->")) {
+                        interp = interp.substring(5);
+                    } else if (interp.startsWith("#")) {
+                        interp = interp.substring(1);
+                    }
+                    interp = interp.trim();
+
+                    String locale = chunks[4];
+                    String expected = chunks[5];
+                    
+                    if (! "gedcomx".equals(expected)) {
+                        try {
+                            String dateResXx = interpDate(interp, StdLocale.makeLocale(locale)); 
+                            
+                            boolean match = dateResXx.contains(expected);
+                            if (match) {
+                                buffMatch.append("\n").append("\n")
+                                    .append(dateFile).append(":").append(lineNo)
+                                    .append("|").append(interp)
+                                    .append("|").append(locale)
+                                    .append("|").append(expected);
+                                buffMatch.append("\n|||").append(dateResXx);
+                            } else {
+                                if (isCJK(interp)) {
+                                    String dateResZh = interpDate(interp, StdLocale.CHINESE);
+                                    String dateResJa = interpDate(interp, StdLocale.JAPANESE);
+                                    String dateResKo = interpDate(interp, StdLocale.KOREAN);
+
+                                    if (dateResZh.contains(expected)  ||  dateResJa.contains(expected)  ||  dateResKo.contains(expected)) {
+                                        buffCJKMatch.append("\n").append("\n")
+                                            .append(dateFile).append(":").append(lineNo)
+                                            .append("|").append(interp)
+                                            .append("|").append(locale)
+                                            .append("|").append(expected);
+                                        buffCJKMatch.append("\n|||").append(dateResXx)
+                                            .append("|").append(dateResZh)
+                                            .append("|").append(dateResJa)
+                                            .append("|").append(dateResKo);
+                                    } else {
+                                        buffNoMatch.append("\n").append("\n")
+                                            .append(dateFile).append(":").append(lineNo)
+                                            .append("|").append(interp)
+                                            .append("|").append(locale)
+                                            .append("|").append(expected);
+                                        buffNoMatch.append("\n|||").append(dateResXx)
+                                            .append("|").append(dateResZh)
+                                            .append("|").append(dateResJa)
+                                            .append("|").append(dateResKo);
+                                    }
+                                } else {
+                                    buffNoMatch.append("\n").append("\n")
+                                        .append(dateFile).append(":").append(lineNo)
+                                        .append("|").append(interp)
+                                        .append("|").append(locale)
+                                        .append("|").append(expected);
+                                    buffNoMatch.append("\n|||").append(dateResXx);
+                                }
+
+                            }
+                        } catch (GenDateException e) { }
+                    }
                 }
             }
         }
 
-        System.out.println(buff.toString());
+        System.out.println("=================================================================================");
+        System.out.println("No Match");
+        System.out.println("=================================================================================");
+        System.out.println(buffNoMatch.toString());
+
+        System.out.println("=================================================================================");
+        System.out.println("CJK Match");
+        System.out.println("=================================================================================");
+        System.out.println("\n\n");
+        System.out.println(buffCJKMatch.toString());
+
+        System.out.println("=================================================================================");
+        System.out.println("Expected Match");
+        System.out.println("=================================================================================");
+        System.out.println("\n\n");
+        System.out.println(buffMatch.toString());
     }
 
     static List<String> loadTestDates(String fileName) {
         try(InputStream is = RunAcceptanceTestsV1V2.class.getResourceAsStream(fileName);
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr)) {
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr)) {
             return br.lines().collect(Collectors.toList());
         } catch(Exception ex) {
             return Collections.emptyList();
         }
+    }
+
+    static String interpDate(String text, StdLocale locale) throws GenDateException {
+        StringBuilder buff = new StringBuilder();
+
+        DateResult dateResult = DateUtil.interpDate(text, locale, null, null, null);
+        if (dateResult.getDates().isEmpty()) {
+            buff.append("|");
+        } else if (dateResult.getDates().size() == 1) {
+            buff.append(dateResult.getDates().get(0).getDate().toGEDCOMX()).append("|");
+        } else {
+            buff.append(dateResult.getDates().get(0).getDate().toGEDCOMX())
+                .append("|").append(dateResult.getDates().get(1).getDate().toGEDCOMX());
+        }
+
+        return buff.toString();
+    }
+
+    static boolean isCJK(String interp) {
+        return interp.charAt(0) > 20_000;
     }
 }
