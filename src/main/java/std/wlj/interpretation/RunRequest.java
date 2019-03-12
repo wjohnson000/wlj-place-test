@@ -19,64 +19,29 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Scorecard;
 import org.familysearch.standards.place.scoring.Scorer;
-import org.familysearch.standards.place.search.ConfigurablePlaceRequestProfile;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
 
 import std.wlj.util.SolrManager;
 
 /**
- * Based on the "C:\temp\important\place-xxx.txt" file, which contain details for search requests
- * with wild-cards, run a bunch of them through the interpretation engine with and without the
- * wild-card characters and compare results.
+ * Request stuff from the place-service.  See what comes back.  Figure out what is going on.
  * 
  * @author wjohnson000
  *
  */
-public class RunInterpretationThree {
+public class RunRequest {
 
     public static void main(String... args) throws PlaceDataException, IOException {
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
 //        SolrService  solrService = SolrManager.awsBetaService(true);
 
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
-        PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );
 
-//        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", null);
-//        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603");
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", null);
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603");
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", null);
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", "Jan 1 1573/Dec 31 1603");
-//
-//        doIt(placeInterpService, 0, "en", "Porto, Portugal", null, null);
-//        doIt(placeInterpService, 0, "en", "Porto, Portugal", "May 1 1938/Jun 30 1938", null);
-//
-//        doIt(placeInterpService, 0, "en", "Sevier", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", null, 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1700", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1700", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1800", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1800", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1850", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1850", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1900", null, null);
-//
-//        doIt(placeService, 0, "en", "Zierstorf/Bartelshäger Ziegelei", null, null, null);
-//        doIt(placeService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
-//        doIt(placeService, 0, "en", "First Baptist Church Chapel", null, null, null);
-//        doIt(placeInterpService, 0, "en", "First Baptist Church Chapel", null, null, null);
-//        doIt(placeService, 0, "en", "Thompson First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Thompson First Baptist Church", null, null, null);
-//        doIt(placeService, 0, "en", "Greenview First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Greenview First Baptist Church", null, null, null);
-
-        doIt(placeService, 0, "en", "First Baptist Church", null, null, null);
-        doIt(placeService, 0, "en", "***,+Virginia", null, null, null);
-        doIt(placeService, 0, "en", "Santa Maria", null, null, null);
-        doIt(placeService, 0, "en", "Asbacher Mühle / Prússia Renana (Atual Alemanha, Estado de Rheinland-Pfalz", null, null, null);
-        doIt(placeService, 0, "en", "Gaon(???)", null, null, null);
-        doIt(placeService, 0, "en", "The Church of Jesus Christ of Latter-day Saints", null, null, null);
+//        doIt(placeService, 0, "en", "Champlain", null, null, null);
+//        doIt(placeService, 0, "en", "Champlain, Clinton, New York, USA", null, null, null);
+        doIt(placeService, 0, "en", "Champlain", null, 362, null);
+        doIt(placeService, 0, "en", "Champlain", null, 339, null);
+//        doIt(placeService, 0, "en", "Champlain", null, 393135, null);
 
         solrService.shutdown();
         System.exit(0);
@@ -121,18 +86,6 @@ public class RunInterpretationThree {
                         " + " + getRelevanceScore(rep));
                 getScorers(rep).forEach((scorer, val) -> System.out.println("       scr: " + scorer + " --> " + val));
             }
-
-//            if (results.getAlternatePlaceRepresentations() != null) {
-//                for (PlaceRepresentation rep : results.getAlternatePlaceRepresentations()) {
-//                    System.out.println("    alt." + rep.getFullDisplayName(StdLocale.ENGLISH).get() +
-//                        " | " + Arrays.toString(rep.getJurisdictionChainIds()) +
-//                        " | " + rep.getJurisdictionFromYear() +
-//                        " | " + rep.getJurisdictionToYear() +
-//                        " | " + getRawScore(rep) +
-//                        " + " + getRelevanceScore(rep));
-//                    getScorers(rep).forEach((scorer, val) -> System.out.println("       scr: " + scorer + " --> " + val));
-//                }
-//            }
 
             System.out.println("    Time=" + (timeBB - timeAA) / 1_000_000.0);
         } catch(Exception ex) {

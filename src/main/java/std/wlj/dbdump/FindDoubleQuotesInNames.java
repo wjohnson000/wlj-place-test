@@ -25,7 +25,7 @@ import std.wlj.util.SolrManager;
  * @author wjohnson000
  *
  */
-public class FindDisplayButNotVariantSolr {
+public class FindDoubleQuotesInNames {
 
     private static SolrConnection solrConn;
     private static List<String> results = new ArrayList<>(100_000);
@@ -63,30 +63,23 @@ public class FindDisplayButNotVariantSolr {
     }
 
     static void processDoc(PlaceRepDoc repDoc) {
-        Set<String> dNames = new TreeSet<>();
-        Set<String> vNames = new TreeSet<>();
-
-        for (String dName : repDoc.getDisplayNames()) {
-            String[] chunks = PlaceHelper.split(dName, '|');
-            dNames.add(chunks[1].toLowerCase());
-        }
-
-        for (String vName : repDoc.getVariantNames()) {
-            String[] chunks = PlaceHelper.split(vName, '|');
-            vNames.add(chunks[3].toLowerCase());
-        }
-
-        dNames.removeAll(vNames);
-        if (! dNames.isEmpty()) {
+        boolean hasDoubleQuotes =
+                repDoc.getVariantNames().stream()
+                    .anyMatch(var -> var.contains("\""))  ||
+                repDoc.getDisplayNames().stream()
+                    .anyMatch(name -> name.contains("\""));
+        if (hasDoubleQuotes) {
             results.add("");
             results.add(repDoc.getRepId() + "|" + Arrays.toString(repDoc.getJurisdictionIdentifiers()));
             repDoc.getVariantNames().stream()
+                .filter(vName -> vName.contains("\""))
                 .map(vName -> PlaceHelper.split(vName, '|'))
                 .map(chunks -> chunks[2] + "|" + chunks[3])
                 .forEach(vName -> results.add(repDoc.getRepId() + "|vrnt|" + vName));
             repDoc.getDisplayNames().stream()
+                .filter(dName -> dName.contains("\""))
                 .map(dName -> PlaceHelper.split(dName, '|'))
-                .map(chunks -> chunks[0] + "|" + chunks[1] + "|" + (vNames.contains(chunks[1].toLowerCase()) ? "" : "miss"))
+                .map(chunks -> chunks[0] + "|" + chunks[1])
                 .forEach(dName -> results.add(repDoc.getRepId() + "|disp|" + dName));
         }
     }

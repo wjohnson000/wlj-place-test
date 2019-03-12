@@ -667,15 +667,25 @@ public class TestV2 {
 //
 //        textes.add("광무");
 //
-        textes.add("12/20/01");
-        textes.add("12/20/00");
-        textes.add("12/20/01 BC");
-        textes.add("Feb 11 1 BC");
-        textes.add("Feb 11 0001 BC");
-        textes.add("Feb 11 2 BC");
-        textes.add("Feb 11 111 BC");
-        textes.add("3/11");
-        textes.add("04/08/00");
+//        textes.add("12/20/01");
+//        textes.add("12/20/00");
+//        textes.add("12/20/01 BC");
+//        textes.add("Feb 11 1 BC");
+//        textes.add("Feb 11 0001 BC");
+//        textes.add("Feb 11 2 BC");
+//        textes.add("Feb 11 111 BC");
+//        textes.add("3/11");
+//        textes.add("04/08/00");
+//
+//        textes.add("31 juillet 1801");
+//        textes.add("12 thermidor an IX");
+//        textes.add("31 juillet 1801 (12 thermidor an IX)");
+//
+//        textes.add("1998年");
+//        textes.add("1998年以前");
+//        textes.add("1998年以後");
+//        textes.add("after 1998");
+//        textes.add("1998 after");
 
         return textes;
     }

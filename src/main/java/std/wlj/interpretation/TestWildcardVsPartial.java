@@ -23,17 +23,23 @@ import org.familysearch.standards.place.search.PlaceRequestProfile;
 import std.wlj.util.SolrManager;
 
 /**
- * Based on the "C:\temp\important\place-xxx.txt" file, which contain details for search requests
- * with wild-cards, run a bunch of them through the interpretation engine with and without the
- * wild-card characters and compare results.
+ * Compare results of a wildcard vs. partial match ...
  * 
  * @author wjohnson000
  *
  */
-public class TestWildcardSmall {
+public class TestWildcardVsPartial {
 
-    static final int    SKIP_COUNT  = 11;
-    static final Long   LONG_ZERO   = 0L;
+    static String[] UGLY_TEXT = {
+        "Buffalo Ha*",
+        "Bathurst West*, Gloucester, New Brunswick, British Colony",
+        "Columbus, St*",
+        "Humbolt, Sa*",
+        "Bloomington, Sc*",
+        "Wa*, , Illinois",
+        "Greendale Cem. Midland Co, Mi*",
+        "Lovenjoel, Brabant, Belgi*",
+    };
 
     public static void main(String... args) throws PlaceDataException, IOException {
         System.setProperty("WARM_CACHE_EXPIRE_TIME", "10"); 
@@ -41,31 +47,26 @@ public class TestWildcardSmall {
         System.setProperty("L2_CACHE_EXPIRE_TIME", "2"); 
         System.setProperty("L3_CACHE_EXPIRE_TIME", "2"); 
 
-//        System.setProperty("enable.interp.cache", "false");
-//        System.setProperty("enable.solr.cache", "false");
-//        System.setProperty("enable.repid.chain.cache", "false");
-
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
         // Seed the process
-        for (String text : Arrays.asList("Buffalo Ha*", "Columbus, St*", "Humboldt, Sa*", "Bloomginton, Sc*")) {
-            long timeAA = System.nanoTime();
-            doIt(placeService, 0, "en", text);
-            long timeBB = System.nanoTime();
-            System.out.println("Start-up.time=" + (timeBB - timeAA) / 1_000_000.0);
+        for (String text : UGLY_TEXT) {
+            doIt(placeService, "en", text, false);
+//            doIt(placeService, "en", text.replace('*', ' '), true);
         }
 
         solrService.shutdown();
         System.exit(0);
     }
 
-    static void doIt(PlaceService placeService, int ndx, String locale, String name) {
+    static void doIt(PlaceService placeService, String locale, String name, boolean isPartial) {
         try {
             PlaceRequestBuilder builder = placeService.createRequestBuilder(name, new StdLocale(locale));
             builder.setShouldCollectMetrics(true);
             builder.setFilterResults(false);
+            builder.setPartialInput(isPartial);
 
             long timeAA = System.nanoTime();
             PlaceRequest request = builder.getRequest();
@@ -73,16 +74,34 @@ public class TestWildcardSmall {
             PlaceRepresentation[] placeReps = results.getPlaceRepresentations();
             long timeBB = System.nanoTime();
 
-            System.out.println("\n" + ndx + " --> " + name);
+            System.out.println("\n>>> " + name + " .. partial=" + isPartial + " --> found=" + placeReps.length);
             int count = 0;
             for (PlaceRepresentation rep : placeReps) {
-                if (++count > 100) break;
+                if (++count > 40) break;
                 System.out.println("    " + rep.getFullDisplayName(StdLocale.ENGLISH).get() + " | " + Arrays.toString(rep.getJurisdictionChainIds()));
+                System.out.println("    RAW: " + getRawScore(rep));
+                System.out.println("    REL: " + getRelevanceScore(rep));
                 getScorers(rep).forEach((scorer, val) -> System.out.println("       scr: " + scorer + " --> " + val));
             }
             System.out.println("    Time=" + (timeBB - timeAA) / 1_000_000.0);
         } catch(Exception ex) {
             System.out.println("Exception for " + name + " --> " + ex.getMessage());
+        }
+    }
+
+    static int getRawScore(PlaceRepresentation rep) {
+        if (rep.getMetadata() != null  &&  rep.getMetadata().getScoring() != null) {
+            return rep.getMetadata().getScoring().getRawScore();
+        } else {
+            return 0;
+        }
+    }
+
+    static int getRelevanceScore(PlaceRepresentation rep) {
+        if (rep.getMetadata() != null  &&  rep.getMetadata().getScoring() != null) {
+            return rep.getMetadata().getScoring().getRelevanceScore();
+        } else {
+            return 0;
         }
     }
 
