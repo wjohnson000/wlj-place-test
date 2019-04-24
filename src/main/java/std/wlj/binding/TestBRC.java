@@ -25,9 +25,13 @@ public class TestBRC {
 
         ServiceLocator locator = new ServiceLocator(config);
 
-        testServiceLocator(locator, "ws.place.std.cmn");
-        testServiceLocator(locator, "ws.place-db.std.cmn");
-        testServiceLocator(locator, "ws.solr.std.cmn");
+        testServiceLocator(locator, "ws.place.standards.service");
+        testServiceLocator(locator, "ws.place-db.standards.service");
+        testServiceLocator(locator, "ws.solr.standards.service");
+
+        testServiceLocator(locator, "ws-55.solr.standards.service");
+        testServiceLocator(locator, "ws-55.solr-repeater.standards.service");
+        testServiceLocator(locator, "ws-55.solr-repeater.standards.service");
 
         testServiceLocator(locator, "cis-public-api.cis.ident.service");
         testServiceLocator(locator, "cas-public-api.cas.ident.service");

@@ -6,21 +6,20 @@ package std.wlj.date.v2;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.familysearch.standards.place.util.PlaceHelper;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -47,8 +46,6 @@ public class ParseWikiChineseRulersXML {
         "    https://en.wikipedia.org/wiki/List_of_Chinese_monarchs\n" + 
         "    http://pages.ucsd.edu/~dkjordan/chin/chinahistory/dyn10-u.html \n" + 
         "    https://en.wikipedia.org/wiki/Dynasties_in_Chinese_history\n" + 
-        "    http://afe.easia.columbia.edu/timelines/china_timeline.htm ... not particularly useful!!\n" + 
-        "    http://www.historyforkids.net/dynasties-of-ancient-china.html ... not particularly useful!!" +
         "\n    ";
 
     static Document doc  = null;
@@ -63,9 +60,51 @@ public class ParseWikiChineseRulersXML {
     static int currEmpCount = 0;
     static int currReignCount = 0;
     static String currEmpKey = "";
-    static List<String> currEmpMeta = new ArrayList<>();
+    static String prevEmpKey = "";
+    static String currEmpMeta = "";
+    static String prevReignKey = "";
 
     static Map<String, Integer> dynastyCount = new HashMap<>();
+    static Map<String, Integer> reignCount = new HashMap<>();
+
+    static Set<String> dynastyToIgnore = new HashSet<>();
+    static {
+        dynastyToIgnore.add("tiefu-tribe-A");
+        dynastyToIgnore.add("yuwen-tribe-A");
+        dynastyToIgnore.add("tuoba-tribe-A");
+        dynastyToIgnore.add("wuping/hunan-A");
+        dynastyToIgnore.add("quanzhang-A");
+        dynastyToIgnore.add("taiping-heavenly-kingdom-A");
+        dynastyToIgnore.add("xia-A");
+        dynastyToIgnore.add("shang-A");
+        dynastyToIgnore.add("zhou-A");
+        dynastyToIgnore.add("qin-A");
+        dynastyToIgnore.add("han-A");
+        dynastyToIgnore.add("shu-han-A");
+        dynastyToIgnore.add("eastern-wu-A");
+        dynastyToIgnore.add("jin-A");
+        dynastyToIgnore.add("liu-song-A");
+        dynastyToIgnore.add("nán-qi-A");
+        dynastyToIgnore.add("nán-liang-A");
+        dynastyToIgnore.add("cao-wei-A");
+        dynastyToIgnore.add("chen-A");
+        dynastyToIgnore.add("sui-A");
+        dynastyToIgnore.add("tang-A");
+        dynastyToIgnore.add("hou-liang-A");
+        dynastyToIgnore.add("hou-tang-A");
+        dynastyToIgnore.add("hou-jin-A");
+        dynastyToIgnore.add("hou-han-A");
+        dynastyToIgnore.add("hou-zhou-A|");
+        dynastyToIgnore.add("liao-A");
+        dynastyToIgnore.add("western-liao-A");
+        dynastyToIgnore.add("jin-A");
+        dynastyToIgnore.add("song-A");
+        dynastyToIgnore.add("yuan-A");
+        dynastyToIgnore.add("ming-A");
+        dynastyToIgnore.add("qing-A");
+        dynastyToIgnore.add("china-A");
+        dynastyToIgnore.add("");
+    }
 
     static void createXML(List<String> details) {
         try {
@@ -116,28 +155,29 @@ public class ParseWikiChineseRulersXML {
                 Integer count = dynastyCount.getOrDefault(emperor, Integer.valueOf(0));
                 char suffix = (char)('A' + count);
                 String meta = (data[1].toLowerCase() + "-" + suffix).replaceAll("  ", " ").replace(' ', '-');
-                dynastyCount.put(emperor, count);
-                count++;
+                dynastyCount.put(emperor, count+1);
 
-                Element dynWord = doc.createElement("word");
-                dynWord.setAttribute("lang", "zh-hant");
-                dynWord.setAttribute("meta", meta + "/" + getStartYear(data[4]));
-                dynWord.appendChild(doc.createTextNode(emperor));
-                dynasty.appendChild(dynWord);
-
-                currEmperor = doc.createElement("word-group");
-                currEmperor.setAttribute("type", "emperor");
-                currEmperor.setAttribute("meta", meta);
-                currEmperor.setAttribute("lang", "zh");
-                root.appendChild(doc.createTextNode("\n\n  "));
-                root.appendChild(currEmperor);
-
-                currReign = doc.createElement("word-group");
-                currReign.setAttribute("type", "reign");
-                currReign.setAttribute("meta", meta);
-                currReign.setAttribute("lang", "zh");
-                root.appendChild(doc.createTextNode("\n  "));
-                root.appendChild(currReign);
+                if (! dynastyToIgnore.contains(meta)) {
+                    Element dynWord = doc.createElement("word");
+                    dynWord.setAttribute("lang", "zh");
+                    dynWord.setAttribute("meta", meta + "|" + getStartYear(data[4]));
+                    dynWord.appendChild(doc.createTextNode(emperor));
+                    dynasty.appendChild(dynWord);
+                    
+                    currEmperor = doc.createElement("word-group");
+                    currEmperor.setAttribute("type", "emperor");
+                    currEmperor.setAttribute("meta", meta);
+                    currEmperor.setAttribute("lang", "zh");
+                    root.appendChild(doc.createTextNode("\n\n  "));
+                    root.appendChild(currEmperor);
+                    
+                    currReign = doc.createElement("word-group");
+                    currReign.setAttribute("type", "reign");
+                    currReign.setAttribute("meta", meta);
+                    currReign.setAttribute("lang", "zh");
+                    root.appendChild(doc.createTextNode("\n  "));
+                    root.appendChild(currReign);
+                }
             }
         }
     }
@@ -156,28 +196,30 @@ public class ParseWikiChineseRulersXML {
                 Integer count = dynastyCount.getOrDefault(emperor, Integer.valueOf(0));
                 char suffix = (char)('A' + count);
                 String meta = (data[3].toLowerCase() + "-" + suffix).replaceAll("  ", " ").replace(' ', '-');
-                dynastyCount.put(emperor, count);
+                dynastyCount.put(emperor, count+1);
                 count++;
 
-                Element dynWord = doc.createElement("word");
-                dynWord.setAttribute("lang", "zh-hant");
-                dynWord.setAttribute("meta", meta + "/" + getStartYear(data[4]));
-                dynWord.appendChild(doc.createTextNode(emperor));
-                dynasty.appendChild(dynWord);
-
-                altEmperor = doc.createElement("word-group");
-                altEmperor.setAttribute("type", "emperor");
-                altEmperor.setAttribute("meta", meta);
-                altEmperor.setAttribute("lang", "zh");
-                root.appendChild(doc.createTextNode("\n\n  "));
-                root.appendChild(currEmperor);
-
-                altReign = doc.createElement("word-group");
-                altReign.setAttribute("type", "reign");
-                altReign.setAttribute("meta", meta);
-                altReign.setAttribute("lang", "zh");
-                root.appendChild(doc.createTextNode("\n  "));
-                root.appendChild(altReign);
+                if (! dynastyToIgnore.contains(meta)) {
+                    Element dynWord = doc.createElement("word");
+                    dynWord.setAttribute("lang", "zh");
+                    dynWord.setAttribute("meta", meta + "|" + getStartYear(data[4]));
+                    dynWord.appendChild(doc.createTextNode(emperor));
+                    dynasty.appendChild(dynWord);
+                    
+                    altEmperor = doc.createElement("word-group");
+                    altEmperor.setAttribute("type", "emperor");
+                    altEmperor.setAttribute("meta", meta);
+                    altEmperor.setAttribute("lang", "zh");
+                    root.appendChild(doc.createTextNode("\n\n  "));
+                    root.appendChild(currEmperor);
+                    
+                    altReign = doc.createElement("word-group");
+                    altReign.setAttribute("type", "reign");
+                    altReign.setAttribute("meta", meta);
+                    altReign.setAttribute("lang", "zh");
+                    root.appendChild(doc.createTextNode("\n  "));
+                    root.appendChild(altReign);
+                }
             }
         }
     }
@@ -190,84 +232,93 @@ public class ParseWikiChineseRulersXML {
             }
 
             if (! empKey.equalsIgnoreCase(currEmpKey)) {
-                currEmpMeta = new ArrayList<>();
-
-                if (ADD_POSTHUMOUS  &&  ! data[6].trim().isEmpty()) {
-                    String tMeta = currEmperor.getAttribute("meta");
-                    String eMeta = tMeta + "-emp-" + currEmpCount++;
-
-                    Element empWord = doc.createElement("word");
-                    empWord.setAttribute("lang", "zh-Hant");
-                    empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[6]));
-                    currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
-                }
-
-                if (ADD_REGNAL  &&  ! data[7].trim().isEmpty()) {
-                    String tMeta = currEmperor.getAttribute("meta");
-                    String eMeta = tMeta + "-emp-" + currEmpCount++;
-
-                    Element empWord = doc.createElement("word");
-                    empWord.setAttribute("lang", "zh-Hant");
-                    empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[7]));
-                    currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
-                }
-
-                if (ADD_TEMPLE  &&  ! data[8].trim().isEmpty()) {
-                    String tMeta = currEmperor.getAttribute("meta");
-                    String eMeta = tMeta + "-emp-" + currEmpCount++;
-
-                    Element empWord = doc.createElement("word");
-                    empWord.setAttribute("lang", "zh-Hant");
-                    empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[8]));
-                    currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
-                }
-
-                if (ADD_COURTESY  &&  ! data[9].trim().isEmpty()) {
-                    String tMeta = currEmperor.getAttribute("meta");
-                    String eMeta = tMeta + "-emp-" + currEmpCount++;
-
-                    Element empWord = doc.createElement("word");
-                    empWord.setAttribute("lang", "zh-Hant");
-                    empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[9]));
-                    currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
-                }
-
-                if (ADD_OTHER  &&  ! data[10].trim().isEmpty()) {
-                    String tMeta = currEmperor.getAttribute("meta");
-                    String eMeta = tMeta + "-emp-" + currEmpCount++;
-
-                    Element empWord = doc.createElement("word");
-                    empWord.setAttribute("lang", "zh-Hant");
-                    empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[10]));
-                    currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
-                }
+                boolean added = false;
 
                 if (ADD_PERSONAL  &&  ! data[11].trim().isEmpty()) {
                     String tMeta = currEmperor.getAttribute("meta");
+                    String xxxEmpKey = tMeta + data[11];
+                    if (! xxxEmpKey.equals(prevEmpKey)) {
+                        prevEmpKey = xxxEmpKey;
+
+                        String eMeta = tMeta + "-emp-" + currEmpCount++;
+                        Element empWord = doc.createElement("word");
+                        empWord.setAttribute("lang", "zh");
+                        empWord.setAttribute("type", tMeta);
+                        empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]));
+                        empWord.appendChild(doc.createTextNode(data[11]));
+                        currEmperor.appendChild(empWord);
+                        currEmpMeta = eMeta;
+                    }
+                    added = true;
+                }
+
+                if (ADD_POSTHUMOUS  &&  ! added  &&  ! data[6].trim().isEmpty()) {
+                    String tMeta = currEmperor.getAttribute("meta");
                     String eMeta = tMeta + "-emp-" + currEmpCount++;
 
                     Element empWord = doc.createElement("word");
                     empWord.setAttribute("lang", "zh-Hant");
                     empWord.setAttribute("type", tMeta);
-                    empWord.setAttribute("meta", eMeta + "/" + getStartYear(data[12]));
-                    empWord.appendChild(doc.createTextNode(data[11]));
+                    empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]) + "|posthumous");
+                    empWord.appendChild(doc.createTextNode(data[6]));
                     currEmperor.appendChild(empWord);
-                    currEmpMeta.add(eMeta);
+                    currEmpMeta = eMeta;
+                    added = true;
+                }
+
+//                if (ADD_REGNAL  &&  ! added  &&  ! data[7].trim().isEmpty()) {
+//                    String tMeta = currEmperor.getAttribute("meta");
+//                    String eMeta = tMeta + "-emp-" + currEmpCount++;
+//
+//                    Element empWord = doc.createElement("word");
+//                    empWord.setAttribute("lang", "zh-Hant");
+//                    empWord.setAttribute("type", tMeta);
+//                    empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]) + "|regnal");
+//                    empWord.appendChild(doc.createTextNode(data[7]));
+//                    currEmperor.appendChild(empWord);
+//                    currEmpMeta.add(eMeta);
+//                    added = true;
+//                }
+
+                if (ADD_TEMPLE  &&  ! added  &&  ! data[8].trim().isEmpty()) {
+                    String tMeta = currEmperor.getAttribute("meta");
+                    String eMeta = tMeta + "-emp-" + currEmpCount++;
+
+                    Element empWord = doc.createElement("word");
+                    empWord.setAttribute("lang", "zh-Hant");
+                    empWord.setAttribute("type", tMeta);
+                    empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]) + "|temple");
+                    empWord.appendChild(doc.createTextNode(data[8]));
+                    currEmperor.appendChild(empWord);
+                    currEmpMeta = eMeta;
+                    added = true;
+                }
+
+                if (ADD_COURTESY  &&  ! added  &&  ! data[9].trim().isEmpty()) {
+                    String tMeta = currEmperor.getAttribute("meta");
+                    String eMeta = tMeta + "-emp-" + currEmpCount++;
+
+                    Element empWord = doc.createElement("word");
+                    empWord.setAttribute("lang", "zh-Hant");
+                    empWord.setAttribute("type", tMeta);
+                    empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]) + "|courtesy");
+                    empWord.appendChild(doc.createTextNode(data[9]));
+                    currEmperor.appendChild(empWord);
+                    currEmpMeta = eMeta;
+                    added = true;
+                }
+
+                if (ADD_OTHER  &&  ! added  &&  ! data[10].trim().isEmpty()) {
+                    String tMeta = currEmperor.getAttribute("meta");
+                    String eMeta = tMeta + "-emp-" + currEmpCount++;
+
+                    Element empWord = doc.createElement("word");
+                    empWord.setAttribute("lang", "zh-Hant");
+                    empWord.setAttribute("type", tMeta);
+                    empWord.setAttribute("meta", eMeta + "|" + getStartYear(data[12]) + "|other");
+                    empWord.appendChild(doc.createTextNode(data[10]));
+                    currEmperor.appendChild(empWord);
+                    currEmpMeta = eMeta;
                 }
             }
 
@@ -276,8 +327,25 @@ public class ParseWikiChineseRulersXML {
     }
 
     private static void processReign(String[] data) {
-        // TODO Auto-generated method stub
-        
+        if (currReign != null  &&  ! data[14].trim().isEmpty()  &&  ! data[15].trim().isEmpty()  &&  ! currEmpMeta.trim().isEmpty()) {
+
+            String reignKey = currEmpMeta + "|" + getStartYear(data[15]);
+            if (! reignKey.equalsIgnoreCase(prevReignKey)) {
+                Integer count = dynastyCount.getOrDefault(currEmpMeta, Integer.valueOf(0));
+                char suffix = (char)('A' + count);
+                String meta = currEmpMeta + "-" + suffix;
+                dynastyCount.put(currEmpMeta, count+1);
+                
+                Element reignWord = doc.createElement("word");
+                reignWord.setAttribute("lang", "zh");
+                reignWord.setAttribute("type", currEmpMeta);
+                reignWord.setAttribute("meta", meta + "|" + getStartYear(data[15]));
+                reignWord.appendChild(doc.createTextNode(data[14]));
+                currReign.appendChild(reignWord);
+            }
+
+            prevReignKey = reignKey;
+        }
     }
 
     static void addComment(Element element, String commentTxt) {
@@ -324,15 +392,23 @@ public class ParseWikiChineseRulersXML {
 
         int ndx01 = range.lastIndexOf('–');
         if (ndx01 == -1) {
-            fromYr = range;
+            fromYr = range.trim();
         } else {
-            fromYr = range.substring(0, ndx01);
+            fromYr = range.substring(0, ndx01).trim();
         }
 
         if (fromYr.contains("BC")) {
             fromYr = "-" + fromYr.replaceAll("BC", "").trim();
         }
 
-        return fromYr;
+        try {
+            Integer.parseInt(fromYr);
+        } catch(NumberFormatException ex) {
+            int ndx = fromYr.lastIndexOf(' ');
+            if (ndx > 0) {
+                fromYr = fromYr.substring(ndx).trim();
+            }
+        }
+        return fromYr.trim();
     }
 }

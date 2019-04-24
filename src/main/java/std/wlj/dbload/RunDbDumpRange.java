@@ -17,10 +17,10 @@ public class RunDbDumpRange {
     static ExecutorService execService = Executors.newFixedThreadPool(4);
     
     public static void main(String... args) throws InterruptedException {
-        DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceSams());
+        DbHelper dbHelper = new DbHelper(DbConnectionManager.getDataSourceAwsDev());
 
         long startRepId = 1;
-        long endRepId   = 10_000;
+        long endRepId   = 350;
         File dataDirectory = new File(baseDir, "yyy");
         dataDirectory.mkdirs();
 

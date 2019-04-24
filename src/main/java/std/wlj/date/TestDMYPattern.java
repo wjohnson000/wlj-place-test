@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
+import org.familysearch.standards.date.InterpRequest;
 import org.familysearch.standards.date.model.GenSimpleDate;
 import org.familysearch.standards.date.shortcut.DMYGenSimpleDate;
 import org.familysearch.standards.place.util.PlaceHelper;
@@ -32,7 +33,7 @@ public class TestDMYPattern {
                 String locale = data[1];
                 String target = data[2];
                 try {
-                    List<GenSimpleDate> genDates = DMYGenSimpleDate.fromDMY(date, StdLocale.makeLocale(locale), null, null, null);
+                    List<GenSimpleDate> genDates = DMYGenSimpleDate.fromDMY(new InterpRequest(date, StdLocale.makeLocale(locale)));
                     if (genDates != null  &&  genDates.stream().anyMatch(genDate -> genDate.toGEDCOMX().equals(target))) {
                         hitCount++;
                     }

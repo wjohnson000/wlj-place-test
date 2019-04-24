@@ -49,7 +49,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.KOREAN, null, null, null);
+                dates02 = DateUtil.interpDate(text, StdLocale.CHINESE, null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -686,6 +686,29 @@ public class TestV2 {
 //        textes.add("1998年以後");
 //        textes.add("after 1998");
 //        textes.add("1998 after");
+//
+//        textes.add("before 1900-1905");   // STD-7119
+//        textes.add("after 1900-1905");    // STD-7119
+//        textes.add("February 30, 1712");  // STD-7122
+//        textes.add("< 1718");             // STD-7123
+//        textes.add(">= 1718");            // STD-7123
+//        textes.add("-- ___ 1718");        // STD-7124
+//        textes.add("Abt 03 Sep 1662 康熙壬寅");   // STD-7125
+//        textes.add("明和８年（１７７１年）１０月１７日");  // STD-7126
+//        textes.add("1 FEB 1758 BET 1 FEB 1758 AND 17 NOV 1761");  // STD-7127
+//
+//        textes.add("Jan 20");
+//        textes.add("4 May");
+//
+//        textes.add("Jan 36");
+//        textes.add("55 May");
+
+        textes.add("5/6/1900");
+        textes.add("6/5/1900");
+        textes.add("6 5 1900");
+        textes.add("6 25 1900");
+        textes.add("26 5 1900");
+        textes.add("1900/6/5");
 
         return textes;
     }

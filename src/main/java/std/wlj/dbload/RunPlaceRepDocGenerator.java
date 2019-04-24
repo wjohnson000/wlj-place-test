@@ -10,13 +10,13 @@ import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 public class RunPlaceRepDocGenerator {
 
     public static void main(String...args) {
-        File baseDir = new File("D:/tmp/flat-files/ten-thou");
+        File baseDir = new File("C:/temp/flat-file/yyy");
         PlaceRepDocReader docGen = new PlaceRepDocReader(baseDir);
         Iterator<PlaceRepDoc> prIter = docGen.iterator();
         while (prIter.hasNext()) {
             PlaceRepDoc prDoc = prIter.next();
             System.out.println("PRD: " + prDoc);
-            if (prDoc.getRepId() == 122) {
+            if (prDoc.getRepId() > 0) {
                 System.out.println("=========================================================================");
                 System.out.println("ID: " + prDoc.getId() + " --> " + prDoc.getType() + " --> " + Arrays.toString(prDoc.getJurisdictionIdentifiers()) + " --> " + prDoc.getRevision());
                 System.out.println("  Place:  " + prDoc.getPlaceId());
@@ -25,8 +25,8 @@ public class RunPlaceRepDocGenerator {
                 System.out.println("  P-Name: " + prDoc.getNames());
                 System.out.println("  P-Rang: " + prDoc.getOwnerStartYear() + " - " + prDoc.getOwnerEndYear());
                 System.out.println("  Del-Id: " + prDoc.getDeleteId() + " . " + prDoc.getPlaceDeleteId());
-                System.out.println("  Dates:  " + prDoc.getCreateDate() + " . " + prDoc.getLastUpdateDate());
-
+                System.out.println("  Creatd: " + prDoc.getCreateUser() + " . " + prDoc.getCreateDate());
+                System.out.println("  Updatd: " + prDoc.getLastUpdateUser() + " . " + prDoc.getLastUpdateDate());
                 for (String attrs : prDoc.getAttributes()) {
                     System.out.println("  AT: " + attrs);
                 }

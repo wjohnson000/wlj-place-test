@@ -18,10 +18,10 @@ public class SearchLocal {
     private static final int MAX_ROWS = 20;
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.localEmbeddedConnection("C:/D-drive/solr/standalone-7.1.0");
+        SolrConnection solrConn = SolrManager.localEmbeddedConnection("C:/D-drive/solr/standalone-7.7.1");
 
         // Do a look-up by documents ...
-        SolrQuery query = new SolrQuery("repId:3333");
+        SolrQuery query = new SolrQuery("repId:(10626044 10626045 10626046)");
 //        SolrQuery query = new SolrQuery("xref:[* TO *]");
 //        SolrQuery query = new SolrQuery("appData: *");
 //        query.addField("lastUpdateDate:[NOW-1YEAR/DAY TO NOW/DAY+1DAY]");  // &NOW=" + System.currentTimeMillis());
@@ -61,7 +61,8 @@ public class SearchLocal {
             System.out.println("  Locatn: " + doc.getCentroid() + " . " + doc.getLatitude() + "," + doc.getLongitude());
             System.out.println("  Publsh: " + doc.isPublished());
             System.out.println("  Validd: " + doc.isValidated());
-            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getCreateUser());
+            System.out.println("  Updatd: " + doc.getLastUpdateDate() + " . " + doc.getLastUpdateUser());
 
             doc.getDisplayNames().stream().limit(MAX_ROWS).forEach(dispName -> System.out.println("  D-Name: " + dispName));
             doc.getVariantNames().stream().limit(MAX_ROWS).forEach(varName -> System.out.println("  V-Name: " + varName));

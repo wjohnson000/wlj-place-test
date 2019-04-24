@@ -17,9 +17,7 @@ import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
 import std.wlj.util.SolrManager;
 
 /**
- * Based on the "C:\temp\important\place-xxx.txt" file, which contain details for search requests
- * with wild-cards, run a bunch of them through the interpretation engine with and without the
- * wild-card characters and compare results.
+ * Run an interpretation through the Place 2.0 engine.
  * 
  * @author wjohnson000
  *
@@ -32,20 +30,14 @@ public class RunInterpretation {
 
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
         PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );
-        PlaceService placeMatchService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_MATCH_PROPS, solrService ) );
 
         // Seed the process
-//        doIt(placeService, 0, "en", "US Alabama");
-//        doIt(placeService, 0, "en", "US-Alabama");
-//        doIt(placeService, 0, "en", "US, Alabama");
-//        doIt(placeService, 0, "en", "US Kaput Bloomington, Indiana");
+        doIt(placeService, 0, "en", "US Alabama", false, false);
+        doIt(placeService, 0, "en", "Alabama", false, false);
+        doIt(placeService, 0, "en", "US-Alabama", false, false);
+        doIt(placeService, 0, "en", "US, Alabama", false, false);
+        doIt(placeService, 0, "en", "US Kaput Bloomington, Indiana", false, false);
 
-//        doIt(placeInterpService, 0, "en", "US Federal", true, false);
-        doIt(placeInterpService, 0, "en", "US Federal", false, false);
-//        doIt(placeInterpService, 0, "en", "United States", false, false);
-//        doIt(placeInterpService, 0, "en", "Sweden", false, false);
-        doIt(placeInterpService, 0, "en", "Provo Ut", false, true);
-        doIt(placeInterpService, 0, "en", "Pro", false, true);
 
         solrService.shutdown();
         System.exit(0);

@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
+import org.familysearch.standards.date.InterpRequest;
 import org.familysearch.standards.date.model.GenSimpleDate;
 import org.familysearch.standards.date.shortcut.MDYGenSimpleDate;
 
@@ -26,7 +27,7 @@ public class TestNewMDY {
             if (ndx > 0) {
                 String text = date.substring(0, ndx).trim();
                 String gedcomx = date.substring(ndx+1).trim();
-                List<GenSimpleDate> genDates = MDYGenSimpleDate.fromMDY(text, StdLocale.ENGLISH, null, null, null);
+                List<GenSimpleDate> genDates = MDYGenSimpleDate.fromMDY(new InterpRequest(text, StdLocale.ENGLISH));
                 if (genDates == null  ||  genDates.isEmpty()) {
                     System.out.println("NOO: " + text);
                 } else if (! genDates.get(0).toGEDCOMX().equals(gedcomx)) {

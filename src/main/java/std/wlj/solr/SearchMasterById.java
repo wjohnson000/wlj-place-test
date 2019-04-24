@@ -13,6 +13,7 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 
+import std.wlj.marshal.POJOMarshalUtil;
 import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
@@ -21,11 +22,11 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:2481");
+        SolrQuery query = new SolrQuery("repId:780356");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
@@ -40,6 +41,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("!id:PLACE-* AND placeDeleteId:[1 TO *]");
 //        SolrQuery query = new SolrQuery("parentId:10336711 AND !deleteId:[1 TO *]");
 //        SolrQuery query = new SolrQuery("repIdChain:7099871");
+//        SolrQuery query = new SolrQuery("repIdChain:(1 11 111 1111)");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
 //        SolrQuery query = new SolrQuery("type:81");
@@ -53,7 +55,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
 //        SolrQuery query = new SolrQuery("names:ziegelei");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
-        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
+//        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
 
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
@@ -85,7 +87,8 @@ public class SearchMasterById {
             System.out.println("  Publsh: " + doc.isPublished());
             System.out.println("  Validd: " + doc.isValidated());
             System.out.println("  PrefBd: " + doc.getPreferredBoundaryId());
-            System.out.println("  Creatd: " + doc.getCreateDate() + " . " + doc.getLastUpdateDate());
+            System.out.println("  Creatd: " + doc.getCreateUser() + " . " + doc.getCreateDate());
+            System.out.println("  Updatd: " + doc.getLastUpdateUser() + " . " + doc.getLastUpdateDate());
             System.out.println("  TGroup: " + doc.getTypeGroup());
 
             doc.getDisplayNames().stream().limit(MAX_ROWS).forEach(dispName -> System.out.println("  D-Name: " + dispName));
@@ -101,7 +104,9 @@ public class SearchMasterById {
                 System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle() + " --> " + ab.getTitle());
             }
         }
-        
+
+        String json = POJOMarshalUtil.toJSON(docs.get(0));
+        System.out.println("\n\nJSON\n: " + json);
 //        for (PlaceRepDoc doc : docs) {
 //            String dispName = doc.getDisplayName("en");
 //            if (dispName == null) dispName = doc.getDisplayName(doc.getPrefLocale());
