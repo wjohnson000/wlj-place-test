@@ -27,8 +27,8 @@ public final class WikiSaxHandler extends DefaultHandler {
 
     private static final SAXParserFactory factory = SAXParserFactory.newInstance();
 
-    boolean inContent = false;
-    StringBuilder contextBuff = new StringBuilder();
+    protected boolean inContent = false;
+    protected StringBuilder contextBuff = new StringBuilder();
 
     public String parseWikiSAX(String wikiURL) {
         try {

@@ -3,6 +3,7 @@
 	<name>wlj.test.access</name>
 	<comment></comment>
 	<projects>
+		<project>std-lib-client-util-date</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

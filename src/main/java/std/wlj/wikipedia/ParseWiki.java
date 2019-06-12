@@ -43,8 +43,9 @@ public class ParseWiki {
 //        "https://wikishire.co.uk/wiki/Cambridgeshire",
 //        "https://zh.wikipedia.org/wiki/%E7%BA%BD%E7%BA%A6",
 //        "https://ru.wikipedia.org/wiki/%D0%9D%D1%8C%D1%8E-%D0%99%D0%BE%D1%80%D0%BA",
-        "https://de.wikipedia.org/wiki/New_York_City",
+//        "https://de.wikipedia.org/wiki/New_York_City",
         "https://en.wikipedia.org/wiki/New_York_City",
+        "https://en.wikipedia.org/wiki/Aowin/Suaman_District",
     };
 
     private static PoolingHttpClientConnectionManager httpConnManager = new PoolingHttpClientConnectionManager();

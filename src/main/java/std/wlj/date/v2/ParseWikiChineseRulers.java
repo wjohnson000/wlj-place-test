@@ -5,7 +5,12 @@ package std.wlj.date.v2;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.familysearch.standards.place.util.PlaceHelper;
@@ -15,6 +20,8 @@ import org.jsoup.select.Elements;
 
 
 /**
+ * See https://en.wikipedia.org/wiki/List_of_Chinese_monarchs
+ * 
  * @author wjohnson000
  *
  */
@@ -22,15 +29,16 @@ public class ParseWikiChineseRulers {
 
     static class DynastyMini {
         String name;
-        String altName;
         String description;
-        String altDescription;
         String startYr;
         String range;
+        String altName;
+        String altDescription;
+        String altRange;
 
         public String toString() {
             StringBuilder buff = new StringBuilder();
-            buff.append(name).append(" [").append(description).append("] -> ").append(startYr);
+            buff.append(name).append(" [").append(description).append("] -> ").append(startYr).append(" or ").append(range);
             if (altDescription != null) {
                 buff.append(" or ").append(altName).append(" [").append(altDescription).append("]");
             }
@@ -62,9 +70,34 @@ public class ParseWikiChineseRulers {
         }
     }
 
+    static String[] altNames = {
+        "共和",
+        "成",
+        "漢",
+        "漢",
+        "前趙",
+        "后趙",
+        "前凉",
+        "后凉",
+        "南凉",
+        "西凉",
+        "前燕",
+        "后燕",
+        "南燕",
+        "北燕",
+        "前秦",
+        "后秦",
+        "后仇池",
+        "西魏",
+        "西梁",
+        "北宋",
+        "南宋",
+    };
+
     static final String filePath = "C:/temp/chinese-monarchs.html";
 
     static boolean     newDynasty = true;
+    static boolean     newAltDynasty = false;
     static DynastyMini dynasty = null;
 
     static THead  reignNdx = null;
@@ -80,7 +113,7 @@ public class ParseWikiChineseRulers {
     static List<String> results = new ArrayList<>();
 
 
-    public static void main(String...args) {
+    public static void main(String...args) throws IOException {
         try {
             Document rulersDoc = Jsoup.parse(new File(filePath), "UTF-8");
             Elements bodyX = rulersDoc.getElementsByTag("body");
@@ -94,9 +127,11 @@ public class ParseWikiChineseRulers {
         }
 
         System.out.println("\n");
+        System.out.println("..............................................................................................");
         results.forEach(System.out::println);
+        Files.write(Paths.get("C:/temp/chinese-monarchs.txt"), results, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
-        ParseWikiChineseRulersXML.createXML(results);
+        new CreateChineseRulersXML().createXML(results);
 
         System.exit(0);
     }
@@ -145,11 +180,12 @@ public class ParseWikiChineseRulers {
             return null;
         }
 
-        String tName = rawDynasty.replaceAll("\\(Northern\\)", "");
-        tName = tName.replaceAll(" \\(Southern\\)", "");
-        tName = tName.replaceAll(" \\(Eastern\\)", "");
-        tName = tName.replaceAll(" \\(Western\\)", "");
-        tName = tName.replaceAll(" \\(Later\\)", "");
+        String tName = rawDynasty.replaceAll("\\([Nn]orthern\\)", "");
+        tName = tName.replaceAll(" \\([Ss]outhern\\)", "");
+        tName = tName.replaceAll(" \\([Ee]astern\\)", "");
+        tName = tName.replaceAll(" \\([Ww]estern\\)", "");
+        tName = tName.replaceAll(" \\([Ll]ater\\)", "");
+        tName = tName.replaceAll(" \\([Ff]ormer\\)", "");
         tName = tName.replaceAll(" dynasty", "");
         int pos = tName.indexOf(" of ");
         if (pos > 0) {
@@ -198,7 +234,16 @@ public class ParseWikiChineseRulers {
             }
         }
 
-        return dymi;
+        if (dymi.startYr == null) {
+            return null;
+        } else {
+            try {
+                Integer.parseInt(dymi.startYr);
+                return dymi;
+            } catch(NumberFormatException nfex) {
+                return null;
+            }
+        }
     }
 
     static void handleTable(Element tableElement) {
@@ -271,15 +316,27 @@ public class ParseWikiChineseRulers {
 
         if (newDynasty) {
             newDynasty = false;
+            newAltDynasty = false;
+            results.add("");
+            results.add("");
+            results.add("");
             buff.append(dynasty.name);
             buff.append("|").append(dynasty.description);
+            buff.append("|").append(dynasty.startYr == null ? "" : dynasty.startYr);
+            buff.append("|").append(dynasty.range == null ? "" : dynasty.range);
             buff.append("|").append(dynasty.altName == null ? "" : dynasty.altName);
             buff.append("|").append(dynasty.altDescription == null ? "" : dynasty.altDescription);
-            buff.append("|").append(dynasty.startYr == null ? "" : dynasty.startYr);
+            buff.append("|").append(dynasty.altRange == null ? "" : dynasty.altRange);
+        } else if (newAltDynasty) {
+            newAltDynasty = false;
+            results.add("");
+            buff.append("||||").append(dynasty.altName == null ? "" : dynasty.altName);
+            buff.append("|").append(dynasty.altDescription == null ? "" : dynasty.altDescription);
+            buff.append("|").append(dynasty.altRange == null ? "" : dynasty.altRange);
         } else {
-            buff.append("||||");
+            buff.append("||||||");
         }
-        
+
         if (commonNameNdx == null  ||  commonNameNdx.ndx >= row.length) {
             buff.append("|");
         } else {
@@ -300,6 +357,14 @@ public class ParseWikiChineseRulers {
             buff.append("|").append(row[regnalNameNdx.ndx].value);
         } else {
             buff.append("|").append(row[regnalNameNdx.ndx+1].value);
+        }
+
+        if (personalNameNdx == null  ||  personalNameNdx.ndx+1 >= row.length) {
+            buff.append("|");
+        } else if (personalNameNdx.span == 1) {
+            buff.append("|").append(row[personalNameNdx.ndx].value);
+        } else {
+            buff.append("|").append(row[personalNameNdx.ndx+1].value);
         }
         
         if (templeNameNdx == null  ||  templeNameNdx.ndx+1 >= row.length) {
@@ -326,14 +391,6 @@ public class ParseWikiChineseRulers {
             buff.append("|").append(row[otherNameNdx.ndx+1].value);
         }
 
-        if (personalNameNdx == null  ||  personalNameNdx.ndx+1 >= row.length) {
-            buff.append("|");
-        } else if (personalNameNdx.span == 1) {
-            buff.append("|").append(row[personalNameNdx.ndx].value);
-        } else {
-            buff.append("|").append(row[personalNameNdx.ndx+1].value);
-        }
-
         if (reignNdx == null) {
             buff.append("|");
         } else {
@@ -356,6 +413,28 @@ public class ParseWikiChineseRulers {
     }
 
     static TDetail[] getRow(Element tr, TDetail[] row) {
+        Elements ths = tr.getElementsByTag("th");
+        if (ths != null  &&  ths.size() > 0) {
+            for (int i=0;  i<ths.size();  i++) {
+                Element th = ths.get(i);
+                String head = th.text().toLowerCase();
+                String xxx = th.attr("colspan");
+                if (xxx != null  &&  ! xxx.trim().isEmpty()) {
+                    int colspan = Integer.parseInt(xxx.trim());
+                    if (colspan >= 6  &&  Arrays.stream(altNames).anyMatch(alt -> head.contains(alt))) {
+                        DynastyMini altDynasty = parseDynasty(head);
+                        if (altDynasty != null) {
+                            newAltDynasty = true;
+                            dynasty.altName = altDynasty.name;
+                            dynasty.altDescription = altDynasty.description;
+                            dynasty.altRange = altDynasty.range;
+                        }
+                    }
+                }
+            }
+            return row;
+        }
+
         Elements tds = tr.getElementsByTag("td");
         if (tds == null  ||  tds.size() == 0) {
             return row;

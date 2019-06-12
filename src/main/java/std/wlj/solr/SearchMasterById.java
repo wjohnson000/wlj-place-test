@@ -26,7 +26,7 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-        SolrQuery query = new SolrQuery("repId:780356");
+        SolrQuery query = new SolrQuery("repId:56");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
@@ -56,7 +56,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("names:ziegelei");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
-
+//
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
 //        Date dnow = new Date(cnow.getTimeInMillis());

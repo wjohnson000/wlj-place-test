@@ -1,19 +1,13 @@
 package std.wlj.search;
 
-import java.io.IOException;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import std.wlj.ws.rawhttp.HttpHelper;
 
-public class DoSearchLots {
+public class DoGetRepLots {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
@@ -21,23 +15,19 @@ public class DoSearchLots {
 
     private static ExecutorService execService = Executors.newFixedThreadPool(20);
 
-    private static Random random = new Random();
-    private static List<String> requestText;
-
     private static long requestCnt = 0;
     private static long requestTime = 0;
 
     /**
-     * Run two tests ... a GET of a specific place, and a search
+     * Get reps by rep-id
      */
     public static void main(String[] args) throws Exception {
-        requestText = getSearchValues("C:/temp/important/places-search-text.txt");
-
         HttpHelper.overrideHTTPS = true;
         HttpHelper.doVerbose = false;
 
         long time0 = System.nanoTime();
-        startRequest(5, 1000);
+//        startRequest(2, 100);
+        startRequest(3, 1000);
         execService.shutdown();
         execService.awaitTermination(60, TimeUnit.MINUTES);
         long time1 = System.nanoTime();
@@ -51,10 +41,9 @@ public class DoSearchLots {
         for (int i=0;  i<thrCount;  i++) {
             execService.submit(
                 () -> {
-                    for (int cnt=0;  cnt<times;  cnt++) {
+                    for (int cnt=1;  cnt<times;  cnt++) {
                         try {
-                            int ndx = random.nextInt(requestText.size());
-                            doRequest(requestText.get(ndx));
+                            doRequest(cnt);
                             Thread.sleep(9L);
                         } catch (Exception e) { }
                     }
@@ -62,27 +51,19 @@ public class DoSearchLots {
         }
     }
 
-    private static void doRequest(String text) throws Exception {
+    private static void doRequest(int repId) throws Exception {
         requestCnt++;
 
-        URL url = new URL(baseUrl + "/request");
+        URL url = new URL(baseUrl + "/reps/" + repId);
 
         long then = System.nanoTime();
-        HttpHelper.doGET(url, "text", text, "metrics", "false", "partial", "false", "pubType", "pub_only");
+        HttpHelper.doGET(url, "metrics", "false");
         long nnow = System.nanoTime();
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("TEST-REQUEST: " + text);
+        System.out.println("TEST-PLACE-REP: " + repId);
         System.out.println("TIME: " + (nnow-then)/1000000.0);
 
         requestTime += nnow - then;
-    }
-
-    private static List<String> getSearchValues(String filePath) throws IOException {
-        return Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8)
-                .stream()
-                .map(val -> val.replace('"', ' ').trim())
-                .filter(val -> val.length() > 4)
-                .collect(Collectors.toList());
     }
 }

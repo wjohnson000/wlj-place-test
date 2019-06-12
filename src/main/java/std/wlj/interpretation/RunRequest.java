@@ -32,16 +32,17 @@ import std.wlj.util.SolrManager;
 public class RunRequest {
 
     public static void main(String... args) throws PlaceDataException, IOException {
-        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
+        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.7.1");
 //        SolrService  solrService = SolrManager.awsBetaService(true);
 
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
 
 //        doIt(placeService, 0, "en", "Champlain", null, null, null);
 //        doIt(placeService, 0, "en", "Champlain, Clinton, New York, USA", null, null, null);
-        doIt(placeService, 0, "en", "Champlain", null, 362, null);
-        doIt(placeService, 0, "en", "Champlain", null, 339, null);
+//        doIt(placeService, 0, "en", "Champlain", null, 362, null);
+//        doIt(placeService, 0, "en", "Champlain", null, 339, null);
 //        doIt(placeService, 0, "en", "Champlain", null, 393135, null);
+        doIt(placeService, 0, "en", "text=Diocesis+de+Granada;+Catolica,+Granada,+Granada,+Spain;Diocesis+De+Granada,+Granada,+Spain", null, null, null);
 
         solrService.shutdown();
         System.exit(0);
@@ -90,6 +91,7 @@ public class RunRequest {
             System.out.println("    Time=" + (timeBB - timeAA) / 1_000_000.0);
         } catch(Exception ex) {
             System.out.println("Exception for " + name + " --> " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

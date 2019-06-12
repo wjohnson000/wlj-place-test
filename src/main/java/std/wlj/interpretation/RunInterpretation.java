@@ -25,8 +25,8 @@ import std.wlj.util.SolrManager;
 public class RunInterpretation {
 
     public static void main(String... args) throws PlaceDataException, IOException {
-//        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
-        SolrService  solrService = SolrManager.awsBetaService(true);
+        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.7.1");
+//        SolrService  solrService = SolrManager.awsBetaService(true);
 
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
         PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );

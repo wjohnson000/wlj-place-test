@@ -35,41 +35,41 @@ import std.wlj.util.SolrManager;
 public class RunInterpretationThree {
 
     public static void main(String... args) throws PlaceDataException, IOException {
-        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
-//        SolrService  solrService = SolrManager.awsBetaService(true);
+//        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
+        SolrService  solrService = SolrManager.awsService55(); //.awsBetaService(true);
 
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
         PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );
 
-//        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", null);
-//        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603");
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", null);
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603");
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", null);
-//        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", "Jan 1 1573/Dec 31 1603");
-//
-//        doIt(placeInterpService, 0, "en", "Porto, Portugal", null, null);
-//        doIt(placeInterpService, 0, "en", "Porto, Portugal", "May 1 1938/Jun 30 1938", null);
-//
-//        doIt(placeInterpService, 0, "en", "Sevier", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", null, 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1700", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1700", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1800", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1800", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1850", null, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1850", 342, null);
-//        doIt(placeInterpService, 0, "en", "Sevier", "1900", null, null);
-//
-//        doIt(placeService, 0, "en", "Zierstorf/Bartelshäger Ziegelei", null, null, null);
-//        doIt(placeService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
-//        doIt(placeService, 0, "en", "First Baptist Church Chapel", null, null, null);
-//        doIt(placeInterpService, 0, "en", "First Baptist Church Chapel", null, null, null);
-//        doIt(placeService, 0, "en", "Thompson First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Thompson First Baptist Church", null, null, null);
-//        doIt(placeService, 0, "en", "Greenview First Baptist Church", null, null, null);
-//        doIt(placeInterpService, 0, "en", "Greenview First Baptist Church", null, null, null);
+        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", null, null, null);
+        doIt(placeService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603", null, null);
+        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", null, null, null);
+        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mimms", "Jan 1 1573/Dec 31 1603", null, null);
+        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", null, null, null);
+        doIt(placeInterpService, 0, "en", "Hertfordshire, North Mymms", "Jan 1 1573/Dec 31 1603", null, null);
+
+        doIt(placeInterpService, 0, "en", "Porto, Portugal", null, null, null);
+        doIt(placeInterpService, 0, "en", "Porto, Portugal", "May 1 1938/Jun 30 1938", null, null);
+
+        doIt(placeInterpService, 0, "en", "Sevier", null, null, null);
+        doIt(placeInterpService, 0, "en", "Sevier", null, 342, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1700", null, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1700", 342, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1800", null, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1800", 342, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1850", null, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1850", 342, null);
+        doIt(placeInterpService, 0, "en", "Sevier", "1900", null, null);
+
+        doIt(placeService, 0, "en", "Zierstorf/Bartelshäger Ziegelei", null, null, null);
+        doIt(placeService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
+        doIt(placeInterpService, 0, "en", "Mount Zion First Baptist Church", null, null, null);
+        doIt(placeService, 0, "en", "First Baptist Church Chapel", null, null, null);
+        doIt(placeInterpService, 0, "en", "First Baptist Church Chapel", null, null, null);
+        doIt(placeService, 0, "en", "Thompson First Baptist Church", null, null, null);
+        doIt(placeInterpService, 0, "en", "Thompson First Baptist Church", null, null, null);
+        doIt(placeService, 0, "en", "Greenview First Baptist Church", null, null, null);
+        doIt(placeInterpService, 0, "en", "Greenview First Baptist Church", null, null, null);
 
         doIt(placeService, 0, "en", "First Baptist Church", null, null, null);
         doIt(placeService, 0, "en", "***,+Virginia", null, null, null);

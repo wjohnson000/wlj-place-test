@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import std.wlj.ws.rawhttp.HttpHelper;
 
-public class DoSearchLots {
+public class DoInterpLots {
 
     /** Base URL of the application */
 //    private static String baseUrl = "http://localhost:8080/std-ws-place/places";
@@ -65,10 +65,10 @@ public class DoSearchLots {
     private static void doRequest(String text) throws Exception {
         requestCnt++;
 
-        URL url = new URL(baseUrl + "/request");
+        URL url = new URL(baseUrl + "/interp");
 
         long then = System.nanoTime();
-        HttpHelper.doGET(url, "text", text, "metrics", "false", "partial", "false", "pubType", "pub_only");
+        HttpHelper.doGET(url, "name", text, "metrics", "false", "partial", "false", "pubType", "pub_only");
         long nnow = System.nanoTime();
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

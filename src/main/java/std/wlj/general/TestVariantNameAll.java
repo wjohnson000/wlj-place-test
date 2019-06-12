@@ -17,27 +17,25 @@ import org.familysearch.standards.place.access.validator.NameValidator;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 /**
+ * Run all of the variant names through the NameValidator.
  * @author wjohnson000
  *
  */
-public class TestDisplayNameAll {
+public class TestVariantNameAll {
 
     public static void main(String...args) throws Exception {
         List<String> errors = new ArrayList<>(100_000);
         Map<String, Integer> badChars = new TreeMap<>();
 
-        List<String> displayNames = Files.readAllLines(Paths.get("C:/temp/db-dump/display-name-all.txt"), StandardCharsets.UTF_8);
+        List<String> displayNames = Files.readAllLines(Paths.get("C:/temp/db-dump/variant-name-all.txt"), StandardCharsets.UTF_8);
         System.out.println("LINES: " + displayNames.size());
 
         NameValidator validr = new NameValidator(null, new MessageFactory());
         for (String dispName : displayNames) {
             String[] name = PlaceHelper.split(dispName, '|');
-            if (name.length > 5  &&  name[1].isEmpty()  &&  "f".equals(name[5])) {
+            if (name.length > 7  &&  name[1].isEmpty()  &&  "f".equals(name[7])) {
                 try {
-                    validr.validateDisplayName(name[3]);
-                    if (name[3].contains("(")  ||  name[3].contains(")")) {
-                        System.out.println(name[0] + "|" + name[2] + "|" + name[3]);
-                    }
+                    validr.validateVariantName(name[3]);
                 } catch (Exception ex) {
                     String message = ex.getMessage().trim();
                     int ndx = message.lastIndexOf(' ');
@@ -54,7 +52,7 @@ public class TestDisplayNameAll {
             }
         }
 
-        Files.write(Paths.get("C:/temp/db-dump/display-name-errors.txt"), errors, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        Files.write(Paths.get("C:/temp/db-dump/variant-name-errors.txt"), errors, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         System.out.println("\n\n");
         for (Map.Entry<String, Integer> entry : badChars.entrySet()) {

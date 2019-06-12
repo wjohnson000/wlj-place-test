@@ -36,7 +36,7 @@ public final class WikiQueryHandler {
 
     private static final String[] DEG_MIN_SEC = { "°", "′", "″" };
 
-    private static final Pattern wikiPattern = Pattern.compile("(?:(http[s]://.*))/wiki/(?:(.*))$");
+    private static final Pattern wikiPattern = Pattern.compile("(?:(http[s]{0,1}://.*))/wiki/(?:(.*))$");
     private static final String  wikiQueryURL = "%s/w/api.php?action=query&titles=%s&format=xml&prop=revisions&" +
                                                 "rvprop=content&rvlimit=1&rvslots=main&rvsection=0";
     private static final String  wikiTemplateURL = "%s/w/api.php?action=expandtemplates&title=%s&format=xml&prop=wikitext&text=";
@@ -81,19 +81,31 @@ public final class WikiQueryHandler {
         }
     }
 
+    /**
+     * A wiki "redirect" will be a value in a single or double-set of square brackets, where internal
+     * spaces need to be replaced by an underscore.  Oh, and ignore the value in the first set of
+     * square brackets.
+     * <p/>
+     * 
+     * Thus a value of "[something] [[this page]]" will be turned into "this_page".
+     * 
+     * @param redirect a wikipedia redirect value
+     * @return new wikipedia page
+     */
     protected void setUrls(String redirect) {
         String tRedirect = redirect.trim().substring(9);
         int ndx = tRedirect.indexOf(']');
-        tRedirect = tRedirect.substring(0, ndx);
+        if (ndx != -1) {
+            tRedirect = tRedirect.substring(0, ndx);
+        }
         tRedirect = tRedirect.replace('[', ' ').replace(']', ' ').trim();
         tRedirect = tRedirect.replace(' ', '_');
         
         Matcher matcher = wikiPattern.matcher(wikiURL);
         if (matcher.matches()) {
             String baseUrl  = matcher.group(1);
-            String pageName = tRedirect;
-            queryURL = String.format(wikiQueryURL, baseUrl, pageName);
-            templateURL = String.format(wikiTemplateURL, baseUrl, pageName);
+            queryURL = String.format(wikiQueryURL, baseUrl, tRedirect);
+            templateURL = String.format(wikiTemplateURL, baseUrl, tRedirect);
         }
     }
 
@@ -105,6 +117,7 @@ public final class WikiQueryHandler {
      *   <li>Process "{{Coord ...}}" sections</li>
      *   <li>Process "{{XX wikidata ...}}" sections</li>
      *   <li>Ignore all other "{{...}}" sections</li>
+     *   <li>Process {| ... |} sections</li>
      *   <li>Remove triple quotes</li>
      *   <li>Process "[[...]]" sections that contain no pipe (|) characters</li>
      *   <li>Process "[[...|...]] sections that contain a single pipe (|) character</li>
@@ -119,6 +132,7 @@ public final class WikiQueryHandler {
         tText = handleTables(tText);
         tText = handleInfobox(tText);
         tText = handleCurlyBraceSections(tText);
+        tText = handleCurlyBraceAndPipe(tText);
         tText = handleSquareBraceSections(tText);
         tText = handleRefSections(tText);
         tText = handleHttpCommentsSections(tText);
@@ -213,6 +227,27 @@ public final class WikiQueryHandler {
         }
 
         return tText.trim();
+    }
+
+    protected String handleCurlyBraceAndPipe(String text) {
+        String tText = text;
+        StringBuilder buff = new StringBuilder();
+
+        int ndx0 = tText.toUpperCase().indexOf("{|");
+        while (ndx0 >= 0) {
+            int ndx1 = tText.toUpperCase().indexOf("|}", ndx0);
+            buff.append((ndx0 == 0) ? "" : tText.substring(0, ndx0));
+            if (ndx1+2 > tText.length()) {
+                tText = "";
+            } else {
+                tText = tText.substring(ndx1+2);
+            }
+
+            ndx0 = tText.toUpperCase().indexOf("{|");
+        }
+        buff.append(tText);
+
+        return buff.toString();
     }
 
     protected String handleMultipleQuotes(String text) {

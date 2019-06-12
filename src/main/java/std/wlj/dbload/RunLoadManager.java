@@ -11,8 +11,10 @@ public class RunLoadManager {
         System.setProperty("solr.load.tempdir", "C:/temp/flat-file");
 
         String solrURL = "http://localhost:8080/solr/places";
-        LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceSams(8));
-        LoadManager.getInstance().acceptLoader(new FullLoader("some-user", true, 4));
+//        LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceSams(8));
+        LoadManager.getInstance().init(solrURL, DbConnectionManager.getDataSourceAwsDev());
+//        LoadManager.getInstance().acceptLoader(new FullLoader("some-user", true, 2, true));
+        LoadManager.getInstance().acceptLoader(new FullLoader("some-user", true, 2));
 
         while (! LoadManager.getInstance().isActive()) {
             try { Thread.sleep(10_000L); } catch(Exception ex) { }

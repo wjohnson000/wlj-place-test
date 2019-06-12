@@ -79,7 +79,7 @@ public class SolrManager {
     }
 
     public static SolrService awsService55() {
-        return doSetupForService("http://place-ws-dev.dev.fsglobal.org/int-solr-55/places", "http://place-ws-dev.dev.fsglobal.org/int-solr-55/places");
+        return doSetupForService("http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places", "http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places");
     }
 
     public static SolrService awsDevService(boolean useMaster) {

@@ -49,7 +49,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.CHINESE, null, null, null);
+                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -498,7 +498,7 @@ public class TestV2 {
 //        textes.add("民國前1年");
 //        textes.add("民國34年");
 //        textes.add("民國前34年");
-
+//
 //        textes.add("after 1980");
 //        textes.add("despues 1980");
 //        textes.add("despues de 1980");
@@ -542,7 +542,7 @@ public class TestV2 {
 //        textes.add("first day of April in the year of one Lord one thousand");
 //        textes.add("October third eighteen hundred and seventy two");
 //        textes.add("October third, eighteen hundred and seventy two");
-
+//
 //        textes.add("197?");
 //        textes.add("1970's");
 //        textes.add("about early 1970s");
@@ -687,6 +687,8 @@ public class TestV2 {
 //        textes.add("after 1998");
 //        textes.add("1998 after");
 //
+//        textes.add("1900-1905");          // STD-7119
+//        textes.add("before 1900");
 //        textes.add("before 1900-1905");   // STD-7119
 //        textes.add("after 1900-1905");    // STD-7119
 //        textes.add("February 30, 1712");  // STD-7122
@@ -702,13 +704,114 @@ public class TestV2 {
 //
 //        textes.add("Jan 36");
 //        textes.add("55 May");
+//
+//        textes.add("5/6/1900");
+//        textes.add("6/5/1900");
+//        textes.add("6 5 1900");
+//        textes.add("6 25 1900");
+//        textes.add("26 5 1900");
+//        textes.add("1900/6/5");
+//
+//        textes.add("07 Vendémiaire AN08");
+//        textes.add("07 VD AN08");
+//        textes.add("07 VEND AN08");
+//        textes.add("07 Brumiaire AN08");
+//        textes.add("07 BR AN08");
+//        textes.add("07 BRU AN08");
+//        textes.add("07 BRUM AN08");
+//        textes.add("07 Frimaire AN08");
+//        textes.add("07 FM AN08");
+//        textes.add("07 FR AN08");
+//        textes.add("07 FRI AN08");
+//        textes.add("07 FRIM AN08");
+//        textes.add("07 Nivôse AN08");
+//        textes.add("07 NI AN08");
+//        textes.add("07 NIV AN08");
+//        textes.add("07 NIVO AN08");
+//        textes.add("07 Pluviose AN08");
+//        textes.add("07 PL AN08");
+//        textes.add("07 PLU AN08");
+//        textes.add("07 PLUV AN08");
+//        textes.add("07 Ventôse AN08");
+//        textes.add("07 VT AN08");
+//        textes.add("07 VENT AN08");
+//        textes.add("07 Germinal AN08");
+//        textes.add("07 GE AN08");
+//        textes.add("07 GER AN08");
+//        textes.add("07 GERM AN08");
+//        textes.add("07 Floréal AN08");
+//        textes.add("07 FL AN08");
+//        textes.add("07 FLO AN08");
+//        textes.add("07 FLOR AN08");
+//        textes.add("07 Prairial AN08");
+//        textes.add("07 PR AN08");
+//        textes.add("07 PRA AN08");
+//        textes.add("07 PRAI AN08");
+//        textes.add("07 Messidor AN08");
+//        textes.add("07 ME AN08");
+//        textes.add("07 MES AN08");
+//        textes.add("07 MESS AN08");
+//        textes.add("07 Thermidor AN08");
+//        textes.add("07 TH AN08");
+//        textes.add("07 THE AN08");
+//        textes.add("07 THER AN08");
+//        textes.add("07 Fervidor AN08");
+//        textes.add("07 Fructidor AN08");
+//        textes.add("07 FT AN08");
+//        textes.add("07 FRU AN08");
+//        textes.add("07 FRUC AN08");
+//
+//        textes.add("Abt 03 Sep 1662");
+//        textes.add("康熙壬寅");
+//        textes.add("Abt 03 Sep 1662 康熙壬寅");
+//        textes.add("康熙壬寅 Abt 03 Sep 1662");
+//        textes.add("康熙壬寅 03 Sep 1662");
+//        textes.add("康熙壬寅 Sep 03 1662");
+//        textes.add("康熙壬寅3");
+//        textes.add("康熙壬寅03");
+//        textes.add("康熙壬寅  03");
+//        textes.add("金世宗大定");
+//        textes.add("金世宗大定2年5月5日");
+//        textes.add("金世宗大定2");
+//        textes.add("金世宗大定 2");
+//
+//        textes.add("– 1718");
+//        textes.add("– ___ 1718");
+//        textes.add("– birth 1718");
+//
+//        textes.add("Abt 03 Sep 1662 康熙壬寅");
+//        textes.add("About 03 Sep 1662 康熙壬寅");
+//        textes.add("03 Sep 1662 康熙壬寅");
+//        
+//        textes.add("– ___ 1718");
+//
+//        textes.add("太和一年三月十一日");
+//        textes.add("太和一年三月");
+//
+//        textes.add("朱以海一年");
+//        textes.add("朱聿𨮁一年");
+//        textes.add("朱由榔一年");
+//
+//        textes.add("26th day of September, 1920");
+//        textes.add("26th day of September 1920");
+//        textes.add("26th of September 1920");
+//
+//        textes.add("Mar 1947-Oct 1950");
+//        textes.add("1947 Mar-1950 Oct");
+//
+//        textes.add("Abt 03 Sep 1662");
+//        textes.add("1804 約年");
+//        textes.add("abt 1734 (at age 30)");
+//        textes.add("3+May+1687+/+5+March+1687");
+//        textes.add("1844 約年");
+//        textes.add("5 August 1896 / 5 August 1896");
+//        textes.add("2 mar 1901 Birth Place: Gudmundrå, Västernorrland, Sverige (Sweden)");
+//        textes.add("01+Apr+1992-01+Jan+1998");
+//        textes.add("02 Feb 1991-01 Jan 2004");
+//
+//        textes.add("3 Listopad 1215");
 
-        textes.add("5/6/1900");
-        textes.add("6/5/1900");
-        textes.add("6 5 1900");
-        textes.add("6 25 1900");
-        textes.add("26 5 1900");
-        textes.add("1900/6/5");
+        textes.add("Mar. 21 1841");
 
         return textes;
     }
