@@ -16,10 +16,9 @@ import std.wlj.ws.rawhttp.HttpHelper;
 public class PlaceWS55Search {
 
     /** Base URL of the application */
-//    private static String baseUrl = "https://place-ws-dev-55.dev.fsglobal.org/int-std-ws-place-55/places";
-    private static String baseUrl = "http://ws-55.place.std.cmn.dev.us-east-1.dev.fslocal.org/places";
+    private static String baseUrl = "http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places";
 
-    private static ExecutorService execService = Executors.newFixedThreadPool(10);
+    private static ExecutorService execService = Executors.newFixedThreadPool(50);
 
     private static Random random = new Random();
     private static List<String> requestText;
@@ -38,7 +37,7 @@ public class PlaceWS55Search {
             .collect(Collectors.toList());
 
         long time0 = System.nanoTime();
-        startRequest(10, 5000);
+        startRequest(45, 8000);
         execService.shutdown();
         execService.awaitTermination(60, TimeUnit.MINUTES);
         long time1 = System.nanoTime();
@@ -57,7 +56,7 @@ public class PlaceWS55Search {
                         try {
                             int ndx = random.nextInt(requestText.size());
                             doRequest(requestText.get(ndx));
-                            Thread.sleep(9L);
+                            Thread.sleep(25L);
                         } catch (Exception e) { }
                     }
                 });

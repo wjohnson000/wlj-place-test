@@ -810,9 +810,18 @@ public class TestV2 {
 //        textes.add("02 Feb 1991-01 Jan 2004");
 //
 //        textes.add("3 Listopad 1215");
+//
+//        textes.add("Mar. 21 1841");
+//
+//        textes.add("世宗 一年");
+//        textes.add("世宗一年");
+//        textes.add("世宗 一年");
+//
+//        textes.add("朝鮮世宗永樂庚子年");
 
-        textes.add("Mar. 21 1841");
-
+        textes.add("惠愍");
+        textes.add("惠愍帝");
+        textes.add("惠帝");
         return textes;
     }
 }
