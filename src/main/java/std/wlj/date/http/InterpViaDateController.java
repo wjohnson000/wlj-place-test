@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.familysearch.standards.date.DateService;
 import org.familysearch.standards.date.DateServiceImpl;
-import org.familysearch.standards.date.ws.DatesController;
+import org.familysearch.standards.date.ws.controller.DatesController;
 import org.familysearch.standards.date.ws.model.Dates;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

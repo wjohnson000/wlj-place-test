@@ -18,15 +18,15 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    static final int MAX_ROWS = 5000;
+    static final int MAX_ROWS = 250;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-        SolrQuery query = new SolrQuery("repId:56");
+//        SolrQuery query = new SolrQuery("repId:10924829");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
@@ -53,7 +53,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-//        SolrQuery query = new SolrQuery("names:ziegelei");
+        SolrQuery query = new SolrQuery("names:canada*");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
 //
@@ -104,6 +104,7 @@ public class SearchMasterById {
                 System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle() + " --> " + ab.getTitle());
             }
         }
+        System.out.println("CNT: " + docs.size());
 
         String json = POJOMarshalUtil.toJSON(docs.get(0));
         System.out.println("\n\nJSON\n: " + json);

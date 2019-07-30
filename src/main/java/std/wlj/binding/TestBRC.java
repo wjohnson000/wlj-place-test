@@ -22,7 +22,7 @@ public class TestBRC {
 //        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.INTEG, Region.US_EAST_1);
 
         // DEV service URLs
-        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.TEST, Site.BETA, Region.US_EAST_1);
+        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.DEV, Region.US_EAST_1);
 
         ServiceLocator locator = new ServiceLocator(config);
 

@@ -51,19 +51,19 @@ public class SimpleHttpHeaders implements HttpHeaders {
         return null;
     }
 
-    @Override
-    public String getHeaderString(String name) {
-        return null;
-    }
-
-    @Override
-    public Date getDate() {
-        return new Date();
-    }
-
-    @Override
-    public int getLength() {
-        return 0;
-    }
+//    @Override
+//    public String getHeaderString(String name) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Date getDate() {
+//        return new Date();
+//    }
+//
+//    @Override
+//    public int getLength() {
+//        return 0;
+//    }
 
 }

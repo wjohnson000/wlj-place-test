@@ -31,7 +31,8 @@ public class FindDisplayButNotVariantSolr {
     private static List<String> results = new ArrayList<>(100_000);
 
     public static void main(String...args) throws Exception {
-        solrConn = SolrManager.localEmbeddedConnection("C:/D-drive/solr/standalone-7.1.0");
+//        solrConn = SolrManager.localEmbeddedConnection("C:/D-drive/solr/standalone-7.7.1");
+        solrConn = SolrManager.awsIntConnection(false);
 
         List<Integer> repIds = new ArrayList<>();
         for (int repId=1;  repId<10_999_999;  repId++) {

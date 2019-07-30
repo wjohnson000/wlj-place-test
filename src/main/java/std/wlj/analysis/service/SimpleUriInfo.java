@@ -108,14 +108,14 @@ public class SimpleUriInfo implements UriInfo {
         return null;
     }
 
-    @Override
-    public URI resolve(URI uri) {
-        return uri;
-    }
-
-    @Override
-    public URI relativize(URI uri) {
-        return uri;
-    }
+//    @Override
+//    public URI resolve(URI uri) {
+//        return uri;
+//    }
+//
+//    @Override
+//    public URI relativize(URI uri) {
+//        return uri;
+//    }
 
 }

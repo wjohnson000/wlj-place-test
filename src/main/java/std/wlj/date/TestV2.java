@@ -816,12 +816,19 @@ public class TestV2 {
 //        textes.add("世宗 一年");
 //        textes.add("世宗一年");
 //        textes.add("世宗 一年");
-//
 //        textes.add("朝鮮世宗永樂庚子年");
+//
+//        textes.add("2 feb. 1920");
+//        textes.add("2 feb 1920");
+//        textes.add("30 abr. 1930");
+//        textes.add("30 abr 1930");
 
-        textes.add("惠愍");
-        textes.add("惠愍帝");
-        textes.add("惠帝");
+        textes.add("");
+        textes.add("0");
+        textes.add("00");
+        textes.add("000");
+        textes.add("0000");
+
         return textes;
     }
 }

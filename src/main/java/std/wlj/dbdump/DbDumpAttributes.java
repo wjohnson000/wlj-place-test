@@ -18,12 +18,12 @@ public class DbDumpAttributes {
         "       year, " +
         "       to_year, " +
         "       locale, " + 
-        "       regexp_replace(attr_value, E'[\\n\\r\\|]+', ' ', 'g'), " + 
-        "       regexp_replace(title, E'[\\n\\r\\|]+', ' ', 'g'), " +
-        "       regexp_replace(attr_url, E'[\\n\\r\\|]+', ' ', 'g'), " +
-        "       regexp_replace(url_title, E'[\\n\\r\\|]+', ' ', 'g'), " +
-        "       regexp_replace(copyright_notice, E'[\\n\\r\\|]+', ' ', 'g'), " +
-        "       regexp_replace(copyright_url, E'[\\n\\r\\|]+', ' ', 'g'), " +
+        "       regexp_replace(attr_value, E'[\\n\\r\\|]+', ' ', 'g') AS attr_value, " + 
+        "       regexp_replace(title, E'[\\n\\r\\|]+', ' ', 'g') AS title, " +
+        "       regexp_replace(attr_url, E'[\\n\\r\\|]+', ' ', 'g') AS attr_url, " +
+        "       regexp_replace(url_title, E'[\\n\\r\\|]+', ' ', 'g') AS url_title, " +
+        "       regexp_replace(copyright_notice, E'[\\n\\r\\|]+', ' ', 'g') AS copyright_notice, " +
+        "       regexp_replace(copyright_url, E'[\\n\\r\\|]+', ' ', 'g') AS copyright_url, " +
         "       delete_flag " +
         "  FROM rep_attr " +
         " ORDER BY rep_id, attr_id, tran_id";
