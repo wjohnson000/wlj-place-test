@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 //import java.util.stream.Collectors;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.common.DateUtil;
 
 import std.wlj.date.v1.DateV1Shim;
 
@@ -49,19 +48,19 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                dates02 = DateUtil.interpDate(text, "en", null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
 
             results.add("");
             for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
             }
             for (GenDateInterpResult date : dates02.getDates()) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
             }
             if (dates02.getDates().isEmpty()) {
                 System.out.println("  gx02: " + text + "|<none>|<none>");
@@ -822,12 +821,16 @@ public class TestV2 {
 //        textes.add("2 feb 1920");
 //        textes.add("30 abr. 1930");
 //        textes.add("30 abr 1930");
-
-        textes.add("");
-        textes.add("0");
-        textes.add("00");
-        textes.add("000");
-        textes.add("0000");
+//
+//        textes.add("");
+//        textes.add("0");
+//        textes.add("00");
+//        textes.add("000");
+//        textes.add("0000");
+//
+//        textes.add("民國二十四年七月二十一日");
+//        textes.add("民國乙亥年七月二十一日");
+        textes.add("民國二十四年乙亥年七月二十一日");
 
         return textes;
     }

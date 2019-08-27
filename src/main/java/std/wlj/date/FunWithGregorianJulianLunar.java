@@ -10,7 +10,7 @@ import org.familysearch.standards.date.calendar.CalendarUtil;
 import org.familysearch.standards.date.calendar.DMY;
 import org.familysearch.standards.date.calendar.LunarCalendarUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.GenSimpleDate;
+import org.familysearch.standards.date.api.model.GenSimpleDate;
 
 /**
  * @author wjohnson000

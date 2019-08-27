@@ -6,10 +6,9 @@ package std.wlj.jira;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.common.DateUtil;
 
 import std.wlj.date.v1.DateV1Shim;
 
@@ -52,7 +51,7 @@ public class Story122236Duration {
         
         try {
             for (GenDateInterpResult date : DateV1Shim.interpDate(dateStr)) {
-                results.add(dateStr + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                results.add(dateStr + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
             }
         } catch (Exception e) { }
 
@@ -63,8 +62,8 @@ public class Story122236Duration {
         List<String> results = new ArrayList<>();
 
         try {
-            for (GenDateInterpResult date : DateUtil.interpDate(dateStr, StdLocale.ENGLISH, null, typeHint, null).getDates()) {
-                results.add(dateStr + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE) + "|" + typeHint + "|" + date.getDate().toSortableKey());
+            for (GenDateInterpResult date : DateUtil.interpDate(dateStr, "en", null, typeHint, null).getDates()) {
+                results.add(dateStr + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE) + "|" + typeHint + "|" + date.getDate().toSortableKey());
             }
         } catch (Exception e) { }
 

@@ -14,7 +14,7 @@
     	<std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
 		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
-        <std.lib.date.version>1.8.1-SNAPSHOT</std.lib.date.version>
+        <std.lib.date.version>2.4.0.b30</std.lib.date.version>
         <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
 		<std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
@@ -155,6 +155,11 @@
             <version>${std.lib.core.version}</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+             <groupId>org.familysearch.standards</groupId>
+             <artifactId>std-lib-date-api</artifactId>
+             <version>${std.lib.date.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.familysearch.standards</groupId>
 			<artifactId>std-ws-core-model</artifactId>
@@ -171,16 +176,12 @@
             <artifactId>std-lib-name-seg</artifactId>
             <version>${std.ws.nameseg.version}</version>
         </dependency>
-		<dependency>
-		     <groupId>org.familysearch.standards</groupId>
-		     <artifactId>std-ws-date-api</artifactId>
-		     <version>${std.ws.date.version}</version>
-		</dependency>
         <dependency>
              <groupId>org.familysearch.standards</groupId>
              <artifactId>std-ws-date-model</artifactId>
              <version>${std.ws.date.version}</version>
         </dependency>
+        <!--
         <dependency>
              <groupId>org.familysearch.standards</groupId>
              <artifactId>std-ws-date-webservice</artifactId>
@@ -188,6 +189,7 @@
              <classifier>${webClassifier}</classifier>
             <type>jar</type>
         </dependency>
+        -->
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-ws-analysis-dal</artifactId>
@@ -221,11 +223,6 @@
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-lib-client-util-date</artifactId>
             <version>1.0.0.b7</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dropwizard.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>3.2.2</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>

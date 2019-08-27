@@ -3,8 +3,8 @@
  */
 package std.wlj.date.v2;
 
-import org.familysearch.standards.date.shared.ImperialDictionary;
-import org.familysearch.standards.date.shared.ImperialDictionary.Reign;
+import org.familysearch.standards.date.common.ImperialDictionary;
+import org.familysearch.standards.date.common.ImperialDictionary.Reign;
 
 /**
  * @author wjohnson000

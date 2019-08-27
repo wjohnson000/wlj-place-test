@@ -13,8 +13,7 @@ import org.familysearch.standards.core.lang.dict.Dictionary;
 import org.familysearch.standards.core.lang.dict.DictionaryFactory;
 import org.familysearch.standards.core.lang.dict.Word;
 import org.familysearch.standards.date.exception.GenDateException;
-//import org.familysearch.standards.date.shared.CacheDictionaryImpl;
-import org.familysearch.standards.date.shared.MonthDictionary;
+import org.familysearch.standards.date.common.MonthDictionary;
 
 /**
  * @author wjohnson000

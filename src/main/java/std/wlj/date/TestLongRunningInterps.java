@@ -6,10 +6,9 @@ package std.wlj.date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
 
 import std.wlj.date.v1.DateV1Shim;
 
@@ -112,7 +111,7 @@ public class TestLongRunningInterps {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text[1], StdLocale.makeLocale(text[0]), null, null, null);
+                dates02 = DateUtil.interpDate(text[1], text[0], null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }

@@ -14,9 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.InterpRequest;
-import org.familysearch.standards.date.model.DateResult;
+import org.familysearch.standards.date.api.DateRequest;
+import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.parser.GenDateParser;
 
 /**
@@ -52,7 +51,7 @@ public class TestDateV2Lots {
         for (int ndx=0;  ndx<datesToParse.size();  ndx+=skip) {
             try {
                 String dateToParse = datesToParse.get(ndx);
-                DateResult parseResult = parser.parse(new InterpRequest(dateToParse, StdLocale.ENGLISH));
+                DateResult parseResult = parser.parse(new DateRequest(dateToParse, "en"));
                 String genDates = parseResult.getDates().stream()
                         .map(res -> res.getDate().toGEDCOMX())
                         .collect(Collectors.joining(", ", "  [", "]"));

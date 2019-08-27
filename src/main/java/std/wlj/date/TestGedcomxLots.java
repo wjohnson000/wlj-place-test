@@ -8,8 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.GenDate;
+import org.familysearch.standards.date.common.DateUtil;
+import org.familysearch.standards.date.api.model.GenDate;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 /**

@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.model.GenSimpleDate;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.GenSimpleDate;
+import org.familysearch.standards.date.common.DateUtil;
 
 import std.wlj.date.v2.DMYGenSimpleDate;
 import std.wlj.date.v2.DMYGenSimpleDateLookup;

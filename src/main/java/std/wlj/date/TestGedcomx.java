@@ -3,8 +3,8 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.GenDate;
+import org.familysearch.standards.date.common.DateUtil;
+import org.familysearch.standards.date.api.model.GenDate;
 
 /**
  * @author wjohnson000

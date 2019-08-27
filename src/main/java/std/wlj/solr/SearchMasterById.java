@@ -22,13 +22,13 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsDevConnection(true);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:10924829");
+//        SolrQuery query = new SolrQuery("repId:440745");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
-//        SolrQuery query = new SolrQuery("repId:(2178307 7507799 10327110)");
+//        SolrQuery query = new SolrQuery("repId:(221 120)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");
@@ -36,6 +36,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("id:SOURCE");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("id:PLACE-TYPE");
+//        SolrQuery query = new SolrQuery("id:REP-RELATION");
 //        SolrQuery query = new SolrQuery("id:PLACE-889085");
 //        SolrQuery query = new SolrQuery("id:PLACE-*");
 //        SolrQuery query = new SolrQuery("!id:PLACE-* AND placeDeleteId:[1 TO *]");
@@ -53,9 +54,11 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-        SolrQuery query = new SolrQuery("names:canada*");
+//        SolrQuery query = new SolrQuery("names:canada*");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
+//        SolrQuery query = new SolrQuery("typeGroup:[1 TO *]");
+        SolrQuery query = new SolrQuery("startYear:[-4000 TO 4000]");
 //
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);

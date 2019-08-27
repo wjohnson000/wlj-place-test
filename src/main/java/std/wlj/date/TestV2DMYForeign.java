@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
 
 /**
  * @author wjohnson000
@@ -54,7 +53,7 @@ public class TestV2DMYForeign {
         long time0 = System.nanoTime();
         for (String text : textes) {
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(text, "en", null, null, null);
 
                 results.add("");
                 for (GenDateInterpResult date : dateResult.getDates()) {

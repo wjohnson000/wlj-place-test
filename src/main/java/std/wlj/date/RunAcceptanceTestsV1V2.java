@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.common.DateUtil;
 
 /**
  * @author wjohnson000
@@ -145,7 +145,7 @@ public class RunAcceptanceTestsV1V2 {
     static String interpDate(String text, StdLocale locale) throws GenDateException {
         StringBuilder buff = new StringBuilder();
 
-        DateResult dateResult = DateUtil.interpDate(text, locale, null, null, null);
+        DateResult dateResult = DateUtil.interpDate(text, String.valueOf(locale), null, null, null);
         if (dateResult.getDates().isEmpty()) {
             buff.append("|");
         } else if (dateResult.getDates().size() == 1) {

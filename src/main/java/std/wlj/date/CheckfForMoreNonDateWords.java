@@ -3,7 +3,6 @@
  */
 package std.wlj.date;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,7 +12,8 @@ import java.util.TreeSet;
 
 import org.familysearch.standards.core.lang.dict.Dictionary;
 import org.familysearch.standards.core.lang.dict.Word;
-import org.familysearch.standards.date.shared.ModifierDictionary;
+import org.familysearch.standards.date.common.ModifierDictionary;
+
 
 /**
  * @author wjohnson000

@@ -9,22 +9,22 @@ public class SolrManager {
     private static final String URL_LOCAL_HOST         = "http://localhost:8080/solr/places";
     private static final String URL_LOCAL_HOST_55      = "http://localhost:8080/solr-55/places";
 
-    private static final String AWS_URL_DEV55_MASTER   = "http://ws-55.solr.std.cmn.dev.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_DEV55_REPEATER = "http://ws-55.solr-repeater.std.cmn.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV55_MASTER   = "http://ws-55.solr.standards.service.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV55_REPEATER = "http://ws-55.solr-repeater.standards.service.dev.us-east-1.dev.fslocal.org/places";
 
-    private static final String AWS_URL_DEV_MASTER     = "http://ws.solr.std.cmn.dev.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_DEV_REPEATER   = "http://ws.solr-repeater.std.cmn.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV_MASTER     = "http://ws.solr.standards.service.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV_REPEATER   = "http://ws.solr-repeater.standards.service.dev.us-east-1.dev.fslocal.org/places";
 
-    private static final String AWS_URL_INT_MASTER     = "http://ws.solr.std.cmn.integ.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_INT_REPEATER   = "http://ws.solr-repeater.std.cmn.integ.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_INT_MASTER     = "http://ws.solr.standards.service.integ.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_INT_REPEATER   = "http://ws.solr-repeater.standards.service.integ.us-east-1.dev.fslocal.org/places";
 
-//    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.std.cmn.beta.us-east-1.test.fslocal.org/places";
-//    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.std.cmn.beta.us-east-1.test.fslocal.org/places";
-    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.std.cmn.beta.us-east-1.test.fslocal.org/places";
-    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.std.cmn.beta.us-east-1.test.fslocal.org/placess";
+//    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.standards.service.beta.us-east-1.test.fslocal.org/places";
+//    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.standards.service.beta.us-east-1.test.fslocal.org/places";
+    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.standards.service.beta.us-east-1.test.fslocal.org/places";
+    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.standards.service.beta.us-east-1.test.fslocal.org/places";
 
-    private static final String AWS_URL_PROD_MASTER    = "http://ws.solr.std.cmn.prod.us-east-1.prod.fslocal.org/places";
-    private static final String AWS_URL_PROD_REPEATER  = "http://ws.solr-repeater.std.cmn.prod.us-east-1.prod.fslocal.org/places";
+    private static final String AWS_URL_PROD_MASTER    = "http://ws.solr.standards.service.prod.us-east-1.prod.fslocal.org/places";
+    private static final String AWS_URL_PROD_REPEATER  = "http://ws.solr-repeater.standards.service.prod.us-east-1.prod.fslocal.org/places";
 
     // ============================================================================================
     // Methods to return a 'SolrConnection' instance

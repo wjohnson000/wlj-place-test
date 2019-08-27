@@ -3,11 +3,10 @@
  */
 package std.wlj.jira;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
 
 /**
  * @author wjohnson000
@@ -33,7 +32,7 @@ public class STD_89937 {
             System.out.println("================================================================================");
 
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(text,"en", null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  gx02: " + date.getDate().toGEDCOMX());
                 }

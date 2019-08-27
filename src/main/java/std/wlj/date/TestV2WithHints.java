@@ -10,11 +10,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.common.DateUtil;
 
 /**
  * @author wjohnson000
@@ -34,7 +33,7 @@ public class TestV2WithHints {
             System.out.println("\n" + text);
 
             try {
-                dates01 = DateUtil.interpDate(text, StdLocale.ENGLISH, "9999", null, null);
+                dates01 = DateUtil.interpDate(text,"en", "9999", null, null);
             } catch (Exception e) {
                 System.out.println("  V1.ext: " + e.getMessage());
             }
@@ -53,8 +52,8 @@ public class TestV2WithHints {
 
             results.add("");
             for (GenDateInterpResult date : dates01.getDates()) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-                results.add(text + "|Date|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
             }
             if (dates01.getDates().isEmpty()) {
                 System.out.println("  gx02: " + text + "|<none>|<none>");

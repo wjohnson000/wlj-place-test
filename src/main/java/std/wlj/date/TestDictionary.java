@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.familysearch.standards.core.lang.dict.Dictionary;
 import org.familysearch.standards.core.lang.dict.Word;
-import org.familysearch.standards.date.shared.MonthDictionary;
+import org.familysearch.standards.date.common.MonthDictionary;
 
 /**
  * @author wjohnson000

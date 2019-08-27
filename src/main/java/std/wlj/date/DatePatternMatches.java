@@ -3,16 +3,10 @@
  */
 package std.wlj.date;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.parser.handler.FrenchRepublicanHandler;
-import org.familysearch.standards.date.shared.ThreadLocalExperiment;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 
 /**
  * @author wjohnson000
@@ -105,15 +99,10 @@ public class DatePatternMatches {
     };
 
     public static void main(String... args) throws Exception {
-        ThreadLocalExperiment.set(new HashSet<>(Arrays.asList(FrenchRepublicanHandler.EXPERIMENT_ENABLE_V2)));
-        runTests();
-    }
-
-    static void runTests() throws Exception {
         for (String text : textes) {
             try {
                 System.out.println("\n============================================================\n" + text);
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(text, "en", null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  date: " + date.getDate().toGEDCOMX());
                 }

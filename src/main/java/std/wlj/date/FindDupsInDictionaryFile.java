@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.date.shared.MonthDictionary;
+import org.familysearch.standards.date.common.MonthDictionary;
 
 /**
  * @author wjohnson000

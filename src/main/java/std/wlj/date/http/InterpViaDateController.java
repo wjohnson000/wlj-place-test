@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.familysearch.standards.date.DateService;
-import org.familysearch.standards.date.DateServiceImpl;
+import org.familysearch.standards.date.api.DateService;
+import org.familysearch.standards.date.api.DateServiceImpl;
 import org.familysearch.standards.date.ws.controller.DatesController;
 import org.familysearch.standards.date.ws.model.Dates;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +49,7 @@ public class InterpViaDateController {
                 null,
                 null,
                 "legacy",
+                false,
                 "en",
                 null);
 

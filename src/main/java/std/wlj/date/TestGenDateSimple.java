@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.GenSimpleDate;
+import org.familysearch.standards.date.api.model.GenSimpleDate;
 
 /**
  * @author wjohnson000

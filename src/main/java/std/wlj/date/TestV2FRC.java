@@ -3,11 +3,10 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
 
 /**
  * @author wjohnson000
@@ -71,7 +70,7 @@ public class TestV2FRC {
         for (String text : textes) {
             System.out.println("\n" + text);
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.FRENCH, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(text, "fr", null, null, null);
                 for (GenDateInterpResult date : dateResult.getDates()) {
                     System.out.println("  gx02: " + date.getDate().toGEDCOMX());
                 }

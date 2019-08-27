@@ -4,8 +4,8 @@
 package std.wlj.date;
 
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.InterpRequest;
+import org.familysearch.standards.date.api.DateRequest;
+import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.parser.GenDateParser;
 
@@ -71,7 +71,7 @@ public class TestRangeHandler {
         System.out.println("Input: " + text);
 
         try {
-            DateResult dateResult = parser.parse(new InterpRequest(text, locale));
+            DateResult dateResult = parser.parse(new DateRequest(text, String.valueOf(locale)));
             for (int len=0;  len<dateResult.getDates().size();  len++) {
                 StringBuilder buff = new StringBuilder(64);
                 buff.append(text);

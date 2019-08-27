@@ -8,11 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 import java.nio.charset.StandardCharsets;
@@ -55,7 +54,7 @@ public class RunPatSchone {
                 String cleanDate = cleanInput(chunks[0]);
                 results.add("");
                 try {
-                    DateResult dateRes = DateUtil.interpDate(cleanDate, StdLocale.ENGLISH, null, null, null);
+                    DateResult dateRes = DateUtil.interpDate(cleanDate, "en", null, null, null);
                     if (dateRes == null) {
                         results.add(cleanDate + "|null");
                     } else if (dateRes.getDates().isEmpty()) {
@@ -69,7 +68,7 @@ public class RunPatSchone {
                     } else {
                         results.add(cleanDate);
                         for (GenDateInterpResult genDate : dateRes.getDates()) {
-                            results.add("|" + genDate.getDate().toGEDCOMX() + "|" + genDate.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                            results.add("|" + genDate.getDate().toGEDCOMX() + "|" + genDate.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
                         }
                     }
                 } catch (Exception e) {

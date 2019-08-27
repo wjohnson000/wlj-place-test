@@ -4,7 +4,7 @@
 package std.wlj.date;
 
 import org.familysearch.standards.date.gedcomx.GedcomXGenPeriod;
-import org.familysearch.standards.date.model.GenPeriod;
+import org.familysearch.standards.date.api.model.GenPeriod;
 
 /**
  * @author wjohnson000

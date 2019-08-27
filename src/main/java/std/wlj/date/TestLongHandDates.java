@@ -6,11 +6,10 @@ package std.wlj.date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.common.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.Metadata;
 
 /**
  * @author wjohnson000
@@ -23,13 +22,13 @@ public class TestLongHandDates {
         for (String text : textes) {
 
             try {
-                DateResult dateRes = DateUtil.interpDate(text, StdLocale.ENGLISH, null, null, null);
+                DateResult dateRes = DateUtil.interpDate(text, "en", null, null, null);
                 System.out.println("\n" + text);
                 if (dateRes.getDates().isEmpty()) {
                     System.out.println("    <none>|<none>");
                 } else {
                     for (GenDateInterpResult date : dateRes.getDates()) {
-                        System.out.println("    " + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
+                        System.out.println("    " + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
                     }
                 }
             } catch (Exception e) {

@@ -3,11 +3,10 @@
  */
 package std.wlj.date;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 /**
@@ -101,7 +100,7 @@ public class TestV2KO {
         for (String text : textesOK) {
             String[] chunks = PlaceHelper.split(text, '|');
             try {
-                DateResult dateResult = DateUtil.interpDate(chunks[0], StdLocale.KOREAN, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(chunks[0], "ko", null, null, null);
                 
                 System.out.println("\n" + chunks[0] + " [" + chunks[1] + "]");
                 for (GenDateInterpResult date : dateResult.getDates()) {

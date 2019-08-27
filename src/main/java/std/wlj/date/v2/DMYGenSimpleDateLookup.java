@@ -10,9 +10,10 @@ import java.util.regex.Pattern;
 import org.familysearch.standards.core.lang.dict.Dictionary;
 import org.familysearch.standards.core.lang.dict.Word;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.GenSimpleDate;
-import org.familysearch.standards.date.shared.MonthDictionary;
-import org.familysearch.standards.date.shared.SharedUtil;
+import org.familysearch.standards.date.api.model.GenSimpleDate;
+import org.familysearch.standards.date.common.Constants;
+import org.familysearch.standards.date.common.MonthDictionary;
+
 
 /**
  * @author wjohnson000
@@ -40,7 +41,7 @@ public class DMYGenSimpleDateLookup {
             String monName = m.group(2);
             List<Word> months = monthDict.findWords(monName);
             Word month = months.stream()
-                    .filter(word -> word.getTypes().contains(SharedUtil.TYPE_MONTH))
+                    .filter(word -> word.getTypes().contains(Constants.TYPE_MONTH))
                     .findFirst().orElse(null);
             if (month != null) {
                 String monNumX = month.getTypes().stream()

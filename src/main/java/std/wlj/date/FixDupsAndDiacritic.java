@@ -12,7 +12,7 @@ import java.util.TreeSet;
 import org.familysearch.standards.core.LocalizedData;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.core.lang.TextUtil;
-import org.familysearch.standards.date.shared.MonthDictionary;
+import org.familysearch.standards.date.common.MonthDictionary;
 
 /**
  * @author wjohnson000

@@ -3,17 +3,15 @@
  */
 package std.wlj.date;
 
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
-import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 
 /**
  * @author wjohnson000
@@ -70,7 +68,7 @@ public class TestDateLots {
         for (String text : textes) {
 
             try {
-                DateResult dateResult = DateUtil.interpDate(text, StdLocale.CHINESE, null, null, null);
+                DateResult dateResult = DateUtil.interpDate(text, "zh", null, null, null);
 
                 System.out.println("\n" + text);
                 for (GenDateInterpResult date : dateResult.getDates()) {

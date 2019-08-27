@@ -13,16 +13,15 @@ import org.familysearch.standards.date.DateDetail;
 import org.familysearch.standards.date.DateInterpretation;
 import org.familysearch.standards.date.DateRange;
 import org.familysearch.standards.date.DisjunctiveDate;
-import org.familysearch.standards.date.model.GenDate;
-import org.familysearch.standards.date.model.GenDateInterpResult;
-import org.familysearch.standards.date.model.GenRangeDate;
-import org.familysearch.standards.date.model.GenSimpleDate;
 import org.familysearch.standards.date.GenealogicalDateImpl;
 import org.familysearch.standards.date.SimpleDate;
+import org.familysearch.standards.date.api.model.GenDate;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.GenRangeDate;
+import org.familysearch.standards.date.api.model.GenSimpleDate;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.exception.GenDateParseException;
 import org.familysearch.standards.date.parser.GenDateToken;
-import org.familysearch.standards.date.shared.SharedUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +62,8 @@ public class DateV1Shim {
     }
 
 
-    public static List<org.familysearch.standards.date.model.GenDateInterpResult> interpDate(String originalText) throws GenDateException {
-        List<org.familysearch.standards.date.model.GenDateInterpResult>   interps = new ArrayList<>();
+    public static List<org.familysearch.standards.date.api.model.GenDateInterpResult> interpDate(String originalText) throws GenDateException {
+        List<org.familysearch.standards.date.api.model.GenDateInterpResult>   interps = new ArrayList<>();
         List<GenDate>               dates = new ArrayList<>();
 
         GenealogicalDate gd = GenealogicalDate.getInstance(originalText);
@@ -94,17 +93,10 @@ public class DateV1Shim {
         }
         for (int i = 0; i < dates.size(); i++) {
             GenDate               date;
-            GenealogicalDate      oldDate = null;
             GenDateInterpResult   result;
 
             date = dates.get(i);
-            if (gdList.size() > i) {
-                oldDate = gdList.get(i);
-            }
             result = new GenDateInterpResult(originalText, null, date);
-            if (oldDate != null) {
-                result.setAttr(SharedUtil.ATTR_V1_FULLY_NORMALIZED, oldDate.isFullyNormalized());
-            }
             interps.add(result);
         }
 

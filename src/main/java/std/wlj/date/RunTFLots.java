@@ -11,9 +11,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.GenDateInterpResult;
+import org.familysearch.standards.date.api.model.GenDateInterpResult;
+import org.familysearch.standards.date.common.DateUtil;
 
 /**
  * @author wjohnson000
@@ -52,7 +52,7 @@ public class RunTFLots {
 
     static List<GenDateInterpResult> interpDate(String text) {
         try {
-            return DateUtil.interpDate(text, StdLocale.UNDETERMINED, null, null, null).getDates();
+            return DateUtil.interpDate(text, StdLocale.UNDETERMINED.getLocaleAsString(), null, null, null).getDates();
         } catch (GenDateException e) {
             return Collections.emptyList();
         }

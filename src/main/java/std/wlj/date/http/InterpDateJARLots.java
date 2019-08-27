@@ -11,10 +11,9 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.familysearch.standards.core.StdLocale;
-import org.familysearch.standards.date.DateUtil;
+import org.familysearch.standards.date.api.model.DateResult;
+import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.date.exception.GenDateException;
-import org.familysearch.standards.date.model.DateResult;
 
 /**
  * @author wjohnson000
@@ -34,7 +33,7 @@ public class InterpDateJARLots {
         long timeA = System.nanoTime();
         for (String dateStr : dateText) {
             long time0 = System.nanoTime();
-            DateResult dateRes = DateUtil.interpDate(dateStr, StdLocale.ENGLISH, null, null, null);
+            DateResult dateRes = DateUtil.interpDate(dateStr, "en", null, null, null);
             long time1 = System.nanoTime();
             timeX += (time1 - time0);
 
