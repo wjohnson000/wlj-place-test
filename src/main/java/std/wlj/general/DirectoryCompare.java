@@ -254,13 +254,13 @@ public class DirectoryCompare {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-//        compareRegular();
-        comparePlaceVs55();
+        compareRegular();
+//        comparePlaceVs55();
     }
 
     static void compareRegular() {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-place";
-        String fileTwo = "C:/Users/wjohnson000/git/std-ws-place-55";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-cv";
+        String fileTwo = "C:/Users/wjohnson000/git/temp/std-ws-cv";
 
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;

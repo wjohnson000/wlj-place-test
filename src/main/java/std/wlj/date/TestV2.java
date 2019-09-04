@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 //import java.util.stream.Collectors;
 
+import org.familysearch.standards.date.api.model.DateMetadata;
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
 import org.familysearch.standards.date.common.DateUtil;
 
 import std.wlj.date.v1.DateV1Shim;
@@ -55,12 +55,12 @@ public class TestV2 {
 
             results.add("");
             for (GenDateInterpResult date : dates01) {
-                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gx01: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 1.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             for (GenDateInterpResult date : dates02.getDates()) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02.getDates().isEmpty()) {
                 System.out.println("  gx02: " + text + "|<none>|<none>");
@@ -735,7 +735,7 @@ public class TestV2 {
 //        textes.add("07 VT AN08");
 //        textes.add("07 VENT AN08");
 //        textes.add("07 Germinal AN08");
-//        textes.add("07 GE AN08");
+//        textes.add("07 GR AN08");
 //        textes.add("07 GER AN08");
 //        textes.add("07 GERM AN08");
 //        textes.add("07 Floréal AN08");
@@ -747,11 +747,11 @@ public class TestV2 {
 //        textes.add("07 PRA AN08");
 //        textes.add("07 PRAI AN08");
 //        textes.add("07 Messidor AN08");
-//        textes.add("07 ME AN08");
+//        textes.add("07 MS AN08");
 //        textes.add("07 MES AN08");
 //        textes.add("07 MESS AN08");
 //        textes.add("07 Thermidor AN08");
-//        textes.add("07 TH AN08");
+//        textes.add("07 TR AN08");
 //        textes.add("07 THE AN08");
 //        textes.add("07 THER AN08");
 //        textes.add("07 Fervidor AN08");
@@ -830,7 +830,12 @@ public class TestV2 {
 //
 //        textes.add("民國二十四年七月二十一日");
 //        textes.add("民國乙亥年七月二十一日");
-        textes.add("民國二十四年乙亥年七月二十一日");
+//        textes.add("民國二十四年乙亥年七月二十一日");
+
+        textes.add("0010");
+        textes.add("0005 - 0010");
+        textes.add("0005 BC - 0010");
+        textes.add("0005 BC - 0010 AD");
 
         return textes;
     }

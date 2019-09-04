@@ -14,12 +14,13 @@
     	<std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
 		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
 		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
-        <std.lib.date.version>2.4.0.b30</std.lib.date.version>
+        <std.lib.date.version>2.4.0-SNAPSHOT</std.lib.date.version>
         <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
 		<std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
 		<std.ws.place.version>2.1.0-SNAPSHOT</std.ws.place.version>
 		<std.ws.date.version>2.3.0-SNAPSHOT</std.ws.date.version>
+		<std.ws.cv.version>1.1-SNAPSHOT</std.ws.cv.version>
 		<std.lib.client.util.version>1.0.0-SNAPSHOT</std.lib.client.util.version>
 		<std.ws.nameseg.version>1.1.b217</std.ws.nameseg.version>
 
@@ -224,6 +225,7 @@
             <artifactId>std-lib-client-util-date</artifactId>
             <version>1.0.0.b7</version>
         </dependency>
+
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>

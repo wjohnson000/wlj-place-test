@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.familysearch.standards.date.api.model.DateMetadata;
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
 import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.place.util.PlaceHelper;
 
@@ -68,7 +68,7 @@ public class RunPatSchone {
                     } else {
                         results.add(cleanDate);
                         for (GenDateInterpResult genDate : dateRes.getDates()) {
-                            results.add("|" + genDate.getDate().toGEDCOMX() + "|" + genDate.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                            results.add("|" + genDate.getDate().toGEDCOMX() + "|" + genDate.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
                         }
                     }
                 } catch (Exception e) {

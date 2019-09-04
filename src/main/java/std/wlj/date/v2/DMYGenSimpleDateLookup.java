@@ -11,7 +11,7 @@ import org.familysearch.standards.core.lang.dict.Dictionary;
 import org.familysearch.standards.core.lang.dict.Word;
 import org.familysearch.standards.date.exception.GenDateException;
 import org.familysearch.standards.date.api.model.GenSimpleDate;
-import org.familysearch.standards.date.common.Constants;
+import org.familysearch.standards.date.common.DateAPIConstants;
 import org.familysearch.standards.date.common.MonthDictionary;
 
 
@@ -41,7 +41,7 @@ public class DMYGenSimpleDateLookup {
             String monName = m.group(2);
             List<Word> months = monthDict.findWords(monName);
             Word month = months.stream()
-                    .filter(word -> word.getTypes().contains(Constants.TYPE_MONTH))
+                    .filter(word -> word.getTypes().contains(DateAPIConstants.TYPE_MONTH))
                     .findFirst().orElse(null);
             if (month != null) {
                 String monNumX = month.getTypes().stream()

@@ -13,7 +13,7 @@ import java.util.List;
 import org.familysearch.standards.date.api.DateRequest;
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.api.model.DateMetadata;
 import org.familysearch.standards.date.common.DateUtil;
 
 /**
@@ -45,28 +45,28 @@ public class TestV2InputFormatHint {
 
             results.add("");
             for (GenDateInterpResult date : dates02A.getDates()) {
-                results.add(text + "|---|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|---|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02A.getDates().isEmpty()) {
                 results.add(text + "|---|<none>|<none>");
             }
 
             for (GenDateInterpResult date : dates02B.getDates()) {
-                results.add(text + "|mdy|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|mdy|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02B.getDates().isEmpty()) {
                 results.add(text + "|mdy|<none>|<none>");
             }
 
             for (GenDateInterpResult date : dates02C.getDates()) {
-                results.add(text + "|dmy|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|dmy|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02C.getDates().isEmpty()) {
                 results.add(text + "|dmy|<none>|<none>");
             }
 
             for (GenDateInterpResult date : dates02D.getDates()) {
-                results.add(text + "|ymd|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                results.add(text + "|ymd|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02D.getDates().isEmpty()) {
                 results.add(text + "|ymd|<none>|<none>");

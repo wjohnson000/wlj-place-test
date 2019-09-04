@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.api.model.DateMetadata;
 import org.familysearch.standards.date.common.DateUtil;
 
 /**
@@ -59,32 +59,32 @@ public class TestV2CJK {
 
             results.add("");
             for (GenDateInterpResult date : datesEn.getDates()) {
-                System.out.println("  gxEN: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|en|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gxEN: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|en|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (datesEn.getDates().isEmpty()) {
                 System.out.println("  gxEN: " + text + "|<none>|<none>");
                 results.add(text + "|en|Date 2.0|<none>|<none>");
             }
             for (GenDateInterpResult date : datesZh.getDates()) {
-                System.out.println("  gxZH: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|zh|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gxZH: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|zh|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (datesZh.getDates().isEmpty()) {
                 System.out.println("  gxZH: " + text + "|<none>|<none>");
                 results.add(text + "|zh|Date 2.0|<none>|<none>");
             }
             for (GenDateInterpResult date : datesJa.getDates()) {
-                System.out.println("  gxJA: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|ja|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gxJA: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|ja|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (datesJa.getDates().isEmpty()) {
                 System.out.println("  gxJA: " + text + "|<none>|<none>");
                 results.add(text + "|ja|Date 2.0|<none>|<none>");
             }
             for (GenDateInterpResult date : datesKo.getDates()) {
-                System.out.println("  gxKO: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|ko|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gxKO: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|ko|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (datesKo.getDates().isEmpty()) {
                 System.out.println("  gxKO: " + text + "|<none>|<none>");

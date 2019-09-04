@@ -9,7 +9,7 @@ import java.util.List;
 import org.familysearch.standards.date.common.DateUtil;
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.api.model.DateMetadata;
 
 /**
  * @author wjohnson000
@@ -28,7 +28,7 @@ public class TestLongHandDates {
                     System.out.println("    <none>|<none>");
                 } else {
                     for (GenDateInterpResult date : dateRes.getDates()) {
-                        System.out.println("    " + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                        System.out.println("    " + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
                     }
                 }
             } catch (Exception e) {

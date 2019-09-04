@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.familysearch.standards.date.api.model.DateResult;
 import org.familysearch.standards.date.api.model.GenDateInterpResult;
-import org.familysearch.standards.date.api.model.Metadata;
+import org.familysearch.standards.date.api.model.DateMetadata;
 import org.familysearch.standards.date.common.DateUtil;
 
 /**
@@ -52,8 +52,8 @@ public class TestV2WithHints {
 
             results.add("");
             for (GenDateInterpResult date : dates01.getDates()) {
-                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
-                results.add(text + "|Date|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(Metadata.ATTR_MATCH_TYPE));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Date|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates01.getDates().isEmpty()) {
                 System.out.println("  gx02: " + text + "|<none>|<none>");
