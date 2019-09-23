@@ -22,7 +22,7 @@ import std.wlj.util.SolrManager;
  * @author wjohnson000
  *
  */
-public class RunInterpretation {
+public class RunInterpretationPlaceHint {
 
     public static void main(String... args) throws PlaceDataException, IOException {
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.7.1");
@@ -32,23 +32,26 @@ public class RunInterpretation {
         PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );
 
         // Seed the process
-        doIt(placeService, 0, "en", "US Alabama", false, false);
-        doIt(placeService, 0, "en", "Alabama", false, false);
-        doIt(placeService, 0, "en", "US-Alabama", false, false);
-        doIt(placeService, 0, "en", "US, Alabama", false, false);
-        doIt(placeService, 0, "en", "US Kaput Bloomington, Indiana", false, false);
-
+//        doIt(placeService, 0, "en", "Aberdeen");
+        doIt(placeInterpService, 0, "en", "Aberdeen", 363);
 
         solrService.shutdown();
         System.exit(0);
     }
 
-    static void doIt(PlaceService placeService, int ndx, String locale, String name, boolean filterRequests, boolean isPartial) {
+    static void doIt(PlaceService placeService, int ndx, String locale, String name, int... placeHint) {
         try {
             PlaceRequestBuilder builder = placeService.createRequestBuilder(name, new StdLocale(locale));
             builder.setShouldCollectMetrics(true);
-            builder.setFilterResults(filterRequests);
-            builder.setPartialInput(isPartial);
+            if (placeHint != null) {
+                for (int id : placeHint) {
+                    PlaceRepresentation placeRep = placeService.getPlaceRepresentation(id);
+                    System.out.println("ID: " + id + " --> " + placeRep);
+                    if (placeRep != null) {
+                        builder.addPlaceHint(placeRep);
+                    }
+                }
+            }
 
             long timeAA = System.nanoTime();
             PlaceRequest request = builder.getRequest();

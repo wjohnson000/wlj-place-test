@@ -22,13 +22,13 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
+        SolrConnection solrConn = SolrManager.awsDevConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:440745");
+//        SolrQuery query = new SolrQuery("repId:221");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
-//        SolrQuery query = new SolrQuery("repId:(221 120)");
+        SolrQuery query = new SolrQuery("repId:(3842614 2242481)");
 //        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");
@@ -58,7 +58,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
 //        SolrQuery query = new SolrQuery("typeGroup:[1 TO *]");
-        SolrQuery query = new SolrQuery("startYear:[-4000 TO 4000]");
+//        SolrQuery query = new SolrQuery("startYear:[-4000 TO 4000]");
 //
 //        Calendar cnow = Calendar.getInstance();
 //        cnow.add(Calendar.HOUR_OF_DAY, -1);
@@ -101,7 +101,7 @@ public class SearchMasterById {
             doc.getCitations().stream().limit(MAX_ROWS).forEach(citn -> System.out.println("    Citn: " + citn));
             doc.getAltJurisdictions().stream().limit(MAX_ROWS).forEach(altJuris -> System.out.println("    AltJ: " + altJuris));
             doc.getExtXrefs().stream().limit(MAX_ROWS).forEach(xref -> System.out.println("    Xref: " + xref));
-            doc.getAppData().stream().limit(MAX_ROWS).forEach(appData -> System.out.println("    AppD: " + appData));
+            doc.getAppData().stream().limit(MAX_ROWS*1000).forEach(appData -> System.out.println("    AppD: " + appData));
 
             for (AttributeBridge ab : doc.getAllAttributes()) {
                 System.out.println("AB: " + ab.getAttributeId() + " -> " + ab.getUrl() + " -> " + ab.getUrlTitle() + " --> " + ab.getTitle());
@@ -109,8 +109,8 @@ public class SearchMasterById {
         }
         System.out.println("CNT: " + docs.size());
 
-        String json = POJOMarshalUtil.toJSON(docs.get(0));
-        System.out.println("\n\nJSON\n: " + json);
+//        String json = POJOMarshalUtil.toJSON(docs.get(0));
+//        System.out.println("\n\nJSON\n: " + json);
 //        for (PlaceRepDoc doc : docs) {
 //            String dispName = doc.getDisplayName("en");
 //            if (dispName == null) dispName = doc.getDisplayName(doc.getPrefLocale());
