@@ -15,8 +15,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.familysearch.standards.date.api.DateRequest;
+import org.familysearch.standards.date.api.DateService;
+import org.familysearch.standards.date.api.DateServiceImpl;
 import org.familysearch.standards.date.api.model.DateResult;
-import org.familysearch.standards.date.parser.GenDateParser;
 
 /**
  * @author wjohnson000
@@ -24,17 +25,23 @@ import org.familysearch.standards.date.parser.GenDateParser;
  */
 public class TestDateV2Lots {
 
-    private static final int NUM_THREADS = 1; // 24;
+    private static final int NUM_THREADS = 2; // 24;
     private static final ExecutorService exSvc = Executors.newFixedThreadPool(NUM_THREADS+1);
     private static final List<String> results = new ArrayList<>(200_000);
 
     public static void main(String...arg) throws Exception {
-        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/date-interp.txt"), StandardCharsets.UTF_8);
+        List<String> datesToUse;
+        List<String> datesToParse = Files.readAllLines(Paths.get("C:/temp/date-samples/pat-schone-dates.txt"), StandardCharsets.UTF_8);
+        if (datesToParse.size() <= 500_000) {
+            datesToUse = datesToParse;
+        } else {
+            datesToUse = datesToParse.subList(0, 500_000);
+        }
 
         long time0 = System.nanoTime();
         for (int i=0;  i<NUM_THREADS;  i++) {
             final int blah = i;
-            exSvc.submit(() -> runLots(datesToParse, 2+blah/5));
+            exSvc.submit(() -> runLots(datesToUse, 2+blah/5));
         }
 
         exSvc.shutdown();
@@ -46,16 +53,23 @@ public class TestDateV2Lots {
     }
 
     static void runLots(List<String> datesToParse, int skip) {
-        GenDateParser parser = new GenDateParser();
+        DateService dateService = new DateServiceImpl();
 
         for (int ndx=0;  ndx<datesToParse.size();  ndx+=skip) {
             try {
                 String dateToParse = datesToParse.get(ndx);
-                DateResult parseResult = parser.parse(new DateRequest(dateToParse, "en"));
+                int ndxTab = dateToParse.indexOf('\t');
+                if (ndxTab > 0) {
+                    dateToParse = dateToParse.substring(0, ndxTab);
+                }
+
+                DateResult parseResult = dateService.interpDate(new DateRequest(dateToParse, "en"));
                 String genDates = parseResult.getDates().stream()
                         .map(res -> res.getDate().toGEDCOMX())
                         .collect(Collectors.joining(", ", "  [", "]"));
                 results.add(dateToParse + "|false|" + genDates);
+
+                Thread.sleep(10L);
             } catch(Exception ex) { }
         }
     }

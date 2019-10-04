@@ -16,6 +16,15 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 /**
+ * Parse the results of querying a Wikipedia page, with the intent of extracting the first two
+ * paragraphs of *real* data.
+ * <p/>
+ * 
+ * The Wikipedia's ".../w/api.php?action=query" utility is used to get the raw page contents rather
+ * than hitting the page directly.  The associated ".../w/api.php?action=expandtemplates" utility
+ * is used to expand templates of the form "{{xxx:yyy}}" to resolve them into plain text.  Many of
+ * the templates are simple enough that they are resolved here, without resorting to Wikipedia.
+ * 
  * @author wjohnson000
  *
  */
@@ -71,6 +80,10 @@ public final class WikiQueryHandler {
         return (ndx == -1) ? wikiURL : wikiURL.substring(0, ndx);
     }
 
+    /**
+     * Set the "queryURL" (used to get the raw text of the page) and "templateURL" (used to expand
+     * Wiki templates), based on the wikipedia URL.
+     */
     protected void setUrls() {
         Matcher matcher = wikiPattern.matcher(wikiURL);
         if (matcher.matches()) {
@@ -129,6 +142,7 @@ public final class WikiQueryHandler {
 
         tText = unencodeHtml(tText);
         tText = handleRemovals(tText);
+        tText = handleNoInclude(tText);
         tText = handleTables(tText);
         tText = handleInfobox(tText);
         tText = handleCurlyBraceSections(tText);
@@ -148,10 +162,22 @@ public final class WikiQueryHandler {
             .collect(Collectors.toList());
     }
 
+    /**
+     * Unencode the HTML characters, converting them to plain text.
+     * 
+     * @param text input text, which could contain encoded HTML characters
+     * @return text without the encoded HTML characters
+     */
     protected String unencodeHtml(String text) {
         return StringEscapeUtils.unescapeHtml(text);
     }
 
+    /**
+     * Remove any text that shouldn't appear in the results.
+     * 
+     * @param text input text
+     * @return text without the undesirable text
+     */
     protected String handleRemovals(String text) {
         String tText = text;
         for (String remove : REMOVE_TEXT) {
@@ -165,6 +191,40 @@ public final class WikiQueryHandler {
         return tText;
     }
 
+    /**
+     * Remove any text between pairs of "&lt;noinclude&gt;" and "&lt;/noinclude&gt;" tags.
+     *  
+     * @param text input text
+     * @return text with the "noinclude" sections removed
+     */
+    protected String handleNoInclude(String text) {
+        String tText = text;
+        StringBuilder buff = new StringBuilder();
+
+        int ndx0 = tText.toUpperCase().indexOf("<NOINCLUDE");
+        while (ndx0 >= 0) {
+            int ndx1 = tText.toUpperCase().indexOf("</NOINCLUDE>", ndx0);
+            buff.append((ndx0 == 0) ? "" : tText.substring(0, ndx0));
+            if (ndx1+12 > tText.length()) {
+                tText = "";
+            } else {
+                tText = tText.substring(ndx1+12);
+            }
+
+            ndx0 = tText.toUpperCase().indexOf("<NOINCLUDE");
+        }
+        buff.append(tText);
+
+        return buff.toString();
+    }
+
+    /**
+     * Remove any text between pairs of "&lt;table&gt;" and "&lt;/table&gt;" tags.  This handles
+     * single tables and nested tables.
+     *  
+     * @param text input text
+     * @return text with the "table" sections removed
+     */
     protected String handleTables(String text) {
         String tText = text;
         StringBuilder buff = new StringBuilder();
@@ -186,11 +246,25 @@ public final class WikiQueryHandler {
         return buff.toString();
     }
 
+    /**
+     * Remove all text before the "{{infobox" tag, while leaving the "{{infobox" in.
+     *  
+     * @param text input text
+     * @return text after the "{{infobox ..." tag
+     */
     protected String handleInfobox(String text) {
         int begBrace = text.toUpperCase().indexOf("{{INFOBOX");
-        return (begBrace <= 1) ? text : text.substring(begBrace-1);
+        return (begBrace <= 1) ? text : text.substring(begBrace);
     }
 
+    /**
+     * Remove any text between pairs of "{{xxxxx" and "}}" tags.  NOTE: it's important to pair
+     * the proper closing "}}" with the correct opening "{{xxxxx" tag, since there could be other
+     * "{{yyyyy" tags intervening.
+     *  
+     * @param text input text
+     * @return text with the curly-brace sections removed
+     */
     protected String handleCurlyBraceSections(String text) {
         String tText = text;
 
@@ -229,6 +303,13 @@ public final class WikiQueryHandler {
         return tText.trim();
     }
 
+    /**
+     * Remove any text between pairs of "{|" and "|}" tags.  NOTE: generally these aren't nested, so
+     * the logic is more straight-forward.
+     *  
+     * @param text input text
+     * @return text with the curly-brace+pipe sections removed
+     */
     protected String handleCurlyBraceAndPipe(String text) {
         String tText = text;
         StringBuilder buff = new StringBuilder();
@@ -250,10 +331,29 @@ public final class WikiQueryHandler {
         return buff.toString();
     }
 
+    /**
+     * Remove all triple single quotes ("'''") and all pairs of single quotes ("''").
+     * @param text input text
+     * @return text with double and triple single quotes removed
+     */
     protected String handleMultipleQuotes(String text) {
         return text.replaceAll("'''", "").replaceAll("''", "").trim();
     }
 
+    /**
+     * Expand some common templates, including:
+     * <ul>
+     *   <li>{{convert: ...}</li> - convert between units, such as miles to KM
+     *   <li>{{coord: ...}</li> - convert lat/long into user-friendly format
+     *   <li>{{formatnum: ...}</li> - convert number inf user-friendly format
+     *   <li>{{wikidata: ...}</li> - use the "templateURL" for the wiki to convert the data
+     *   <li>{{LANG-: ...}</li> - use the first two of the pipe-delimted values
+     *   <li>{{km2-: ...}</li> - convert area (km-squared) into user-friendly format
+     *   <li>{{arrondissement-: ...}</li> - convert French "arrondissement" into user-friend format
+     * </ul>
+     * @param text
+     * @return
+     */
     protected String extractCurlyBraceText(String text) {
         String result = "";
 
@@ -279,6 +379,12 @@ public final class WikiQueryHandler {
         return result;
     }
 
+    /**
+     * For the "{{convert" tag, pull the second and third of the pipe-delimited values
+     * 
+     * @param text formatted text
+     * @return user-friendly format
+     */
     protected String extractConvert(String text) {
         String[] chunks = PlaceHelper.split(text, '|');
         if (chunks.length > 2) {
@@ -288,6 +394,12 @@ public final class WikiQueryHandler {
         }
     }
 
+    /**
+     * For the "{{formatnum" tag, pull the second of the pipe-delimited values
+     * 
+     * @param text formatted text
+     * @return user-friendly format
+     */
     protected String extractNumber(String text) {
         String[] chunks = PlaceHelper.split(text, ':');
         if (chunks.length > 1) {
@@ -297,6 +409,14 @@ public final class WikiQueryHandler {
         }
     }
 
+    /**
+     * For the "{{coord" tag, look for N, S, E, W and degree, minute and second values.  The raw
+     * text will look something like "{{Coord|0|20|N|6|44|E|type:city}}", which will be converted
+     * to "1°N 7°E" (after rounding).
+     * 
+     * @param text formatted text raw data
+     * @return user-friendly format for coordinates (lat/long)
+     */
     protected String extractCoords(String text) {
         StringBuilder buff = new StringBuilder();
 
@@ -320,6 +440,13 @@ public final class WikiQueryHandler {
         return buff.toString().trim();
     }
 
+    /**
+     * Extract text from double square brace sections, such as "[[Angolar language|Angolar]]" or
+     * "[[Portugal]]".
+     * 
+     * @param text input text
+     * @return text with double square brace sections revolved to user-friendly text.
+     */
     protected String handleSquareBraceSections(String text) {
         String tText = text;
 
@@ -350,6 +477,13 @@ public final class WikiQueryHandler {
         return tText.trim();
     }
 
+    /**
+     * Pull the text from a double-square brace section.  The text will be pipe-delimited: if there is
+     * one value, return it.  If there are two values, return the second value.
+     * 
+     * @param text text from within a double-square brace section.
+     * @return user-friendly text
+     */
     protected String extractSquareBraceText(String text) {
         String[] chunks = PlaceHelper.split(text, '|');
         if (chunks.length == 1) {
@@ -361,6 +495,12 @@ public final class WikiQueryHandler {
         }
     }
 
+    /**
+     * Remove any text between pairs of "&lt;ref&gt;" and "&lt;/ref&gt;" tags.
+     *  
+     * @param text input text
+     * @return text with the "ref" sections removed
+     */
     protected String handleRefSections(String text) {
         String tText = text;
         StringBuilder buff = new StringBuilder();
@@ -379,6 +519,8 @@ public final class WikiQueryHandler {
                 } else {
                     tText = tText.substring(ndx2+6);
                 }
+            } else {
+                tText = tText.substring(0, ndx0);
             }
 
             ndx0 = tText.toUpperCase().indexOf("<REF");
@@ -388,6 +530,12 @@ public final class WikiQueryHandler {
         return buff.toString();
     }
 
+    /**
+     * Remove all HTTP comments
+     *  
+     * @param text input text
+     * @return text with the HTTP comments removed
+     */
     protected String handleHttpCommentsSections(String text) {
         String tText = text;
         StringBuilder buff = new StringBuilder();
@@ -409,10 +557,22 @@ public final class WikiQueryHandler {
         return buff.toString();
     }
 
+    /**
+     * Remove any empty parenthesis, i.e., "()" becomes "".
+     * 
+     * @param text input text
+     * @return text without any empty parentheses
+     */
     protected String handleEmptyParenthesis(String text) {
         return text.replaceAll("\\(\\)", "");
     }
 
+    /**
+     * Call the wiki API to expand an embedded template.
+     * 
+     * @param text wiki-understandable template
+     * @return user-friendly expansion of the template
+     */
     protected String expandTemplate(String text) {
         String wikitextUrl = templateURL + "%7B%7B" + text.replace(' ', '_') + "%7D%7D";
         String wikitext = saxHandler.parseWikiSAX(wikitextUrl);

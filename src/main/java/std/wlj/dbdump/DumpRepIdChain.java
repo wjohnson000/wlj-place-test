@@ -93,21 +93,21 @@ public class DumpRepIdChain {
         DataSource ds = DbConnectionManager.getDataSourceAwsDev();
         
         time0 = System.nanoTime();
-        seedPlaceChain(ds, QUERY_THREE_NEW_A, QUERY_THREE_NEW_B);
+        seedPlaceChain(ds, QUERY_THREE_NEW_A, QUERY_THREE_NEW_B);  // Slowest [maybe because it's first] -- same results as others
         time1 = System.nanoTime();
         System.out.println("Time: " + (time1-time0)/1_000_000.0);
         System.out.println("Size: " + placeRepChainMap.size());
         dumpChain("C:/temp/chain-03-three-ab.txt");
         
         time0 = System.nanoTime();
-        seedPlaceChain(ds, QUERY_ONE_OLD_A, QUERY_ONE_OLD_B);
+        seedPlaceChain(ds, QUERY_ONE_OLD_A, QUERY_ONE_OLD_B);  // Fast -- same results as others
         time1 = System.nanoTime();
         System.out.println("Time: " + (time1-time0)/1_000_000.0);
         System.out.println("Size: " + placeRepChainMap.size());
         dumpChain("C:/temp/chain-01-one-ab.txt");
 
         time0 = System.nanoTime();
-        seedPlaceChain(ds, QUERY_ONE_OLD);
+        seedPlaceChain(ds, QUERY_ONE_OLD);  // Fast -- same results as others
         time1 = System.nanoTime();
         System.out.println("Time: " + (time1-time0)/1_000_000.0);
         System.out.println("Size: " + placeRepChainMap.size());

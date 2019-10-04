@@ -836,21 +836,25 @@ public class TestV2 {
 //        textes.add("0005 - 0010");
 //        textes.add("0005 BC - 0010");
 //        textes.add("0005 BC - 0010 AD");
+//
+//        textes.add("22 Feb/5 Mar 1752/3");
+//        textes.add("Sept 3/14, 1752");
+//        textes.add("10/21 Feb 1759/60");
+//        textes.add("1 Mar 1759/60");
+//        textes.add("1733/4");
+//        textes.add("1733/34");
+//        textes.add("1733/1734");
+//        textes.add("1733/4");
+//        textes.add("1610/1");
+//        textes.add("1610/11");
+//        textes.add("Feb 1611/1612");
+//        textes.add("22 Mar 1632/1633 to 10 April 1633");
+//        textes.add("30 July 1660 to 11 Feb 1660/1661");
+//        textes.add("15 Aug 1660/1 to 15 Oct 1663/4");
 
-        textes.add("22 Feb/5 Mar 1752/3");
-        textes.add("Sept 3/14, 1752");
-        textes.add("10/21 Feb 1759/60");
-        textes.add("1 Mar 1759/60");
-        textes.add("1733/4");
-        textes.add("1733/34");
-        textes.add("1733/1734");
-        textes.add("1733/4");
-        textes.add("1610/1");
-        textes.add("1610/11");
-        textes.add("Feb 1611/1612");
-        textes.add("22 Mar 1632/1633 to 10 April 1633");
-        textes.add("30 July 1660 to 11 Feb 1660/1661");
-        textes.add("15 Aug 1660/1 to 15 Oct 1663/4");
+        textes.add("511/561");
+        textes.add("about 566 or 568");
+        textes.add("1480 (also cited as '84 or '82)");
 
         return textes;
     }

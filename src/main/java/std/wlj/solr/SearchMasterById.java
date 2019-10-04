@@ -22,14 +22,14 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsDevConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:221");
+        SolrQuery query = new SolrQuery("repId:4231034");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
-        SolrQuery query = new SolrQuery("repId:(3842614 2242481)");
-//        SolrQuery query = new SolrQuery("repId:[6893967 TO 6894017]");
+//        SolrQuery query = new SolrQuery("repId:(3842614 2242481)");
+//        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");

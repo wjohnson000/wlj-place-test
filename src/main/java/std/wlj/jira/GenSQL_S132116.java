@@ -160,12 +160,12 @@ public class GenSQL_S132116 {
         if (chunks.length > 7) {
             String repId  = chunks[0];
             String citnId = chunks[1];
-            String tranId = chunks[2];
+//            String tranId = chunks[2];
             int    repIdx = Integer.parseInt(repId);
 
             StringBuilder buff = new StringBuilder();
             buff.append("  DELETE FROM citation WHERE citation_id = ").append(citnId);
-            buff.append(" AND tran_id = ").append(tranId);
+//            buff.append(" AND tran_id = ").append(tranId);
             buff.append(";  -- RepID=").append(repId);
 
             List<String> deletes = sqlByRep.get(repIdx);
