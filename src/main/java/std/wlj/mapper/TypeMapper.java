@@ -166,8 +166,8 @@ public class TypeMapper {
             for (String aLocale : allLocales) {
                 nameDesc = new LocalizedNameDescModel();
                 nameDesc.setLocale(aLocale);
-                nameDesc.setName(type.getName(new StdLocale(aLocale)).get());
-                nameDesc.setDescription(type.getDescription(new StdLocale(aLocale)).get());
+                nameDesc.setName(type.getName(StdLocale.makeLocale(aLocale)).get());
+                nameDesc.setDescription(type.getDescription(StdLocale.makeLocale(aLocale)).get());
                 nameList.add(nameDesc);
             }
         } else {

@@ -16,9 +16,9 @@ import std.wlj.ws.rawhttp.HttpHelper;
 public class TestSearchRawThreaded {
 
     /** Base URL of the application */
-    private static String baseUrl = "https://place-ws-dev.dev.fsglobal.org/int-std-ws-place/places";
+    private static String baseUrl = "http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places";
 
-    private static ExecutorService execService = Executors.newFixedThreadPool(20);
+    private static ExecutorService execService = Executors.newFixedThreadPool(36);
 
     private static Random random = new Random();
     private static List<String> requestText;
@@ -34,15 +34,16 @@ public class TestSearchRawThreaded {
      * Run two tests ... a GET of a specific place, and a search
      */
     public static void main(String[] args) throws Exception {
-        requestText = getSearchValues("C:/temp/places-search-text.txt");
-        interpName = getSearchValues("C:/temp/places-interp-name.txt");
+        requestText = getSearchValues("C:/temp/important/places-search-text.txt");
+        interpName = getSearchValues("C:/temp/important/places-interp-name.txt");
 
         HttpHelper.overrideHTTPS = true;
         HttpHelper.doVerbose = false;
+        HttpHelper.userAgent = "wjohnson000";
 
         long sss = System.nanoTime();
-        startRequest(4, 500);
-        startInterp(4, 500);
+        startRequest(24, 5000);
+        startInterp(8, 5000);
         execService.shutdown();
         execService.awaitTermination(60, TimeUnit.MINUTES);
         long eee = System.nanoTime();
@@ -61,7 +62,7 @@ public class TestSearchRawThreaded {
                         try {
                             int ndx = random.nextInt(requestText.size());
                             doRequest(requestText.get(ndx));
-                            Thread.sleep(9L);
+                            Thread.sleep(3L);
                         } catch (Exception e) { }
                     }
                 });
@@ -76,7 +77,7 @@ public class TestSearchRawThreaded {
                         try {
                             int ndx = random.nextInt(interpName.size());
                             doInterp(interpName.get(ndx));
-                            Thread.sleep(8L);
+                            Thread.sleep(5L);
                         } catch (Exception e) { }
                     }
                 });

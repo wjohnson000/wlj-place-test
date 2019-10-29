@@ -46,7 +46,7 @@ public class CopyTo55 {
 
     public static void main(String...args) {
         processProject("std-lib-place");
-//        processProject("std-ws-place");
+        processProject("std-ws-place");
 //        processProject("std-ws-solr");
 //        processProject("std-ws-solr-repeater");
 //        processProject("std-ws-place-db");

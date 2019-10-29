@@ -5,6 +5,10 @@ package std.wlj.jira;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 import org.familysearch.standards.place.util.PlaceHelper;
@@ -19,17 +23,20 @@ public class FindBadWikipediaLinks {
 
     static final String baseDir     = "C:/temp/db-dump";
     static final String attrFile    = "attribute-all.txt";
+    static final String badAttrFile = "bad-attribute-data.txt";
 
     public static void main(String... args) throws Exception {
 //        String blah = "https://en.wikipedia.org/wiki/Little_Summer_Island|Little Summer Island - Wikipedia";
 //        String blah = "https://en.wikipedia.org/wiki/Liberia";
-        String blah = "https://en.wikipedia.org/wiki/Sao_Tome_and_Principe";
-        WikiQueryHandler wikiHandlerX = new WikiQueryHandler(blah);
-        List<String> paragraphsX = wikiHandlerX.parseWikiSAX();
-        System.out.println("   " + paragraphsX.size() + " --> " + paragraphsX.get(0));
-        System.out.println("   " + paragraphsX.size() + " --> " + paragraphsX.get(1));
+//        String blah = "https://en.wikipedia.org/wiki/Sao_Tome_and_Principe";
+//        WikiQueryHandler wikiHandlerX = new WikiQueryHandler(blah);
+//        List<String> paragraphsX = wikiHandlerX.parseWikiSAX();
+//        System.out.println("   " + paragraphsX.size() + " --> " + paragraphsX.get(0));
+//        System.out.println("   " + paragraphsX.size() + " --> " + paragraphsX.get(1));
 
         int lineCnt = 0;
+        Files.write(Paths.get(baseDir, badAttrFile), Arrays.asList(""), Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
         try(FileInputStream fis = new FileInputStream(new File(baseDir, attrFile));
                 Scanner scan = new Scanner(fis, "UTF-8")) {
 
@@ -49,19 +56,22 @@ public class FindBadWikipediaLinks {
                             WikiQueryHandler wikiHandler = new WikiQueryHandler(url);
                             List<String> paragraphs = wikiHandler.parseWikiSAX();
                             if (paragraphs == null  ||  paragraphs.isEmpty()) {
-                                System.out.println(repId + "|" + attrId + "|" + url);
+                                System.out.println(lineCnt + ": " + repId + "|" + attrId + "|" + url);
                                 System.out.println("   empty --> no results ...");
+                                Files.write(Paths.get(baseDir, badAttrFile), Arrays.asList(attrData), Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
                             } else if (paragraphs.size() == 1  &&  paragraphs.get(0).length() < 15) {
-                                System.out.println(repId + "|" + attrId + "|" + url);
+                                System.out.println(lineCnt + ": " + repId + "|" + attrId + "|" + url);
                                 System.out.println("   " + paragraphs.size() + " --> " + paragraphs.get(0));
+                                Files.write(Paths.get(baseDir, badAttrFile), Arrays.asList(attrData), Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
                             } else if (paragraphs.size() == 2  &&  paragraphs.get(0).length() < 15  &&  paragraphs.get(1).length() < 15) {
-                                System.out.println(repId + "|" + attrId + "|" + url);
+                                System.out.println(lineCnt + ": " + repId + "|" + attrId + "|" + url);
                                 System.out.println("   1 --> " + paragraphs.get(0));
                                 System.out.println("   2 --> " + paragraphs.get(1));
-                            } else if (paragraphs.size() == 2  &&  paragraphs.get(0).length() < 15) {
-                                System.out.println(repId + "|" + attrId + "|" + url);
-                                System.out.println("   1 --> " + paragraphs.get(0));
-                                System.out.println("   2 --> " + paragraphs.get(1));
+                                Files.write(Paths.get(baseDir, badAttrFile), Arrays.asList(attrData), Charset.forName("UTF-8"), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+//                            } else if (paragraphs.size() == 2  &&  paragraphs.get(0).length() < 15) {
+//                                System.out.println(repId + "|" + attrId + "|" + url);
+//                                System.out.println("   1 --> " + paragraphs.get(0));
+//                                System.out.println("   2 --> " + paragraphs.get(1));
                             }
                         } catch(Exception ex) {
                             System.out.println("   OOPS!!  " + ex.getMessage());

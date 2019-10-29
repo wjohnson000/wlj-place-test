@@ -45,12 +45,12 @@ public class TestWildcardSmall {
 //        System.setProperty("enable.solr.cache", "false");
 //        System.setProperty("enable.repid.chain.cache", "false");
 
-        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.1.0");
+        SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.7.1");
         PlaceRequestProfile profile = new DefaultPlaceRequestProfile("default", solrService, null);
         PlaceService placeService = new PlaceService(profile);
 
         // Seed the process
-        for (String text : Arrays.asList("Buffalo Ha*", "Columbus, St*", "Humboldt, Sa*", "Bloomginton, Sc*")) {
+        for (String text : Arrays.asList("Provo, Utah, USA", "Buffalo Ha*", "Columbus, St*", "Humboldt, Sa*", "Bloomginton, Sc*")) {
             long timeAA = System.nanoTime();
             doIt(placeService, 0, "en", text);
             long timeBB = System.nanoTime();

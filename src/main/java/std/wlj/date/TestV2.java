@@ -60,6 +60,7 @@ public class TestV2 {
             }
             for (GenDateInterpResult date : dates02.getDates()) {
                 System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                System.out.println("  gx02: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_SEGMENTS));
                 results.add(text + "|Date 2.0|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
             }
             if (dates02.getDates().isEmpty()) {
@@ -851,10 +852,21 @@ public class TestV2 {
 //        textes.add("22 Mar 1632/1633 to 10 April 1633");
 //        textes.add("30 July 1660 to 11 Feb 1660/1661");
 //        textes.add("15 Aug 1660/1 to 15 Oct 1663/4");
+//
+//        textes.add("511/561");
+//        textes.add("about 566 or 568");
+//        textes.add("1480 (also cited as '84 or '82)");
+//
+//        textes.add("萬曆");
+//        textes.add("萬厯");
+//        textes.add("萬歷");
+//        textes.add("万历");
 
-        textes.add("511/561");
-        textes.add("about 566 or 568");
-        textes.add("1480 (also cited as '84 or '82)");
+        textes.add("清康熙癸卯年");  // Jira STD-7709
+        textes.add("清康熙壬寅年");  // Jira STD-7709
+        textes.add("明天啓甲子年十月初四日丑時");  // Jira STD-7709
+        textes.add("七月六日");  // Jira STD-7710
+        textes.add("七月");  // Jira STD-7710
 
         return textes;
     }
