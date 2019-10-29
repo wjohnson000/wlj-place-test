@@ -36,9 +36,9 @@ import std.wlj.datasource.DbConnectionManager;
  * @author wjohnson000
  *
  */
-public class DumpRepIdChain {
+public class DumpRepIdChainMulti {
 
-    private static Logger logger = new Logger(DumpRepIdChain.class);
+    private static Logger logger = new Logger(DumpRepIdChainMulti.class);
 
     private static final String QUERY_ONE_OLD =
         "SELECT rep_id, parent_id, delete_id " +
@@ -93,6 +93,13 @@ public class DumpRepIdChain {
         DataSource ds = DbConnectionManager.getDataSourceAwsDev();
         
         time0 = System.nanoTime();
+        seedPlaceChain(ds, QUERY_ONE_OLD);  // Fast -- same results as others
+        time1 = System.nanoTime();
+        System.out.println("Time: " + (time1-time0)/1_000_000.0);
+        System.out.println("Size: " + placeRepChainMap.size());
+        dumpChain("C:/temp/chain-01-one.txt");
+        
+        time0 = System.nanoTime();
         seedPlaceChain(ds, QUERY_THREE_NEW_A, QUERY_THREE_NEW_B);  // Slowest [maybe because it's first] -- same results as others
         time1 = System.nanoTime();
         System.out.println("Time: " + (time1-time0)/1_000_000.0);
@@ -105,13 +112,6 @@ public class DumpRepIdChain {
         System.out.println("Time: " + (time1-time0)/1_000_000.0);
         System.out.println("Size: " + placeRepChainMap.size());
         dumpChain("C:/temp/chain-01-one-ab.txt");
-
-        time0 = System.nanoTime();
-        seedPlaceChain(ds, QUERY_ONE_OLD);  // Fast -- same results as others
-        time1 = System.nanoTime();
-        System.out.println("Time: " + (time1-time0)/1_000_000.0);
-        System.out.println("Size: " + placeRepChainMap.size());
-        dumpChain("C:/temp/chain-01-one.txt");
 
 //        time0 = System.nanoTime();
 //        seedPlaceChain(ds, QUERY_TWO_NEW);

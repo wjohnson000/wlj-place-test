@@ -36,7 +36,9 @@ public class DbDumpAttributes {
         long recCount = dbHelper.execQueryAndSave(query, new File(fileBase, fileName), '|');
         long time1 = System.nanoTime();
 
-        System.out.println("Row-count: " + recCount + " .. Time=" + (time1-time0) / 1_000_000.0);
-        System.exit(0);
+        System.out.println("ATTRIBUTE.Row-count: " + recCount + " .. Time=" + (time1-time0) / 1_000_000.0);
+        if (args.length == 0) {
+            System.exit(0);
+        }
     }
 }
