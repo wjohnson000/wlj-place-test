@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * Generate Place-rep details for:

@@ -6,7 +6,7 @@ import java.util.List;
 import org.familysearch.standards.place.dao.DAOFactory;
 import org.familysearch.standards.place.dao.dbimpl.DAOFactoryImpl;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class DAL_PlaceRepContained {
 

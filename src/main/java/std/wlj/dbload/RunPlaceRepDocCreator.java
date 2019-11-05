@@ -10,7 +10,7 @@ import org.familysearch.standards.place.dao.DAOFactory;
 import org.familysearch.standards.place.dao.dbimpl.DAOFactoryImpl;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RunPlaceRepDocCreator {
 

@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class S89688_02_DumpRepData {
 

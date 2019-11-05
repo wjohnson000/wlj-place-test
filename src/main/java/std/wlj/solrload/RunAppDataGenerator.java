@@ -6,7 +6,7 @@ import org.familysearch.standards.loader.helper.DbHelper;
 import org.familysearch.standards.loader.reader.AppDataReader;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RunAppDataGenerator {
 	private static DbHelper dbService;

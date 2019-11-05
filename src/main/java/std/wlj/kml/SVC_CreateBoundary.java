@@ -12,9 +12,9 @@ import org.familysearch.standards.place.data.BoundaryBridge;
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
 
-import std.wlj.datasource.DbConnectionManager;
-import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;
+import std.wlj.util.DbConnectionManager.DbServices;
 
 public class SVC_CreateBoundary {
 

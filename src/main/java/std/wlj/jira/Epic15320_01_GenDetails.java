@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * Generate Place-rep details for:

@@ -16,7 +16,7 @@ import javax.xml.bind.Marshaller;
 
 import de.micromata.opengis.kml.v_2_2_0.*;
 import de.micromata.opengis.kml.v_2_2_0.gx.*;
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class LoadKMLFiles {
 

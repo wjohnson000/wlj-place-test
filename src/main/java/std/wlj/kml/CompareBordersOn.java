@@ -8,7 +8,7 @@ import org.familysearch.standards.place.dao.dbimpl.DAOFactoryImpl;
 import org.familysearch.standards.place.dao.dbimpl.RepBoundaryDAOImpl;
 import org.familysearch.standards.place.dao.model.DbRepBoundary;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class CompareBordersOn {
 

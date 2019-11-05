@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.familysearch.standards.place.data.TypeBridge;
 
-import std.wlj.datasource.DbConnectionManager;
-import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.DbConnectionManager;
+import std.wlj.util.DbConnectionManager.DbServices;
 
 public class TypeDbServiceTest {
 

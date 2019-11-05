@@ -3,7 +3,8 @@ package std.wlj.dbdump;
 import java.io.File;
 import javax.sql.DataSource;
 import org.familysearch.standards.loader.helper.DbHelper;
-import std.wlj.datasource.DbConnectionManager;
+
+import std.wlj.util.DbConnectionManager;
 
 public class DbDumpCitations {
 

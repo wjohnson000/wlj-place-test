@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.familysearch.standards.place.dao.model.DbPlace;
 import org.familysearch.standards.place.dao.model.DbPlaceName;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class ZzzRunJdbcTemplateVsRawJdbc {
 

@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import org.familysearch.standards.loader.helper.DbHelper;
 import org.familysearch.standards.place.util.PlaceHelper;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

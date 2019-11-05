@@ -8,7 +8,7 @@ import org.familysearch.standards.analysis.service.AnalysisService;
 import org.familysearch.standards.analysis.service.impl.AnalysisServiceImpl;
 import org.familysearch.standards.analysis.util.POJOMarshalUtil;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class ReadInterpretation {
 

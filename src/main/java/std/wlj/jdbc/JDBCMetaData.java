@@ -3,7 +3,7 @@ package std.wlj.jdbc;
 import java.sql.*;
 import java.util.Arrays;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class JDBCMetaData {
     public static void main(String...args) throws SQLException {

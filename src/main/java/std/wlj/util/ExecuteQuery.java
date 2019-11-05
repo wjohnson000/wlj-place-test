@@ -8,8 +8,6 @@ import java.sql.SQLException;
 
 import org.familysearch.standards.core.logging.Logger;
 
-import std.wlj.datasource.DbConnectionManager;
-
 public class ExecuteQuery {
 
     /** Logger ... duh !?! */

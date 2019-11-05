@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 import org.familysearch.standards.core.logging.Logger;
 import org.familysearch.standards.loader.AppConstants;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * One task of the DB-Loader is to generate the place-rep jurisdiction chains.  This process

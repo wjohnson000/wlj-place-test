@@ -5,8 +5,8 @@ import java.util.List;
 import org.familysearch.standards.place.data.AttributeBridge;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 
-import std.wlj.datasource.DbConnectionManager;
-import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.DbConnectionManager;
+import std.wlj.util.DbConnectionManager.DbServices;
 
 public class AttributeDbServiceTest {
 

@@ -3,7 +3,7 @@ package std.wlj.kml;
 import java.sql.*;
 import java.util.List;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class SP_BoundaryContainsPoint {
 

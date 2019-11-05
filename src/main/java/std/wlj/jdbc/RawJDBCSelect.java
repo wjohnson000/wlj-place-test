@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.postgresql.util.PGobject;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RawJDBCSelect {
 

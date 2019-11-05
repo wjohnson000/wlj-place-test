@@ -7,7 +7,7 @@ import java.util.*;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 import org.familysearch.standards.core.logging.Logger;
 

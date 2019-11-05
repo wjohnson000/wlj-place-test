@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * One task of the DB-Loader is to generate the place-rep jurisdiction chains.  This process

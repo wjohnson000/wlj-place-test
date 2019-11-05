@@ -6,7 +6,7 @@ import java.util.List;
 import org.familysearch.standards.place.dao.dbimpl.PlaceRepDAOImpl;
 import org.familysearch.standards.place.dao.model.DbPlaceRep;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class PlaceRepByParent {
     public static void main(String...args) {

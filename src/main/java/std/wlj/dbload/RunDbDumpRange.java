@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.familysearch.standards.loader.helper.DbHelper;
 import org.familysearch.standards.loader.helper.PlaceRepFileGenerator;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 
 public class RunDbDumpRange {

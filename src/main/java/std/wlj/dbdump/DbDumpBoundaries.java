@@ -6,15 +6,21 @@ import org.familysearch.standards.loader.helper.DbHelper;
 
 import std.wlj.util.DbConnectionManager;
 
-public class DbDumpTransactions {
+public class DbDumpBoundaries {
 
     static final String fileBase = "C:/temp/db-dump";
-    static final String fileName = "transaction-all.txt";
+    static final String fileName = "boundary-all.txt";
 
     static final String query =
-            "SELECT tran_id, create_ts, create_id, create_date " +
-            "  FROM transaction " +
-            " ORDER BY tran_id";
+        "SELECT rep_id, " +
+        "       boundary_id, " +
+        "       tran_id, " +
+        "       point_count, " +
+        "       from_year, " +
+        "       to_year, " +
+        "       delete_flag " +
+        "  FROM rep_boundary " +
+        " ORDER BY rep_id, boundary_id, tran_id";
 
     public static void main(String... args) {
         DataSource ds = DbConnectionManager.getDataSourceAwsDev();
@@ -24,7 +30,7 @@ public class DbDumpTransactions {
         long recCount = dbHelper.execQueryAndSave(query, new File(fileBase, fileName), '|');
         long time1 = System.nanoTime();
 
-        System.out.println("TRANX.Row-count: " + recCount + " .. Time=" + (time1-time0) / 1_000_000.0);
+        System.out.println("BOUNDARY.Row-count: " + recCount + " .. Time=" + (time1-time0) / 1_000_000.0);
         if (args.length == 0) {
             System.exit(0);
         }

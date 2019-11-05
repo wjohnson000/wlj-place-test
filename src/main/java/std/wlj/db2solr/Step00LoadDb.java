@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.familysearch.standards.core.logging.Logger;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.FileUtils;
 
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.familysearch.standards.analysis.dal.impl.RepTokenDAOImpl;
 import org.familysearch.standards.analysis.dal.model.DbRepToken;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RepTokenDAORead {
     public static void main(String...args) {

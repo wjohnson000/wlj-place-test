@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 import org.familysearch.standards.place.service.DbReadableService;
-import std.wlj.datasource.DbConnectionManager;
+
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

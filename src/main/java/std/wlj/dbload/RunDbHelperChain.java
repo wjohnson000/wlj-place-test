@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.familysearch.standards.loader.helper.DbHelper;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RunDbHelperChain {
 

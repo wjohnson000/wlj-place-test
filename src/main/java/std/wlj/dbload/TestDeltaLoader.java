@@ -9,7 +9,7 @@ import org.familysearch.standards.loader.helper.DbHelper;
 import org.familysearch.standards.loader.helper.SolrHelper;
 import org.familysearch.standards.loader.impl.DeltaLoader;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class TestDeltaLoader {
 

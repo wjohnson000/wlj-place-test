@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 
-import std.wlj.datasource.DbConnectionManager;
-import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.DbConnectionManager;
+import std.wlj.util.DbConnectionManager.DbServices;
 
 /**
  * Kick of several threads to create stuff, make sure that nothing gets the same

@@ -1,4 +1,4 @@
-package std.wlj.datasource;
+package std.wlj.util;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

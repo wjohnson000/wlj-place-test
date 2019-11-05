@@ -5,7 +5,7 @@ import java.util.List;
 import org.familysearch.standards.place.dao.dbimpl.FeedbackDAOImpl;
 import org.familysearch.standards.place.dao.model.DbFeedback;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class FeedbackDAO {
     public static void main(String...args) {

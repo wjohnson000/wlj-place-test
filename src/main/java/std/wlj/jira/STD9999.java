@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 
 public class STD9999 {

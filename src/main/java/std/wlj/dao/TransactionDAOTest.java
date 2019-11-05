@@ -12,7 +12,7 @@ import org.familysearch.standards.place.dao.TransactionDAO;
 import org.familysearch.standards.place.dao.dbimpl.TransactionDAOImpl;
 import org.familysearch.standards.place.data.RevisionInfo;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

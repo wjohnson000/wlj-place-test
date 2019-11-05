@@ -3,7 +3,7 @@ package std.wlj.dbload;
 import org.familysearch.standards.loader.LoadManager;
 import org.familysearch.standards.loader.impl.FullLoader;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RunLoadManager {
     public static void main(String... args) {

@@ -13,7 +13,7 @@ import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.service.DbReadableService;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

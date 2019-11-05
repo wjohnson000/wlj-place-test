@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class HowManyReps {
 

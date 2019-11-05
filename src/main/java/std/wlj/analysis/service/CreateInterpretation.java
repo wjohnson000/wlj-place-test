@@ -11,7 +11,7 @@ import org.familysearch.standards.analysis.model.*;
 import org.familysearch.standards.analysis.service.AnalysisService;
 import org.familysearch.standards.analysis.service.impl.AnalysisServiceImpl;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class CreateInterpretation {
 

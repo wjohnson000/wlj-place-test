@@ -21,5 +21,6 @@ public class DbDumpAll {
         DbDumpVariantNames.main("skip-exit");
 
         DbDumpRepIdChain.main("skip-exit");
+        DbDumpBoundaryData.main("skip-exit");
     }
 }

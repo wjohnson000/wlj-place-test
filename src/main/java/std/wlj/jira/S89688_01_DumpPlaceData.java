@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.*;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class S89688_01_DumpPlaceData {
 

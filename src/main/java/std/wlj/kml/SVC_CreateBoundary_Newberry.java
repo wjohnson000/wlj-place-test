@@ -17,8 +17,8 @@ import org.familysearch.standards.place.service.DbReadableService;
 import org.familysearch.standards.place.service.DbWritableService;
 import org.familysearch.standards.place.ws.model.kml.*;
 
-import std.wlj.datasource.DbConnectionManager;
 import std.wlj.marshal.POJOMarshalUtil;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;
 
 public class SVC_CreateBoundary_Newberry {

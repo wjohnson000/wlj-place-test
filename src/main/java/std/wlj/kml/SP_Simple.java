@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class SP_Simple {
 

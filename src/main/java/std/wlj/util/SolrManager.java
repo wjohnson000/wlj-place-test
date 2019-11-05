@@ -1,30 +1,41 @@
 package std.wlj.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 import org.familysearch.standards.place.data.solr.SolrService;
 
 public class SolrManager {
 
-    private static final String URL_LOCAL_HOST         = "http://localhost:8080/solr/places";
-    private static final String URL_LOCAL_HOST_55      = "http://localhost:8080/solr-55/places";
+    private static final String URL_LOCAL_HOST_PROP         = "local.host.url";
+    private static final String URL_LOCAL_HOST_55_PROP      = "local.host-55.url";
 
-    private static final String AWS_URL_DEV55_MASTER   = "http://ws-55.solr.standards.service.dev.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_DEV55_REPEATER = "http://ws-55.solr-repeater.standards.service.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV55_MASTER_PROP   = "aws.dev-55.master.url";
+    private static final String AWS_URL_DEV55_REPEATER_PROP = "aws.dev-55.repeater.url";
 
-    private static final String AWS_URL_DEV_MASTER     = "http://ws.solr.standards.service.dev.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_DEV_REPEATER   = "http://ws.solr-repeater.standards.service.dev.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_DEV_MASTER_PROP     = "aws.dev.master.url";
+    private static final String AWS_URL_DEV_REPEATER_PROP   = "aws.dev.repeater.url";
 
-    private static final String AWS_URL_INT_MASTER     = "http://ws.solr.standards.service.integ.us-east-1.dev.fslocal.org/places";
-    private static final String AWS_URL_INT_REPEATER   = "http://ws.solr-repeater.standards.service.integ.us-east-1.dev.fslocal.org/places";
+    private static final String AWS_URL_INT_MASTER_PROP     = "aws.int.master.url";
+    private static final String AWS_URL_INT_REPEATER_PROP   = "aws.int.repeater.url";
 
-//    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.standards.service.beta.us-east-1.test.fslocal.org/places";
-//    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.standards.service.beta.us-east-1.test.fslocal.org/places";
-    private static final String AWS_URL_BETA_MASTER    = "http://ws.solr.standards.service.beta.us-east-1.test.fslocal.org/places";
-    private static final String AWS_URL_BETA_REPEATER  = "http://ws.solr-repeater.standards.service.beta.us-east-1.test.fslocal.org/places";
+    private static final String AWS_URL_BETA_MASTER_PROP    = "aws.beta.master.url";
+    private static final String AWS_URL_BETA_REPEATER_PROP  = "aws.beta.repeater.url";
 
-    private static final String AWS_URL_PROD_MASTER    = "http://ws.solr.standards.service.prod.us-east-1.prod.fslocal.org/places";
-    private static final String AWS_URL_PROD_REPEATER  = "http://ws.solr-repeater.standards.service.prod.us-east-1.prod.fslocal.org/places";
+    private static final String AWS_URL_PROD_MASTER_PROP    = "aws.prod.master.url";
+    private static final String AWS_URL_PROD_REPEATER_PROP  = "aws.prod.repeater.url";
+
+    private static Properties solrProps = new Properties();
+    static {
+        try {
+            solrProps.load(new FileInputStream(new File("C:/Users/wjohnson000/.std-solr.props")));
+        } catch (Exception e) {
+            System.out.println("Unable to load Solr properties ... can't proceed ...");
+        }
+    }
 
     // ============================================================================================
     // Methods to return a 'SolrConnection' instance
@@ -35,31 +46,31 @@ public class SolrManager {
     }
 
     public static SolrConnection localHttpConnection() {
-        return doSetupForHttpConnection(URL_LOCAL_HOST);
+        return doSetupForHttpConnection(solrProps.getProperty(URL_LOCAL_HOST_PROP));
     }
 
     public static SolrConnection localHttp55Connection() {
-        return doSetupForHttpConnection(URL_LOCAL_HOST_55);
+        return doSetupForHttpConnection(solrProps.getProperty(URL_LOCAL_HOST_55_PROP));
     }
 
     public static SolrConnection awsDev55Connection(boolean useMaster) {
-        return (doSetupForHttpConnection(useMaster ? AWS_URL_DEV55_MASTER : AWS_URL_DEV55_REPEATER));
+        return (doSetupForHttpConnection(useMaster ? solrProps.getProperty(AWS_URL_DEV55_MASTER_PROP) : solrProps.getProperty(AWS_URL_DEV55_REPEATER_PROP)));
     }
 
     public static SolrConnection awsDevConnection(boolean useMaster) {
-        return (doSetupForHttpConnection(useMaster ? AWS_URL_DEV_MASTER : AWS_URL_DEV_REPEATER));
+        return (doSetupForHttpConnection(useMaster ? solrProps.getProperty(AWS_URL_DEV_MASTER_PROP) : solrProps.getProperty(AWS_URL_DEV_REPEATER_PROP)));
     }
 
     public static SolrConnection awsIntConnection(boolean useMaster) {
-        return (doSetupForHttpConnection(useMaster ? AWS_URL_INT_MASTER : AWS_URL_INT_REPEATER));
+        return (doSetupForHttpConnection(useMaster ? solrProps.getProperty(AWS_URL_INT_MASTER_PROP) : solrProps.getProperty(AWS_URL_INT_REPEATER_PROP)));
     }
 
     public static SolrConnection awsBetaConnection(boolean useMaster) {
-        return (doSetupForHttpConnection(useMaster ? AWS_URL_BETA_MASTER : AWS_URL_BETA_REPEATER));
+        return (doSetupForHttpConnection(useMaster ? solrProps.getProperty(AWS_URL_BETA_MASTER_PROP) : solrProps.getProperty(AWS_URL_BETA_REPEATER_PROP)));
     }
 
     public static SolrConnection awsProdConnection(boolean useMaster) {
-        return (doSetupForHttpConnection(useMaster ? AWS_URL_PROD_MASTER : AWS_URL_PROD_REPEATER));
+        return (doSetupForHttpConnection(useMaster ? solrProps.getProperty(AWS_URL_PROD_MASTER_PROP) : solrProps.getProperty(AWS_URL_PROD_REPEATER_PROP)));
     }
 
     // ============================================================================================
@@ -67,7 +78,7 @@ public class SolrManager {
     // ============================================================================================
 
     public static SolrService localEmbeddedService() {
-        return doSetupForService("D:/solr/newbie-6.5.0", "D:/solr/newbie-6.5.0");
+        return doSetupForService("C:/D-drive/solr/standalone-7.7.1", "C:/D-drive/solr/standalone-7.7.1");
     }
 
     public static SolrService localEmbeddedService(String solrHome) {
@@ -75,30 +86,30 @@ public class SolrManager {
     }
 
     public static SolrService localHttpService() {
-        return doSetupForService(URL_LOCAL_HOST, URL_LOCAL_HOST);
+        return doSetupForService(solrProps.getProperty(URL_LOCAL_HOST_PROP), solrProps.getProperty(URL_LOCAL_HOST_PROP));
     }
 
     public static SolrService awsService55() {
-        return doSetupForService("http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places", "http://ws-55.place.standards.service.dev.us-east-1.dev.fslocal.org/places");
+        return doSetupForService(solrProps.getProperty(AWS_URL_DEV55_MASTER_PROP), solrProps.getProperty(AWS_URL_DEV55_REPEATER_PROP));
     }
 
     public static SolrService awsDevService(boolean useMaster) {
-        String baseUrl = (useMaster) ? AWS_URL_DEV_MASTER : AWS_URL_DEV_REPEATER;
+        String baseUrl = (useMaster) ? solrProps.getProperty(AWS_URL_DEV_MASTER_PROP) : solrProps.getProperty(AWS_URL_DEV_REPEATER_PROP);
         return doSetupForService(baseUrl, baseUrl);
     }
 
     public static SolrService awsIntService(boolean useMaster) {
-        String baseUrl = (useMaster) ? AWS_URL_INT_MASTER : AWS_URL_INT_REPEATER;
+        String baseUrl = (useMaster) ? solrProps.getProperty(AWS_URL_INT_MASTER_PROP) : solrProps.getProperty(AWS_URL_INT_REPEATER_PROP);
         return doSetupForService(baseUrl, baseUrl);
     }
 
     public static SolrService awsBetaService(boolean useMaster) {
-        String baseUrl = (useMaster) ? AWS_URL_BETA_MASTER : AWS_URL_BETA_REPEATER;
+        String baseUrl = (useMaster) ? solrProps.getProperty(AWS_URL_BETA_MASTER_PROP) : solrProps.getProperty(AWS_URL_BETA_REPEATER_PROP);
         return doSetupForService(baseUrl, baseUrl);
     }
 
    public static SolrService awsProdService(boolean useMaster) {
-        String baseUrl = (useMaster) ? AWS_URL_PROD_MASTER : AWS_URL_PROD_REPEATER;
+        String baseUrl = (useMaster) ? solrProps.getProperty(AWS_URL_PROD_MASTER_PROP) : solrProps.getProperty(AWS_URL_PROD_REPEATER_PROP);
         return doSetupForService(baseUrl, baseUrl);
     }
 
@@ -114,7 +125,7 @@ public class SolrManager {
         System.setProperty("solr.master", "false");
         System.setProperty("solr.slave", "false");
         System.setProperty("solr.skip.warmup", "true");
-        System.setProperty("solr.replication.url", "http://beta.familysearch.org/int-solr/places");
+        System.setProperty("solr.replication.url", solrProps.getProperty(AWS_URL_BETA_REPEATER_PROP));
         
         System.setProperty("solr.solr.home", solrPath);
         try {

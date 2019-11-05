@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.postgresql.copy.CopyManager;
 import org.postgresql.core.BaseConnection;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class ZzzPostgresqlCopy {
 	public static void main(String... args) {

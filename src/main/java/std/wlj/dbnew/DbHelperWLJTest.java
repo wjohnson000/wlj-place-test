@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class DbHelperWLJTest {
 

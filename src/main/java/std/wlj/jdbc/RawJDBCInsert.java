@@ -2,7 +2,7 @@ package std.wlj.jdbc;
 
 import java.sql.*;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class RawJDBCInsert {
 

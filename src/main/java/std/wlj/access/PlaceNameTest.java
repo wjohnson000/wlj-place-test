@@ -5,7 +5,7 @@ import java.util.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.service.DbWritableService;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * This class updates the place-names ...

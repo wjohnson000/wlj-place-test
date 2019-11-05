@@ -2,7 +2,7 @@ package std.wlj.boundary;
 
 import java.sql.*;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.DbUtil;
 
 public class TestBoundaryDetail {

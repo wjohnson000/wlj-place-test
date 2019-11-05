@@ -29,7 +29,7 @@ import org.familysearch.standards.place.dao.model.DbPlaceName;
 import org.familysearch.standards.place.dao.model.DbPlaceRep;
 import org.familysearch.standards.place.dao.model.DbRepDisplayName;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 
 public class PopulatePlaces {

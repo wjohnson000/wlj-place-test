@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

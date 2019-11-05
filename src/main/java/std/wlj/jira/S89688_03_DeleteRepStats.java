@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 import org.familysearch.standards.place.util.PlaceHelper;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class S89688_03_DeleteRepStats {
 

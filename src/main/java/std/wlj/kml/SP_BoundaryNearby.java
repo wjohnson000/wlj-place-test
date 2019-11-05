@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class SP_BoundaryNearby {
 

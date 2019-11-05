@@ -9,7 +9,7 @@ import org.familysearch.standards.place.dao.PlaceNameDAO;
 import org.familysearch.standards.place.dao.dbimpl.PlaceNameDAOImpl;
 import org.familysearch.standards.place.dao.model.DbPlaceName;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 /**
  * @author wjohnson000

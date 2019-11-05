@@ -14,9 +14,9 @@ import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 
-import std.wlj.datasource.DbConnectionManager;
-import std.wlj.datasource.DbConnectionManager.DbServices;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;
+import std.wlj.util.DbConnectionManager.DbServices;
 
 /**
  * Create, Update and Delete lots of stuff ...

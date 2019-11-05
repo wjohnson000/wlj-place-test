@@ -11,7 +11,7 @@ import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 import org.familysearch.standards.place.service.DbWritableService;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;
 
 

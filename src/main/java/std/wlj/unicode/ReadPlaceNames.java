@@ -3,7 +3,7 @@ package std.wlj.unicode;
 import java.sql.*;
 import java.util.*;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class ReadPlaceNames {
 

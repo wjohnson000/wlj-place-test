@@ -7,7 +7,7 @@ import org.familysearch.standards.loader.helper.DbHelper;
 import org.familysearch.standards.loader.reader.AppDataReader;
 import org.familysearch.standards.place.data.VariantNameSorter;
 
-import std.wlj.datasource.DbConnectionManager;
+import std.wlj.util.DbConnectionManager;
 
 public class TestVariantNameSorter {
 
