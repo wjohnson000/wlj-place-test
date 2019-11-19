@@ -128,6 +128,15 @@ public class CopyTo55 {
             } else if (fromFiles.contains(aFile)) {
                 File fromFile = new File(dirReg, aFile);
                 File toFile = new File(dir55, aFile);
+
+                if (fromFile.getAbsolutePath().contains("pom.xml")) {
+                    System.out.println("Ignoring the 'POM' file ...");
+                    continue;
+                } else if (fromFile.getAbsolutePath().contains("app.properties")) {
+                    System.out.println("Ignoring the 'app.properties' file ...");
+                    continue;
+                }
+
                 if (fromFile.isDirectory()) {
                     System.out.println("  >>> directory created? " + toFile.mkdir());
                     handleDirectory(fromFile.getAbsolutePath(), toFile.getAbsolutePath(), extensions);
