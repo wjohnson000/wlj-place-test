@@ -30,8 +30,8 @@ public class CassandraIdGenerator implements IdGenerator {
     private PreparedStatement updateKeyBlock;
 
     private CassandraOps cassandraOps = null;
-    private Integer nextId = null;
-    private Integer maxId  = null;
+    private Long nextId = null;
+    private Long maxId  = null;
 
     public CassandraIdGenerator(Session session) {
         this.cassandraOps = new CassandraOps(session);
@@ -79,8 +79,8 @@ public class CassandraIdGenerator implements IdGenerator {
             throw new IllegalArgumentException("Sequence 'sequence/item' doesn't exist.");
         }
 
-        int currSeqValue = seqGet.getInt("nextid");
-        int nextSeqValue = currSeqValue + BLOCK_SIZE;
+        long currSeqValue = seqGet.getLong("nextid");
+        long nextSeqValue = currSeqValue + BLOCK_SIZE;
 
         BoundStatement putItemId = updateKeyBlock.bind(nextSeqValue, currSeqValue);
         Row seqUpd = cassandraOps.execute(putItemId, ConsistencyLevel.LOCAL_SERIAL).one();

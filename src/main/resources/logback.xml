@@ -10,6 +10,7 @@
 
   <logger name="org.familysearch.standards" level="warn" />
   <logger name="org.familysearch.standards.date" level="info" />
+  <logger name="org.familysearch.homelands" level="debug" />
   <logger name="org.apache.solr" level="warn" />
 
   <root level="info">
