@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.hh;
+package std.wlj.hhs;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;

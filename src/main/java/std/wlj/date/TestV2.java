@@ -48,7 +48,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, "en", null, null, null);
+                dates02 = DateUtil.interpDate(text, "zh", null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -861,12 +861,27 @@ public class TestV2 {
 //        textes.add("萬厯");
 //        textes.add("萬歷");
 //        textes.add("万历");
-
-        textes.add("清康熙癸卯年");  // Jira STD-7709
-        textes.add("清康熙壬寅年");  // Jira STD-7709
-        textes.add("明天啓甲子年十月初四日丑時");  // Jira STD-7709
-        textes.add("七月六日");  // Jira STD-7710
-        textes.add("七月");  // Jira STD-7710
+//
+//        textes.add("清康熙癸卯年");  // Jira STD-7709
+//        textes.add("清康熙壬寅年");  // Jira STD-7709
+//        textes.add("明天啓甲子年十月初四日丑時");  // Jira STD-7709
+//        textes.add("七月六日");  // Jira STD-7710
+//        textes.add("七月");  // Jira STD-7710
+//
+//        textes.add("宋理宗紹定5年9月13日");
+//        textes.add("宋理宗紹定5年9月潤13日");
+//        textes.add("宋理宗紹定5年9月間13日");
+//        textes.add("宋理宗紹定5年9月闰13日");
+//
+//        textes.add("天寶");  // should return two results
+//        textes.add("上元");  // should return two results, one part of the "interregnum" period, 760-761
+//
+//        textes.add("BET 1 FEB 1758 AND 17 NOV 1761");
+//        textes.add("1 FEB 1758 BET 1 FEB 1758 AND 17 NOV 1761");
+//        textes.add("1541 188?,1890-1900,1990's");
+        textes.add("垂拱2年1月29日");
+        textes.add("垂拱3年1月29日");
+        textes.add("載初1年1月29日");
 
         return textes;
     }

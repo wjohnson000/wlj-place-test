@@ -28,7 +28,7 @@ import std.wlj.util.SolrManager;
  * @author wjohnson000
  *
  */
-public class RunInterpretation {
+public class RunInterpretationSundbergJIRA7712 {
 
     public static void main(String... args) throws PlaceDataException, IOException {
         SolrService  solrService = SolrManager.localEmbeddedService("C:/D-drive/solr/standalone-7.7.1");
@@ -37,31 +37,26 @@ public class RunInterpretation {
         PlaceService placeService = PlaceService.getInstance( new DefaultPlaceRequestProfile( null, solrService, null ) );
         PlaceService placeInterpService = PlaceService.getInstance( new ConfigurablePlaceRequestProfile( ConfigurablePlaceRequestProfile.URL_INTERP_PROPS, solrService ) );
 
-        // Seed the process
-        doIt(placeService, 0, "en", "US Alabama", false, false);
-        doIt(placeService, 0, "en", "Alabama", false, false);
-        doIt(placeService, 0, "en", "US-Alabama", false, false);
-        doIt(placeService, 0, "en", "US, Alabama", false, false);
-        doIt(placeService, 0, "en", "US Kaput Bloomington, Indiana", false, false);
-
+        // Run requests ... print stuff
+        doIt(placeInterpService, "en", "Sundberg Funeral Home", false);
+        doIt(placeInterpService, "en", "Sund- berg Funeral Home", false);
 
         solrService.shutdown();
         System.exit(0);
     }
 
-    static void doIt(PlaceService placeService, int ndx, String locale, String name, boolean filterRequests, boolean isPartial) {
+    static void doIt(PlaceService placeService, String locale, String name, boolean filterRequests) {
         try {
             PlaceRequestBuilder builder = placeService.createRequestBuilder(name, new StdLocale(locale));
             builder.setShouldCollectMetrics(true);
             builder.setFilterResults(filterRequests);
-            builder.setPartialInput(isPartial);
 
             long timeAA = System.nanoTime();
             PlaceRequest request = builder.getRequest();
             PlaceResults results = placeService.requestPlaces(request);
             long timeBB = System.nanoTime();
 
-            System.out.println("\n" + ndx + " --> " + name);
+            System.out.println("\n---> " + name);
             for (PlaceRepresentation rep : results.getPlaceRepresentations()) {
                 System.out.println("    rep." + rep.getFullDisplayName(StdLocale.ENGLISH).get() +
                         " | " + Arrays.toString(rep.getJurisdictionChainIds()) +

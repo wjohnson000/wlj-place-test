@@ -193,7 +193,8 @@ public class DetermineNewLine {
 
     // Get this silly thing a-goin'
     public static void main(String[] args) {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-dbload-55";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place";
+//        String fileOne = "C:/temp/delete-me/std-ws-place-master";
         DetermineNewLine dcEngine = new DetermineNewLine();
         dcEngine.doVerbose  = false;
         dcEngine.countDir(new File(fileOne));

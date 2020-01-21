@@ -3,8 +3,10 @@
  */
 package std.wlj.cassandra.hhs;
 
-import org.familysearch.homelands.persistence.dao.EventDAO;
-import org.familysearch.homelands.persistence.model.Event;
+import java.util.List;
+
+import org.familysearch.homelands.persistence.dao.ItemDAO;
+import org.familysearch.homelands.persistence.model.DbItem;
 
 import com.datastax.driver.core.Session;
 
@@ -12,7 +14,7 @@ import com.datastax.driver.core.Session;
  * @author wjohnson000
  *
  */
-public class TestReadEvent {
+public class TestDbItemRead {
 
     public static void main(String... args) {
         try (Session session = SessionUtility.connect()) {
@@ -25,11 +27,9 @@ public class TestReadEvent {
     }
 
     static void readEvent(Session session) {
-        EventDAO eventDAO = new EventDAO(session);
-        Event event1 = eventDAO.read("MMMM-7M9");
-        Event event2 = eventDAO.read("ABCD-123");
+        ItemDAO itemDAO = new ItemDAO(session);
 
-        SessionUtility.printEvent("MMMM-7M9", event1);
-        SessionUtility.printEvent("ABCD-123", event2);
+        List<DbItem> items = itemDAO.read("MMMM-MM9");
+        SessionUtility.printEvent("MMMM-MM9", items);
     }
 }
