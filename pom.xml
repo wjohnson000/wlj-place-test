@@ -30,7 +30,7 @@
 		<jersey.version>1.19.4</jersey.version>
 <!-- 	<jackson.version>2.10.0.pr1</jackson.version> -->
 <!--    <jackson.version>2.9.9</jackson.version> -->
-        <jackson.version>2.6.5</jackson.version> <!-- For AWS "Spark" compatibility -->
+        <jackson.version>2.10.2</jackson.version> <!-- For AWS "Spark" compatibility -->
         <logback.version>1.2.3</logback.version>
 		<spring.version>4.3.19.RELEASE</spring.version>
 		<webClassifier>classes</webClassifier>
