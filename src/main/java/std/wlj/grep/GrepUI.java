@@ -161,7 +161,7 @@ public class GrepUI extends JFrame implements Observer {
 
 		filterTF = new JTextField(32);
 		filterTF.setFont(monoFont);
-		filterTF.setText("*.java,*.jsp,*.htm,*.html,*.properties,*.txt,*.xml,*.js");
+		filterTF.setText("*.java,*.jsp,*.htm,*.html,*.properties,*.txt,*.xml,*.js,*.yml,*.yaml");
 		getContentPane().add(
 				filterTF, new GridBagConstraints(1, row, 1, 1, 1.0, 0.0,
 						GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,

@@ -15,6 +15,7 @@ import std.wlj.util.DbConnectionManager;
 
 public class DbDumpBoundaryData {
 
+    static final int    PAGE_SIZE = 1000;
     static final String fileBase = "C:/temp/db-dump/boundary-data";
 
     static final String query =
@@ -29,19 +30,34 @@ public class DbDumpBoundaryData {
         DataSource ds = DbConnectionManager.getDataSourceAwsDev();
         DbHelper dbHelper = new DbHelper(ds);
 
+        int count = 0;
+        int iters = 0;
+        int offset = 0;
+        boolean again = true;
         long time0 = System.nanoTime();
-        List<String> bdyDetails = dbHelper.getGenericRows(query, "|", "rep_id", "boundary_id", "kml");
-        long time1 = System.nanoTime();
 
-        for (String bdyDetail : bdyDetails) {
-            String[] chunks = PlaceHelper.split(bdyDetail, '|');
-            if (chunks.length == 3) {
-                String fileName = chunks[0] + "-" + chunks[1] + ".txt";
-                Files.write(Paths.get(fileBase, fileName), Arrays.asList(chunks[2]), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+        while (again) {
+            iters++;
+
+            String pagedQuery = query + " LIMIT " + PAGE_SIZE + " OFFSET " + offset;
+            List<String> bdyDetails = dbHelper.getGenericRows(pagedQuery, "|", "rep_id", "boundary_id", "kml");
+            again = bdyDetails.size() < PAGE_SIZE;
+            offset += PAGE_SIZE;
+            count  += bdyDetails.size();
+            System.out.println("   BOUNDARY.iter=" + iters + " .. Count=" + count);
+            
+            for (String bdyDetail : bdyDetails) {
+                String[] chunks = PlaceHelper.split(bdyDetail, '|');
+                if (chunks.length == 3) {
+                    String fileName = chunks[0] + "-" + chunks[1] + ".txt";
+                    Files.write(Paths.get(fileBase, fileName), Arrays.asList(chunks[2]), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+                }
             }
         }
 
-        System.out.println("BOUNDARY.Row-count: " + bdyDetails.size() + " .. Time=" + (time1-time0) / 1_000_000.0);
+        long time1 = System.nanoTime();
+        System.out.println("BOUNDARY.Row-count: " + count + " .. Iters=" + iters + " .. Time=" + (time1-time0) / 1_000_000.0);
+
         if (args.length == 0) {
             System.exit(0);
         }

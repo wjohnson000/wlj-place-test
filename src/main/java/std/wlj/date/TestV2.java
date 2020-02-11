@@ -879,9 +879,23 @@ public class TestV2 {
 //        textes.add("BET 1 FEB 1758 AND 17 NOV 1761");
 //        textes.add("1 FEB 1758 BET 1 FEB 1758 AND 17 NOV 1761");
 //        textes.add("1541 188?,1890-1900,1990's");
-        textes.add("垂拱2年1月29日");
-        textes.add("垂拱3年1月29日");
-        textes.add("載初1年1月29日");
+//        textes.add("垂拱2年1月29日");
+//        textes.add("垂拱3年1月29日");
+//        textes.add("載初1年1月29日");
+//
+//        textes.add("嘉永 4");
+//        textes.add("嘉永 4 [ 1851 ]");
+//        textes.add("享保 6");
+//        textes.add("享保 6 [ 1721 ]");
+//        textes.add("享保 17 - 天保 8");
+//        textes.add("享保 17 - 天保 8 [ 1732 - 1837 ]");
+//        textes.add("文政 7 - 天保 12");
+//        textes.add("文政 7 - 天保 12 [ 1824 - 1841 ]");
+
+        textes.add("元文 2 - 4");
+        textes.add("元文 2 - 4 [ 1737 - 1739 ]");
+        textes.add("元文 2 - 元文 4");
+        textes.add("元文 2 - 元文 4 [ 1737 - 1739 ]");
 
         return textes;
     }

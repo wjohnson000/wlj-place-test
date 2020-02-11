@@ -17,6 +17,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.familysearch.homelands.svc.model.Event;
 import org.familysearch.homelands.svc.model.ItemKeys;
 import org.familysearch.homelands.svc.util.JsonUtility;
 import org.familysearch.standards.loader.sql.FileResultSet;
@@ -79,10 +80,16 @@ public class TestWebEventCreateFromPlace {
         attributeTypes.put(579, "WORK_CHORES");
     }
 
-    private static boolean doMore = true;
-    private static int     count  = 0;
+    private static boolean     doMore = true;
+    private static int         count  = 0;
+    private static JsonNode    collNode;
 
     public static void main(String... args) throws Exception {
+        String collection = SessionUtility.makeJson(
+                "Source", "STD Place Attributes",
+                "Expires", "10/11/2020");
+        collNode = JsonUtility.parseJson(collection);
+
         try (FileResultSet rset = new FileResultSet()) {
             rset.setSeparator(DELIMITER);
             rset.openFile(new File(dataDir, attrFile));
@@ -117,27 +124,35 @@ public class TestWebEventCreateFromPlace {
         String  cpyUrl = rset.getString("copyright_url");
 
         try {
-            String jsonStr = SessionUtility.makeJson(ItemKeys.KEY_REPID, String.valueOf(repId));
-            JsonNode node = JsonUtility.parseJson(jsonStr);
-
-            JsonUtility.addField(node, ItemKeys.KEY_LANG, locale);
-            JsonUtility.addField(node, ItemKeys.KEY_TITLE, title);
-            JsonUtility.addField(node, ItemKeys.KEY_VALUE, value);
-            JsonUtility.addArray(node, ItemKeys.KEY_TAGS, attributeTypes.get(typeId), "place");
-            JsonUtility.addField(node, "url", url);
-            JsonUtility.addField(node, "urlTitle", urlTtl);
-            JsonUtility.addField(node, "copyright", cpyNtc);
-            JsonUtility.addField(node, "copyrightUrl", cpyUrl);
+            JsonNode contentEn = JsonUtility.emptyNode();
+            JsonUtility.addField(contentEn, ItemKeys.KEY_REPID, repId);
+            JsonUtility.addField(contentEn, ItemKeys.KEY_LANG, locale);
+            JsonUtility.addField(contentEn, ItemKeys.KEY_TITLE, title);
+            JsonUtility.addField(contentEn, ItemKeys.KEY_VALUE, value);
+            JsonUtility.addArray(contentEn, ItemKeys.KEY_TAGS, attributeTypes.get(typeId), "place");
+            JsonUtility.addField(contentEn, "url", url);
+            JsonUtility.addField(contentEn, "urlTitle", urlTtl);
+            JsonUtility.addField(contentEn, "copyright", cpyNtc);
+            JsonUtility.addField(contentEn, "copyrightUrl", cpyUrl);
             if (frYear != 0  &&  frYear > -4000) {
                 if (toYear != 0  &&  toYear >= frYear) {
-                    JsonUtility.addField(node, ItemKeys.KEY_YEAR, frYear + "-" + toYear);
+                    JsonUtility.addField(contentEn, ItemKeys.KEY_YEAR, frYear + "-" + toYear);
                 } else {
-                    JsonUtility.addField(node, ItemKeys.KEY_YEAR, frYear);
+                    JsonUtility.addField(contentEn, ItemKeys.KEY_YEAR, frYear);
                 }
             }
 
-            if (count++ < 1_000_000) {
-                execService.submit(() -> createItem(hhsURL, JsonUtility.prettyPrint(node)));
+            if (count++ > 3) {
+                JsonNode event = JsonUtility.emptyNode();
+                JsonUtility.addField(event, ItemKeys.KEY_SUBTYPE, attributeTypes.get(typeId));
+                JsonUtility.addField(event, ItemKeys.KEY_VISIBILITY, "PUBLIC");
+                JsonUtility.addField(event, ItemKeys.KEY_COLLECTION, collNode);
+
+                JsonNode content = JsonUtility.emptyNode();
+                JsonUtility.addField(content, "en", contentEn);
+
+                JsonUtility.addField(event, "content", content);
+                execService.submit(() -> createItem(hhsURL, JsonUtility.prettyPrint(event)));
             }
         } catch(Exception ex) {
             System.out.println("EX: " + ex.getMessage());
