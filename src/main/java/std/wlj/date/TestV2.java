@@ -48,7 +48,7 @@ public class TestV2 {
             }
 
             try {
-                dates02 = DateUtil.interpDate(text, "zh", null, null, null);
+                dates02 = DateUtil.interpDate(text, "en", null, null, null);
             } catch (Exception e) {
                 System.out.println("  V2.ext: " + e.getMessage());
             }
@@ -891,11 +891,140 @@ public class TestV2 {
 //        textes.add("享保 17 - 天保 8 [ 1732 - 1837 ]");
 //        textes.add("文政 7 - 天保 12");
 //        textes.add("文政 7 - 天保 12 [ 1824 - 1841 ]");
+//
+//        textes.add("明熹宗天啟 4 年 12 月 26 日");
+//        textes.add("元寧宗至順 3年 11月 3日");
+//
+//        textes.add("元文 2 - 4");
+//        textes.add("元文 2 - 4 [ 1737 - 1739 ]");
+//        textes.add("元文 2 - 元文 4");
+//        textes.add("元文 2 - 元文 4 [ 1737 - 1739 ]");
+//
+//        textes.add("13年1月2日");
+//        textes.add("130年1月2日");
+//        textes.add("1300年1月2日");
+//        textes.add("대략 10");
+//        textes.add("추정18");
+//        textes.add("約22年");
+//
+//        textes.add("庚午年一月");
+//        textes.add("庚午年正月");
+//        textes.add("庚午年腊月");
+//        textes.add("光绪十二年一月");
+//        textes.add("光绪十二年元月");
+//        textes.add("光绪十二年正月");
+//
+//        textes.add("一九五一年元月");
+//        textes.add("一九五一年十月正");
+//        textes.add("一九五一年十月正日");
+//        textes.add("乾隆丙辰年八月三日");
+//        textes.add("乾隆丙辰年八月初三日");
+//
+//        textes.add("02 Feb 44");
+//        textes.add("1 - 31");
+//        textes.add("1 - 100");
+//        textes.add("1 AD - 31 AD");
+//        textes.add("1 AD - 100 AD");
+//        textes.add("31 BC - 1 BC");
+//        textes.add("100 BC - 1 BC");
+//        textes.add("100 BC - 50 AD");
+//        textes.add("from 05 1916 to 01 1985");
+//
+//        textes.add("7ber 1953");
+//        textes.add("8ber 1953");
+//        textes.add("10 7ber 1953");
+//        textes.add("10 8ber 1953");
+//        textes.add("10 9ber 1953");
+//        textes.add("10 10ber 1953");
+//        textes.add("6ber 1953");
+//        textes.add("13ber 1953");
+//
+//        textes.add("456");
+//        textes.add("-456");
+//        textes.add("456-789");
+//        textes.add("456 - 789");
+//        textes.add("456-1122");
+//        textes.add("456 - 1122");
+//        textes.add("26 February 456");
+//        textes.add("26 February -456");
+//        textes.add("26 February -1456");
+//
+//        textes.add("a 3514 B.C.");
 
-        textes.add("元文 2 - 4");
-        textes.add("元文 2 - 4 [ 1737 - 1739 ]");
-        textes.add("元文 2 - 元文 4");
-        textes.add("元文 2 - 元文 4 [ 1737 - 1739 ]");
+        // See JIRA STD-8139
+//        textes.add("01112002");         // +2002-11-01
+//        textes.add("01001955");         // +1955
+//        textes.add("001600");           // +1600
+//        textes.add("012007");           // +2007-01
+//        textes.add("062454");           // +2454-06
+//        textes.add("1893<1893>");       // +1893
+//        textes.add("((1755)");          // +1755
+//        textes.add("> 1868)");          // +1868/
+//        textes.add(">=1868");           // +1868/
+//        textes.add("-- ___ 1718");      // +1718
+//        textes.add("02 Mar 1933>");     // +1933-03-02
+//        textes.add("<02 Mar 1933");     // +1933-03-02
+//        textes.add("<02 Mar 1933>");    // +1933-03-02
+//        textes.add("02 Dec, 1924`");    // +1924-12-02
+//        textes.add("1`0 April 1924");   // +1924-04-10
+//        textes.add("Feb 17/19, 1968");  // +1968-02-17/+1968-02-19
+//        textes.add("Bef 1900-1905");    // /+1900
+//        textes.add("AfT 1900-1901");    // +1900/
+//        textes.add("456-789");
+//        textes.add("456 - 789");
+//        textes.add("456-1122");
+//        textes.add("456 - 1122");
+
+        // See JIRA STD-8160
+//        textes.add("AFT 827/837");  // FIXED
+//        textes.add("0432 約前４３２");   //FIXED
+//        textes.add("in 1885?");     // FIXED
+//        textes.add("aft 1892?");   // FIXED
+//        textes.add("BEF 1625?");    // FIXED
+//        textes.add("Abt. 3200 B.C.");  // OK
+//        textes.add("826 to 827 and 828 to 853");  // FIXED
+//        textes.add("Bef. 1394*");  // FIXED
+//        textes.add("BEF 1754?");   // FIXED
+//        textes.add("estimated between 803 and 859");  // FIXED
+//        textes.add("in 1400's");  // FIXED
+//        textes.add("From 3520 BC to 3540 BC");  // OK
+//        textes.add("3840 BCE");  // OK
+//        textes.add("BET 803/830");   // FIXED
+//        textes.add("late 1930s into 1940s");  // FIXED
+//        textes.add("75-65");  // FIXED
+//        textes.add("WFT Est. 1769-1858");
+//
+//        textes.add("FROM -70 TO ABT -67");  // Needs work
+//        textes.add("(9_FEB_977/978)");  // Needs Work
+//        textes.add("1429 約i");
+//        textes.add("1833? 1864?");
+//        textes.add("OR 1698?");
+//        textes.add("23-11-19xx");
+//        textes.add("30 BC or 29 BC");
+//        textes.add("174 - 210/211");
+//        textes.add("AFT BET 870 AND 877");
+//        textes.add("BET and 895 890");
+//        textes.add("OR 762 744");
+//        textes.add("BETWEEN and 240 230");
+//        textes.add("BET AND 550 520");
+//        textes.add("2018? 2019?");
+//        textes.add("BET 02 AND 27");
+//        textes.add("BET 02 AND 04");
+//        textes.add("BET 05 AND 06");
+//        textes.add("BET AND 608 531");
+//        textes.add("BET AND 684 567");
+//        textes.add("BET AND 830 807");
+//        textes.add("BET AND 497 409");
+//        textes.add("BET AND 979 952");
+//        textes.add("29 Ma* 17*");
+//
+//        textes.add("2-091-1977");
+//
+//        textes.add("乾隆丙辰年八月三日");
+//        textes.add("乾德1");
+
+        textes.add("One Thousand Eight Hundred Fifty-four");
+        textes.add("One Thousand Eight Hundred 54");
 
         return textes;
     }

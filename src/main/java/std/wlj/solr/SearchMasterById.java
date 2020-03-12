@@ -22,13 +22,13 @@ public class SearchMasterById {
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsProdConnection(true);
+        SolrConnection solrConn = SolrManager.awsProdConnection(false);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:14");
+        SolrQuery query = new SolrQuery("repId:14");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
-        SolrQuery query = new SolrQuery("repId:(1400854 2963)");
+//        SolrQuery query = new SolrQuery("repId:(1400854)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("lke fork");

@@ -28,27 +28,21 @@ public class TestV2WithHints {
         for (String text : textes) {
             DateResult  dates01 = new DateResult();
             DateResult  dates02 = new DateResult();
-            DateResult  dates03 = new DateResult();
+
 
             System.out.println("\n" + text);
 
             try {
-                dates01 = DateUtil.interpDate(text,"en", "9999", null, null);
+                dates01 = DateUtil.interpDate(text, "en", null, null, null);
             } catch (Exception e) {
                 System.out.println("  V1.ext: " + e.getMessage());
             }
-//
-//            try {
-//                dates02 = DateUtil.interpDate(text, StdLocale.ENGLISH, "Before 09 May 2019", null, null);
-//            } catch (Exception e) {
-//                System.out.println("  V2.ext: " + e.getMessage());
-//            }
-//
-//            try {
-//                dates03 = DateUtil.interpDate(text, StdLocale.ENGLISH, "After 2019-05-07", null, null);
-//            } catch (Exception e) {
-//                System.out.println("  V2.ext: " + e.getMessage());
-//            }
+
+            try {
+                dates02 = DateUtil.interpDate(text, "en", null, "period", null);
+            } catch (Exception e) {
+                System.out.println("  V2.ext: " + e.getMessage());
+            }
 
             results.add("");
             for (GenDateInterpResult date : dates01.getDates()) {
@@ -59,22 +53,14 @@ public class TestV2WithHints {
                 System.out.println("  gx02: " + text + "|<none>|<none>");
                 results.add(text + "|Date|<none>|<none>");
             }
-//            for (GenDateInterpResult date : dates02.getDates()) {
-//                System.out.println("  hint: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-//                results.add(text + "|Before|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-//            }
-//            if (dates02.getDates().isEmpty()) {
-//                System.out.println("  hint: " + text + "|<none>|<none>");
-//                results.add(text + "|Before|<none>|<none>");
-//            }
-//            for (GenDateInterpResult date : dates03.getDates()) {
-//                System.out.println("  hint: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-//                results.add(text + "|After|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(SharedUtil.ATTR_MATCH_TYPE));
-//            }
-//            if (dates03.getDates().isEmpty()) {
-//                System.out.println("  hint: " + text + "|<none>|<none>");
-//                results.add(text + "|After|<none>|<none>");
-//            }
+            for (GenDateInterpResult date : dates02.getDates()) {
+                System.out.println("  hint: " + text + "|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+                results.add(text + "|Before|" + date.getDate().toGEDCOMX() + "|" + date.getAttrAsString(DateMetadata.ATTR_MATCH_TYPE));
+            }
+            if (dates02.getDates().isEmpty()) {
+                System.out.println("  hint: " + text + "|<none>|<none>");
+                results.add(text + "|Before|<none>|<none>");
+            }
         }
 
         System.out.println();
@@ -105,7 +91,8 @@ public class TestV2WithHints {
 //        textes.add("After Friday");
 //        textes.add("About thurs");
 
-        textes.add("March 05");
+        textes.add("1y+0m+0");
+        textes.add("-1y+0m+0");
 
         return textes;
     }
