@@ -259,8 +259,8 @@ public class DirectoryCompare {
     }
 
     static void compareRegular() {
-        String fileOne = "C:/Users/wjohnson000/git/std-ws-date";
-        String fileTwo = "C:/Users/wjohnson000/git/temp/std-ws-date";
+        String fileOne = "C:/Users/wjohnson000/git/std-ws-place";
+        String fileTwo = "C:/Users/wjohnson000/git/temp/std-ws-place";
 
         DirectoryCompare dcEngine = new DirectoryCompare();
         dcEngine.doVerbose  = false;

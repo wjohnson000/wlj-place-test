@@ -26,7 +26,7 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-        SolrQuery query = new SolrQuery("repId:14");
+//        SolrQuery query = new SolrQuery("repId:1671653");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(1400854)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
@@ -54,7 +54,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-//        SolrQuery query = new SolrQuery("names:firstbaptistchurch");
+        SolrQuery query = new SolrQuery("names:preston AND deleteId:0");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
 //        SolrQuery query = new SolrQuery("typeGroup:[1 TO *]");

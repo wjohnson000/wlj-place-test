@@ -976,36 +976,34 @@ public class TestV2 {
 //        textes.add("456 - 1122");
 
         // See JIRA STD-8160
-//        textes.add("AFT 827/837");  // FIXED
-//        textes.add("0432 約前４３２");   //FIXED
-//        textes.add("in 1885?");     // FIXED
-//        textes.add("aft 1892?");   // FIXED
-//        textes.add("BEF 1625?");    // FIXED
-//        textes.add("Abt. 3200 B.C.");  // OK
-//        textes.add("826 to 827 and 828 to 853");  // FIXED
-//        textes.add("Bef. 1394*");  // FIXED
-//        textes.add("BEF 1754?");   // FIXED
-//        textes.add("estimated between 803 and 859");  // FIXED
-//        textes.add("in 1400's");  // FIXED
-//        textes.add("From 3520 BC to 3540 BC");  // OK
-//        textes.add("3840 BCE");  // OK
-//        textes.add("BET 803/830");   // FIXED
-//        textes.add("late 1930s into 1940s");  // FIXED
-//        textes.add("75-65");  // FIXED
-//        textes.add("WFT Est. 1769-1858");
-//
-//        textes.add("FROM -70 TO ABT -67");  // Needs work
-//        textes.add("(9_FEB_977/978)");  // Needs Work
+//        textes.add("AFT 827/837");
+//        textes.add("0432 約前４３２");
 //        textes.add("1429 約i");
+//        textes.add("in 1885?");
+//        textes.add("Abt. 3200 B.C.");
+//        textes.add("aft 1892?");
+//        textes.add("BEF 1625?");
 //        textes.add("1833? 1864?");
+//        textes.add("826 to 827 and 828 to 853");
+//        textes.add("Bef. 1394*");
 //        textes.add("OR 1698?");
 //        textes.add("23-11-19xx");
+//        textes.add("BEF 1754?");
+//        textes.add("estimated between 803 and 859");
+//        textes.add("in 1400's");
+//        textes.add("late 1930s into 1940s");
+//        textes.add("From 3520 BC to 3540 BC");
+//        textes.add("(9_FEB_977/978)");
+//        textes.add("FROM -70 TO ABT -67");
 //        textes.add("30 BC or 29 BC");
 //        textes.add("174 - 210/211");
+//        textes.add("75-65");
 //        textes.add("AFT BET 870 AND 877");
+//        textes.add("3840 BCE");
 //        textes.add("BET and 895 890");
 //        textes.add("OR 762 744");
 //        textes.add("BETWEEN and 240 230");
+//        textes.add("BET 803/830");
 //        textes.add("BET AND 550 520");
 //        textes.add("2018? 2019?");
 //        textes.add("BET 02 AND 27");
@@ -1016,15 +1014,56 @@ public class TestV2 {
 //        textes.add("BET AND 830 807");
 //        textes.add("BET AND 497 409");
 //        textes.add("BET AND 979 952");
-//        textes.add("29 Ma* 17*");
-//
+//        textes.add("29 Ma* 17*");//
 //        textes.add("2-091-1977");
 //
 //        textes.add("乾隆丙辰年八月三日");
 //        textes.add("乾德1");
+//
+//        textes.add("One Thousand Eight Hundred Fifty-four");
+//        textes.add("One Thousand Eight Hundred 54");
+//
+//        textes.add("1 FEB 1758");
+//        textes.add("BET 1 FEB 1758 AND 17 NOV 1761");
+//        textes.add("1 FEB 1758 BET 1 FEB 1758 AND 17 NOV 1761");
+//        textes.add("1 FEB 1758 BET 1 FEB 1758 AND 17 NOV 1761 29 Dec 1761");
+//
+//        textes.add("ABOUT 1st day of October in the year of our Lord One Thousand eight hundred and twenty-two"); 
+//        textes.add("26th day of February Anno Domini 1870"); 
+//        textes.add("Twenty sixth day of February in the year of our Lord one thousand eight hundred and seventy");
+//        textes.add("22 de 3 de mil novecientos 75");
+//
+//        textes.add("001600");           // +1600
+//        textes.add("012007");           // +2007-01
+//        textes.add("062454");           // +2454-06
+//        textes.add("201912");           // +2019-12
+//        textes.add("Bef 1900-1905");    // /+1905
+//        textes.add("AfT 1900-1901");    // +1900/
+//
+//        textes.add("乾甯");
+//        textes.add("乾甯2");
+//        textes.add("乾甯3");
+//        textes.add("乾甯丙辰");
+//
+//        textes.add("Sept 3/14, 1752");
+//        textes.add("10/21 Feb 1759/60");
+//        textes.add("1 Mar 1759/60");
+//
+//        textes.add("Feb 17/19, 1968");
+//        textes.add("Feb 17-19, 1968");
+//        textes.add("Feb/Mar 1968");
+//        textes.add("Feb-Mar 1968");
+//        textes.add("Feb 19/17 1968");
+//        textes.add("Feb 19-17 1968");
+//        textes.add("17/19 Feb 1960");
+//        textes.add("17-19 Feb 1960");
+//        textes.add("Feb 10, 2017/18");
+//        textes.add("Feb 10, 2017-18");
+//        textes.add("About Feb 17/19, 1968");
+//        textes.add("Before Feb 17/19, 1968");
+//        textes.add("After Feb 17/19, 1968");
 
-        textes.add("One Thousand Eight Hundred Fifty-four");
-        textes.add("One Thousand Eight Hundred 54");
+        textes.add("5 August 1896 / 5 August 1897");
 
         return textes;
     }
