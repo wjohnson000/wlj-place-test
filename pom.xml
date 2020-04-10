@@ -34,7 +34,7 @@
         <logback.version>1.2.3</logback.version>
 		<spring.version>4.3.19.RELEASE</spring.version>
 		<webClassifier>classes</webClassifier>
-		<io-dropwizard-metrics.version>3.2.6</io-dropwizard-metrics.version>
+		<io-dropwizard-metrics.version>4.1.6</io-dropwizard-metrics.version>
 	</properties>
 
 	<build>
