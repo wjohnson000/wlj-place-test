@@ -1062,8 +1062,13 @@ public class TestV2 {
 //        textes.add("About Feb 17/19, 1968");
 //        textes.add("Before Feb 17/19, 1968");
 //        textes.add("After Feb 17/19, 1968");
+//
+//        textes.add("5 August 1896 / 5 August 1897");
 
-        textes.add("5 August 1896 / 5 August 1897");
+        textes.add("神宗熙寧");
+        textes.add("神宗熙寕");
+        textes.add("神宗熙甯");
+        textes.add("神宗熙宁");
 
         return textes;
     }
