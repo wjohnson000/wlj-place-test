@@ -26,12 +26,12 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:1671653");
+        SolrQuery query = new SolrQuery("repId:50");
 //        SolrQuery query = new SolrQuery("ownerId:3147761");
 //        SolrQuery query = new SolrQuery("repId:(1400854)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
-//        SolrQuery query = new SolrQuery("lke fork");
+//        SolrQuery query = new SolrQuery("like fork");
 //        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("id:SOURCE");
 //        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
@@ -54,7 +54,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("citSourceId:[11 TO 1473]");
 //        SolrQuery query = new SolrQuery("attributes:1328427*");
 //        SolrQuery query = new SolrQuery("attrValue:Specifically*");
-        SolrQuery query = new SolrQuery("names:preston AND deleteId:0");
+//        SolrQuery query = new SolrQuery("names:preston AND deleteId:0");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) ) AND ( repIdChain:362 )");
 //        SolrQuery query = new SolrQuery("( ( names:champlain OR names:champlaen ) )");
 //        SolrQuery query = new SolrQuery("typeGroup:[1 TO *]");

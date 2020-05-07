@@ -41,7 +41,7 @@ public class DbDumpBoundaryData {
 
             String pagedQuery = query + " LIMIT " + PAGE_SIZE + " OFFSET " + offset;
             List<String> bdyDetails = dbHelper.getGenericRows(pagedQuery, "|", "rep_id", "boundary_id", "kml");
-            again = bdyDetails.size() < PAGE_SIZE;
+            again = bdyDetails.size() > 0;
             offset += PAGE_SIZE;
             count  += bdyDetails.size();
             System.out.println("   BOUNDARY.iter=" + iters + " .. Count=" + count);

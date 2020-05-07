@@ -11,14 +11,24 @@ import com.datastax.driver.core.querybuilder.QueryBuilder;
 
 public class PrintAllHHS {
 
-    private static final int    clusterPort    = 9042;
-    private static final String clusterAddress = "127.0.0.1";
+    private static final int    clusterPort      = 9042;
+    private static final String[] clusterAddress = {
+        "172.17.0.2",
+        "127.0.0.1",
+    };
 
     public static void main(String... args) {
-        try (Session session = connect()) {
-            printAll(session);
-        } catch(Exception ex) {
-            System.out.println("Exception [" + ex.getClass().getName() + "]: " + ex.getMessage());
+        for (String ipAddress : clusterAddress) {
+            System.out.println("\n\n");
+            System.out.println("==================================================================================================");
+            System.out.println("Try: " + ipAddress);
+            System.out.println("==================================================================================================");
+
+            try (Session session = connect(ipAddress)) {
+                printAll(session);
+            } catch(Exception ex) {
+                System.out.println("Exception [" + ex.getClass().getName() + "]: " + ex.getMessage());
+            }
         }
 
         System.exit(0);
@@ -41,9 +51,9 @@ public class PrintAllHHS {
         }
     }
 
-    static Session connect() {
+    static Session connect(String ipAddress) {
         Cluster cluster = Cluster.builder()
-                    .addContactPoint(clusterAddress)
+                    .addContactPoint(ipAddress)
                     .withPort(clusterPort)
                     .build();
 

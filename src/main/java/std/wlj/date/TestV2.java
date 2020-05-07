@@ -1064,11 +1064,15 @@ public class TestV2 {
 //        textes.add("After Feb 17/19, 1968");
 //
 //        textes.add("5 August 1896 / 5 August 1897");
+//
+//        textes.add("神宗熙寧");
+//        textes.add("神宗熙寕");
+//        textes.add("神宗熙甯");
+//        textes.add("神宗熙宁");
 
-        textes.add("神宗熙寧");
-        textes.add("神宗熙寕");
-        textes.add("神宗熙甯");
-        textes.add("神宗熙宁");
+        textes.add("甲子年");
+        textes.add("西元甲子年");
+        textes.add("公元甲子年");
 
         return textes;
     }
