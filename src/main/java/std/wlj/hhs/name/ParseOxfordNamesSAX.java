@@ -232,6 +232,7 @@ public class ParseOxfordNamesSAX {
             }
         } catch (Exception ex) {
             System.out.println("OOPS ... " + ex.getMessage());
+            System.out.println("         " + row);
             return null;
         }
 

@@ -4,11 +4,8 @@
 package std.wlj.hhs.name;
 
 import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -63,111 +60,16 @@ import org.w3c.dom.NodeList;
  * @author wjohnson000
  *
  */
-public class ParseOxfordNamesDOM {
-
-
-    private static final String MALE_CHAR = "♂";
-    private static final String FEMALE_CHAR = "♀";
-
-    private static final Set<String> OK_TEXT_TAGS = new HashSet<>();
-    static {
-        OK_TEXT_TAGS.add("i");
-        OK_TEXT_TAGS.add("b");
-        OK_TEXT_TAGS.add("p");
-        OK_TEXT_TAGS.add("span");
-    }
-
-    private static String BASE_DIR = "C:/D-drive/homelands/names";
-    private static String FIRST_FILE = "first_acref_9780198610601.xml";
-    private static String LAST_FILE  = "last_acref_9780195081374.xml";
-    private static final String OUTPUT_FILE_NAME = "C:/temp/oxford-fn-dom.csv";
+public class NameDefParserDOM implements NameDefParser {
 
     private static DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
-    private static Map<String, NameDef> allNames = new HashMap<>();
-    private static List<String> results = new ArrayList<>(50_000);
-    
-    public static void main(String... args) throws Exception {
-        process(FIRST_FILE);
-//        process(LAST_FILE);
-    }
-
-    static void process(String file) throws Exception {
-        List<String> rows = Files.readAllLines(Paths.get(BASE_DIR, file), StandardCharsets.UTF_8);
-
-        for (String row : rows) {
-            NameDef nameDef = parseRow(row);
-            if (nameDef != null) {
-                if (allNames.containsKey(nameDef.id)) {
-                    System.out.println("Duplicate key: " + nameDef.id);
-                } else {
-                    allNames.put(nameDef.id, nameDef);
-                }
-            }
-        }
-
-        // Tie variants to their "master" name, and save the "Master" ones
-        List<NameDef> masterNames = new ArrayList<>();
-        List<NameDef> badMasterNames = new ArrayList<>();
-
-        for (NameDef nameDef : allNames.values()) {
-            if (nameDef.refId == null) {
-                if (nameDef.text == null) {
-                    badMasterNames.add(nameDef);
-                } else {
-                    masterNames.add(nameDef);
-                }
-            } else {
-                NameDef parent = allNames.get(nameDef.refId);
-                if (parent == null) {
-                    System.out.println("Missing parent: " + nameDef.text + " --> " + nameDef.refId);
-                } else {
-                    parent.variants.add(nameDef);
-                }
-            }
-        }
-
-        // Sort-Sort and then Dump-dump
-        Collections.sort(masterNames, (nd1, nd2) -> nd1.text.compareToIgnoreCase(nd2.text));
-        masterNames.addAll(badMasterNames);
-
-        int     maxVar  = 0;
-        NameDef maxNDef = null;
-        for (NameDef nameDef : masterNames) {
-            results.add("");
-            results.add("");
-            results.add(format(nameDef));
-            nameDef.variants.forEach(nd -> results.add(format(nd)));
-
-            if (nameDef.variants.size() > maxVar) {
-                maxVar = nameDef.variants.size();
-                maxNDef = nameDef;
-            }
-        }
-        System.out.println("Max=" + maxVar + " for " + maxNDef.text + " [" + maxNDef.id + "]");
-        
-        Files.write(Paths.get(OUTPUT_FILE_NAME), results, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-    }
-
-    static String format(NameDef nameDef) {
-        StringBuilder buff = new StringBuilder(1024);
-
-        buff.append(nameDef.id);
-        buff.append("|").append(nameDef.text);
-        buff.append("|").append(nameDef.language);
-        buff.append("|").append(nameDef.type);
-        buff.append("|").append(nameDef.isMale);
-        buff.append("|").append(nameDef.isFemale);
-        buff.append("|").append(nameDef.definition);
-
-        return buff.toString();
-    }
-
-    static NameDef parseRow(String row) {
+    @Override
+    public NameDef parseXml(String xml) {
         NameDef nameDef = new NameDef();
 
         try {
-            ByteArrayInputStream bais = new ByteArrayInputStream(row.getBytes());
+            ByteArrayInputStream bais = new ByteArrayInputStream(xml.getBytes());
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(bais);
 
@@ -175,56 +77,47 @@ public class ParseOxfordNamesDOM {
             //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
-            nameDef.id = getId(doc);
-            nameDef.text = getNameText(doc);
-            nameDef.language = getLanguage(doc);
+            nameDef.id = getTagAttr(doc, "e", "id");
+            nameDef.text = getTagText(doc, "headword");
+            nameDef.language = "en";
             nameDef.refId = getXref(doc);
-            nameDef.type = getType(doc);
             nameDef.definition = getDefinition(doc);
-            nameDef.isMale = row.contains(MALE_CHAR);
-            nameDef.isFemale = row.contains(FEMALE_CHAR);
+if (nameDef.id.equals("acref-9780198610601-e-2")) {
+    System.out.println(">>" + getTagText(doc, "div1"));
+    System.out.println(">>" + this.extractTypeFromDefinition(getTagText(doc, "div1")));
+}
+            nameDef.type = this.extractTypeFromDefinition(getTagText(doc, "div1"));
+            nameDef.isMale = xml.contains(MALE_CHAR);
+            nameDef.isFemale = xml.contains(FEMALE_CHAR);
+            nameDef.variants = getVariants(doc);
         } catch(Exception ex) {
             System.out.println("OOPS ... " + ex.getMessage());
-            return null; 
+            System.out.println("         " + xml);
+            nameDef.id = null; 
         }
+
         return (nameDef.id == null) ? null : nameDef;
     }
 
-    static String getId(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("e");
-        if (nodes.getLength() > 0) {
-            return ((Element)nodes.item(0)).getAttribute("id");
-        } else {
+    String getTagText(Document doc, String tagName) {
+        NodeList nodes = doc.getElementsByTagName(tagName);
+        if (nodes.getLength() == 0) {
             return null;
-        }
-    }
-
-    static String getNameText(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("headword");
-        if (nodes.getLength() > 0) {
+        } else {
             return ((Element)nodes.item(0)).getTextContent();
-        } else {
+        }
+    }
+
+    String getTagAttr(Document doc, String tagName, String attrName) {
+        NodeList nodes = doc.getElementsByTagName(tagName);
+        if (nodes.getLength() == 0) {
             return null;
+        } else {
+            return ((Element)nodes.item(0)).getAttribute(attrName);
         }
     }
 
-    static String getLanguage(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("span");
-
-        for (int ndx=0;  ndx<nodes.getLength();  ndx++) {
-            Node node = nodes.item(ndx);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element)node;
-                if (element.getAttribute("ency") != null) {
-                    return element.getTextContent();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    static String getXref(Document doc) {
+    String getXref(Document doc) {
         NodeList nodes = doc.getElementsByTagName("xrefGrp");
 
         for (int ndx=0;  ndx<nodes.getLength();  ndx++) {
@@ -241,7 +134,7 @@ public class ParseOxfordNamesDOM {
         return null;
     }
 
-    static String getType(Document doc) {
+    String getType(Document doc) {
         NodeList nodes = doc.getElementsByTagName("xrefGrp");
 
         for (int ndx=0;  ndx<nodes.getLength();  ndx++) {
@@ -258,7 +151,7 @@ public class ParseOxfordNamesDOM {
         return null;
     }
 
-    static String getDefinition(Document doc) {
+    String getDefinition(Document doc) {
         NodeList nodes = doc.getElementsByTagName("textMatter");
         if (nodes.getLength() == 0) {
             return "";
@@ -267,7 +160,45 @@ public class ParseOxfordNamesDOM {
         }
     }
 
-    static String getTextWithTags(Element head) {
+    String getNotes(Document doc) {
+        NodeList nodes = doc.getElementsByTagName("textMatter");
+        if (nodes.getLength() == 0) {
+            return "";
+        } else {
+            return getTextWithTags((Element)nodes.item(0));
+        }
+    }
+
+    List<NameDef> getVariants(Document doc) {
+        List<NameDef> variants = new ArrayList<>();
+
+        NodeList nodes = doc.getElementsByTagName("note");
+        for (int i=0;  i<nodes.getLength();  i++) {
+            Element node = (Element)nodes.item(i);
+            NodeList sc = node.getElementsByTagName("sc");
+            NodeList names = node.getElementsByTagName("nameGrp");
+
+            String type = "COGNATE";
+            if (sc.getLength() > 0) {
+                Element scNode = (Element)sc.item(0);
+                type = this.extractTypeFromDefinitionVariant(scNode.getTextContent());
+            }
+
+            for (int j=0;  j<names.getLength();  j++) {
+                Element name = (Element)names.item(j);
+                NameDef varDef = new NameDef();
+                varDef.id = "";
+                varDef.text = name.getTextContent().replaceAll("<b>", "").replaceAll("</b>", "").trim();
+                varDef.language = "";
+                varDef.type = type;
+                variants.add(varDef);
+            }
+        }
+
+        return variants;
+    }
+
+    String getTextWithTags(Element head) {
         if (! head.hasChildNodes()) {
             return head.getTextContent(); 
         } else  {
@@ -288,9 +219,9 @@ public class ParseOxfordNamesDOM {
                         }
                         buff.append(">");
                     }
-                    
+
                     buff.append(getTextWithTags(child));
-                    
+
                     if (OK_TEXT_TAGS.contains(child.getTagName().toLowerCase())) {
                         buff.append("</").append(child.getTagName()).append(">");
                     }
@@ -302,4 +233,5 @@ public class ParseOxfordNamesDOM {
             return buff.toString();
         }
     }
+
 }

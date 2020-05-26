@@ -1069,10 +1069,14 @@ public class TestV2 {
 //        textes.add("神宗熙寕");
 //        textes.add("神宗熙甯");
 //        textes.add("神宗熙宁");
+//
+//        textes.add("甲子年");
+//        textes.add("西元甲子年");
+//        textes.add("公元甲子年");
 
-        textes.add("甲子年");
-        textes.add("西元甲子年");
-        textes.add("公元甲子年");
+        textes.add("1巴巴6年");
+        textes.add("一其其六年");
+        textes.add("明乾隆元年");
 
         return textes;
     }

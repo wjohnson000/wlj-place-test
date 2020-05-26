@@ -20,5 +20,4 @@ public class NameDef {
     boolean isMale;
     boolean isFemale;
     List<NameDef> variants = new ArrayList<>();
-
 }

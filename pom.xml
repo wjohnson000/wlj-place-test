@@ -24,6 +24,7 @@
 		<std.lib.client.util.version>1.0.0-SNAPSHOT</std.lib.client.util.version>
 		<std.ws.nameseg.version>1.1.b217</std.ws.nameseg.version>
 		<hhs.version>0.0.1-SNAPSHOT</hhs.version>
+        <hcs.version>0.0.1-SNAPSHOT</hcs.version>
 
 		<binding.register.client.version>1.0.b43</binding.register.client.version>
 		<com.amazonaws.version>1.11.587</com.amazonaws.version> <!-- was 1.11.160 -->
@@ -179,6 +180,11 @@
             <groupId>org.familysearch.hhs</groupId>
             <artifactId>service</artifactId>
             <version>${hhs.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.hcs</groupId>
+            <artifactId>hcs-service</artifactId>
+            <version>${hcs.version}</version>
         </dependency>
 		<dependency>
 			<groupId>org.familysearch.standards</groupId>
@@ -469,7 +475,7 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.10.2</version>
+            <version>1.12.1</version>
         </dependency>
         <dependency>
             <groupId>com.bitplan</groupId>
