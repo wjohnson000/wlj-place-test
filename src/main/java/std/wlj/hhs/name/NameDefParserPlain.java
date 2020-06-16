@@ -18,7 +18,6 @@ public class NameDefParserPlain implements NameDefParser {
     static {
         TAGS_TO_REMOVE.add("date");
         TAGS_TO_REMOVE.add("div1");
-        TAGS_TO_REMOVE.add("nameGrp");
         TAGS_TO_REMOVE.add("note");
         TAGS_TO_REMOVE.add("sc");
         TAGS_TO_REMOVE.add("xref");
@@ -32,7 +31,6 @@ public class NameDefParserPlain implements NameDefParser {
 
         nameDef.id = getAttrValue(xml, "e", "id");
         nameDef.text = getTagValue(xml, "headword");
-        nameDef.language = getTagValue(xml, "span");
         nameDef.language = "en";
         nameDef.refId = getAttrValue(xml, "xref", "ref");
         nameDef.definition = cleanup(getTagValue(xml, "textMatter"));
@@ -106,48 +104,5 @@ public class NameDefParserPlain implements NameDefParser {
         }
 
         return variants;
-    }
-
-    String cleanup(String text) {
-        if (text == null) {
-            return null;
-        }
-
-//        String tText = removeComments(text);
-        String tText = text;
-        for (String tag : TAGS_TO_REMOVE) {
-            tText = removeTag(tText, tag);
-        }
-
-        return tText;
-    }
-
-    String removeComments(String text) {
-        int ndx0 = text.indexOf("<!--");
-        int ndx1 = text.indexOf("-->", ndx0);
-        if (ndx0 >= 0  &&  ndx1 > ndx0) {
-            String chunk0 = (ndx0 == 0) ? "" : text.substring(0, ndx0);
-            String chunk1 = (ndx1+3 > text.length()) ? "" : text.substring(ndx1+3);
-            return (removeComments(chunk0 + chunk1));
-        } else {
-            return text;
-        }
-    }
-
-    String removeTag(String text, String tag) {
-        String content = getTagValue(text, tag);
-
-        int ndx0 = text.indexOf("<" + tag + ">");
-        if (ndx0 == -1) {
-            ndx0 = text.indexOf("<" + tag + " ");
-        }
-        int ndx1 = text.indexOf("</" + tag +">", ndx0);
-        if (ndx0 >= 0  &&  ndx1 > ndx0) {
-            String chunk0 = (ndx0 == 0) ? "" : text.substring(0, ndx0);
-            String chunk1 = (ndx1+tag.length()+3 > text.length()) ? "" : text.substring(ndx1+tag.length()+3);
-            return (removeTag(chunk0 + content + chunk1, tag));
-        } else {
-            return text;
-        }
     }
 }

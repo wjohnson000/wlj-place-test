@@ -40,7 +40,7 @@ public class ParseRandomHtmlJSoup {
     static void dumpElement(int level, Element elem) {
         Elements children = elem.children();
         if (children.size() == 0) {
-            System.out.println(level + ".B:" + elem.tagName() + "::" + elem.ownText());
+            System.out.println(level + ".B:" + elem.tagName() + "::" + elem.html());
         } else {
             final int levelx = level++;
             System.out.println(level + ".A:" + elem.tagName() + "::" + elem.html());

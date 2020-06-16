@@ -59,7 +59,7 @@ public class DbDumpRepIdChain {
         time0 = System.nanoTime();
         seedPlaceChain(ds, QUERY_ONE_OLD);  // Fast -- same results as others
         time1 = System.nanoTime();
-        System.out.println("Size: " + placeRepChainMap.size() + " ... Time: " + (time1-time0)/1_000_000.0);
+        System.out.println("REP-ID-CHAIN.Size: " + placeRepChainMap.size() + " ... Time: " + (time1-time0)/1_000_000.0);
         dumpChain(fileBase + "/" + fileName);
 
         if (args.length == 0) {

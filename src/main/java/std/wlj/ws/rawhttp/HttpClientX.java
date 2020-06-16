@@ -3,17 +3,26 @@
  */
 package std.wlj.ws.rawhttp;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
 /**
  * @author wjohnson000
@@ -27,7 +36,9 @@ public class HttpClientX {
         httpConnManager.setDefaultMaxPerRoute(5);
     }
 
-    public static JSONObject doGetJSON(String url) {
+    public static final Map<String, String> headers = new TreeMap<>();
+
+    public static String doGetJSON(String url) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
         CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
 
@@ -35,11 +46,13 @@ public class HttpClientX {
         try {
             HttpGet httpGet = new HttpGet(url);
             httpGet.addHeader("Accept", "application/json");
+            headers.entrySet().forEach(hdr -> httpGet.addHeader(hdr.getKey(), hdr.getValue()));
+
             try (CloseableHttpResponse response = client.execute(httpGet);
                     InputStream ios = response.getEntity().getContent()) {
                 String json = IOUtils.toString(ios, StandardCharsets.UTF_8);
                 EntityUtils.consumeQuietly(response.getEntity());
-                return new JSONObject("{ \"contents\": " + json + "}");
+                return json;
             }
         } catch(Exception ex) {
             System.out.println("Url failed [" + url + "] --> " + ex.getMessage());
@@ -82,4 +95,61 @@ public class HttpClientX {
             return null;
         }
     }
+
+    public static String doPostJson(String url, String body) {
+        // POST the request, return the "LOCATION" header
+        try(CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.addHeader("Accept", "application/json");
+            StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
+            httpPost.setEntity(entity);
+
+            try (CloseableHttpResponse response = client.execute(httpPost)) {
+                Header header = response.getFirstHeader("LOCATION");
+                return (header == null) ? null : header.getValue();
+            }
+        } catch (IOException ex) {
+            return ex.getMessage();
+        }
+    }
+
+    public static String doPutJson(String url, String body) {
+        // PUT the request, but don't show any concern about the response
+        try(CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPut httpPut = new HttpPut(url);
+            httpPut.addHeader("Accept", "application/json");
+            StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
+            httpPut.setEntity(entity);
+
+            try (CloseableHttpResponse response = client.execute(httpPut)) {
+                Header header = response.getFirstHeader("LOCATION");
+                return (header == null) ? null : header.getValue();
+            }
+        } catch (IOException ex) {
+            return ex.getMessage();
+        }
+    }
+
+    /**
+     * Submit a "DELETE" request to delete a resource, returning true if it was deleted
+     * 
+     * @param url URL to hit
+     * @param headers request headers to be set (should NOT include "Accept")
+     * @return
+     */
+    public static boolean doDelete(String url, Map<String, String> headers) throws Exception {
+        // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
+        CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
+
+        HttpDelete httpDelete = new HttpDelete(url);
+        headers.entrySet().forEach(hdr -> httpDelete.addHeader(hdr.getKey(), hdr.getValue()));
+        
+        try (CloseableHttpResponse response = client.execute(httpDelete)) {
+            return response.getStatusLine().getStatusCode() < 300;
+        } catch (IOException ex) {
+            System.out.println("DELETE failed [" + url + "] --> " + ex.getMessage());
+            throw ex;
+        }
+    }
+
 }

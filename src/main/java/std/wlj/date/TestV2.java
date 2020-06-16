@@ -1073,10 +1073,16 @@ public class TestV2 {
 //        textes.add("甲子年");
 //        textes.add("西元甲子年");
 //        textes.add("公元甲子年");
+//
+//        textes.add("1巴巴6年");
+//        textes.add("一其其六年");
+//        textes.add("明乾隆元年");
 
-        textes.add("1巴巴6年");
-        textes.add("一其其六年");
-        textes.add("明乾隆元年");
+        textes.add("民国前八十二年七月二十七");
+        textes.add("民国前丁未年二月三号");
+        textes.add("民国前丁未年一月三号");
+        textes.add("民国前丁未年正月三号");
+        textes.add("一九五零年正月");
 
         return textes;
     }

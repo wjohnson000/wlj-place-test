@@ -25,13 +25,13 @@
 		<std.ws.nameseg.version>1.1.b217</std.ws.nameseg.version>
 		<hhs.version>0.0.1-SNAPSHOT</hhs.version>
         <hcs.version>0.0.1-SNAPSHOT</hcs.version>
+        <cassandra.version>4.5.1</cassandra.version>
 
 		<binding.register.client.version>1.0.b43</binding.register.client.version>
 		<com.amazonaws.version>1.11.587</com.amazonaws.version> <!-- was 1.11.160 -->
 		<jersey.version>1.19.4</jersey.version>
 <!-- 	<jackson.version>2.10.0.pr1</jackson.version> -->
-<!--    <jackson.version>2.9.9</jackson.version> -->
-        <jackson.version>2.6.5</jackson.version> <!-- For AWS "Spark" compatibility -->
+        <jackson.version>2.10.2</jackson.version> <!-- For AWS "Spark" compatibility -->
         <logback.version>1.2.3</logback.version>
 		<spring.version>4.3.19.RELEASE</spring.version>
 		<webClassifier>classes</webClassifier>
@@ -380,17 +380,62 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.9</version>
+			<version>3.17</version>
 		</dependency>
-		<dependency>
-            <groupId>com.datastax.cassandra</groupId>
-            <artifactId>cassandra-driver-core</artifactId>
-            <version>3.7.2</version>
+        <dependency>
+            <groupId>com.datastax.oss</groupId>
+            <artifactId>java-driver-core</artifactId>
+            <version>${cassandra.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.datastax.cassandra</groupId>
-            <artifactId>cassandra-driver-mapping</artifactId>
-            <version>3.7.2</version>
+            <groupId>com.datastax.oss</groupId>
+            <artifactId>java-driver-mapper-runtime</artifactId>
+            <version>${cassandra.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-buffer</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-dns</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-common</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-handler</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver</artifactId>
+            <version>4.1.45.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns</artifactId>
+            <version>4.1.45.Final</version>
         </dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>

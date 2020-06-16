@@ -82,10 +82,6 @@ public class NameDefParserDOM implements NameDefParser {
             nameDef.language = "en";
             nameDef.refId = getXref(doc);
             nameDef.definition = getDefinition(doc);
-if (nameDef.id.equals("acref-9780198610601-e-2")) {
-    System.out.println(">>" + getTagText(doc, "div1"));
-    System.out.println(">>" + this.extractTypeFromDefinition(getTagText(doc, "div1")));
-}
             nameDef.type = this.extractTypeFromDefinition(getTagText(doc, "div1"));
             nameDef.isMale = xml.contains(MALE_CHAR);
             nameDef.isFemale = xml.contains(FEMALE_CHAR);
@@ -134,33 +130,7 @@ if (nameDef.id.equals("acref-9780198610601-e-2")) {
         return null;
     }
 
-    String getType(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("xrefGrp");
-
-        for (int ndx=0;  ndx<nodes.getLength();  ndx++) {
-            Node node = nodes.item(ndx);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element)node;
-                NodeList children = element.getElementsByTagName("xref");
-                if (children.getLength() > 0) {
-                    return ((Element)children.item(0)).getAttribute("type");
-                }
-            }
-        }
-
-        return null;
-    }
-
     String getDefinition(Document doc) {
-        NodeList nodes = doc.getElementsByTagName("textMatter");
-        if (nodes.getLength() == 0) {
-            return "";
-        } else {
-            return getTextWithTags((Element)nodes.item(0));
-        }
-    }
-
-    String getNotes(Document doc) {
         NodeList nodes = doc.getElementsByTagName("textMatter");
         if (nodes.getLength() == 0) {
             return "";
