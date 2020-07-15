@@ -1,59 +1,60 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>wlj.test</groupId>
-	<artifactId>wlj-place-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>WLJ test classes</name>
-	<description>Test stuff that's separate from the REAL projects</description>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>wlj.test</groupId>
+    <artifactId>wlj-place-test</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>WLJ test classes</name>
+    <description>Test stuff that's separate from the REAL projects</description>
 
-	<properties>
-		<java.compiler.version>1.8</java.compiler.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <properties>
+        <java.compiler.version>1.8</java.compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    	<std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
-		<std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
-		<std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
+        <std.lib.core.version>3.4.0-SNAPSHOT</std.lib.core.version>
+        <std.lib.place.version>2.2.0-SNAPSHOT</std.lib.place.version>
+        <std.lib.bulk.version>2.0.0-SNAPSHOT</std.lib.bulk.version>
         <std.lib.date.version>2.5.1-SNAPSHOT</std.lib.date.version>
         <std.place.db.version>1.0.0-SNAPSHOT</std.place.db.version>
         <std.ws.analysis.version>1.0.0-SNAPSHOT</std.ws.analysis.version>
-		<std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
-		<std.ws.place.version>2.2.0-SNAPSHOT</std.ws.place.version>
-		<std.ws.date.version>2.3.0-SNAPSHOT</std.ws.date.version>
-		<std.ws.cv.version>1.1-SNAPSHOT</std.ws.cv.version>
-		<std.lib.client.util.version>1.0.0-SNAPSHOT</std.lib.client.util.version>
-		<std.ws.nameseg.version>1.1.b217</std.ws.nameseg.version>
-		<hhs.version>0.0.1-SNAPSHOT</hhs.version>
+        <std.ws.core.version>2.0.0-SNAPSHOT</std.ws.core.version>
+        <std.ws.place.version>2.2.0-SNAPSHOT</std.ws.place.version>
+        <std.ws.date.version>2.3.0-SNAPSHOT</std.ws.date.version>
+        <std.ws.cv.version>1.1-SNAPSHOT</std.ws.cv.version>
+        <std.lib.client.util.version>1.0.0-SNAPSHOT</std.lib.client.util.version>
+        <std.ws.nameseg.version>1.1.b217</std.ws.nameseg.version>
+        <hhs.version>0.0.1-SNAPSHOT</hhs.version>
         <hcs.version>0.0.1-SNAPSHOT</hcs.version>
         <cassandra.version>4.5.1</cassandra.version>
 
-		<binding.register.client.version>1.0.b43</binding.register.client.version>
-		<com.amazonaws.version>1.11.587</com.amazonaws.version> <!-- was 1.11.160 -->
-		<jersey.version>1.19.4</jersey.version>
-<!-- 	<jackson.version>2.10.0.pr1</jackson.version> -->
+        <binding.register.client.version>1.0.b43</binding.register.client.version>
+        <com.amazonaws.version>1.11.587</com.amazonaws.version> <!-- was 1.11.160 -->
+        <jersey.version>1.19.4</jersey.version>
+<!--     <jackson.version>2.10.0.pr1</jackson.version> -->
         <jackson.version>2.11.0</jackson.version> <!-- For AWS "Spark" compatibility -->
         <logback.version>1.2.3</logback.version>
-		<spring.version>5.2.1.RELEASE</spring.version>
-		<webClassifier>classes</webClassifier>
-		<io-dropwizard-metrics.version>4.1.10.1</io-dropwizard-metrics.version>
-	</properties>
+        <netty.version>4.1.46</netty.version>
+        <spring.version>5.2.1.RELEASE</spring.version>
+        <webClassifier>classes</webClassifier>
+        <io-dropwizard-metrics.version>4.1.10.1</io-dropwizard-metrics.version>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<debug>true</debug>
-					<source>${java.compiler.version}</source>
-					<target>${java.compiler.version}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <debug>true</debug>
+                    <source>${java.compiler.version}</source>
+                    <target>${java.compiler.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -74,36 +75,36 @@
             <artifactId>spring-data-redis</artifactId>
             <version>1.6.0.RELEASE</version>
         </dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.5</version>
         </dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-lib-place-api</artifactId>
-			<version>${std.lib.place.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-context</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-lib-place-data-local</artifactId>
-			<version>${std.lib.place.version}</version>
-			<exclusions>
-			  <exclusion>
-			    <groupId>org.eclipse.jetty</groupId>
-			    <artifactId>*</artifactId>
-			  </exclusion>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-place-api</artifactId>
+            <version>${std.lib.place.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-place-data-local</artifactId>
+            <version>${std.lib.place.version}</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>*</artifactId>
+              </exclusion>
               <exclusion>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>*</artifactId>
@@ -112,44 +113,44 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
               </exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-lib-place-data-access</artifactId>
-			<version>${std.lib.place.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-ws-place-model</artifactId>
-			<version>${std.ws.place.version}</version>
-			<exclusions>
-				<exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-place-data-access</artifactId>
+            <version>${std.lib.place.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-ws-place-model</artifactId>
+            <version>${std.ws.place.version}</version>
+            <exclusions>
+                <exclusion>
                     <groupId>org.springframework</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-ws-place-db-webapp</artifactId>
-			<version>${std.place.db.version}</version>
-			<classifier>${webClassifier}</classifier>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-ws-place-db-webapp</artifactId>
+            <version>${std.place.db.version}</version>
+            <classifier>${webClassifier}</classifier>
             <type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-lib-core-api</artifactId>
-			<version>${std.lib.core.version}</version>
-			<type>jar</type>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-lib-core-api</artifactId>
+            <version>${std.lib.core.version}</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-lib-core-parse</artifactId>
             <version>${std.lib.core.version}</version>
@@ -186,17 +187,17 @@
             <artifactId>hcs-service</artifactId>
             <version>${hcs.version}</version>
         </dependency>
-		<dependency>
-			<groupId>org.familysearch.standards</groupId>
-			<artifactId>std-ws-core-model</artifactId>
-			<version>${std.ws.core.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>org.familysearch.standards</groupId>
+            <artifactId>std-ws-core-model</artifactId>
+            <version>${std.ws.core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.familysearch.standards</groupId>
             <artifactId>std-lib-name-seg</artifactId>
@@ -251,38 +252,38 @@
             <artifactId>aws-java-sdk</artifactId>
             <version>${com.amazonaws.version}</version>
         </dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-core</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-servlet</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-spring</artifactId>
-			<version>${jersey.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>*</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
         <dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-core</artifactId>
-		    <version>${jackson.version}</version>
-	    </dependency>
-	    <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-spring</artifactId>
+            <version>${jersey.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${jackson.version}</version>
@@ -307,60 +308,60 @@
             <artifactId>binding-register-client</artifactId>
             <version>${binding.register.client.version}</version>
         </dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.2-1002.jdbc4</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.5</version>
-		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.2-1002.jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+        <dependency>
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>1.4.01</version>
         </dependency>
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.10.0</version>
-		</dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.0</version>
+        </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>3.1.3</version>
         </dependency>
-		<dependency>
-			<groupId>org.familysearch.sas</groupId>
-			<artifactId>sas-core</artifactId>
-			<version>2.3.b322</version>
-			<exclusions>
-			  <exclusion>
-			    <groupId>ch.qos.logback</groupId>
-			    <artifactId>logback-classic</artifactId>
-			  </exclusion>
+        <dependency>
+            <groupId>org.familysearch.sas</groupId>
+            <artifactId>sas-core</artifactId>
+            <version>2.3.b322</version>
+            <exclusions>
+              <exclusion>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+              </exclusion>
               <exclusion>
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
@@ -369,23 +370,23 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
               </exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.sas</groupId>
-			<artifactId>sas-client</artifactId>
-			<version>2.3.b322</version>
-		</dependency>
-		<dependency>
-			<groupId>org.familysearch.engage</groupId>
-			<artifactId>foundation-commons-sas-dbcp</artifactId>
-			<version>1.3.b284</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>4.1.2</version>
-		</dependency>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.sas</groupId>
+            <artifactId>sas-client</artifactId>
+            <version>2.3.b322</version>
+        </dependency>
+        <dependency>
+            <groupId>org.familysearch.engage</groupId>
+            <artifactId>foundation-commons-sas-dbcp</artifactId>
+            <version>1.3.b284</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -404,54 +405,54 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-buffer</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-dns</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-common</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-handler</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns</artifactId>
-            <version>4.1.45.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.9</version>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
             <version>1.7</version>
@@ -553,7 +554,7 @@
             <artifactId>hsqldb</artifactId>
             <version>2.5.0</version>
         </dependency>
-   	</dependencies>
+       </dependencies>
 
     <profiles>
         <profile>
