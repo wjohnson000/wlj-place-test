@@ -529,7 +529,7 @@
         <dependency>
             <groupId>com.bitplan</groupId>
             <artifactId>mediawiki-japi</artifactId>
-            <version>0.1.02</version>
+            <version>0.1.05</version>
             <exclusions>
                 <exclusion>
                     <groupId>log4j</groupId>
