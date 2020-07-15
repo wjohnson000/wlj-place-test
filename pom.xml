@@ -241,7 +241,11 @@
             <artifactId>std-lib-client-util-date</artifactId>
             <version>1.0.0.b7</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.familysearch.hil</groupId>
+            <artifactId>homelands-importer-names</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
@@ -383,6 +387,11 @@
 			<version>3.17</version>
 		</dependency>
         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
             <groupId>com.datastax.oss</groupId>
             <artifactId>java-driver-core</artifactId>
             <version>${cassandra.version}</version>
@@ -437,11 +446,6 @@
             <artifactId>netty-resolver-dns</artifactId>
             <version>4.1.45.Final</version>
         </dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.9</version>
-		</dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>

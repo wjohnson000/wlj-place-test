@@ -69,8 +69,8 @@ public class UploadLargeFiles {
     }
 
     public static void main(String args[]) {
-//        String url = "http://admin.homelands.service.dev.us-east-1.dev.fslocal.org/backup";
-        String url = "http://localhost:8080/hhs-admin/backup";
+        String url = "http://admin.homelands.service.dev.us-east-1.dev.fslocal.org/backup";
+//        String url = "http://localhost:8080/hhs-admin/backup";
         UploadLargeFiles fileUpload = new UploadLargeFiles ();
         File file = new File ("C:/temp/wlj-test-006.txt");
 //        File file = new File ("C:/D-drive/homelands/names/Names-and-Definitions-from-missionaries.xlsx");
