@@ -31,7 +31,7 @@
         <com.amazonaws.version>1.11.587</com.amazonaws.version> <!-- was 1.11.160 -->
         <jersey.version>1.19.4</jersey.version>
 <!--     <jackson.version>2.10.0.pr1</jackson.version> -->
-        <jackson.version>2.11.0</jackson.version> <!-- For AWS "Spark" compatibility -->
+        <jackson.version>2.11.1</jackson.version> <!-- For AWS "Spark" compatibility -->
         <logback.version>1.2.3</logback.version>
         <netty.version>4.1.46.Final</netty.version>
         <spring.version>5.2.1.RELEASE</spring.version>
