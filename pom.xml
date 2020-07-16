@@ -34,7 +34,7 @@
         <jackson.version>2.11.0</jackson.version> <!-- For AWS "Spark" compatibility -->
         <logback.version>1.2.3</logback.version>
         <netty.version>4.1.46.Final</netty.version>
-        <spring.version>5.2.1.RELEASE</spring.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
         <webClassifier>classes</webClassifier>
         <io-dropwizard-metrics.version>4.1.10.1</io-dropwizard-metrics.version>
     </properties>
