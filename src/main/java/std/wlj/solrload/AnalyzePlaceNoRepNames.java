@@ -16,23 +16,10 @@ import org.familysearch.standards.loader.sql.FileResultSet;
 
 
 public class AnalyzePlaceNoRepNames {
+
     private static final String DELIMITER = "\\|";
     private static FileResultSet  placeNameRS = null;
     private static final String FILE_PLACE_NAME = "place-name.txt";
-
-    /**
-     * Helper class that stores data from a row in the main "place" file.
-     * 
-     * @author wjohnson000
-     */
-    private static class PlaceData {
-        private int repId;
-        private int placeId;
-        private int tranId;
-        private int fromYear;
-        private int toYear;
-        private int deleteId;
-    }
 
     /**
      * Helper class that stores data from a row in an auxiliary data file, such

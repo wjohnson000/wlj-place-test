@@ -33,7 +33,7 @@ public class GetNamesPartII {
         ScheduledExecutorService service = NameServiceHelper.getExecutor();
         for (String name : names) {
             service.execute(() -> {
-                ArrayNode namesNode = NameServiceHelper.searchName(BETA_URL, name);
+                ArrayNode namesNode = NameServiceHelper.searchName(BETA_URL, name, "en");
                 if (namesNode == null  ||  namesNode.size() == 0) {
                     nameData.add(name + ",,,");
                 } else {

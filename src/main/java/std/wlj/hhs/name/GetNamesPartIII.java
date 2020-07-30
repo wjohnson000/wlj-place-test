@@ -17,7 +17,6 @@ import org.familysearch.homelands.importer.common.JsonUtility;
 import org.familysearch.homelands.importer.names.process.NameServiceHelper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 
 /**
  * @author wjohnson000
@@ -35,7 +34,7 @@ public class GetNamesPartIII {
         for (String name : names) {
             service.execute(() -> {
                 String[] chunks = name.split(",");
-                JsonNode nameNode = NameServiceHelper.readName(BETA_URL, chunks[2], "");
+                JsonNode nameNode = NameServiceHelper.readName(BETA_URL, chunks[2], "en", "");
                 if (nameNode == null) {
                     System.out.println(">>>> Missing: " + chunks[2]);
                 } else {
