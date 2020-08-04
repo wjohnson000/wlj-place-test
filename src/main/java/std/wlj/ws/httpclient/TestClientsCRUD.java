@@ -44,6 +44,7 @@ public class TestClientsCRUD {
            "    'createDate': '2020-07-10T19:47:05.040Z'," +
            "    'modifyUserId': 'cis.user.MMMM-8QZD'," +
            "    'modifyDate': '2020-07-10T19:47:05.040Z'" +
+           
            "}";
     static String NAME_JSON = NAME_JSON_SQ.replace('\'', '"');
 
@@ -51,7 +52,7 @@ public class TestClientsCRUD {
     static {
         headers.put("Accept-Language", "fr");
         headers.put("Accept-Charset", "UTF-8");
-        headers.put("Authorization", "Bearer " + "30376634-8943-459a-bd50-b894670c0f5d-integ");
+        headers.put("Authorization", "Bearer " + "???????????????????????????????????????????");
     }
 
     public static void main(String... args) throws Exception {
