@@ -8,7 +8,7 @@ There are a number of libraries that ease the complexities of doing HTTP calls. 
 
 ### Response Class
 
-The "WebResponse" class is a simple POJO that manages four basic values that could be of interest to a client calling a HTTP method.  The class was created because no single value would suffice for every case:
+The "WebResponse" class is a simple POJO that manages four basic values that could be of interest to a client calling a HTTP method.  The class was created because no single return value would suffice for every case:
 
 * Return status (int)
 * Response body (String)
