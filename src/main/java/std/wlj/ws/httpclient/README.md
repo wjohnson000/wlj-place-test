@@ -20,7 +20,7 @@ The client can call the "isOK()" method to determine if the call succeeded (i.e.
 
 ### HTTP Client Classes
 
-There are four clients, each of which support GET, POST, PUT and DELETE operations.  The constructor is private, but each class supports two factory methods to get a client:
+There are four clients, each of which support GET, POST, PUT and DELETE operations.  [NOTE: both the ApacheClient and SpringWebClient frameworks also support the "PATCH" method.]  The constructor is private, but each class supports two factory methods to get a client:
 
 * no parameters -- the client is set up to communicate with "application/json" as the content-type and accept values.
 * define a content-type and provide a list of headers that should be included with every HTTP call.
