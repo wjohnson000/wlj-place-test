@@ -15,7 +15,7 @@ The "WebResponse" class is a simple POJO that manages four basic values that cou
 * Response headers (Map) -- multiple values for a single header are concatenated and comma-separated
 * Exception -- what went wrong
 
-The client can call the "isOK()" method to determine if the call succeeded (i.e., no exception thrown) or not.
+The client can call the "isOK()" method to determine if the call succeeded (i.e., no exception thrown) or not.  NOTE: "isOK()" returns FALSE only when an exception is thrown in the client.  So a call with a return status of 400* or 500* will still return TRUE for the "isOK()" method.
 
 
 ### HTTP Client Classes
