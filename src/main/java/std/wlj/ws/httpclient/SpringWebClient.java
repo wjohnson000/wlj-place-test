@@ -27,7 +27,6 @@ import org.springframework.web.reactive.function.client.WebClient;
  */
 public class SpringWebClient {
 
-
     /**
      * Create a client with a default contentType of "application/json" that will be used on all requests unless
      * overridden on a per-request basis.
@@ -74,7 +73,7 @@ public class SpringWebClient {
     public WebResponse doGet(String url, String contentType, Map<String, String> headers) {
         try {
             WebClient client = WebClient.create();
-            
+
             ClientResponse response = client.get()
                                     .uri(url)
                                     .header("Content-Type", contentType)
