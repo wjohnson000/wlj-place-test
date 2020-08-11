@@ -76,7 +76,6 @@ public class SpringWebClient {
 
             ClientResponse response = client.get()
                                     .uri(url)
-                                    .header("Content-Type", contentType)
                                     .header("Accept", contentType)
                                     .headers(addHeaders(headers))
                                     .exchange()
