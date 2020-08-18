@@ -27,7 +27,7 @@
         <hhs.version>0.0.1-SNAPSHOT</hhs.version>
         <has.version>0.0.1-SNAPSHOT</has.version>
         <hcs.version>0.0.1-SNAPSHOT</hcs.version>
-        <cassandra.version>4.7.2</cassandra.version>
+        <cassandra.version>4.8.0</cassandra.version>
 
         <binding.register.client.version>1.0.b43</binding.register.client.version>
         <cis-cas-client.version>1.b116</cis-cas-client.version>
