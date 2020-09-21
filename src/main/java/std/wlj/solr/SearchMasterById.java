@@ -27,14 +27,15 @@ public class SearchMasterById {
 
 //        SolrQuery query = new SolrQuery("*:*");
 //        SolrQuery query = new SolrQuery("repId:337");
-        SolrQuery query = new SolrQuery("ownerId:5060747");
+//        SolrQuery query = new SolrQuery("ownerId:5060747");
 //        SolrQuery query = new SolrQuery("repId:(2241774 10973986)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("like fork");
-//        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
+        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("id:SOURCE");
-//        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
+//        SolrQuery query = new SolrQuery("id:ATTRIBUTE-TYPE");
+//      SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("id:PLACE-TYPE");
 //        SolrQuery query = new SolrQuery("id:REP-RELATION");
 //        SolrQuery query = new SolrQuery("id:PLACE-889085");

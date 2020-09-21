@@ -1,5 +1,7 @@
 package std.wlj.jira;
 
+import java.util.Collections;
+
 import std.wlj.ws.rawhttp.HttpClientX;
 
 /**
@@ -13,8 +15,8 @@ public class STD6263 {
     private static String baseUrl = "http://ws.date.std.cmn.prod.us-east-1.prod.fslocal.org/dates/interp?text=1776+july+01&accept-language=xxx";
 
     public static void main(String[] args) throws Exception {
-        String xml  = HttpClientX.doGetXML(baseUrl);
-        String json = HttpClientX.doGetJSON(baseUrl);
+        String xml  = HttpClientX.doGetXML(baseUrl, Collections.emptyMap());
+        String json = HttpClientX.doGetJSON(baseUrl, Collections.emptyMap());
 
         System.out.println("\n\n\nXML\n: " + xml);
         System.out.println("\n\n\nJSON\n: " + json);

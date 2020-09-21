@@ -38,7 +38,7 @@ public abstract class SessionUtilityAWS {
         return CqlSession.builder()
                     .withKeyspace(CqlIdentifier.fromCql("hhs"))
                     .addContactPoints(contactPoints)
-                    .withAuthCredentials("wjohnson000", password)
+                    .withAuthCredentials("cassandra", password)
                     .withLocalDatacenter("us-east_core")
                     .build();
     }

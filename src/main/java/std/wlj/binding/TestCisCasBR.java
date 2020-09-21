@@ -28,6 +28,7 @@ public class TestCisCasBR {
 
     static final String CIS_SERVICE = "cis-public-api.cis.ident.service";
     static final String CAS_SERVICE = "cas-public-api.cas.ident.service";
+    static final String HCS_SERVICE = "core.homelands.service";
 
     private static final ExecutorService DEFAULT_EXECUTER = null;
     private static final String          CASC_SERVER_NOT_NEEDED = null;

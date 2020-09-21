@@ -5,6 +5,7 @@ package std.wlj.date.http;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -61,7 +62,7 @@ public class InterpDateHttpLots {
         for (String dateStr : dateText) {
             final Timer.Context context = TIMER.time();
             long time0 = System.nanoTime();
-            String dateResp = HttpClientX.doGetXML(baseUrl + "?text=" + dateStr);
+            String dateResp = HttpClientX.doGetXML(baseUrl + "?text=" + dateStr, Collections.emptyMap());
             long time1 = System.nanoTime();
             context.close();
             HISTOGRAM.update(time1 - time0);

@@ -4,13 +4,10 @@
 package std.wlj.hhs.name;
 
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.maven.surefire.shade.org.apache.commons.io.IOUtils;
-import org.familysearch.homelands.core.persistence.model.NameType;
 import org.familysearch.homelands.core.persistence.util.JsonUtility;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,7 +24,9 @@ import std.wlj.ws.rawhttp.HttpClientX;
 public class LoadOxfordNamesUpdate {
 
     private static final String baseUrl = "http://core.homelands.service.dev.us-east-1.dev.fslocal.org/";
-    
+
+    private static final Map<String, String> headers = Collections.singletonMap("Authorization", "Bearer " + "");
+
     public static void main(String... args) throws Exception {
         Map<String, String> nameToIdMap = loadSavedIds();
 
@@ -53,7 +52,7 @@ public class LoadOxfordNamesUpdate {
 
                     if (variantChanged) {
                         System.out.println("PUT " + baseUrl + "/name/" + id);
-                        HttpClientX.doPutJson(baseUrl + "/name/" + id, JsonUtility.prettyPrint(nameNode));
+                        HttpClientX.doPutJson(baseUrl + "/name/" + id, JsonUtility.prettyPrint(nameNode), headers);
                     }
                 }
             }
@@ -69,7 +68,7 @@ public class LoadOxfordNamesUpdate {
     }
 
     static JsonNode readName(String id) throws Exception {
-        String json = HttpClientX.doGetJSON(baseUrl + "name/" +  id);
+        String json = HttpClientX.doGetJSON(baseUrl + "name/" +  id, headers);
         return JsonUtility.parseJson(json);
     }
 }

@@ -32,6 +32,8 @@ public class LoadOxfordNames {
     private static String FIRST_FILE = "first_acref_9780198610601.xml";
     private static String LAST_FILE  = "last_acref_9780195081374.xml";
 
+    private static Map<String, String> headers = Collections.singletonMap("Authorization", "Bearer " + "");
+
     private static NameDefParser parser;
 
     private static Map<String, NameDef> nameById = new HashMap<>();
@@ -51,7 +53,7 @@ public class LoadOxfordNames {
 
     static void createCollectionIfNecessary() throws Exception {
         if (COLL_ID != null) {
-            String collJson = HttpClientX.doGetJSON(baseUrl + "/collection/" + COLL_ID);
+            String collJson = HttpClientX.doGetJSON(baseUrl + "/collection/" + COLL_ID, headers);
             if (collJson == null  ||  collJson.isEmpty()) {
                 COLL_ID = null;
             }
@@ -59,7 +61,7 @@ public class LoadOxfordNames {
 
         if (COLL_ID == null) {
             String json = IOUtils.toString(LoadOxfordNames.class.getResourceAsStream("collection.json"), StandardCharsets.UTF_8);
-            String result = HttpClientX.doPostJson(baseUrl + "/collection", json);
+            String result = HttpClientX.doPostJson(baseUrl + "/collection", json, headers);
             System.out.println("RESULT: " + result);
         }
     }
@@ -106,7 +108,7 @@ public class LoadOxfordNames {
 
             JsonNode node = createJson(nameDef);
             System.out.println("NN: " + JsonUtility.prettyPrint(node));
-            String result = HttpClientX.doPostJson(baseUrl + "/name", JsonUtility.prettyPrint(node));
+            String result = HttpClientX.doPostJson(baseUrl + "/name", JsonUtility.prettyPrint(node), headers);
             System.out.println("RESULT: " + result);
             if (result != null) {
                 int ndx = result.lastIndexOf('/');

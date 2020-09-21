@@ -3,6 +3,8 @@
  */
 package std.wlj.date.http;
 
+import java.util.Collections;
+
 import org.familysearch.standards.date.ws.model.Dates;
 
 import std.wlj.marshal.POJOMarshalUtil;
@@ -18,7 +20,7 @@ public class InterpDate {
     private static String baseUrl = "http://localhost:8080/std-ws-date/dates/interp";
 
     public static void main(String... args) {
-        String dateResp = HttpClientX.doGetXML(baseUrl + "?text=20January1999");
+        String dateResp = HttpClientX.doGetXML(baseUrl + "?text=20January1999", Collections.emptyMap());
         Dates dates = POJOMarshalUtil.fromXML(dateResp, Dates.class);
         System.out.println("Dates: " + dates.getCount());
         if (dates.getCount() > 0) {

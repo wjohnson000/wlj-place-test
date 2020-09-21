@@ -7,7 +7,7 @@ import java.util.*;
 
 import org.familysearch.homelands.admin.parser.helper.JsonUtility;
 import org.familysearch.homelands.admin.parser.helper.TextUtility;
-import org.familysearch.homelands.svc.model.NameModel;
+import org.familysearch.homelands.admin.parser.model.NameModel;
 
 /**
  * @author wjohnson000

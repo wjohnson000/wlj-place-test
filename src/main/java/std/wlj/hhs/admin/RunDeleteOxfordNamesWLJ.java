@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.hhs.name;
+package std.wlj.hhs.admin;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

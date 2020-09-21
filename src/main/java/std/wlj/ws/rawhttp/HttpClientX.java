@@ -6,9 +6,7 @@ package std.wlj.ws.rawhttp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -36,9 +34,7 @@ public class HttpClientX {
         httpConnManager.setDefaultMaxPerRoute(5);
     }
 
-    public static final Map<String, String> headers = new TreeMap<>();
-
-    public static String doGetJSON(String url) {
+    public static String doGetJSON(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
         CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
 
@@ -60,12 +56,13 @@ public class HttpClientX {
         }
     }
 
-    public static String doGetXML(String url) {
+    public static String doGetXML(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
         CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Accept", "text/xml");
+        headers.entrySet().forEach(hdr -> httpGet.addHeader(hdr.getKey(), hdr.getValue()));
 
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
@@ -78,12 +75,13 @@ public class HttpClientX {
         }
     }
 
-    public static String doGetHTML(String url) {
+    public static String doGetHTML(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
         CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Accept", "text/html");
+        headers.entrySet().forEach(hdr -> httpGet.addHeader(hdr.getKey(), hdr.getValue()));
 
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
@@ -96,11 +94,12 @@ public class HttpClientX {
         }
     }
 
-    public static String doPostJson(String url, String body) {
+    public static String doPostJson(String url, String body, Map<String, String> headers) {
         // POST the request, return the "LOCATION" header
         try(CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             httpPost.addHeader("Accept", "application/json");
+            headers.entrySet().forEach(hdr -> httpPost.addHeader(hdr.getKey(), hdr.getValue()));
             StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
             httpPost.setEntity(entity);
 
@@ -113,11 +112,12 @@ public class HttpClientX {
         }
     }
 
-    public static String doPutJson(String url, String body) {
+    public static String doPutJson(String url, String body, Map<String, String> headers) {
         // PUT the request, but don't show any concern about the response
         try(CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPut httpPut = new HttpPut(url);
             httpPut.addHeader("Accept", "application/json");
+            headers.entrySet().forEach(hdr -> httpPut.addHeader(hdr.getKey(), hdr.getValue()));
             StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
             httpPut.setEntity(entity);
 
@@ -137,7 +137,7 @@ public class HttpClientX {
      * @param headers request headers to be set (should NOT include "Accept")
      * @return
      */
-    public static boolean doDelete(String url, Map<String, String> headers) throws Exception {
+    public static boolean doDelete(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
         CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
 
@@ -148,7 +148,7 @@ public class HttpClientX {
             return response.getStatusLine().getStatusCode() < 300;
         } catch (IOException ex) {
             System.out.println("DELETE failed [" + url + "] --> " + ex.getMessage());
-            throw ex;
+            return false;
         }
     }
 

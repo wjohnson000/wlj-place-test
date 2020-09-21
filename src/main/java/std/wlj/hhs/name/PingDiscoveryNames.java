@@ -49,9 +49,10 @@ public class PingDiscoveryNames {
     };
 
     public static void main(String...args) throws Exception {
-        HttpClientX.headers.put("Authorization", "Bearer " + authToken);
+        Map<String, String> headers = Collections.singletonMap("Authorization", "Bearer " + authToken);
+
         for (String name : names) {
-            String json = HttpClientX.doGetJSON(baseUrl + name);
+            String json = HttpClientX.doGetJSON(baseUrl + name, headers);
             System.out.println("=======================================================================");
             System.out.println("Name: " + name);
             System.out.println(json);
