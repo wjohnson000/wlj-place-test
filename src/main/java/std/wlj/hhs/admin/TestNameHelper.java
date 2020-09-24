@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.familysearch.homelands.admin.client.HomelandsCoreClient;
 import org.familysearch.homelands.admin.client.WebClientWrapper;
+import org.familysearch.homelands.admin.client.model.WebResponse;
 import org.familysearch.homelands.admin.importer.step.NameHelper;
 import org.familysearch.paas.binding.register.Environment;
 import org.familysearch.paas.binding.register.Region;
@@ -31,20 +32,35 @@ public class TestNameHelper {
         Set<String> names = getEsNames();
         System.out.println("Names.count=" + names.size());
 
-        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.DEV, Region.US_EAST_1);
+        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.PROD, Site.PROD, Region.US_EAST_1);
         ServiceLocator locator = new ServiceLocator(config);
 
         WebClientWrapper clientWrapper = new WebClientWrapper(webClient());
         HomelandsCoreClient hscWebClient = new HomelandsCoreClient(locator, "core.homelands.service", "", clientWrapper);
 
-        Map<String, String> nameIds = NameHelper.readNames("MMM9-XL1", names, "LAST", hscWebClient, "en", sessionId);
+        Map<String, String> nameIds = NameHelper.readNames("MMMM-98L", names, "LAST", hscWebClient, "en", sessionId);
         nameIds.entrySet().forEach(System.out::println);
+
+        searchName(hscWebClient, "Espinoza");
+        searchName(hscWebClient, "Williams");
+        searchName(hscWebClient, "DaCosta");
+        searchName(hscWebClient, "Da Costa");
+        searchName(hscWebClient, "Da%20Costa");
+    }
+
+    static void searchName(HomelandsCoreClient hcsWebClient, String name) {
+        WebResponse response = hcsWebClient.searchAll(name, "", "en");
+        System.out.println("\n=============================================================");
+        System.out.println("NAME: " + name);
+        System.out.println("  ST: " + response.getStatus());
+        System.out.println("  TX: " + response.getBody());
     }
 
     static Set<String> getEsNames() {
         Set<String> names = new TreeSet<>();
         names.add("Espinoza");
         names.add("Williams");
+        names.add("Da Costa");
         return names;
     }
 
@@ -57,6 +73,6 @@ public class TestNameHelper {
                 System.out.println("5XX HTTP Status. http_status=" + clientResponse.statusCode() + "; warning_header=" + respHeaders.get(HttpHeaders.WARNING));
                 throw new RuntimeException("http call failed with http_status=" + clientResponse.statusCode().value());
             }
-        }).retryWhen(Retry.fixedDelay(3, Duration.ofSeconds(1)))).build();
+        }).retryWhen(Retry.fixedDelay(1, Duration.ofSeconds(1)))).build();
     }
 }

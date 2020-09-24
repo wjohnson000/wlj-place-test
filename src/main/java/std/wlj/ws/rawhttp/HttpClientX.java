@@ -50,6 +50,8 @@ public class HttpClientX {
                 EntityUtils.consumeQuietly(response.getEntity());
                 return json;
             }
+        } catch(NullPointerException ex) {
+            return null;
         } catch(Exception ex) {
             System.out.println("Url failed [" + url + "] --> " + ex.getMessage());
             return null;
