@@ -2,6 +2,8 @@ package std.wlj.solr.helper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -210,11 +212,17 @@ public class SolrConnectionX {
 
         CoreContainer container = null;
         if (oldStyleDir.exists()) {
-            logger.info(null, MODULE_NAME, "Solr:  Using container location of " + oldStyleDir.getAbsolutePath());
-            container = new CoreContainer(oldStyleDir.getAbsolutePath());
+//            logger.info(null, MODULE_NAME, "Solr:  Using container location of " + oldStyleDir.getAbsolutePath());
+//            container = CoreContainer.createAndLoad(Paths.get(oldStyleDir.getAbsolutePath()));
+            Path oldDir = Paths.get(oldStyleDir.getAbsolutePath());
+            logger.info( null, MODULE_NAME, "Solr:  Using container location of " + oldDir);
+            container = CoreContainer.createAndLoad(oldDir);
         } else if (newStyleDir.exists()) {
-            logger.info(null, MODULE_NAME, "Solr:  Using container location of " + newStyleDir.getAbsolutePath());
-            container = new CoreContainer(newStyleDir.getAbsolutePath());
+//            logger.info(null, MODULE_NAME, "Solr:  Using container location of " + newStyleDir.getAbsolutePath());
+//            container = CoreContainer.createAndLoad(Paths.get(newStyleDir.getAbsolutePath()));
+            Path newDir = Paths.get(newStyleDir.getAbsolutePath());
+            logger.info(null, MODULE_NAME, "Solr:  Using container location of " + newDir);
+            container = CoreContainer.createAndLoad(newDir);
         } else {
             throw new PlaceDataException("Unable to find SOLR at the given location: " + location);
         }

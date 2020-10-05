@@ -38,7 +38,7 @@ public class TestNameHelper {
         WebClientWrapper clientWrapper = new WebClientWrapper(webClient());
         HomelandsCoreClient hscWebClient = new HomelandsCoreClient(locator, "core.homelands.service", "", clientWrapper);
 
-        Map<String, String> nameIds = NameHelper.readNames("MMMM-98L", names, "LAST", hscWebClient, "en", sessionId);
+        Map<String, String> nameIds = NameHelper.readNames("MMMM-98L", names, "LAST", hscWebClient, "en", sessionId, null);
         nameIds.entrySet().forEach(System.out::println);
 
         searchName(hscWebClient, "Espinoza");
@@ -49,7 +49,7 @@ public class TestNameHelper {
     }
 
     static void searchName(HomelandsCoreClient hcsWebClient, String name) {
-        WebResponse response = hcsWebClient.searchAll(name, "", "en");
+        WebResponse response = hcsWebClient.searchAll(name, "", "en", null);
         System.out.println("\n=============================================================");
         System.out.println("NAME: " + name);
         System.out.println("  ST: " + response.getStatus());
