@@ -49,7 +49,7 @@
         <h2.version>1.4.200</h2.version>
         <icu4j.version>67.1</icu4j.version>
         <io-dropwizard-metrics.version>4.1.5</io-dropwizard-metrics.version>
-        <jackson.version>2.11.0</jackson.version> <!-- For AWS "Spark" compatibility -->
+        <jackson.version>2.11.3</jackson.version> <!-- For AWS "Spark" compatibility -->
         <javax.servlet.version>3.1.0</javax.servlet.version>
         <jedis.version>3.3.0</jedis.version>
         <jericho-html.verion>3.4</jericho-html.verion>
