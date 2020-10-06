@@ -67,7 +67,7 @@
         <postgres.version>9.3-1101.jdbc41</postgres.version>
         <redisson.version>3.13.2</redisson.version>
         <sas-core.version>3.1.b478</sas-core.version>
-        <spring.version>5.2.7.RELEASE</spring.version>
+        <spring.version>5.2.9.RELEASE</spring.version>
         <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
         <spring-data-redis.version>2.3.2.RELEASE</spring-data-redis.version>
         <xml-apis.version>1.4.01</xml-apis.version>
