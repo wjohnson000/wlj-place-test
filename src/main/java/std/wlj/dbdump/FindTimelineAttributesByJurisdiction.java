@@ -24,7 +24,7 @@ public class FindTimelineAttributesByJurisdiction {
     private static final String repFile   = "place-rep-all.txt";
     private static final String attrFile  = "attribute-all.txt";
     private static final String dNameFile = "display-name-all.txt";
-    private static final String chainFile = "rep-chain.txt";
+    private static final String chainFile = "rep-chain-all.txt";
 
     private static final String DELIMITER = "\\|";
 

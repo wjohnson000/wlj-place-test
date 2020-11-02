@@ -116,6 +116,55 @@ public class DbHelperWLJ {
         logger.info(null, AppConstants.MODULE_NAME, "Place-Rep ID chain generation complete");
     }
 
+    /**
+     * Seed the place-chain data with all chains involving every place-rep which is a parent
+     * to at least one other place-rep.  NOTE: this is an expensive operation, so once run
+     * there is no need to run this again for two hours.
+     * 
+     * @throws Exception
+     */
+    public synchronized void seedPlaceChainNew() {
+        logger.info(null, AppConstants.MODULE_NAME, "Starting the seed of the place-rep ID chains ...");
+        if (placeRepChainMap.size() > 1000 && (System.currentTimeMillis() - lastChainLoad) < NINETY_MINUTES_AS_MILLIS) {
+            logger.info(null, AppConstants.MODULE_NAME, "Place-Rep ID chain generation previously finished");
+            return;
+        }
+        lastChainLoad = System.currentTimeMillis();
+
+        // Save all child-parent associations where the child is also a parent
+        Map<Integer, Integer> childParentMap = new HashMap<Integer, Integer>();
+        Map<Integer, Integer> repReplaceMap  = new HashMap<Integer, Integer>();
+        String query =
+            "SELECT rep_id, parent_id, delete_id " +
+            "  FROM {schema}place_rep " +
+            " WHERE rep_id IN " +
+            "       (SELECT DISTINCT parent_id FROM {schema}place_rep) " +
+            "    OR rep_id IN " + 
+            "       (SELECT DISTINCT delete_id FROM {schema}place_rep WHERE delete_id IS NOT NULL) " +
+            " ORDER BY tran_id ASC";
+
+        try (Connection conn = dataSource.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery(injectSchema(query))) {
+            while (rset.next()) {
+                int repId = rset.getInt("rep_id");
+                int parId = rset.getInt("parent_id");
+                int delId = rset.getInt("delete_id");
+                childParentMap.put(repId, parId);
+                if (delId > 0) {
+                    repReplaceMap.put(repId, delId);
+                }
+            }
+            logger.info(null, AppConstants.MODULE_NAME, "Chain data retrieved ... start generation of chains");
+
+        } catch (SQLException ex) {
+            logger.error(ex, AppConstants.MODULE_NAME, "Unable to generate chains");
+        }
+
+        buildPlaceRepChains(childParentMap, repReplaceMap);
+        logger.info(null, AppConstants.MODULE_NAME, "Place-Rep ID chain generation complete");
+    }
+
     protected void buildPlaceRepChains(Map<Integer, Integer> childParentMap, Map<Integer, Integer> repReplaceMap) {
         for (Integer childId : childParentMap.keySet()) {
             List<Integer> repIdChain = new ArrayList<>();

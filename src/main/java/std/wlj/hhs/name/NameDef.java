@@ -13,6 +13,7 @@ import java.util.List;
 public class NameDef {
     String  id;
     String  text;
+    String  normalText;
     String  language;
     String  refId;
     String  type;

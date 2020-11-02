@@ -22,7 +22,7 @@ public class FindTimelineAttributesAll {
     private static final String repFile   = "place-rep-all.txt";
     private static final String attrFile  = "attribute-all.txt";
     private static final String dNameFile = "display-name-all.txt";
-    private static final String chainFile = "rep-chain.txt";
+    private static final String chainFile = "rep-chain-all.txt";
     private static final String outFile   = "all-history-attr.txt";
 
     private static final String DELIMITER = "\\|";
@@ -51,7 +51,7 @@ public class FindTimelineAttributesAll {
         attributeTypes.put(507, "INCORP_DATE");
         attributeTypes.put(566, "INVENTIONS_TECH");
         attributeTypes.put(429, "LDS_TMPLST");
-        attributeTypes.put(567, "MEDICAL");
+        attributeTypes.put(567, "MEDICAL"); 
         attributeTypes.put(568, "MIGRATIONS");
         attributeTypes.put(569, "MUSIC");
         attributeTypes.put(570, "NEWSPAPERS");

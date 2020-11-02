@@ -24,6 +24,7 @@ public class FindTimelineAttributesByDetail {
     private static class AttrDetail {
         int    repId;
         int    tranId;
+        int    year;
         int[]  timePeriod;
         String typeName;
         String value;
@@ -33,7 +34,7 @@ public class FindTimelineAttributesByDetail {
     private static final String repFile    = "place-rep-all.txt";
     private static final String attrFile   = "attribute-all.txt";
     private static final String dNameFile  = "display-name-all.txt";
-    private static final String chainFile  = "rep-chain.txt";
+    private static final String chainFile  = "rep-chain-all.txt";
     private static final String tranxFile  = "transaction-all.txt";
     private static final String resultFile = "attribute-detail.txt";
 
@@ -249,6 +250,7 @@ public class FindTimelineAttributesByDetail {
                         AttrDetail attrDetail = new AttrDetail();
                         attrDetail.repId = prevRepId;
                         attrDetail.tranId = prevTranId;
+                        attrDetail.year = prevFromYr;
                         attrDetail.timePeriod = getPeriodRange(prevFromYr, prevToYr);
                         attrDetail.typeName = attributeTypes.getOrDefault(prevTypeId, String.valueOf(prevTypeId));
                         attrDetail.value = prevValue;
@@ -277,6 +279,7 @@ public class FindTimelineAttributesByDetail {
             AttrDetail attrDetail = new AttrDetail();
             attrDetail.repId = prevRepId;
             attrDetail.tranId = prevTranId;
+            attrDetail.year = prevFromYr;
             attrDetail.timePeriod = getPeriodRange(prevFromYr, prevToYr);
             attrDetail.typeName = attributeTypes.getOrDefault(prevTypeId, String.valueOf(prevTypeId));
             attrDetail.value = prevValue;
@@ -324,6 +327,7 @@ public class FindTimelineAttributesByDetail {
                 StringBuilder buff = new StringBuilder();
                 buff.append(attrDetail.repId);
                 buff.append("|").append(repName);
+                buff.append("|").append((attrDetail.year == 0) ? "" : String.valueOf(attrDetail.year));
                 buff.append("|").append(attrDetail.timePeriod[0]).append("-").append(attrDetail.timePeriod[1]);
                 buff.append("|").append(attrDetail.typeName);
                 buff.append("|").append(getTranxDate(attrDetail.tranId));

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.familysearch.homelands.admin.client.HomelandsCoreClient;
 import org.familysearch.homelands.admin.client.WebClientWrapper;
 import org.familysearch.homelands.admin.client.model.WebResponse;
-import org.familysearch.homelands.admin.importer.step.NameHelper;
+import org.familysearch.homelands.admin.importer.step.name.NameHelper;
 import org.familysearch.paas.binding.register.Environment;
 import org.familysearch.paas.binding.register.Region;
 import org.familysearch.paas.binding.register.ServiceLocator;

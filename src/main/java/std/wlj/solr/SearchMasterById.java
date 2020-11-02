@@ -26,16 +26,16 @@ public class SearchMasterById {
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:337");
+//        SolrQuery query = new SolrQuery("repId:3863");
 //        SolrQuery query = new SolrQuery("ownerId:5060747");
 //        SolrQuery query = new SolrQuery("repId:(2241774 10973986)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
 //        SolrQuery query = new SolrQuery("ownerId:1");
 //        SolrQuery query = new SolrQuery("like fork");
-        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
+//        SolrQuery query = new SolrQuery("id:GROUP-HIERARCHY");
 //        SolrQuery query = new SolrQuery("id:SOURCE");
 //        SolrQuery query = new SolrQuery("id:ATTRIBUTE-TYPE");
-//      SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
+//        SolrQuery query = new SolrQuery("id:NAME-PRIORITY");
 //        SolrQuery query = new SolrQuery("id:PLACE-TYPE");
 //        SolrQuery query = new SolrQuery("id:REP-RELATION");
 //        SolrQuery query = new SolrQuery("id:PLACE-889085");
@@ -47,6 +47,7 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
 //        SolrQuery query = new SolrQuery("type:81");
+        SolrQuery query = new SolrQuery("deleteId:3863");
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");
