@@ -15,9 +15,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import org.familysearch.homelands.core.context.common.MappingConstants;
 import org.familysearch.homelands.core.persistence.model.NameData;
 import org.familysearch.homelands.core.persistence.util.JsonUtility;
-import org.familysearch.homelands.core.svc.ServiceHelper;
 
 import static org.familysearch.homelands.core.svc.ServiceHelper.DATE_TIME_PATTERN;
 
@@ -62,10 +63,10 @@ public class NameResource implements Serializable {
         if (nameData != null) {
             JsonNode details = nameData.getDetails();
             JsonNode collectionInfo = nameData.getCollectionInfo();
-            JsonNode collectionDetails = JsonUtility.getJsonNode(nameData.getCollectionInfo(), ServiceHelper.COLLECTION_DETAILS_KEY);
+            JsonNode collectionDetails = JsonUtility.getJsonNode(nameData.getCollectionInfo(), MappingConstants.COLLECTION_DETAILS_KEY);
             JsonNode systemInfo = nameData.getSystemInfo();
             this.setId(nameData.getId());
-            String origLanguage = systemInfo != null ? JsonUtility.getStringValue(systemInfo, ServiceHelper.ORIG_LANGUAGE_KEY) : null;
+            String origLanguage = systemInfo != null ? JsonUtility.getStringValue(systemInfo, MappingConstants.ORIG_LANGUAGE_KEY) : null;
             if (origLanguage != null) {
                 this.setOriginLanguage(origLanguage);
             }
@@ -73,17 +74,17 @@ public class NameResource implements Serializable {
             
             //Temp code to fall back to old way of storing collectionId - Remove after all data is reloaded
             if (getCollectionId() == null) {
-                this.setCollectionId(JsonUtility.getStringValue(collectionInfo, ServiceHelper.COLLECTION_ID_KEY));        
+                this.setCollectionId(JsonUtility.getStringValue(collectionInfo, MappingConstants.COLLECTION_ID_KEY));        
             }
             
             if (collectionDetails != null) {
-                JsonNode attributionNode = JsonUtility.getJsonNode(collectionDetails, ServiceHelper.ATTRIBUTION_KEY);
+                JsonNode attributionNode = JsonUtility.getJsonNode(collectionDetails, MappingConstants.ATTRIBUTION_KEY);
                 this.setAttribution(JsonUtility.getStringValue(attributionNode, nameData.getLanguage()));
-                this.setAttributionURL(JsonUtility.getStringValue(collectionDetails, ServiceHelper.ATTRIBUTION_URL_KEY));
+                this.setAttributionURL(JsonUtility.getStringValue(collectionDetails, MappingConstants.ATTRIBUTION_URL_KEY));
             }
-            this.setName(JsonUtility.getStringValue(details, ServiceHelper.NAME_KEY));
+            this.setName(JsonUtility.getStringValue(details, MappingConstants.NAME_KEY));
             this.setType(String.valueOf(nameData.getNameType()));
-            this.setGender(JsonUtility.getStringValue(details, ServiceHelper.GENDER_KEY));
+            this.setGender(JsonUtility.getStringValue(details, MappingConstants.GENDER_KEY));
             this.setLanguage(nameData.getLanguage());
             this.setCollectionVisibility(nameData.getCollectionVisibility() != null ? nameData.getCollectionVisibility().name() : null);
             this.setNameVisibility(nameData.getNameVisibility() != null ? nameData.getNameVisibility().name() : null);
@@ -92,7 +93,7 @@ public class NameResource implements Serializable {
             this.setModifyUserId(nameData.getModifyUserId());
             this.setModifyDate(nameData.getModifyDate());
 
-            JsonNode definitionNode = JsonUtility.getJsonNode(details, ServiceHelper.NAME_DEFINITION_KEY);
+            JsonNode definitionNode = JsonUtility.getJsonNode(details, MappingConstants.NAME_DEFINITION_KEY);
 
             //If format isn't set then generate all types of formats, otherwise only set definition matching format type
             // Raw [FormattedData] is stored in JSON node
@@ -105,7 +106,7 @@ public class NameResource implements Serializable {
             }
 
             // Extract the variant name data
-            JsonNode nameVariantMapNode = JsonUtility.getJsonNode(details, ServiceHelper.NAME_VARIANTS_KEY);
+            JsonNode nameVariantMapNode = JsonUtility.getJsonNode(details, MappingConstants.NAME_VARIANTS_KEY);
             Iterator<Map.Entry<String, JsonNode>> nameVariantIter = nameVariantMapNode.fields();
             Map<String, List<NameVariant>> nameVariantsMap = new HashMap<>();
             while(nameVariantIter.hasNext()) {
@@ -116,13 +117,13 @@ public class NameResource implements Serializable {
                 if (nameVariantsNode != null) {
                     nameVariantsNode.forEach(nameVariantNode -> nameVariants.add(
                           new NameVariant(
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_NAME_ID_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_NAME_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_PRE_HTML_NAME_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_HTML_NAME_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_POST_HTML_NAME_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_FULL_HTML_NAME_KEY),
-                                JsonUtility.getStringValue(nameVariantNode, ServiceHelper.NAME_VARIANT_LANGUAGE_KEY)
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_NAME_ID_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_NAME_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_PRE_HTML_NAME_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_HTML_NAME_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_POST_HTML_NAME_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_FULL_HTML_NAME_KEY),
+                                JsonUtility.getStringValue(nameVariantNode, MappingConstants.NAME_VARIANT_LANGUAGE_KEY)
                           )));
                 }
                 nameVariantsMap.put(entry.getKey(), nameVariants);

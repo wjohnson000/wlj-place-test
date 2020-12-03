@@ -248,6 +248,7 @@ public class CreateAllQuizzes {
 
         JsonNode quiz = JsonUtility.emptyNode();
         JsonUtility.addField(quiz, "id", id);
+        JsonUtility.addField(quiz, "externalId", "dummy");
         JsonUtility.addField(quiz, "name", question);
         JsonUtility.addField(quiz, "description", question);
         JsonUtility.addField(quiz, "language", lang);
@@ -297,6 +298,7 @@ public class CreateAllQuizzes {
                 JsonUtility.addField(item, "type", typeCatSubcat.get(aamId)[0]);
                 JsonUtility.addField(item, "name", quizM.answer);
                 JsonUtility.addField(item, "language", quizM.language);
+                JsonUtility.addField(item, "externalId", "dummy");
                 JsonUtility.addField(item, "locale", quizM.region);
                 JsonUtility.addField(item, "placeRepId", 1);
                 JsonUtility.addField(item, "category", typeCatSubcat.get(aamId)[1]);
