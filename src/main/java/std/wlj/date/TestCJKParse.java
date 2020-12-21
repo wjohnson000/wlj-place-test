@@ -29,7 +29,7 @@ public class TestCJKParse {
     protected static CJKDictionarySegmenter segmenter;
     protected static ParseContext           context;
 
-    public static void main(String...args) {
+    public static void main(String...args) throws Exception {
         setupSegmenter();
         setupParseContext();
         List<String> testStrings = getTestStrings();
@@ -37,6 +37,10 @@ public class TestCJKParse {
             Token testToken = createToken(testStr);
             System.out.println("\n======================================================================");
             System.out.println("TK: " + testToken);
+            List<Token> tokens = segmenter.segment(Arrays.asList(testToken), context);
+//            List<Token> tokens = segmenter.segmentToken(testToken, context);
+            tokens.forEach(System.out::println);
+
 //            List<List<CJKDictionarySegmenter.TokenRange>> listOld = segmenter.getOld(testToken, context);
 //            List<List<CJKDictionarySegmenter.TokenRange>> listZh = segmenter.getNew(testToken, context, "zh");
 //            List<List<CJKDictionarySegmenter.TokenRange>> listJa = segmenter.getNew(testToken, context, "ja");
@@ -53,7 +57,7 @@ public class TestCJKParse {
 //            for (List<CJKDictionarySegmenter.TokenRange> ko : listKo) {
 //                System.out.println("KO: " + ko);
 //            }
-            break;
+//            break;
         }
 
         System.exit(0);
@@ -149,6 +153,8 @@ public class TestCJKParse {
         textes.add("乾隆丙辰年八月三日");
         textes.add("乾隆丙辰年八月初三日");
 
+        textes.clear();
+        textes.add("朝鮮太祖洪武壬申年七月十七日");
         return textes;
     }
 

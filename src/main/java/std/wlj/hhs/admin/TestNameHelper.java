@@ -11,6 +11,7 @@ import org.familysearch.homelands.admin.client.HomelandsCoreClient;
 import org.familysearch.homelands.admin.client.WebClientWrapper;
 import org.familysearch.homelands.admin.client.model.WebResponse;
 import org.familysearch.homelands.admin.importer.step.name.NameHelper;
+import org.familysearch.homelands.core.context.RequestHeaderData;
 import org.familysearch.paas.binding.register.Environment;
 import org.familysearch.paas.binding.register.Region;
 import org.familysearch.paas.binding.register.ServiceLocator;
@@ -28,7 +29,7 @@ import reactor.util.retry.Retry;
 public class TestNameHelper {
 
     public static void main(String...args) throws Exception {
-        String sessionId = "7a89d83a-6557-40bb-9ebc-14a457440dff-integ";
+        String sessionId = "f0d56df6-d64d-4d07-80ef-2b33e98e4f55-integ";
         Set<String> names = getEsNames();
         System.out.println("Names.count=" + names.size());
 
@@ -38,18 +39,19 @@ public class TestNameHelper {
         WebClientWrapper clientWrapper = new WebClientWrapper(webClient());
         HomelandsCoreClient hscWebClient = new HomelandsCoreClient(locator, "core.homelands.service", "", clientWrapper);
 
-        Map<String, String> nameIds = NameHelper.readNames("MMMM-98L", names, "LAST", hscWebClient, "en", sessionId, null);
+        RequestHeaderData headerData = new RequestHeaderData("WLJ-private-laptop", "", sessionId);
+        Map<String, String> nameIds = NameHelper.readNames("MMMM-98L", names, "LAST", hscWebClient, "en", headerData);
         nameIds.entrySet().forEach(System.out::println);
 
-        searchName(hscWebClient, "Espinoza");
-        searchName(hscWebClient, "Williams");
-        searchName(hscWebClient, "DaCosta");
-        searchName(hscWebClient, "Da Costa");
-        searchName(hscWebClient, "Da%20Costa");
+        searchName(hscWebClient, headerData, "Espinoza");
+        searchName(hscWebClient, headerData, "Williams");
+        searchName(hscWebClient, headerData, "DaCosta");
+        searchName(hscWebClient, headerData, "Da Costa");
+        searchName(hscWebClient, headerData, "Da%20Costa");
     }
 
-    static void searchName(HomelandsCoreClient hcsWebClient, String name) {
-        WebResponse response = hcsWebClient.searchAll(name, "", "en", null);
+    static void searchName(HomelandsCoreClient hcsWebClient, RequestHeaderData requestData, String name) {
+        WebResponse<String> response = hcsWebClient.searchAll(name, "en", requestData);
         System.out.println("\n=============================================================");
         System.out.println("NAME: " + name);
         System.out.println("  ST: " + response.getStatus());

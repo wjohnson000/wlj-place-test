@@ -18,15 +18,15 @@ import std.wlj.util.SolrManager;
 
 public class SearchMasterById {
 
-    static final int MAX_ROWS = 1250;
+    static final int MAX_ROWS = 100;
     static final DateFormat SOLR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T00:00:00Z'"); 
 
     public static void main(String... args) throws PlaceDataException {
-        SolrConnection solrConn = SolrManager.awsBetaConnection(false);
+        SolrConnection solrConn = SolrManager.awsBetaConnection(true);
         System.out.println("Write-Ready: " + solrConn.isWriteReady());
 
 //        SolrQuery query = new SolrQuery("*:*");
-//        SolrQuery query = new SolrQuery("repId:3863");
+//        SolrQuery query = new SolrQuery("repId:356");
 //        SolrQuery query = new SolrQuery("ownerId:5060747");
 //        SolrQuery query = new SolrQuery("repId:(2241774 10973986)");
 //        SolrQuery query = new SolrQuery("repId:[1 TO 100]");
@@ -41,13 +41,13 @@ public class SearchMasterById {
 //        SolrQuery query = new SolrQuery("id:PLACE-889085");
 //        SolrQuery query = new SolrQuery("id:PLACE-*");
 //        SolrQuery query = new SolrQuery("!id:PLACE-* AND placeDeleteId:[1 TO *]");
-//        SolrQuery query = new SolrQuery("parentId:10336711 AND !deleteId:[1 TO *]");
-//        SolrQuery query = new SolrQuery("repIdChain:7099871");
+//        SolrQuery query = new SolrQuery("parentId:356 AND !deleteId:[1 TO *]");
+        SolrQuery query = new SolrQuery("repIdChain:356");
 //        SolrQuery query = new SolrQuery("repIdChain:(1 11 111 1111)");
 //        SolrQuery query = new SolrQuery("forwardRevision:[* TO *]");
 //        SolrQuery query = new SolrQuery("_root_:[* TO *]");
 //        SolrQuery query = new SolrQuery("type:81");
-        SolrQuery query = new SolrQuery("deleteId:3863");
+//        SolrQuery query = new SolrQuery("deleteId:3863");
 //        SolrQuery query = new SolrQuery("type:81 AND -deleteId:*");
 //        SolrQuery query = new SolrQuery("typeGroup:[* TO *]");
 //        SolrQuery query = new SolrQuery("published:1 AND !centroid:[-90,-180 TO 90,180] AND !deleteId:[* TO *]");

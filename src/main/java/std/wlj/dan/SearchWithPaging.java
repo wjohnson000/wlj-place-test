@@ -15,13 +15,15 @@ import std.wlj.util.SolrManager;
 
 public class SearchWithPaging {
     public static void main(String... args) throws PlaceDataException {
-        SolrService  solrService = SolrManager.awsProdService(false);
+        SolrService  solrService = SolrManager.awsIntService(false);
 
         SearchParameters params = new SearchParameters();
-        params.addParam(SearchParameter.RequiredDirectParentParam.createParam(333));
+        params.addParam(SearchParameter.RequiredDirectParentParam.createParam(356));
         params.addParam(SearchParameter.FilterDeleteParam.createParam(true));
-        params.addParam(SearchParameter.PageNumberParam.createParam(2));
-        params.addParam(SearchParameter.PageSizeParam.createParam(4));
+        params.addParam(SearchParameter.MetricsParam.createParam(true));
+        params.addParam(SearchParameter.PublishedParam.createParam(true));
+//        params.addParam(SearchParameter.PageNumberParam.createParam(2));
+//        params.addParam(SearchParameter.PageSizeParam.createParam(4));
 
         SolrQueryBuilder builder = solrService.buildQuery(params);
         System.out.println("Query: " + builder.getQuery());

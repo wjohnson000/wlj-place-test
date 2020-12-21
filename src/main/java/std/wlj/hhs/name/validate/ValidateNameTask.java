@@ -14,11 +14,10 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.familysearch.homelands.admin.parser.helper.JsonUtility;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.familysearch.homelands.admin.parser.model.NameModel;
 import org.familysearch.homelands.admin.parser.name.NameParser;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import std.wlj.hhs.model.HtmlFormatter;
 import std.wlj.hhs.model.NameResource;

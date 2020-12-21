@@ -3,7 +3,7 @@
  */
 package std.wlj.cassandra.hhs;
 
-import org.familysearch.homelands.admin.parser.helper.JsonUtility;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.ResultSet;

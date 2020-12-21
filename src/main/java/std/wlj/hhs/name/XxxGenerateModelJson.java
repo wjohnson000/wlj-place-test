@@ -5,9 +5,9 @@ package std.wlj.hhs.name;
 
 import java.util.*;
 
-import org.familysearch.homelands.admin.parser.helper.JsonUtility;
-import org.familysearch.homelands.admin.parser.helper.TextUtility;
 import org.familysearch.homelands.admin.parser.model.NameModel;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
+import org.familysearch.homelands.lib.common.util.TextUtility;
 
 /**
  * @author wjohnson000

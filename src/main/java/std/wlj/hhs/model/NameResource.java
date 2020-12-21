@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.familysearch.homelands.core.context.common.MappingConstants;
 import org.familysearch.homelands.core.persistence.model.NameData;
-import org.familysearch.homelands.core.persistence.util.JsonUtility;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import static org.familysearch.homelands.core.svc.ServiceHelper.DATE_TIME_PATTERN;
 

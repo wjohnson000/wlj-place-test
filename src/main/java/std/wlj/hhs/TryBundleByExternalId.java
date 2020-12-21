@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import org.familysearch.homelands.admin.parser.helper.JsonUtility;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 import com.fasterxml.jackson.databind.JsonNode;
 
 /**

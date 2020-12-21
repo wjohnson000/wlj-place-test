@@ -9,11 +9,10 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.maven.surefire.shade.org.apache.commons.io.IOUtils;
 import org.familysearch.homelands.core.persistence.model.NameType;
-import org.familysearch.homelands.core.persistence.util.JsonUtility;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import std.wlj.ws.rawhttp.HttpClientX;
 

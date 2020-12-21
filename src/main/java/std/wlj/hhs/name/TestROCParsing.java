@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-import org.familysearch.homelands.admin.parser.helper.JsonUtility;
 import org.familysearch.homelands.admin.parser.model.NameModel;
 import org.familysearch.homelands.admin.parser.name.ROCNameParser;
+import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
