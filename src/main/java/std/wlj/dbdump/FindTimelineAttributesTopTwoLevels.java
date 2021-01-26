@@ -19,15 +19,20 @@ import org.familysearch.standards.place.util.PlaceHelper;
  * @author wjohnson000
  *
  */
-public class FindTimelineAttributesByDetail {
+public class FindTimelineAttributesTopTwoLevels {
 
-    private static class AttrDetail {
+    private static class AttrDetail implements Comparable<AttrDetail> {
         int    repId;
         int    tranId;
         int    year;
         int[]  timePeriod;
         String typeName;
         String value;
+
+        @Override
+        public int compareTo(AttrDetail that) {
+            return this.year - that.year;
+        }
     }
 
     private static final String dataDir    = "C:/temp/db-dump";
@@ -36,7 +41,7 @@ public class FindTimelineAttributesByDetail {
     private static final String dNameFile  = "display-name-all.txt";
     private static final String chainFile  = "rep-chain-all.txt";
     private static final String tranxFile  = "transaction-all.txt";
-    private static final String resultFile = "attribute-detail.txt";
+    private static final String resultFile = "attribute-detail-extended.txt";
 
     private static final String DELIMITER = "\\|";
 
@@ -91,10 +96,10 @@ public class FindTimelineAttributesByDetail {
     private static List<String> outputDetails = new ArrayList<>(10_000);
 
     public static void main(String...args) throws Exception {
-        List<Integer> topLevelReps = getTopLevelReps();
-        List<Integer> usStateReps  = getUsStateReps();
+        Set<Integer> level01Reps = getTopLevelReps();
+        Map<Integer, Integer> level02Reps = getSecondLevelReps();
 
-        Set<Integer> allReps = Stream.concat(topLevelReps.stream(), usStateReps.stream())
+        Set<Integer> allReps = Stream.concat(level01Reps.stream(), level02Reps.keySet().stream())
                 .collect(Collectors.toSet());
         System.out.println("Rep-size: " + allReps.size());
         removeDeletedReps(allReps);
@@ -103,46 +108,23 @@ public class FindTimelineAttributesByDetail {
         buildTransactionMap();
         System.out.println("Trx-size: " + transactionDates.size());
 
-        // Divide reps in "Country", "US-State" and "US-Territory" chunks
         Map<Integer, String> repNames = getRepNames(allReps);
-        Map<String, Integer> nameReps = repNames.entrySet().stream()
-                .filter(e -> e.getKey() != null  &&  e.getValue() != null)
-                .filter(e -> e.getKey() != 250)  // "Zimbabwe"
-                .filter(e -> e.getKey() != 365)  // "Georgia"
-                .collect(Collectors.toMap(e -> e.getValue(), e -> e.getKey(), (u, v) -> u, TreeMap::new));
-
         Map<Integer, List<AttrDetail>> attrDetail = getAttributesByRep(allReps);
-        for (Map.Entry<String, Integer> entry : nameReps.entrySet()) {
-            if (topLevelReps.contains(entry.getValue())) {
-                dumpDetails(entry.getValue(), entry.getKey(), attrDetail);
-                if (entry.getValue() == 249) {
-                    dumpDetails(250, repNames.get(249), attrDetail);  // Include Zimbabwe
-                }
-            }
-        }
 
-        System.out.println("\n\n");
-        for (Map.Entry<String, Integer> entry : nameReps.entrySet()) {
-            if (usStateReps.contains(entry.getValue())  &&  entry.getValue() < 500) {
-                dumpDetails(entry.getValue(), entry.getKey(), attrDetail);
-                if (entry.getValue() == 348) {
-                    dumpDetails(365, repNames.get(365), attrDetail); // Include Georgia after Florida
+        for (Integer rep01Id : level01Reps) {
+            dumpDetails(rep01Id, repNames.get(rep01Id), 0, attrDetail);
+            for (Map.Entry<Integer, Integer> entry : level02Reps.entrySet()) {
+                if (rep01Id.equals(entry.getValue())) {
+                    dumpDetails(entry.getKey(), repNames.get(entry.getKey()), rep01Id, attrDetail);
                 }
-            }
-        }
-
-        System.out.println("\n\n");
-        for (Map.Entry<String, Integer> entry : nameReps.entrySet()) {
-            if (usStateReps.contains(entry.getValue())  &&  entry.getValue() > 500) {
-                dumpDetails(entry.getValue(), entry.getKey(), attrDetail);
             }
         }
 
         Files.write(Paths.get(dataDir, resultFile), outputDetails, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
-    static List<Integer> getTopLevelReps() throws Exception {
-        List<Integer> repIds = new ArrayList<>();
+    static Set<Integer> getTopLevelReps() throws Exception {
+        Set<Integer> repIds = new HashSet<>();
 
         List<String> chainAll = Files.readAllLines(Paths.get(dataDir, chainFile), StandardCharsets.UTF_8);
         for (String chain : chainAll) {
@@ -158,16 +140,18 @@ public class FindTimelineAttributesByDetail {
         return repIds;
     }
 
-    static List<Integer> getUsStateReps() throws Exception {
-        List<Integer> repIds = new ArrayList<>();
+    static Map<Integer, Integer> getSecondLevelReps() throws Exception {
+        Map<Integer, Integer> repIds = new HashMap<>();
 
         List<String> chainAll = Files.readAllLines(Paths.get(dataDir, chainFile), StandardCharsets.UTF_8);
         for (String chain : chainAll) {
             String[] chunks = PlaceHelper.split(chain, '|');
             if (chunks.length == 2) {
                 String[] juris = PlaceHelper.split(chunks[1], ',');
-                if (juris.length == 2  &&  juris[1].equals("1")) {
-                    repIds.add(Integer.parseInt(chunks[0]));
+                if (juris.length == 2) { //  &&  juris[1].equals("1")) {
+                    int repId = Integer.parseInt(juris[0]);
+                    int parId = Integer.parseInt(juris[1]);
+                    repIds.put(repId, parId);
                 }
             }
         }
@@ -320,13 +304,16 @@ public class FindTimelineAttributesByDetail {
         }
     }
     
-    static void dumpDetails(int repId, String repName, Map<Integer, List<AttrDetail>> attrDetails) {
-        outputDetails.add("");
-
+    static void dumpDetails(int repId, String repName, int parId, Map<Integer, List<AttrDetail>> attrDetails) {
         if (attrDetails.containsKey(repId)) {
-            for (AttrDetail attrDetail : attrDetails.get(repId)) {
+            outputDetails.add("");
+            List<AttrDetail> repDetails = attrDetails.get(repId);
+            Collections.sort(repDetails);
+
+            for (AttrDetail attrDetail : repDetails) {
                 StringBuilder buff = new StringBuilder();
                 buff.append(attrDetail.repId);
+                buff.append("|").append(parId);
                 buff.append("|").append(repName);
                 buff.append("|").append((attrDetail.year == 0) ? "" : String.valueOf(attrDetail.year));
                 buff.append("|").append(attrDetail.timePeriod[0]).append("-").append(attrDetail.timePeriod[1]);

@@ -18,7 +18,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
  * @author wjohnson000
  *
  */
-public class FindTimelineAttributesByJurisdiction {
+public class FindTimelineAttributeCountsByJurisdiction {
 
     private static final String dataDir   = "C:/temp/db-dump";
     private static final String repFile   = "place-rep-all.txt";

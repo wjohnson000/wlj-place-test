@@ -36,6 +36,6 @@ public class TestQuizParser {
         items.forEach(item -> System.out.println(
                   item.getId() + "|" + item.getExternalId() + "|" + item.getLanguage() + "|" +
                   item.getStartYear() + "|" + item.getTitle() + "|" + item.getType() + "|" +
-                  item.getCategory() + "|" + item.getSubcategory() + "|" + item.getSummary())); 
+                  item.getCategory() + "|" + item.getSubcategory() + "|" + item.getBody())); 
     }
 }

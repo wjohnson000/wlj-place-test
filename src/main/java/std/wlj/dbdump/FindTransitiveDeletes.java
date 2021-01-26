@@ -5,9 +5,9 @@ package std.wlj.dbdump;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.familysearch.standards.loader.sql.FileResultSet;
-import org.familysearch.standards.place.util.PlaceHelper;
 
 /**
  * Create a structure with a key of (rep-id) and a value of (all rep-ids that have been transitively
@@ -45,16 +45,14 @@ public class FindTransitiveDeletes {
 
     public static void main(String... args) throws Exception {
         Map<Integer, Integer> deleteData = getDeleteData();
-        System.out.println("DEL-COUNT: " + deleteData.size());
-
-        Map<Integer, String> allDeleteData = findAllDeletes(deleteData);
-        System.out.println("TRX-COUNT: " + allDeleteData.size());
-//        allDeleteData.entrySet().forEach(System.out::println);
+        findAllDeletes(deleteData);
     }
 
     static Map<Integer, Integer> getDeleteData() throws Exception {
         Map<Integer, Integer> results = new HashMap<>();
 
+        int okCount = 0;
+        int delCount = 0;
         try (FileResultSet rset = new FileResultSet()) {
             rset.setSeparator(DELIMITER);
             rset.openFile(new File(dataDir, repFile));
@@ -63,47 +61,64 @@ public class FindTransitiveDeletes {
                 int repId = rset.getInt("rep_id");
                 int delId = rset.getInt("delete_id");
                 if (delId > 0) {
+                    delCount++;
                     results.put(repId, delId);
+                } else {
+                    okCount++;
                 }
             }
         }
 
+        System.out.println("OK-COUNT: " + okCount);
+        System.out.println("DEL-COUNT: " + delCount);
+
         return results;
     }
 
-    static Map<Integer, String> findAllDeletes(Map<Integer, Integer> deleteData) {
-        Map<Integer, String> results = new HashMap<>();
+    static void findAllDeletes(Map<Integer, Integer> deleteData) {
+        Map<Integer, Integer> depths     = new TreeMap<>();
+        Map<Integer, String>  deepest    = new TreeMap<>();
+        Map<Integer, Integer> delInto    = new TreeMap<>();
+        Map<Integer, Long>    delIntoCnt = new TreeMap<>();
 
-        int deepest = 0;
-        String longest = "";
+        List<Integer> idChain = new ArrayList<>(10_000);
         for (Map.Entry<Integer, Integer> entry : deleteData.entrySet()) {
             int oldId = entry.getKey();
             int newId = entry.getValue();
 
-            int depth = 1;
+            idChain.clear();
+            idChain.add(oldId);
+            idChain.add(newId);
             while (deleteData.containsKey(newId)) {
-                depth++;
                 newId = deleteData.get(newId);
+                idChain.add(newId);
             }
 
-            if (depth > deepest) {
-                deepest = depth;
-                System.out.println("  Depth: " + depth + " --> " + oldId);
+            Integer count01 = depths.getOrDefault(idChain.size(), new Integer(0));
+            depths.put(idChain.size(), count01+1);
+            if (idChain.size() > 10) {
+                deepest.put(oldId, idChain.stream().map(ii -> String.valueOf(ii)).collect(Collectors.joining(",")));
             }
 
-            String delIds = results.getOrDefault(newId, null);
-            delIds = (delIds == null) ? String.valueOf(oldId) : delIds + "," + oldId;
-            if (delIds.length() > longest.length()) {
-                longest = delIds;
-                String[] blah = PlaceHelper.split(longest, ',');
-                System.out.println("  Longest: " + newId + " --> " + blah.length);
-//                Arrays.stream(blah).forEach(System.out::println);
-            }
-
-            results.put(newId, delIds);
+            Integer count02 = delInto.getOrDefault(newId, new Integer(0));
+            delInto.put(newId, count02+1);
         }
+        delIntoCnt.putAll(delInto.values().stream().collect(Collectors.groupingBy(vv -> vv, Collectors.counting())));
 
+        // Print the depths, and count of each chain of deletions
+        System.out.println("\nChain depths, and # of such chains ...");
+        depths.entrySet().forEach(System.out::println);
 
-        return results;
+        // Print the deepest chains
+        System.out.println("\nDeepest chains ...");
+        deepest.entrySet().forEach(System.out::println);
+
+        // Print the chain depth and how many of them there are
+        System.out.println("\nDelete-into, and # of such chains ...");
+        delIntoCnt.entrySet().forEach(System.out::println);
+
+        // Print details about deletions INTO
+        System.out.println("\nMost delete-into ... " + delInto.size());
+        delInto.entrySet().stream().filter(ee -> ee.getValue() >= 2500).forEach(System.out::println);
     }
 }

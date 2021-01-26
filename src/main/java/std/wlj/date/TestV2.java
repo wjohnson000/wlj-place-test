@@ -1077,12 +1077,49 @@ public class TestV2 {
 //        textes.add("1巴巴6年");
 //        textes.add("一其其六年");
 //        textes.add("明乾隆元年");
+//
+//        textes.add("民国前八十二年七月二十七");
+//        textes.add("民国前丁未年二月三号");
+//        textes.add("民国前丁未年一月三号");
+//        textes.add("民国前丁未年正月三号");
+//        textes.add("一九五零年正月");
+//
+//        textes.add("宣和庚子");
+//
+//        textes.add("단기2330년");
+//        textes.add("단기2331년");
+//        textes.add("단기2332년");
+//        textes.add("단기2333년");
+//        textes.add("단기2334년");
+//        textes.add("단기2335년");
+//        textes.add("단기2336년");
+//        textes.add("단기2337년");
+//        textes.add("단기2338년");
+//        textes.add("단기2339년");
+//        textes.add("단기2340년");
+//
+//        textes.add("赧王");      // -314
+//        textes.add("赧王6年");
+//        textes.add("赧王乙亥");  // Sexagenary 12
+//        textes.add("赧王乙巳");  // Sexagenary 42
 
-        textes.add("民国前八十二年七月二十七");
-        textes.add("民国前丁未年二月三号");
-        textes.add("民国前丁未年一月三号");
-        textes.add("民国前丁未年正月三号");
-        textes.add("一九五零年正月");
+        // Lunar Calendar: 農曆/农历， 陰曆/阴历，舊曆/旧历 
+        // Solar/Gregorian Calendar: 陽曆/阳历，西曆/西历，公曆/公历，國曆/国历 
+        // 厯 is a variant to 曆/历 and should be treated the same as 曆/历 in any of the combinations above.
+        textes.add("1990年农历6月3日");        // STD-8391, STD-8710, STD-8946
+        textes.add("西元1990年农历6月3日");    // STD-8391, STD-8710, STD-8946
+        textes.add("1990年农历六月初三");      // STD-8391, STD-8710, STD-8946
+        textes.add("公元1990年农历六月初三");  // STD-8391, STD-8710, STD-8946
+        textes.add("咸豐3年1月3日");           // STD-8712 [OK]
+        textes.add("咸豐三年正月初三");        // STD-8712 [OK]
+        textes.add("1853年正月初三");          // STD-8712, STD-8392 [missing month, day]
+        textes.add("明乾隆元年");             // STD-8284, STD-8392 [Dynasty, Emperor, Reign mismatch]
+        textes.add("1803年閏2月3日");         // STD-8712, STD-8392 [Leap Month, Gregorian calendar] --> "1803 March 25"
+        textes.add("民国前五年二月三日");      // STD-8389 [OK]
+        textes.add("民国前丁未年二月三日");    // STD-8389 [incorrect] --> "???"
+        textes.add("嘉慶8年閏2月3日");        // STD-8390 [OK]
+        textes.add("1803年閏2月3日");         // STD-8390 [missing month, day]
+        textes.add("단기 4360년");             // STD-8572 --> "2020"
 
         return textes;
     }
