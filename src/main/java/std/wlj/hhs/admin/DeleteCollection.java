@@ -21,7 +21,7 @@ import std.wlj.ws.rawhttp.HttpClientX;
 public class DeleteCollection {
 
     private static final String BASE_URL = "http://core.homelands.service.dev.us-east-1.dev.fslocal.org";
-    private static final String authToken = "15a20bae-1d90-4651-95cf-4ca100acbf75-integ";
+    private static final String authToken = "49d49034-17c4-49ec-8fe2-99c216dab68d-integ";
 
     private static Map<String, String> headers = new HashMap<>();
     static {
@@ -30,7 +30,7 @@ public class DeleteCollection {
     }
 
     public static void main(String...args) throws Exception {
-        String collectionId = "MMMM-RRH";
+        String collectionId = "MMM3-V92";
         CollectionResource collection = retrieveCollection(collectionId);
         List<String> nameIds = retrieveNameIds(collectionId);
 
@@ -65,7 +65,8 @@ public class DeleteCollection {
     static List<String> retrieveNameIds(String id) throws Exception {
         String idsRaw = HttpClientX.doGetJSON(BASE_URL + "/name/id?collection=" + id, headers);
         JsonNode idsJson = JsonUtility.parseJson(idsRaw);
-        return Arrays.asList(JsonUtility.getArrayValue(idsJson, "nameIds"));
+        System.out.println("IDS: " + idsJson);
+        return Arrays.asList(JsonUtility.getArrayValue(idsJson, "itemIds"));
     }
 
     static void deleteName(String nameId, String language) throws Exception {

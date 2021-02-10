@@ -26,7 +26,7 @@ public class FindAllCollectionsSimple {
             JsonNode node = JsonUtility.parseJson(details);
             String description = JsonUtility.getStringValue(node, "description");
             JsonNode attributionNode = JsonUtility.getJsonNode(node, "attribution");
-            String attribution = JsonUtility.getStringValue(attributionNode, "en");
+            String attribution = (attributionNode == null) ? "???" : JsonUtility.getStringValue(attributionNode, "en");
 
             StringBuilder buff = new StringBuilder();
             buff.append(row.getString("id"));

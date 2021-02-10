@@ -20,7 +20,7 @@ import std.wlj.ws.rawhttp.HttpClientX;
 public class DisplayCollectionDetails {
 
     private static final String BASE_URL = "http://core.homelands.service.dev.us-east-1.dev.fslocal.org";
-    private static final String authToken = "75364340-e8ec-4707-9a68-0f1d24fa2522-integ";
+    private static final String authToken = "49d49034-17c4-49ec-8fe2-99c216dab68d-integ";
 
     private static Map<String, String> headers = new HashMap<>();
     static {

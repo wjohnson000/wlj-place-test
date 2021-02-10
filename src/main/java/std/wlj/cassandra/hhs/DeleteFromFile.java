@@ -3,79 +3,57 @@
  */
 package std.wlj.cassandra.hhs;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.BatchStatement;
 import com.datastax.oss.driver.api.core.cql.BatchType;
 import com.datastax.oss.driver.api.core.cql.BatchableStatement;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
-import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
-import com.datastax.oss.driver.internal.core.cql.PagingIterableSpliterator;
+
 
 /**
  * @author wjohnson000
  *
  */
-public class DeleteItemsTwo {
-
-    final static String      selectItemAll = "SELECT * FROM hhs.item_search";
-    final static String      deleteItem1   = "DELETE FROM hhs.item WHERE id = '%s' AND type = '%s'";
-    final static String      deleteItem2   = "DELETE FROM hhs.item_search WHERE itemId = '%s'";
-
-    final static Set<String> collectionIds = new HashSet<>();
-    static {
-        collectionIds.add("MMMS-8LV");
-    }
-
-    final static Set<String> ignoreIds     = new TreeSet<>();
-    static int count = 0;
+public class DeleteFromFile {
 
     public static void main(String...args) throws Exception {
         CqlSession cqlSession = SessionUtilityAWS.connect();
         System.out.println("SESS: " + cqlSession);
 
-        List<String> deleteStmts = getDeleteStmts(cqlSession);
-        System.out.println("ItemCount: " + count);
-        System.out.println("StmtCount: " + deleteStmts.size());
-
-        for (int i=0;  i<deleteStmts.size();  i+=50) {
-            int start = i;
-            int end   = Math.min(deleteStmts.size(), i+49);
-            List<String> deleteChunk = deleteStmts.subList(start, end);
-            System.out.println("... delete from " + start + " to " + end + " --> " + deleteChunk.size());
-            executeBatch(cqlSession, deleteChunk);
-        }
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-G4B.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-P2V.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-PLQ.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-G4V.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-PGS.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-RMZ.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-P26.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-PK5.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-P2N.cql");
+        executeFromFile(cqlSession, "C:/temp/dev-delete-MMM3-PL7.cql");
 
         cqlSession.close();
         System.exit(0);
     }
 
-    static List<String> getDeleteStmts(CqlSession cqlSession) throws Exception {
-        List<String> deleteStmts = new ArrayList<>();
-
-        ResultSet rset = cqlSession.execute(selectItemAll);
-        StreamSupport.stream(PagingIterableSpliterator.builder(rset).withChunkSize(1024).build(), true)
-                                             .forEach(row -> addDelStatements(deleteStmts, row));
-
-        return deleteStmts;
-    }
-
-    static void addDelStatements(List<String> deleteStmts, Row row) {
-        count++;
-        String id         = row.getString("itemId");
-        String type       = row.getString("type");
-        String collId     = row.getString("collectionId");
-        List<String> tags = row.getList("tags", String.class);
-
-        if (! "QUIZ".equals(type)  &&  collectionIds.contains(collId)) {
-            deleteStmts.add(String.format(deleteItem1, id, type));
-            deleteStmts.add(String.format(deleteItem2, id));
-        } else {
-            System.out.println(id + "|" + type + "|" + collId + "|" + tags);
+    static void executeFromFile(CqlSession cqlSession, String filepath) throws Exception {
+        // Read in the list of delete statements
+        List<String> deleteStmts = Files.readAllLines(Paths.get(filepath), StandardCharsets.UTF_8);
+        System.out.println("StmtCount: " + deleteStmts.size());
+        
+        for (int i=0;  i<deleteStmts.size();  i+=50) {
+            int start = i;
+            int end   = Math.min(deleteStmts.size(), i+49);
+            List<String> deleteChunk = deleteStmts.subList(start, end);
+            
+            System.out.println("... delete from " + start + " to " + end + " --> " + deleteChunk.size());
+            executeBatch(cqlSession, deleteChunk);
         }
     }
 

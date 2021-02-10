@@ -77,7 +77,6 @@ public class FindTimelineAttributesAllBetter {
         attributeTypes.put(579, "WORK_CHORES");
     }
 
-
     public static void main(String...args) throws Exception {
         System.out.println("Start the silly thing ...");
 
@@ -215,6 +214,7 @@ public class FindTimelineAttributesAllBetter {
 
     static void dumpAttributes(Set<Integer> repsWithAttrs, Map<Integer, String> repNames, Map<Integer, String> repChains) throws Exception {
         int popCount = 0;
+        int urlCount = 0;
         List<String> allAll = new ArrayList<>(repsWithAttrs.size());
 
         try (FileResultSet rset = new FileResultSet()) {
@@ -274,6 +274,7 @@ public class FindTimelineAttributesAllBetter {
                     } else {
                         buff.append("|");
                     }
+                    if (url.length() > 2) urlCount++;
 
                     prevRecord = buff.toString().replaceAll("\"\"", "").replaceAll("\\|null\\|", "||");
                 }
@@ -294,6 +295,7 @@ public class FindTimelineAttributesAllBetter {
 
         Files.write(Paths.get(dataDir, outFile), allAll, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         System.out.println("PopPop-count: " + popCount);
+        System.out.println("UrlUrl-count: " + urlCount);
         System.out.println("Record-count: " + allAll.size());
     }
 

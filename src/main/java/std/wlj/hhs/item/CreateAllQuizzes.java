@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.hhs.quiz;
+package std.wlj.hhs.item;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,7 +20,7 @@ import std.wlj.ws.rawhttp.HttpClientX;
  * @author wjohnson000
  *
  */
-public class FindAnswerMismatches {
+public class CreateAllQuizzes {
 
     static final String BASE_URL    = "http://localhost:5000";
     static final String QUIZ_PATH    = "C:/D-drive/homelands/AAM/quizQuestions.csv";
@@ -108,7 +108,7 @@ public class FindAnswerMismatches {
             }
         }
     }
-static String blah = "";
+
     static void loadAnswerDetails() throws Exception {
         byte[] rawBytes = Files.readAllBytes(Paths.get(ANSWER_PATH));
         List<List<String>> rows = CSVUtility.loadCsvFile(rawBytes);
@@ -116,7 +116,6 @@ static String blah = "";
 
         for (List<String> row : rows) {
             if (row.size() > 11) {
-                blah = row.stream().collect(Collectors.joining(","));
                 QuizAnswerModel answerM = new QuizAnswerModel();
                 answerM.id       = Integer.parseInt(row.get(0));
                 answerM.year     = Integer.parseInt(row.get(1));
@@ -170,10 +169,7 @@ static String blah = "";
                 return option;
             }
         }
-System.out.println("==============================================================");
-System.out.println(blah);
-System.out.println("Options: " + Arrays.toString(options));
-System.out.println("Summary: " + summary);
+
         // For every question, the first option is the correct answer!!
         return options[0];
     }
@@ -221,11 +217,11 @@ System.out.println("Summary: " + summary);
         JsonUtility.addField(collection, "createUserId", "cis.user.MMMM-ABCD");
         JsonUtility.addField(collection, "modifyUserId", "cis.user.MMMM-ABCD");
 
-//        String result = HttpClientX.doPostJson(BASE_URL + "/collection", collection.toPrettyString(), headers);
-//        if (result != null) {
-//            int ndx = result.lastIndexOf('/');
-//            return result.substring(ndx+1);
-//        }
+        String result = HttpClientX.doPostJson(BASE_URL + "/collection", collection.toPrettyString(), headers);
+        if (result != null) {
+            int ndx = result.lastIndexOf('/');
+            return result.substring(ndx+1);
+        }
         
         return null;
     }
@@ -265,17 +261,17 @@ System.out.println("Summary: " + summary);
         JsonUtility.addField(quiz, "createUserId", "cis.user.MMMM-ABCD");
         JsonUtility.addField(quiz, "modifyUserId", "cis.user.MMMM-ABCD");
 
-//        if (id == null) {
-//            String result = HttpClientX.doPostJson(BASE_URL + "/quiz", quiz.toPrettyString(), headers);
-//            if (result != null) {
-//                System.out.println("POST.quiz: " + id + " --> " + result);
-//                int ndx = result.lastIndexOf('/');
-//                return result.substring(ndx+1);
-//            }
-//        } else {
-//            String result = HttpClientX.doPutJson(BASE_URL + "/quiz/" + id, quiz.toPrettyString(), headers);
-//            System.out.println("PUT.quiz: " + id + " --> " + result);
-//        }
+        if (id == null) {
+            String result = HttpClientX.doPostJson(BASE_URL + "/quiz", quiz.toPrettyString(), headers);
+            if (result != null) {
+                System.out.println("POST.quiz: " + id + " --> " + result);
+                int ndx = result.lastIndexOf('/');
+                return result.substring(ndx+1);
+            }
+        } else {
+            String result = HttpClientX.doPutJson(BASE_URL + "/quiz/" + id, quiz.toPrettyString(), headers);
+            System.out.println("PUT.quiz: " + id + " --> " + result);
+        }
 
         return null;
     }
@@ -337,20 +333,20 @@ System.out.println("Summary: " + summary);
         JsonUtility.addField(itemIdNode, "itemIds", idNode);
         System.out.println(itemIdNode.toPrettyString());
 
-//        HttpClientX.doPostJson(BASE_URL + "/quiz/" + quizId + "/item", itemIdNode.toPrettyString(), headers);
+        HttpClientX.doPostJson(BASE_URL + "/quiz/" + quizId + "/item", itemIdNode.toPrettyString(), headers);
     }
 
     static String saveItem(String id, JsonNode item, Map<String, String> headers) {
-//        if (id == null) {
-//            String result = HttpClientX.doPostJson(BASE_URL + "/item", item.toPrettyString(), headers);
-//            if (result != null) {
-//                int ndx = result.lastIndexOf('/');
-//                return result.substring(ndx+1);
-//            }
-//        } else {
-//            String result = HttpClientX.doPutJson(BASE_URL + "/item/EVENT/" + id, item.toPrettyString(), headers);
-//        }
-//
+        if (id == null) {
+            String result = HttpClientX.doPostJson(BASE_URL + "/item", item.toPrettyString(), headers);
+            if (result != null) {
+                int ndx = result.lastIndexOf('/');
+                return result.substring(ndx+1);
+            }
+        } else {
+            String result = HttpClientX.doPutJson(BASE_URL + "/item/EVENT/" + id, item.toPrettyString(), headers);
+        }
+
         return null;
     }
 

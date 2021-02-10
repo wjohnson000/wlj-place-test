@@ -15,7 +15,8 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class ListSolrFoldersS3 {
 
-    private static final String bucketName = "fh-std-artifacts";
+//    private static final String bucketName = "fh-std-artifacts";
+    private static final String bucketName = "ps-services-us-east-1-074150922133-homelands-admin";
 
     public static void main(String... args) {
 //        AmazonS3 s3Client = new AmazonS3Client();
