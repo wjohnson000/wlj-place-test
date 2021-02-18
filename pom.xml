@@ -70,7 +70,7 @@
         <sas-core.version>3.1.b478</sas-core.version>
         <spring.version>5.2.7.RELEASE</spring.version>
         <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
-        <spring-data-redis.version>2.3.2.RELEASE</spring-data-redis.version>
+        <spring-data-redis.version>2.4.5</spring-data-redis.version>
         <xml-apis.version>1.4.01</xml-apis.version>
 
         <webClassifier>classes</webClassifier>
