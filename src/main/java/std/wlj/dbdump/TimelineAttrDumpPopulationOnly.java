@@ -6,9 +6,9 @@ import org.familysearch.standards.loader.helper.DbHelper;
 
 import std.wlj.util.DbConnectionManager;
 
-public class DumpPlaceAttributesOnlyPopulation {
+public class TimelineAttrDumpPopulationOnly {
 
-    static final String fileBase = "C:/temp/db-dump";
+    static final String fileBase = "C:/D-drive/homelands/place-data";
     static final String fileName = "place-attr-hhs-population.txt";
 
     static final String query =
@@ -26,6 +26,7 @@ public class DumpPlaceAttributesOnlyPopulation {
            "  JOIN type AS typ ON typ.type_id = atr.attr_type_id" +
            " LEFT OUTER JOIN rep_display_name AS nam ON nam.rep_id = atr.rep_id AND nam.locale = 'en' " +
            " WHERE atr.tran_id = (SELECT MAX(tran_id) FROM rep_attr AS atrx WHERE atr.attr_id = atrx.attr_id)" +
+           "   AND nam.tran_id = (SELECT MAX(tran_id) FROM rep_display_name AS namx WHERE nam.rep_id = namx.rep_id AND namx.locale = 'en') " + 
            "   AND typ.code = 'POP' " +
            "   AND atr.delete_flag = FALSE" +
            "   AND copyright_notice IS NULL " +

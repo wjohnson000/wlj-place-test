@@ -9,30 +9,24 @@ import java.util.*;
  * @author wjohnson000
  *
  */
-public class RunCleanupAll {
+public class RunS3CollectionDeleteAll {
 
     static final String[] realCollections = {
-        "MMMS-8LV",    // Quizzes
-        "MMM3-YPZ",    // Neat-o test
-        "MMM3-XWP",    // Neat-o test
+        "unassigned",  // Special collection ... do not remove!
+
         "MMM9-X78",    // Oxford Given
-        "MMMS-MRM",    // Load Test
-        "MMM3-G4V",    // AAM Trending
-        "MMM3-YP8",    // Neat-o test
-        "MMMS-X62",    // AAM Events
         "MMM9-FRZ",    // Oxford Surnames
-        "MMM9-5L2",    // Temp, for API development
-        "MMM3-FJ4",    // Oxford GIven
-        "MMMS-TBP",    // AAM Events
-        "MMM3-T29",    // Neat-o test
-        "MMM3-N3Y",    // Oxford Given (testing)
-        "MMMS-7HK",    // ROC Praenominia
         "MMM9-X7D",    // ROC First and Last
         "MMM9-DFC",    // French Geneanet
-        "unassigned",  // Special collection ... do not remove!
+        "MMMS-7HK",    // ROC Praenominia
+        "MMM3-G4V",    // AAM Trending
+
+        "MMMS-8LV",    // Quizzes
+        "MMMS-MRM",    // Load Test
+        "MMM3-BVY",    // Testing, API development
     };
 
-    static final CleanupService thisCS = new CleanupService();
+    static final S3CollectionServices thisCS = new S3CollectionServices();
 
     public static void main(String...arsg) {
         List<String> collIds = thisCS.getCollectionIds();

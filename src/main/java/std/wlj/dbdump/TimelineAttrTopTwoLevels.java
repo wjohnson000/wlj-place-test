@@ -19,7 +19,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
  * @author wjohnson000
  *
  */
-public class FindTimelineAttributesTopTwoLevels {
+public class TimelineAttrTopTwoLevels {
 
     private static class AttrDetail implements Comparable<AttrDetail> {
         int    repId;

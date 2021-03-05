@@ -1,13 +1,11 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.cassandra.hhs;
+package std.wlj.hhs.cleanup;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import org.familysearch.homelands.lib.common.util.JsonUtility;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.BatchStatement;
@@ -19,34 +17,48 @@ import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
 import com.datastax.oss.driver.internal.core.cql.PagingIterableSpliterator;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import std.wlj.cassandra.hhs.SessionUtilityAWS;
+
+import org.familysearch.homelands.lib.common.util.JsonUtility;
+
 /**
- * Delete all items that are NOT associated with any collection.  This uses the "item" table only.
  * @author wjohnson000
  *
  */
-public class DeleteItemsNoCollectionMore {
+public class RunCassandraCollectionDelete {
 
-    final static String  selectCollection = "SELECT * FROM hhs.collectiondata";
-    final static String  selectItemAll    = "SELECT * FROM hhs.item";
-    final static String  deleteItem1      = "DELETE FROM hhs.item WHERE id = '%s' AND type = '%s'";
+    final static String  selectItemAll     = "SELECT * FROM hhs.item_search";
+    final static String  selectCollections = "SELECT * FROM hhs.collectiondata";
+    final static String  deleteItem1       = "DELETE FROM hhs.item WHERE id = '%s' AND type = '%s'";
+    final static String  deleteItem2       = "DELETE FROM hhs.item_search WHERE itemId = '%s'";
+    final static String  deleteCollections = "DELETE FROM hhs.collectiondata WHERE id = '%s'";
 
     final static Set<String> collectionIds = new TreeSet<>();
+
+    static int count = 0;
 
     public static void main(String...args) throws Exception {
         CqlSession cqlSession = SessionUtilityAWS.connect();
         System.out.println("SESS: " + cqlSession);
 
-        collectionIds.addAll(getAllCollections(cqlSession));
-        collectionIds.remove("MMM3-G4V");
-        System.out.println("Collections: " + collectionIds);
+        // Read in the list of collections
+        List<String> collectionIds = getTestCollectionIds(cqlSession);
+        System.out.println("Collection count: " + collectionIds.size());
 
         List<String> deleteStmts = getDeleteStmts(cqlSession);
-        System.out.println("StmtCount: " + deleteStmts.size());
+        collectionIds.forEach(cid -> deleteStmts.add(String.format(deleteCollections, cid)));
 
-        for (int i=0;  i<deleteStmts.size();  i+=25) {
+        System.out.println();
+        System.out.println();
+        System.out.println("ItemCount: " + count);
+        System.out.println("StmtCount: " + deleteStmts.size());
+        deleteStmts.forEach(System.out::println);
+
+        for (int i=0;  i<deleteStmts.size();  i+=50) {
             int start = i;
-            int end   = Math.min(deleteStmts.size(), i+24);
+            int end   = Math.min(deleteStmts.size(), i+49);
             List<String> deleteChunk = deleteStmts.subList(start, end);
+
             System.out.println("... delete from " + start + " to " + end + " --> " + deleteChunk.size());
             executeBatch(cqlSession, deleteChunk);
         }
@@ -55,45 +67,42 @@ public class DeleteItemsNoCollectionMore {
         System.exit(0);
     }
 
-    static Set<String> getAllCollections(CqlSession cqlSession) throws Exception {
-        Set<String> ids = new HashSet<>();
-        ResultSet rset = cqlSession.execute(selectCollection);
+    static List<String> getTestCollectionIds(CqlSession cqlSession) throws Exception {
+        List<String> collIds = new ArrayList<>();
+
+        ResultSet rset = cqlSession.execute("SELECT * FROM hhs.collectiondata");
         for (Row row : rset) {
-            ids.add(row.getString("id"));
+            String details = row.getString("details");
+            JsonNode node = JsonUtility.parseJson(details);
+            String description = JsonUtility.getStringValue(node, "description");
+
+            if (description.contains("a very neat-o test")) {
+                collIds.add(row.getString("id"));
+            }
         }
 
-        return ids;
+        return collIds;
     }
 
     static List<String> getDeleteStmts(CqlSession cqlSession) throws Exception {
         List<String> deleteStmts = new ArrayList<>();
 
         ResultSet rset = cqlSession.execute(selectItemAll);
-        StreamSupport.stream(PagingIterableSpliterator.builder(rset).withChunkSize(512).build(), true)
+        StreamSupport.stream(PagingIterableSpliterator.builder(rset).withChunkSize(1024).build(), true)
                                              .forEach(row -> addDelStatements(deleteStmts, row));
 
         return deleteStmts;
     }
 
     static void addDelStatements(List<String> deleteStmts, Row row) {
-        String id     = row.getString("id");
-        String type   = row.getString("type");
-        String collId = null;
+        count++;
+        String id         = row.getString("itemId");
+        String type       = row.getString("type");
+        String collId     = row.getString("collectionId");
 
-        try {
-            String details    = row.getString("details");
-            JsonNode json     = JsonUtility.parseJson(details);
-            if (json != null) {
-                collId = JsonUtility.getStringValue(json, "collectionId");
-            }
-        } catch(Exception ex) {
-            System.out.println(id + "|" + type + "|" + ex.getMessage());
-        }
-
-        if (collId != null  &&  ! collectionIds.contains(collId)) {
+        if (! "QUIZ".equals(type)  &&  collectionIds.contains(collId)) {
             deleteStmts.add(String.format(deleteItem1, id, type));
-        } else {
-            System.out.println(id + "|" + type + "|" + collId);
+            deleteStmts.add(String.format(deleteItem2, id));
         }
     }
 

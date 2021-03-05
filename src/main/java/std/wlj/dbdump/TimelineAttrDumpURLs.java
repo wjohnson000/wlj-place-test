@@ -16,14 +16,12 @@ import org.familysearch.standards.loader.sql.FileResultSet;
  * @author wjohnson000
  *
  */
-public class FindTimelineAttributesAll {
+public class TimelineAttrDumpURLs {
 
     private static final String dataDir   = "C:/temp/db-dump";
     private static final String repFile   = "place-rep-all.txt";
     private static final String attrFile  = "attribute-all.txt";
-    private static final String dNameFile = "display-name-all.txt";
-//    private static final String chainFile = "rep-chain-all.txt";
-    private static final String outFile   = "all-history-attr.txt";
+    private static final String outFile   = "all-history-url.txt";
 
     private static final String DELIMITER = "\\|";
 
@@ -80,11 +78,7 @@ public class FindTimelineAttributesAll {
 
         Set<Integer> repsWithAttrs = getRepsWithAttrs();
         removeDeletedReps(repsWithAttrs);
-
-        Map<Integer, String> repNames  = getRepNames(repsWithAttrs);
-        Map<Integer, String> repChains = getRepChains(repsWithAttrs);
-
-        dumpAttributes(repsWithAttrs, repNames, repChains);
+        dumpAttributeURLs(repsWithAttrs);
     }
 
     static Set<Integer> getRepsWithAttrs() throws Exception {
@@ -128,88 +122,69 @@ public class FindTimelineAttributesAll {
         System.out.println("    count=" + repIds.size());
     }
 
-    static Map<Integer, String> getRepNames(Set<Integer> repsWithAttrs) throws Exception {
-        System.out.println("getRepNames ...");
-        Map<Integer, String> repNames = new HashMap<>();
-
-        try (FileResultSet rset = new FileResultSet()) {
-            rset.setSeparator(DELIMITER);
-            rset.openFile(new File(dataDir, dNameFile));
-
-            while (rset.next()) {
-                int repId = rset.getInt("rep_id");
-                if (repsWithAttrs.contains(repId)) {
-                    String locale = rset.getString("locale");
-                    String text   = rset.getString("text");
-                    if (! repNames.containsKey(repId)) {
-                        repNames.put(repId, text);
-                    } else if (locale.equals("en")) {
-                        repNames.put(repId, text);
-                    }
-                }
-            }
-        }
-
-        System.out.println("    count=" + repNames.size());
-        return repNames;
-    }
-
-    static Map<Integer, String> getRepChains(Set<Integer> repsWithAttrs) {
-        System.out.println("getRepChains ...");
-        Map<Integer, String> repChains = new HashMap<>();
-
-        System.out.println("    count=" + repChains.size());
-        return repChains;
-    }
-
-    static void dumpAttributes(Set<Integer> repsWithAttrs, Map<Integer, String> repNames, Map<Integer, String> repChains) throws Exception {
+    static void dumpAttributeURLs(Set<Integer> repsWithAttrs) throws Exception {
         List<String> allAll = new ArrayList<>(repsWithAttrs.size());
-        Map<String, String> typeData = DumpTypes.loadAllTypes();
+        Map<String, Integer> urlHostCount = new TreeMap<>();
+        Map<String, Integer> attTypeCount = new TreeMap<>();
+        Map<String, Integer> attTypeTotal = new TreeMap<>();
+
+        attributeTypes.values().forEach(att -> attTypeCount.put(att, Integer.valueOf(0)));
 
         try (FileResultSet rset = new FileResultSet()) {
             rset.setSeparator(DELIMITER);
             rset.openFile(new File(dataDir, attrFile));
 
             while (rset.next()) {
-                int typeId = rset.getInt("attr_type_id");
+                int     typeId = rset.getInt("attr_type_id");
                 boolean delFlg = rset.getBoolean("delete_flag");
+                String  url    = rset.getString("attr_url");
+                String  typeNm = attributeTypes.getOrDefault(typeId, "Unknown");
 
                 if (attributeTypes.containsKey(typeId)  &&  ! delFlg) {
-                    int     repId  = rset.getInt("rep_id");
-                    int     attrId = rset.getInt("attr_id");
-                    String  frYear = rset.getString("year");
-                    String  toYear = rset.getString("to_year");
-                    String  locale = rset.getString("locale");
-                    String  value  = rset.getString("attr_value");
-                    String  title  = rset.getString("title");
-                    String  url    = rset.getString("attr_url");
-                    String  urlTtl = rset.getString("attr_title");
-                    String  cpyNtc = rset.getString("copyright_notice");
-                    String  cpyUrl = rset.getString("copyright_url");
+                    if (url == null  ||  url.length() < 2) {
+                        // Update counts
+                        int cnt = attTypeTotal.getOrDefault(typeNm, Integer.valueOf(0));
+                        attTypeTotal.put(typeNm, cnt+1);
+                    } else {
+                        int     repId  = rset.getInt("rep_id");
+                        int     attrId = rset.getInt("attr_id");
+                        String  locale = rset.getString("locale");
+                        
+                        StringBuilder buff = new StringBuilder();
+                        buff.append(repId);
+                        buff.append("|").append(attrId);
+                        buff.append("|").append(typeId);
+                        buff.append("|").append(typeNm);
+                        buff.append("|").append(locale);
+                        buff.append("|").append(url);
+                        
+                        allAll.add(buff.toString());
 
-                    StringBuilder buff = new StringBuilder();
-                    buff.append(repId);
-                    buff.append("|").append(repNames.getOrDefault(repId, "Unknown"));
-                    buff.append("|").append(attrId);
-                    buff.append("|").append(typeId);
-                    buff.append("|").append(typeData.getOrDefault(String.valueOf(typeId), "Unknown"));
-                    buff.append("|").append(frYear);
-                    buff.append("|").append(toYear);
-                    buff.append("|").append(locale);
-                    buff.append("|").append(value);
-                    buff.append("|").append(title);
-                    buff.append("|").append(urlTtl);
-                    buff.append("|").append(url);
-                    buff.append("|").append(cpyNtc);
-                    buff.append("|").append(cpyUrl);
-
-                    allAll.add(buff.toString());
+                        // Update counts
+                        int cnt = attTypeCount.getOrDefault(typeNm, Integer.valueOf(0));
+                        attTypeCount.put(typeNm, cnt+1);
+                        
+                        String host = getHost(url);
+                        cnt = urlHostCount.getOrDefault(host, Integer.valueOf(0));
+                        urlHostCount.put(host, cnt+1);
+                    }
                 }
             }
         }
 
         Files.write(Paths.get(dataDir, outFile), allAll, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         System.out.println("Record-count: " + allAll.size());
+
+        System.out.println();
+        attTypeCount.entrySet().stream().map(ee -> ee.getKey() + "|" + ee.getValue() + "|" + attTypeTotal.getOrDefault(ee.getKey(), 0)).forEach(System.out::println);
+
+        System.out.println();
+        urlHostCount.entrySet().stream().map(ee -> ee.getKey() + "|" + ee.getValue()).forEach(System.out::println);
     }
 
+    static String getHost(String url) {
+        int ndx0 = url.indexOf("//");
+        int ndx1 = url.indexOf("/", ndx0+2);
+        return (ndx1 == -1) ? url.substring(ndx0+2).trim() : url.substring(ndx0+2, ndx1).trim();
+    }
 }

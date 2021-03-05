@@ -14,19 +14,18 @@ import com.amazonaws.services.s3.model.DeleteObjectsResult;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import com.amazonaws.services.s3.model.DeleteObjectsResult.DeletedObject;
 
 /**
  * @author wjohnson000
  *
  */
-public class CleanupService {
+public class S3CollectionServices {
 
     private static final String bucketName = "ps-services-us-east-1-074150922133-homelands-admin";
 
     private AmazonS3 s3Client;
 
-    public CleanupService() {
+    public S3CollectionServices() {
         s3Client = AmazonS3ClientBuilder.defaultClient();
     }
 
@@ -82,7 +81,6 @@ public class CleanupService {
             System.out.println("Next chunk size: " + objListing.getObjectSummaries().size() + " ... " + objListing.getNextMarker());
 
             for (S3ObjectSummary fileSummary : objListing.getObjectSummaries()) {
-                System.out.println(">>> " + fileSummary.getKey());
                 String[] pathName = PlaceHelper.split(fileSummary.getKey(), '/');
                 S3File file = new S3File();
                 file.name = pathName[pathName.length - 1];

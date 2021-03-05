@@ -11,18 +11,9 @@ import java.util.stream.IntStream;
  * @author wjohnson000
  *
  */
-public class RunListCollectionDetail {
+public class S3CollectionServicesFormatter {
 
-    public static void main(String...args) {
-        String collectionId = "AAAA-wlj";
-        CleanupService thisCS = new CleanupService();
-
-        showCollectionDetails(thisCS, collectionId);
-
-        System.exit(0);
-    }
-
-    public static void showCollectionDetails(CleanupService thisCS, String collectionId) {
+    public static void showCollectionDetails(S3CollectionServices thisCS, String collectionId) {
         String[] prevPath = new String[0];
         List<S3File> files = thisCS.getCollectionFiles(collectionId);
         for (S3File file : files) {

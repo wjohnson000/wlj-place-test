@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.cassandra.hhs;
+package std.wlj.hhs.cleanup;
 
 import org.familysearch.homelands.lib.common.util.JsonUtility;
 
@@ -10,17 +10,19 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import std.wlj.cassandra.hhs.SessionUtilityAWS;
+
 /**
  * @author wjohnson000
  *
  */
-public class FindAllCollectionsSimple {
+public class RunCassandraCollectionList {
 
     public static void main(String...args) throws Exception {
         CqlSession cqlSession = SessionUtilityAWS.connect();
         System.out.println("SESS: " + cqlSession);
 
-        ResultSet rset = cqlSession.execute("SELECT * FROM hhs.collectiondata");
+        ResultSet rset = cqlSession.execute("SELECT * FROM hhs.collectiondata LIMIT 500");
         for (Row row : rset) {
             String details = row.getString("details");
             JsonNode node = JsonUtility.parseJson(details);

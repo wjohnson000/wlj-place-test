@@ -4,10 +4,13 @@
 package std.wlj.hhs.lib;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.familysearch.homelands.lib.common.web.client.PlaceServiceClient;
+import org.familysearch.homelands.lib.common.web.client.PlaceServiceClientImpl;
 import org.familysearch.homelands.lib.common.web.client.WebClientWrapper;
 import org.familysearch.homelands.lib.common.web.client.WebResponse;
 import org.familysearch.paas.binding.register.Environment;
@@ -27,26 +30,62 @@ import reactor.util.retry.Retry;
 public class TestPlaceServiceClient {
 
     public static void main(String...args) {
-//      System.setProperty("environment", "local");
-
-        // PROD service URLs
-//      ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.PROD, Site.PROD, Region.US_EAST_1);
-
-        // BETA service URLs
+//        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.PROD, Site.PROD, Region.US_EAST_1);
         ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.TEST, Site.BETA, Region.US_EAST_1);
-
-        // INTEG service URLs
-//      ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.INTEG, Region.US_EAST_1);
-
-        // DEV service URLs
-//      ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.DEV, Region.US_EAST_1);
+//        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.INTEG, Region.US_EAST_1);
+//        ServiceLocatorConfig config = new ServiceLocatorConfig(Environment.DEV, Site.DEV, Region.US_EAST_1);
 
         ServiceLocator locator = new ServiceLocator(config);
         WebClientWrapper wcWrapper = new WebClientWrapper(webClient());
-        PlaceServiceClient psClient = new PlaceServiceClient(locator, "ws.place.standards.service", null, wcWrapper);
-        WebResponse<String> webResp = psClient.findPlaceRep("221");
-        System.out.println("CODE: " + webResp.getStatus());
-        System.out.println("CODE: " + webResp.getBody());
+        PlaceServiceClient psClient = new PlaceServiceClientImpl(locator, "ws.place.standards.service", null, wcWrapper);
+
+        testFindPlaceRep(psClient, 221);
+        testFindPlaceRep(psClient, 324);
+
+        testFindReplacementPlaceRepId(psClient, 221);
+        testFindReplacementPlaceRepId(psClient, 510796);
+        testFindReplacementPlaceRepId(psClient, 111111111);
+
+        testExtractDeletedPlaceRepIds(psClient, 111);
+        testExtractDeletedPlaceRepIds(psClient, 765);
+//        testFindDeletedPlaceRepIds(psClient, "3472");  // > 100 reps
+        testExtractDeletedPlaceRepIds(psClient, 11002283);
+
+        testExtractJurisdiction(psClient, 111);
+        testExtractJurisdiction(psClient, 765);
+        testExtractJurisdiction(psClient, 3472);
+        testExtractJurisdiction(psClient, 11002283);
+    }
+
+    static void testFindPlaceRep(PlaceServiceClient client, int repId) {
+        System.out.println("\n>>> FindPlaceRep >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        WebResponse<String> webResp = client.findPlaceRep(repId, false);
+        System.out.println("  CODE: " + webResp.getStatus());
+        System.out.println("  body: " + webResp.getBody());
+    }
+
+    static void testFindReplacementPlaceRepId(PlaceServiceClient client, int repId) {
+        System.out.println("\n>>> FindReplacementPlaceRepId >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        Integer newRepId = client.findReplacementPlaceRepId(repId);
+        System.out.println("  RepId: " + repId);
+        System.out.println("  NewId: " + newRepId);
+    }
+
+    static void testExtractDeletedPlaceRepIds(PlaceServiceClient client, int repId) {
+        System.out.println("\n>>> ExtractDeletedPlaceRepIds >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        WebResponse<String> webResp = client.findPlaceRep(repId, true);
+        Map<Integer, LocalDate> delIds = client.extractDeletedPlaceRepIds(webResp.getBody());
+        System.out.println("  RepId: " + repId);
+        System.out.println("  Count: " + delIds.size());
+        delIds.entrySet().forEach(ee -> System.out.println("  Entry: " + ee));
+    }
+
+    static void testExtractJurisdiction(PlaceServiceClient client, int repId) {
+        System.out.println("\n>>> ExtractJurisdictionChain >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        WebResponse<String> webResp = client.findPlaceRep(repId, false);
+        List<Integer> chain = client.extractJurisdictionChain(webResp.getBody());
+        System.out.println("  RepId: " + repId);
+        System.out.println("  Juris: " + chain);
     }
 
     static WebClient webClient() {

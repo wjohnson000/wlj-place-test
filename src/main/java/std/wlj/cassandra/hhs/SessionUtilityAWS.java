@@ -22,12 +22,12 @@ import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
  * @author wjohnson000
  *
  */
-public abstract class SessionUtilityAWS {
+public final class SessionUtilityAWS {
 
     private static final int      clusterPort    = 9042;
     private static final String[] clusterAddress = { "10.37.120.128", "10.37.121.133", "10.37.122.67" };
 
-    static CqlSession connect() {
+    public static CqlSession connect() {
         String password = JOptionPane.showInputDialog(null, "Password:");
         if (password == null) {
             return null;

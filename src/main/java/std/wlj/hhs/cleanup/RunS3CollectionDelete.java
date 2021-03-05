@@ -7,11 +7,11 @@ package std.wlj.hhs.cleanup;
  * @author wjohnson000
  *
  */
-public class RunDeleteCollection {
+public class RunS3CollectionDelete {
 
     public static void main(String...args) {
         String collectionId = "AAAA-wlj";
-        CleanupService thisCS = new CleanupService();
+        S3CollectionServices thisCS = new S3CollectionServices();
 
         boolean delOK = thisCS.deleteCollection(collectionId);
         System.out.println("DELETE? " + delOK);

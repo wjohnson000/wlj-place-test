@@ -23,7 +23,7 @@ import org.familysearch.standards.place.util.PlaceHelper;
  * @author wjohnson000
  *
  */
-public class FindTimelineAttributesCounts {
+public class TimelineAttrCountsOnly {
 
     private static class RepAttrCount {
         String level01Id;

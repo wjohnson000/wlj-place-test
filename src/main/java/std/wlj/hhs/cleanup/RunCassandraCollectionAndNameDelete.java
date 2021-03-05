@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.cassandra.hhs;
+package std.wlj.hhs.cleanup;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -23,11 +23,13 @@ import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
 import com.datastax.oss.driver.api.core.cql.SimpleStatementBuilder;
 
+import std.wlj.cassandra.hhs.SessionUtilityAWS;
+
 /**
  * @author wjohnson000
  *
  */
-public class DeleteNamesAndCollection {
+public class RunCassandraCollectionAndNameDelete {
 
     static String[] collIds = {
         "MMM9-XL1",
