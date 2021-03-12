@@ -34,9 +34,10 @@ public class HttpClientX {
         httpConnManager.setDefaultMaxPerRoute(5);
     }
 
+
     public static String doGetJSON(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
-        CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
+        CloseableHttpClient client = HttpClients.createDefault();
 
         // Do a GET and parse the results
         try {
@@ -47,6 +48,7 @@ public class HttpClientX {
             try (CloseableHttpResponse response = client.execute(httpGet);
                     InputStream ios = response.getEntity().getContent()) {
                 String json = IOUtils.toString(ios, StandardCharsets.UTF_8);
+                System.out.println("RESP.json: "  + response.getStatusLine());
                 EntityUtils.consumeQuietly(response.getEntity());
                 return json;
             }
@@ -60,7 +62,7 @@ public class HttpClientX {
 
     public static String doGetXML(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
-        CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
+        CloseableHttpClient client = HttpClients.createDefault();
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Accept", "text/xml");
@@ -69,6 +71,27 @@ public class HttpClientX {
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
             String html = IOUtils.toString(ios, StandardCharsets.UTF_8);
+            System.out.println("RESP.xml: "  + response.getStatusLine());
+            EntityUtils.consumeQuietly(response.getEntity());
+            return html;
+        } catch (Exception ex) {
+            System.out.println("Url failed [" + url + "] --> " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public static String doGetText(String url, Map<String, String> headers) {
+        // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
+        CloseableHttpClient client = HttpClients.createDefault();
+
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Accept", "text/plain");
+        headers.entrySet().forEach(hdr -> httpGet.addHeader(hdr.getKey(), hdr.getValue()));
+
+        try (CloseableHttpResponse response = client.execute(httpGet);
+                InputStream ios = response.getEntity().getContent()) {
+            String html = IOUtils.toString(ios, StandardCharsets.UTF_8);
+            System.out.println("RESP.text: "  + response.getStatusLine());
             EntityUtils.consumeQuietly(response.getEntity());
             return html;
         } catch (Exception ex) {
@@ -79,7 +102,7 @@ public class HttpClientX {
 
     public static String doGetHTML(String url, Map<String, String> headers) {
         // Closing this would also close the underlying Http-Connection-Manager, which would be unfortunate
-        CloseableHttpClient client = HttpClients.createMinimal(httpConnManager);
+        CloseableHttpClient client = HttpClients.createDefault();
 
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Accept", "text/html");
@@ -88,6 +111,7 @@ public class HttpClientX {
         try (CloseableHttpResponse response = client.execute(httpGet);
                 InputStream ios = response.getEntity().getContent()) {
             String html = IOUtils.toString(ios, StandardCharsets.UTF_8);
+            System.out.println("RESP.html: "  + response.getStatusLine());
             EntityUtils.consumeQuietly(response.getEntity());
             return html;
         } catch (Exception ex) {
