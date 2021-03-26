@@ -13,6 +13,7 @@ import org.familysearch.homelands.lib.common.web.client.PlaceServiceClient;
 import org.familysearch.homelands.lib.common.web.client.PlaceServiceClientImpl;
 import org.familysearch.homelands.lib.common.web.client.WebClientWrapper;
 import org.familysearch.homelands.lib.common.web.client.WebResponse;
+import org.familysearch.homelands.lib.common.web.util.PlaceClientHelper;
 import org.familysearch.paas.binding.register.Environment;
 import org.familysearch.paas.binding.register.Region;
 import org.familysearch.paas.binding.register.ServiceLocator;
@@ -66,7 +67,8 @@ public class TestPlaceServiceClient {
 
     static void testFindReplacementPlaceRepId(PlaceServiceClient client, int repId) {
         System.out.println("\n>>> FindReplacementPlaceRepId >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        Integer newRepId = client.findReplacementPlaceRepId(repId);
+        WebResponse<String> webResp = client.findPlaceRep(repId, false);
+        Integer newRepId = PlaceClientHelper.extractPlaceRepId(webResp.getBody());
         System.out.println("  RepId: " + repId);
         System.out.println("  NewId: " + newRepId);
     }
@@ -74,7 +76,7 @@ public class TestPlaceServiceClient {
     static void testExtractDeletedPlaceRepIds(PlaceServiceClient client, int repId) {
         System.out.println("\n>>> ExtractDeletedPlaceRepIds >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         WebResponse<String> webResp = client.findPlaceRep(repId, true);
-        Map<Integer, LocalDate> delIds = client.extractDeletedPlaceRepIds(webResp.getBody());
+        Map<Integer, LocalDate> delIds = PlaceClientHelper.extractDeletedPlaceRepIds(webResp.getBody());
         System.out.println("  RepId: " + repId);
         System.out.println("  Count: " + delIds.size());
         delIds.entrySet().forEach(ee -> System.out.println("  Entry: " + ee));
@@ -83,7 +85,7 @@ public class TestPlaceServiceClient {
     static void testExtractJurisdiction(PlaceServiceClient client, int repId) {
         System.out.println("\n>>> ExtractJurisdictionChain >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         WebResponse<String> webResp = client.findPlaceRep(repId, false);
-        List<Integer> chain = client.extractJurisdictionChain(webResp.getBody());
+        List<Integer> chain = PlaceClientHelper.extractJurisdictionChain(webResp.getBody());
         System.out.println("  RepId: " + repId);
         System.out.println("  Juris: " + chain);
     }
