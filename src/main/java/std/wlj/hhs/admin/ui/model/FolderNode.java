@@ -43,6 +43,16 @@ public class FolderNode implements Comparable<FolderNode> {
         return children;
     }
 
+    public int getChildCount() {
+        return children.size();
+    }
+
+    public long getFileCount() {
+        return children.stream()
+                       .mapToLong(fn -> (fn.getType() == FolderType.FILE ? 1 : fn.getFileCount()))
+                       .sum();
+    }
+
     @Override
     public int compareTo(FolderNode that) {
         return this.getId().compareToIgnoreCase(that.getId());

@@ -29,7 +29,7 @@ public class CollectionTreeModel implements TreeModel {
     @Override
     public Object getChild(Object parent, int index) {
         FolderNode node = (FolderNode)parent;
-        if (index < 0  ||  index >= node.getChildren().size()) {
+        if (index < 0  ||  index >= node.getChildCount()) {
             return null;
         } else {
             return node.getChildren().get(index);
@@ -39,7 +39,7 @@ public class CollectionTreeModel implements TreeModel {
     @Override
     public int getChildCount(Object parent) {
         FolderNode node = (FolderNode)parent;
-        return (node.getType() == FolderType.FILE) ? 0 : node.getChildren().size();
+        return (node.getType() == FolderType.FILE) ? 0 : node.getChildCount();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package std.wlj.hhs.admin.ui;
+package std.wlj.hhs.admin.ui.helper;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +15,7 @@ import javax.swing.event.*;
  * @author wjohnon000
  * 
  */
-public class FontChooser extends JDialog {
+public class FontChooserDialog extends JDialog {
 
 	private static final long serialVersionUID = -2336241430491754262L;
 
@@ -29,10 +29,10 @@ public class FontChooser extends JDialog {
 	/**
 	 * Convenience method to return a font ...
 	 */
-	private static FontChooser FcDlg = null;
+	private static FontChooserDialog FcDlg = null;
 	public static Font GetFont(Frame parent) {
 		if (FcDlg == null) {
-			FcDlg = new FontChooser(parent, "", true);
+			FcDlg = new FontChooserDialog(parent, "", true);
 			Dimension dlgSize = FcDlg.getPreferredSize();
 			Dimension frmSize = parent.getSize();
 			Point loc = parent.getLocation();
@@ -86,7 +86,7 @@ public class FontChooser extends JDialog {
 	 * Default constructor for users who don't care about anything.  It will
 	 * create a "modal" dialog.
 	 */
-	public FontChooser() {
+	public FontChooserDialog() {
 		this(null, "", false);
 	}
 
@@ -98,7 +98,7 @@ public class FontChooser extends JDialog {
 	 * @param title title
 	 * @param modal TRUE for a modal dialog; FALSE otherwise
 	 */
-	public FontChooser(Frame frame, String title, boolean modal) {
+	public FontChooserDialog(Frame frame, String title, boolean modal) {
 		super(frame, title, modal);
 		try {
 			jbInit();

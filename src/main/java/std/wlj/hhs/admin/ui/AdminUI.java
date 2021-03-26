@@ -20,6 +20,12 @@ import javax.swing.tree.TreePath;
 
 import org.apache.commons.io.FileUtils;
 
+import std.wlj.hhs.admin.ui.client.AdminClient;
+import std.wlj.hhs.admin.ui.component.S3TreeCellRenderer;
+import std.wlj.hhs.admin.ui.helper.AppConfiguration;
+import std.wlj.hhs.admin.ui.helper.ConfigurationDialog;
+import std.wlj.hhs.admin.ui.helper.FontChooserDialog;
+import std.wlj.hhs.admin.ui.helper.S3Helper;
 import std.wlj.hhs.admin.ui.model.CollectionTreeModel;
 import std.wlj.hhs.admin.ui.model.FolderNode;
 import std.wlj.hhs.admin.ui.model.FolderType;
@@ -37,8 +43,8 @@ public class AdminUI extends JFrame {
     private JMenuBar  mainMenuBar = new JMenuBar();
     private JMenu     fileMenu = new JMenu("File");
     private JMenuItem quitItem = new JMenuItem("Quit");
+    private JMenuItem confItem = new JMenuItem("Config");
     private JMenu     editMenu = new JMenu("Edit");
-    private JMenuItem readItem = new JMenuItem("Read S3");
     private JMenuItem fontItem = new JMenuItem("Font");
     private JMenuItem downItem = new JMenuItem("Download");
 
@@ -67,7 +73,7 @@ public class AdminUI extends JFrame {
         // Main pane stuff
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(new GridBagLayout());
-        this.setSize(new Dimension(1120, 720));
+        this.setSize(new Dimension(1200, 880));
         this.setTitle("Homelands Admin UI");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -89,11 +95,12 @@ public class AdminUI extends JFrame {
 
         mainMenuBar.add(fileMenu);
         mainMenuBar.add(editMenu);
+        fileMenu.add(confItem);
         fileMenu.add(quitItem);
-        fileMenu.add(readItem);
         editMenu.add(fontItem);
         editMenu.add(downItem);
 
+        confItem.addActionListener(ae -> setConfiguration());
         quitItem.addActionListener(ae -> quitApp());
         fontItem.addActionListener(ae -> chooseFont());
         downItem.addActionListener(ae -> downloadFile());
@@ -105,6 +112,11 @@ public class AdminUI extends JFrame {
         List<FolderNode> s3Nodes = s3Helper.getDetailsSaved();
         treeModel = new CollectionTreeModel(s3Nodes);
         s3Tree = new JTree(treeModel);
+        s3Tree.setCellRenderer(new S3TreeCellRenderer());
+    }
+
+    protected void setConfiguration() {
+        ConfigurationDialog.setConfiguration(this);
     }
 
     protected void quitApp() {
@@ -113,26 +125,27 @@ public class AdminUI extends JFrame {
     }
 
     protected void chooseFont() {
-        setFontAll(FontChooser.GetFont(this));
+        setFontAll(FontChooserDialog.GetFont(this));
     }
 
     protected void downloadFile() {
-        TreePath[] paths = s3Tree.getSelectionPaths();
-        for (TreePath path : paths) {
+        TreePath[] paths = s3Tree.getSelectionPaths();        for (TreePath path : paths) {
             if (path.getLastPathComponent() instanceof FolderNode) {
                 FolderNode folder = (FolderNode)path.getLastPathComponent();
                 if (folder.getType() == FolderType.FILE) {
-                    File file = getFileToSave(folder.getId());
-                    if (file != null) {
-                        try {
-                            byte[] contents = s3Helper.readFile(folder.getPath());
-                            if (contents == null) {
-                                System.out.println("No File Contents!!");
-                            } else {
+                    byte[] contents = AdminClient.readFile(folder, AppConfiguration.getSessionId(), false);
+                    if (contents == null) {
+                        System.out.println("No File Contents!!");
+                    } else {
+                        File file = getFileToSave(folder.getId());
+                        if (file != null  &&  ! file.isDirectory()) {
+                            try {
                                 FileUtils.writeByteArrayToFile(file, contents);
+                            } catch(Exception ex) {
+                                System.out.println("Save file failed!");
                             }
-                        } catch(Exception ex) {
-                            System.out.println("Unable to save file!");
+                        } else {
+                            System.out.println("No file or illegal file: " + file);
                         }
                     }
                 }
@@ -144,8 +157,8 @@ public class AdminUI extends JFrame {
         if (newFont != null) {
             mainMenuBar.setFont(newFont);
             fileMenu.setFont(newFont);
+            confItem.setFont(newFont);
             quitItem.setFont(newFont);
-            readItem.setFont(newFont);
             editMenu.setFont(newFont);
             fontItem.setFont(newFont);
             downItem.setFont(newFont);
@@ -157,13 +170,10 @@ public class AdminUI extends JFrame {
     protected File getFileToSave(String name) {
         JFileChooser jfcDialog = new JFileChooser();
         jfcDialog.setDialogTitle("Save file ... ");
-        jfcDialog.setCurrentDirectory(new File("C:/temp/"));
-        jfcDialog.setSelectedFile(new File("C:/temp/" + name));
-        jfcDialog.setFileSelectionMode(JFileChooser.SAVE_DIALOG);
-        jfcDialog.setFileHidingEnabled(true);
+        jfcDialog.setSelectedFile(new File("C:/temp", name));
         jfcDialog.setMultiSelectionEnabled(false);
 
-        int retVal = jfcDialog.showDialog(this, "Save");
+        int retVal = jfcDialog.showSaveDialog(this);
         if (retVal == JFileChooser.APPROVE_OPTION) {
             return jfcDialog.getSelectedFile();
         } else {

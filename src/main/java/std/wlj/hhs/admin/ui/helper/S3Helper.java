@@ -1,7 +1,7 @@
 /**
  * © 2018 by Intellectual Reserve, Inc. All rights reserved.
  */
-package std.wlj.hhs.admin.ui;
+package std.wlj.hhs.admin.ui.helper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,11 +14,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import software.amazon.awssdk.core.ResponseBytes;
-import software.amazon.awssdk.core.sync.ResponseTransformer;
 import std.wlj.hhs.admin.ui.model.*;
 
 /**
@@ -60,16 +57,6 @@ public class S3Helper {
         }
 
         return getDetails(folderDetails);
-    }
-
-    public byte[] readFile(String s3KeyName) {
-        try {
-            S3Object s3Object = s3Client.getObject(bucketName, s3KeyName);
-            return IOUtils.toByteArray(s3Object.getObjectContent());
-        } catch (Exception ex) {
-            System.out.println("Unable to download file ... " + s3KeyName + " --> " + ex.getMessage());
-            return null;
-        }
     }
 
     public List<FolderNode> getDetailsSaved() {
