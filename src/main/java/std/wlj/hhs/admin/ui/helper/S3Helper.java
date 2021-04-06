@@ -45,6 +45,7 @@ public class S3Helper {
         ObjectListing objListing = s3Client.listObjects(ListRequest);
         while (hasMore) {
             for (S3ObjectSummary fileSummary : objListing.getObjectSummaries()) {
+                System.out.println(fileSummary.getKey());
                 folderDetails.add(fileSummary.getKey());
             }
 

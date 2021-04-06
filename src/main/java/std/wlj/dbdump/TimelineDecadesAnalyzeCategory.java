@@ -9,9 +9,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import org.familysearch.homelands.admin.parser.helper.ExcelUtility;
-import org.familysearch.homelands.admin.parser.model.ItemModel;
-import org.familysearch.homelands.core.persistence.model.CategoryType;
-import org.familysearch.homelands.core.persistence.model.SubcategoryType;
+import org.familysearch.homelands.lib.common.model.CategoryType;
+import org.familysearch.homelands.lib.common.model.SubcategoryType;
 
 /**
  * @author wjohnson000
@@ -61,11 +60,11 @@ public class TimelineDecadesAnalyzeCategory {
         System.out.println("\nData from 'homelands-admin' project:");
 
         System.out.println("Categories:");
-        Arrays.stream(ItemModel.CategoryType.values())
+        Arrays.stream(CategoryType.values())
                .forEach(System.out::println);
 
         System.out.println("\nSubcategories:");
-        Arrays.stream(ItemModel.SubcategoryType.values())
+        Arrays.stream(SubcategoryType.values())
               .forEach(System.out::println);
     }
 

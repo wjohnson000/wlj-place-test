@@ -14,7 +14,7 @@ import java.util.List;
 import org.familysearch.homelands.core.persistence.CassandraOps;
 import org.familysearch.homelands.core.persistence.dao.NameSearchDaoImpl;
 import org.familysearch.homelands.core.persistence.model.NameSearchData;
-import org.familysearch.homelands.core.persistence.model.NameType;
+import org.familysearch.homelands.lib.common.model.NameType;
 
 /**
  * @author wjohnson000

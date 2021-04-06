@@ -7,11 +7,11 @@ import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.familysearch.homelands.admin.client.HomelandsCoreClient;
 import org.familysearch.homelands.admin.importer.step.name.NameHelper;
-import org.familysearch.homelands.core.context.RequestHeaderData;
+import org.familysearch.homelands.lib.common.web.client.HomelandsCoreClient;
 import org.familysearch.homelands.lib.common.web.client.WebClientWrapper;
 import org.familysearch.homelands.lib.common.web.client.WebResponse;
+import org.familysearch.homelands.lib.common.web.model.RequestHeaderData;
 import org.familysearch.paas.binding.register.Environment;
 import org.familysearch.paas.binding.register.Region;
 import org.familysearch.paas.binding.register.ServiceLocator;
