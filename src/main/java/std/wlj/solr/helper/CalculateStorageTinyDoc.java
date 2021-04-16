@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class CalculateStorageTinyDoc {
 

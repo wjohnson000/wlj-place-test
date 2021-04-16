@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.solr.client.solrj.SolrQuery;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.solr.helper.SolrConnectionX;
 

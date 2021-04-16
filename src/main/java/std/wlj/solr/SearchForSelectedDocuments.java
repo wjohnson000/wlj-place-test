@@ -15,9 +15,9 @@ import org.familysearch.standards.place.appdata.AppDataGroupMapper;
 import org.familysearch.standards.place.appdata.AppDataNamePriorityMapper;
 import org.familysearch.standards.place.appdata.AppDataSourceMapper;
 import org.familysearch.standards.place.appdata.AppDataTypeMapper;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

@@ -3,8 +3,8 @@ package std.wlj.kml;
 import java.io.IOException;
 
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;

@@ -8,9 +8,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.solr.client.solrj.SolrQuery;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

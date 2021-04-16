@@ -9,10 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

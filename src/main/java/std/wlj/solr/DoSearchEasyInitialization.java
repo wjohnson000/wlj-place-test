@@ -9,11 +9,11 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.familysearch.standards.place.data.PlaceBridge;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.SearchParameter;
 import org.familysearch.standards.place.data.SearchParameters;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

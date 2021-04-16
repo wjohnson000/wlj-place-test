@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.familysearch.standards.place.access.validator.MessageFactory;
 import org.familysearch.standards.place.access.validator.PlaceLockValidator;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 import org.familysearch.standards.place.service.DbReadableService;
 
 import std.wlj.util.DbConnectionManager;

@@ -11,11 +11,11 @@ import javax.sql.DataSource;
 
 import org.familysearch.standards.place.access.PlaceDataServiceImpl;
 import org.familysearch.standards.place.data.BoundaryBridge;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.service.DbReadableService;
 import org.familysearch.standards.place.service.DbWritableService;
 import org.familysearch.standards.place.ws.model.kml.*;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.marshal.POJOMarshalUtil;
 import std.wlj.util.DbConnectionManager;

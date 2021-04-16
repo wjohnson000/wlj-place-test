@@ -12,9 +12,9 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.loader.helper.PlaceRepDocCreator;
 import org.familysearch.standards.place.dao.DAOFactory;
 import org.familysearch.standards.place.dao.dbimpl.DAOFactoryImpl;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.DbConnectionManager;
 import std.wlj.util.SolrManager;

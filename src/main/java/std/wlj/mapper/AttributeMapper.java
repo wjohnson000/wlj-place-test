@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.data.AttributeBridge;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.ReadableDataService;
 import org.familysearch.standards.place.data.TypeBridge;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 import org.familysearch.standards.place.ws.model.AttributeModel;
 import org.familysearch.standards.place.ws.model.LinkModel;
 

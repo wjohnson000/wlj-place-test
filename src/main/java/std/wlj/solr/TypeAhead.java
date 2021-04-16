@@ -4,9 +4,9 @@ import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.PlaceRequest;
 import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceSearchResults;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 import org.familysearch.standards.place.search.interp.TokenLookupCache;
 import org.familysearch.standards.place.search.parser.PlaceNameToken;
 

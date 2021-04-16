@@ -1,8 +1,8 @@
 package std.wlj.solr;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 import std.wlj.util.SolrManager;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class CheckReadReady {
 

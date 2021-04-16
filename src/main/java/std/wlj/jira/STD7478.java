@@ -13,11 +13,11 @@ import org.familysearch.standards.place.PlaceRequest;
 import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrService;
 import org.familysearch.standards.place.scoring.Scorecard;
 import org.familysearch.standards.place.scoring.Scorer;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

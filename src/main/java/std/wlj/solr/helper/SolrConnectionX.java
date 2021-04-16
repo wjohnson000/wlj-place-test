@@ -23,9 +23,9 @@ import org.apache.solr.common.params.CommonParams;
 import org.apache.solr.core.CoreContainer;
 
 import org.familysearch.standards.core.logging.Logger;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.PlaceRepDocFactory;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 /**
  * Instances of this class wrap connections to Solr.

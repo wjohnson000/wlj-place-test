@@ -9,11 +9,11 @@ import org.familysearch.standards.place.PlaceRequestBuilder;
 import org.familysearch.standards.place.PlaceResults;
 import org.familysearch.standards.place.PlaceService;
 import org.familysearch.standards.place.PlaceType;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.TypeImpl;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 import org.familysearch.standards.place.search.DefaultPlaceRequestProfile;
 import org.familysearch.standards.place.search.PlaceRequestProfile;
 

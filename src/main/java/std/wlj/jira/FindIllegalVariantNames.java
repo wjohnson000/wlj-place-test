@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.familysearch.standards.place.access.validator.MessageFactory;
 import org.familysearch.standards.place.access.validator.NameValidator;
-import org.familysearch.standards.place.data.PlaceDataException;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class FindIllegalVariantNames {
 

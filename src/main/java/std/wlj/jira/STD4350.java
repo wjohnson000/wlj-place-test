@@ -3,12 +3,12 @@ package std.wlj.jira;
 import org.familysearch.standards.core.Localized;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.PlaceRepresentation;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.PlaceSearchResults;
 import org.familysearch.standards.place.data.SearchParameter;
 import org.familysearch.standards.place.data.SearchParameters;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

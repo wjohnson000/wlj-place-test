@@ -7,9 +7,9 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.familysearch.standards.core.StdLocale;
 import org.familysearch.standards.place.access.validator.MessageFactory;
 import org.familysearch.standards.place.access.validator.NameValidator;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

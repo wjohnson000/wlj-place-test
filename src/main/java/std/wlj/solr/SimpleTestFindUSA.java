@@ -1,13 +1,12 @@
 package std.wlj.solr;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.PlaceRepBridge;
 import org.familysearch.standards.place.data.PlaceSearchResults;
 import org.familysearch.standards.place.data.SearchParameter;
 import org.familysearch.standards.place.data.SearchParameters;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
-
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class SimpleTestFindUSA {
     public static void main(String... args) throws PlaceDataException {

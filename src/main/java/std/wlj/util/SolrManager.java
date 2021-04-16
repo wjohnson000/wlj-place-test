@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.SolrConnection;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class SolrManager {
 

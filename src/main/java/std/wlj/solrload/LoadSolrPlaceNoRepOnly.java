@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.familysearch.standards.core.logging.Logger;
 import org.familysearch.standards.loader.helper.PlaceNoRepDocReader;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
 import org.familysearch.standards.place.data.solr.SolrConnection;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.SolrManager;
 

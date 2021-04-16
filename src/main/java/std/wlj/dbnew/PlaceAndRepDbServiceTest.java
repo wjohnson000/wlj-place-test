@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.familysearch.standards.place.data.*;
 import org.familysearch.standards.place.data.WritableDataService.VariantNameDef;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 import std.wlj.util.DbConnectionManager;
 import std.wlj.util.DbConnectionManager.DbServices;

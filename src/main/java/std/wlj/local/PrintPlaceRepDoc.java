@@ -2,9 +2,8 @@ package std.wlj.local;
 
 import java.util.Date;
 
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
-
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 public class PrintPlaceRepDoc {
 	public static void main(String... args) throws PlaceDataException {

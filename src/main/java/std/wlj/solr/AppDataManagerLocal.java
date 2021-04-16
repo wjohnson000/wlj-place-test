@@ -7,12 +7,12 @@ import java.util.*;
 
 import org.familysearch.standards.place.data.GroupBridge;
 import org.familysearch.standards.place.data.GroupImpl;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.SourceBridge;
 import org.familysearch.standards.place.data.SourceImpl;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.TypeImpl;
 import org.familysearch.standards.place.data.solr.PlaceRepDoc;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 import org.familysearch.standards.place.util.PlaceHelper;
 
 

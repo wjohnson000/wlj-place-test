@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import org.familysearch.standards.place.access.validator.MessageFactory;
 import org.familysearch.standards.place.access.validator.NameValidator;
-import org.familysearch.standards.place.data.PlaceDataException;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 /**
  * @author wjohnson000

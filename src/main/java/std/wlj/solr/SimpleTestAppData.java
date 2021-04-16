@@ -1,9 +1,9 @@
 package std.wlj.solr;
 
 import org.familysearch.standards.place.data.GroupBridge;
-import org.familysearch.standards.place.data.PlaceDataException;
 import org.familysearch.standards.place.data.TypeBridge;
 import org.familysearch.standards.place.data.solr.SolrService;
+import org.familysearch.standards.place.exceptions.PlaceDataException;
 
 
 public class SimpleTestAppData {
